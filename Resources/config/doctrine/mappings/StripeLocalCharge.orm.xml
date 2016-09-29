@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity
+            name="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge"
+            table="stripe_charges"
+            repository-class="SerendipityHQ\Bundle\StripeBundle\Repository\StripeLocalChargeRepository">
+        <id name="id" type="string" column="id" length="40"/>
+        <field name="amount" type="money" column="amount" nullable="false" length="200" />
+        <field name="balanceTransaction" type="string" column="balance_transaction" nullable="true" length="40" />
+        <field name="captured" type="boolean" column="captured" nullable="false" />
+        <field name="created" type="datetime" column="created" nullable="false" />
+        <field name="description" type="text" column="description" nullable="true" />
+        <field name="failureCode" type="string" column="failure_code" nullable="true" />
+        <field name="failureMessage" type="string" column="failure_message" nullable="true" />
+        <field name="fraudDetails" type="array" column="fraud_details" nullable="true" />
+        <field name="livemode" type="boolean" column="livemode" nullable="false" />
+        <field name="metadata" type="string" column="metadata" nullable="true" />
+        <field name="paid" type="boolean" column="paid" nullable="false" />
+        <field name="receiptEmail" type="email" column="receipt_email" nullable="true" />
+        <field name="receiptNumber" type="string" column="receipt_number" nullable="true" />
+        <field name="statementDescriptor" type="string" column="statement_descriptor" nullable="true" />
+        <field name="status" type="string" column="status" nullable="true" />
+
+        <many-to-one field="customer" target-entity="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer" inversed-by="charges">
+            <join-column name="customer" referenced-column-name="id" />
+        </many-to-one>
+
+        <many-to-one field="source" target-entity="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard" inversed-by="charges">
+            <join-column name="source" referenced-column-name="id" />
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

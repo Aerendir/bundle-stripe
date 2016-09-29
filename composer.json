@@ -1,0 +1,38 @@
+{
+    "name": "serendipity_hq/stripe-bundle",
+    "type": "symfony-bundle",
+    "description": "A set of utilities to integrate Stripe into Symfony.",
+    "keywords": ["stripe", "bundle", "symfony"],
+    "homepage": "https://github.com/Aerendir/stripe-bundle",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/Aerendir/stripe-bundle/issues"
+    },
+    "authors": [
+        {
+            "name": "Adamo Aerendir Crespi",
+            "email": "hello@aerendir.me"
+        }
+    ],
+    "require": {
+        "php": "^5.6",
+        "doctrine/orm": "~2.5",
+        "serendipity_hq/php_value_objects": "^2.6",
+        "symfony/framework-bundle": "~2",
+        "stripe/stripe-php": "*"
+    },
+    "require-dev": {
+        "codeclimate/php-test-reporter": "dev-master",
+        "doctrine/doctrine-bundle": "*",
+        "doctrine/common": "~2.4",
+        "friendsofphp/php-cs-fixer": "*",
+        "phpunit/phpunit": "*",
+        "symfony/yaml": "~2.5",
+        "symfony/var-dumper": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "SerendipityHQ\\Bundle\\StripeBundle\\": ""
+        }
+    }
+}

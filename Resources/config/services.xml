@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="stripe_bundle.manager.stripe_api" class="SerendipityHQ\Bundle\StripeBundle\Service\StripeManager">
+            <argument>%stripe.secret_key%</argument>
+            <argument>%kernel.environment%</argument>
+            <argument type="service" id="logger" />
+            <argument type="service" id="stripe_bundle.syncer.card" />
+            <argument type="service" id="stripe_bundle.syncer.charge" />
+            <argument type="service" id="stripe_bundle.syncer.customer" />
+        </service>
+        <service id="stripe_bundle.syncer.card" class="SerendipityHQ\Bundle\StripeBundle\Syncer\CardSyncer">
+            <call method="setEntityManager">
+                <argument type="service" id="stripe_bundle.entity_manager" />
+            </call>
+            <call method="setChargeSyncer">
+                <argument type="service" id="stripe_bundle.syncer.charge" />
+            </call>
+            <call method="setCustomerSyncer">
+                <argument type="service" id="stripe_bundle.syncer.customer" />
+            </call>
+        </service>
+        <service id="stripe_bundle.syncer.charge" class="SerendipityHQ\Bundle\StripeBundle\Syncer\ChargeSyncer">
+            <call method="setEntityManager">
+                <argument type="service" id="stripe_bundle.entity_manager" />
+            </call>
+            <call method="setCardSyncer">
+                <argument type="service" id="stripe_bundle.syncer.card" />
+            </call>
+            <call method="setCustomerSyncer">
+                <argument type="service" id="stripe_bundle.syncer.customer" />
+            </call>
+        </service>
+        <service id="stripe_bundle.syncer.customer" class="SerendipityHQ\Bundle\StripeBundle\Syncer\CustomerSyncer">
+            <call method="setEntityManager">
+                <argument type="service" id="stripe_bundle.entity_manager" />
+            </call>
+            <call method="setChargeSyncer">
+                <argument type="service" id="stripe_bundle.syncer.charge" />
+            </call>
+            <call method="setCardSyncer">
+                <argument type="service" id="stripe_bundle.syncer.card" />
+            </call>
+        </service>
+    </services>
+
+</container>

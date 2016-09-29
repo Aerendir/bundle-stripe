@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity
+            name="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer"
+            table="stripe_customers"
+            repository-class="SerendipityHQ\Bundle\StripeBundle\Repository\StripeLocalCustomerRepository">
+        <id name="id" type="string" column="id" length="25"/>
+        <field name="accountBalance" type="integer" column="account_balance" nullable="true"/>
+        <field name="businessVatId" type="string" column="business_vat_id" nullable="true"/>
+        <field name="created" type="datetime" column="created" nullable="false"/>
+        <field name="currency" type="string" length="3" column="currency" nullable="true"/>
+        <field name="delinquent" type="boolean" column="delinquent" nullable="false"/>
+        <field name="description" type="text" column="description" nullable="true"/>
+        <field name="email" type="email" column="email" nullable="true"/>
+        <field name="livemode" type="boolean" column="livemode" nullable="true"/>
+        <field name="metadata" type="string" column="metadata" nullable="true"/>
+        <one-to-one target-entity="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard" field="defaultSource">
+            <join-column name="default_source" referenced-column-name="id" />
+        </one-to-one>
+        <one-to-many target-entity="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard" mapped-by="customer" field="cards" />
+        <one-to-many target-entity="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge" mapped-by="customer" field="charges" />
+    </entity>
+</doctrine-mapping>

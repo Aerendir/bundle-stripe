@@ -1,136 +1,55 @@
+[![Latest Stable Version](https://poser.pugx.org/serendipity_hq/stripe-bundle/v/stable.png)](https://packagist.org/packages/serendipity_hq/stripe-bundle)
+[![Build Status](https://travis-ci.org/Aerendir/stripe-bundle.svg?branch=master)](https://travis-ci.org/Aerendir/stripe-bundle)
+[![Total Downloads](https://poser.pugx.org/serendipity_hq/stripe-bundle/downloads.svg)](https://packagist.org/packages/serendipity_hq/stripe-bundle)
+[![License](https://poser.pugx.org/serendipity_hq/stripe-bundle/license.svg)](https://packagist.org/packages/serendipity_hq/stripe-bundle)
+[![Code Climate](https://codeclimate.com/github/Aerendir/stripe-bundle/badges/gpa.svg)](https://codeclimate.com/github/Aerendir/stripe-bundle)
+[![Test Coverage](https://codeclimate.com/github/Aerendir/stripe-bundle/badges/coverage.svg)](https://codeclimate.com/github/Aerendir/stripe-bundle)
+[![Issue Count](https://codeclimate.com/github/Aerendir/stripe-bundle/badges/issue_count.svg)](https://codeclimate.com/github/Aerendir/stripe-bundle)
+[![StyleCI](https://styleci.io/repos/69582513/shield)](https://styleci.io/repos/69582513)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/d8fc2a44-436e-43f5-8205-16fc77cfc1b8/mini.png)](https://insight.sensiolabs.com/projects/d8fc2a44-436e-43f5-8205-16fc77cfc1b8)
+
 STRIPE BUNDLE
 =============
 
-A bundle to integrate the use of Stripe in your Symfony App.
+SerendipityHQ Stripe Bundle integrates your Symfony 2 app with the Stripe payment service.
 
-CONFIGURE
-=========
+SerendipityHQ Stripe Bundle gives you the ability to perform common tasks calling the Stripe's API and exposes an endpoint to which you can receive the notifications sent by Stripe via Webhooks.
 
-1) Create the `stripe.secret_key` parameter
+How to use the Serendipity HQ Stripe Bundle
 -------------------------------------------
 
-In your `app/config/parameter.yml` create the parameter `stripe.secret_key` and the parameter `stripe.publishable_key`: this is used by the `stripe_bundle.manager.stripe` service and by the credit card form.
+SerendipityHQ Stripe Bundle persists all the communications between your app and the Stripe's API so you ever have a local copy of them, without needing to communicate with the API to retrieve relevant information. This makes your app able to perform a lot of tasks also if there are issues with the 
+Stripe's API (very rare, but anyway possible). 
+Maintain these information as a local copy is considered a best practice, so you should do it.
 
+SerendipityHQ Stripe Bundle fires events for each possible action, so you can hook them to make you app able to react to them.
+For example, if the endpoint receives a Refund Event from the Stripe's API, your app can update the subscription of the Customer's refunded card.
 
-2) Import config, services and listeners
-----------------------------------------
+SerendipityHQ Stripe Bundle contains the code to incorporate a form on your pages from which you can get the credit cards details, send them in a Stripe's secured SSL channel (also if your app hasn't SSL encryption enabled!) and save its representation on the database for later charge.
 
-Import the Stripe Bundle services in your services.
+See the documentation for the full list of features.
 
-In your `app/config/services.yml` file, import the ``
+Requirements
+------------
 
-```
-imports:
-    - { resource: '@SerendipityHQStripeBundle/Resources/config/listeners.yml'}
-    - { resource: '@SerendipityHQStripeBundle/Resources/config/services.yml'}
+1. PHP ^5.6|^7.0
 
-services:
-    # HERE ALL OTHER SERVICES OF YOUR APP
-    ...
-```
+Status: ACTIVE DEVELOPMENT
+--------------------------
 
-In your `app/config/config.yml` file, import the ``
+This bundle is currently in development mode. We use it in our live projects and so we try to maintain it in good health.
 
-```
-imports:
-    - { resource: '@SerendipityHQStripeBundle/Resources/config/config.yml'}
+Currently not all Stripe's API features are implemented, only the ones we currently need and can test on the wild.
 
-# HERE ALL OTHER SERVICES OF YOUR APP
-```
+It is as stable as possible. If you, using it, find bugs or scenarios not covered, please, open an issue describing the problem.
 
-3) Create twig global variable to use with the form template
-------------------------------------------------------------
+All issues are reviewd and fixed.
 
-In your `config.yml`, in the `twig` section, put this:
+If you have a feature request, euqally, please, open an issue and we will review it and evaluate if it may be implemented.
 
-```
-twig:
-    globals:
-        stripe_publishable_key: "%stripe.publishable_key%"
-        form_1_id: 'subscription'            # form_1 id
-        form_1_token_input_id: 'credit_card' # form_1 token input field id
-        form_2_id: 'another-form-ID'         # form_2 id
-        form_2_token_input_id: 'credit_card' # form_2 token input field id
-        form_x_id: 'all_the_forms_you_need'  # form_3 id
-        form_x_token_input_id: 'credit_card' # form_3 token input field id
-```
+Thank you for your collaboration.
 
-Read more to know where to set those values in your form.
+DOCUMENTATION
+=============
 
-4) Add the `CreditCardStripeTokenType` to your form builder:
-
-```
-public function getPlansForm(Store $store)
-{
-    return $this->formFactory->createBuilder(FormType::class, [
-        'action' => $this->router->generate('storeSubscription', ['id' => $store->getId()]),
-        'method' => 'POST',
-    ])
-        ->add('plan', PremiumType::class, [
-            'data_class' => PremiumFeaturesEmbeddable::class,
-            'data'       => $store->getPremium()
-        ])
-        ->add('credit_card', CreditCardStripeTokenType::class)
-        ->getForm();
-}
-```
-
-5) Include the javascripts and the pre-built credit card form
--------------------------------------------------------------
-
-Now it's time to setup the form.
-
-On [Stripe's documentation](https://stripe.com/docs/custom-form) you can find some basic information about how to do this.
-
-First of all, include the following javascript file in your template, setting also the required variables:
-
-```
-{% block javascripts %}
-    {% javascripts
-    '@AppBundle/Resources/public/js/jquery-1.11.3.min.js'
-    '@AppBundle/Resources/public/App/js/bootstrap.js'
-    '@AppBundle/Resources/public/App/js/jquery-ui-1.11.4-custom.min.js'
-    ...
-    '@SerendipityHQStripeBundle/Resources/public/js/intialize.js'
-    '@SerendipityHQStripeBundle/Resources/public/js/jquery.payment/jquery.payments.min.js'
-
-    %}
-    <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-    <script type="text/javascript">
-        window.stripe_publishable_key = '{{ stripe_publishable_key }}'; 
-    </script>
-{% endblock %}
-```
-
-and add also the CSS file:
-
-```
-{% block stylesheets %}
-    {% stylesheets filter='scssphp,cssrewrite' output='css/app.css'
-        'bundles/app/App/css/bootstrap.css'
-        'bundles/app/App/css/bootstrap-theme.css'
-        'bundles/app/App/css/jquery-ui-1.11.4-custom.css'
-        'bundles/app/App/css/jquery-ui-1.11.4-custom.structure.css'
-        ...
-        'bundles/serendipityhqstripe/css/payment.css'
-    %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
-    {% endstylesheets %}
-{% endblock %}
-```
-
-The Stripe Bundle offers a pre-built form with all the required information set.
-
-On your part you have to only include it passing the required variables and rendering the hidden field for the credit card token (created at point 4):
-
-```
-{{ form_start(form, {'attr': {'id': form_1}}) }} {# This is the 'form_id' set at step 3 #}
-    {{ form_widget(form.your_fields) }}
-    {% include('SerendipityHQStripeBundle::creditCardForm.html.twig') with {'publishable_key': stripe_publishable_key, 'form_id': form_1_id, 'token_input_id': form_1_token_input_id} %}
-    {{ form_widget(form.credit_card.card_token) }}
-    <input type="submit" value="Pay" />
-{{ form_end(form) }}
-```
-
-and render the field in your form:
+You can read how to install, configure, test and use the SerendipityHQ Stripe Bundle in the [documentation](Resources/docs/Index.md).

@@ -1,0 +1,29 @@
+language: php
+
+matrix:
+    include:
+        - php: 5.6
+        - php: 7.0
+        - php: hhvm
+
+cache:
+    directories:
+        - $HOME/.composer/cache
+
+install:
+    - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction
+
+script:
+    - phpunit --verbose --coverage-clover build/logs/clover.xml
+    - phpenv config-rm xdebug.ini || return 0
+
+after_script:
+  - CODECLIMATE_REPO_TOKEN="5b637b19c0d7a15be90c9a6d123d3cb8f10a30cfdff84fdcd47e76be4a6700e7" vendor/bin/test-reporter --stdout > codeclimate.json
+  - "curl -X POST -d @codeclimate.json -H 'Content-Type: application/json' -H 'User-Agent: Code Climate (PHP Test Reporter v0.1.1)' https://codeclimate.com/test_reports"
+
+addons:
+  code_climate:
+    repo_token: 5b637b19c0d7a15be90c9a6d123d3cb8f10a30cfdff84fdcd47e76be4a6700e7
+
+after_success:
+    - php vendor/bin/coveralls -v
