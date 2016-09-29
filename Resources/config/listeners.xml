@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service
+                id="stripe_bundle.subscriber.source"
+                class="SerendipityHQ\Bundle\StripeBundle\EventListener\StripeSourceSubscriber">
+            <tag name="kernel.event_subscriber" />
+        </service>
+        <service
+                id="stripe_bundle.subscriber.customer"
+                class="SerendipityHQ\Bundle\StripeBundle\EventListener\StripeCustomerSubscriber">
+            <tag name="kernel.event_subscriber" />
+        </service>
+    </services>
+
+</container>

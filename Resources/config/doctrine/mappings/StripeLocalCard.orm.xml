@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard" table="stripe_cards">
+        <id name="id" type="string" column="id" length="25"/>
+        <field name="addressCity" type="text" column="address_city" precision="0" scale="0" nullable="true"/>
+        <field name="addressCountry" type="text" column="address_country" precision="0" scale="0" nullable="true"/>
+        <field name="addressLine1" type="text" column="address_line1" precision="0" scale="0" nullable="true"/>
+        <field name="addressLine1Check" type="text" column="address_line1_check" precision="0" scale="0" nullable="true"/>
+        <field name="addressLine2" type="text" column="address_line2" precision="0" scale="0" nullable="true"/>
+        <field name="addressState" type="text" column="address_state" precision="0" scale="0" nullable="true"/>
+        <field name="addressZip" type="text" column="address_zip" precision="0" scale="0" nullable="true"/>
+        <field name="addressZipCheck" type="text" column="address_zip_check" precision="0" scale="0" nullable="true"/>
+        <field name="brand" type="text" column="brand" precision="0" scale="0" nullable="false"/>
+        <field name="country" type="text" column="country" precision="0" scale="0" nullable="false"/>
+        <many-to-one field="customer" target-entity="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer" inversed-by="cards">
+            <join-column name="customer_id" referenced-column-name="id" />
+        </many-to-one>
+        <field name="cvcCheck" type="text" column="cvc_check" precision="0" scale="0" nullable="true"/>
+        <field name="dynamicLast4" type="text" column="dynamic_last4" precision="0" scale="0" nullable="true"/>
+        <field name="expMonth" type="integer" column="exp_month" precision="0" scale="0" nullable="false"/>
+        <field name="expYear" type="integer" column="exp_year" precision="0" scale="0" nullable="false"/>
+        <field name="fingerprint" type="string" column="fingerprint" precision="0" scale="0" nullable="false"/>
+        <field name="funding" type="string" column="funding" precision="0" scale="0" nullable="false"/>
+        <field name="last4" type="string" column="last4" precision="0" scale="0" nullable="false"/>
+        <field name="metadata" type="string" column="metadata" precision="0" scale="0" nullable="true"/>
+        <field name="name" type="string" column="name" precision="0" scale="0" nullable="true"/>
+        <field name="tokenizationMethod" type="string" column="tokenization_method" precision="0" scale="0" nullable="true"/>
+    </entity>
+</doctrine-mapping>

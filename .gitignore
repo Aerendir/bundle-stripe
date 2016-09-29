@@ -1,0 +1,14 @@
+*.log
+*.doctrinecache.php
+app/cache
+app/bootstrap.php.cache
+app/config/parameters.yml
+app/phpunit.xml
+bin
+build
+vendor
+web/bundles/
+web/css/
+web/js/
+web/images
+web/media/

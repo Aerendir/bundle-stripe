@@ -1,0 +1,39 @@
+<div id="cc-form">
+    <span class="payment-errors"></span>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group cc-number-group">
+                <label for="cc-number" class="control-label">StripeLocalCard number</label>
+                <div class="input-group">
+                    <input style="border-right: 0;" id="cc-number" type="tel" size="20" data-stripe="number"  class="form-control cc-number card-generic form-control input-sm" autocomplete="cc-number" />
+                    <div class="input-group-addon">
+                        <img height="16px" class="credit-card-icon" src="{{ asset('bundles/stripe/images/credit.png') }}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                    <label for="cc-exp" class="control-label">Expiration (MM / YY)</label>
+                    <input id="cc-exp" type="tel"  class="cc-exp input-sm form-control cc-exp" autocomplete="cc-exp" placeholder="•• / ••" required />
+                    <input id="exp_month" type="hidden" data-numeric size="2" data-stripe="exp_month"  />
+                    <input id="exp_year" type="hidden" data-numeric  size="2" data-stripe="exp_year"  />
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="cc-cvc" class="control-label">CVC</label>
+                <input id="cc-cvc" data-numeric  type="tel" size="4" data-stripe="cvc" class="cc-cvc form-control input-sm" />
+            </div>
+        </div>
+    </div>
+    <p id="payment-result"></p>
+</div>
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript">
+    Stripe.setPublishableKey('{{ stripe_publishable_key }}');
+    window.stripe_payment_form_id = '{{ form_id }}';
+    window.stripe_card_token_input_id = '{{ token_input_id}}';
+</script>
