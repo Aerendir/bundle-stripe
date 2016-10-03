@@ -29,7 +29,7 @@ class StripeExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();
-        $config        = $this->processConfiguration($configuration, $configs);
+        $config = $this->processConfiguration($configuration, $configs);
 
         // Set parameters in the container
         $container->setParameter('stripe_bundle.db_driver', $config['db_driver']);

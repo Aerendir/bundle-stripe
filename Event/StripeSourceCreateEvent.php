@@ -19,7 +19,7 @@ use Symfony\Component\EventDispatcher\Event;
  */
 class StripeSourceCreateEvent extends Event
 {
-    const CREATE  = 'stripe.local.source.create';
+    const CREATE = 'stripe.local.source.create';
     const CREATED = 'stripe.local.source.created';
-    const FAILED  = 'stripe.local.source.create_failed';
+    const FAILED = 'stripe.local.source.create_failed';
 }

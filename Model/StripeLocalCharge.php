@@ -31,52 +31,52 @@ class StripeLocalCharge implements StripeObjectInterface
     /** @var string $balanceTransaction ID of the balance transaction that describes the impact of this charge on your account balance (not including refunds or disputes). */
     private $balanceTransaction;
 
-    /** @var  bool $captured If the charge was created without capturing, this boolean represents whether or not it is still uncaptured or has since been captured. */
+    /** @var bool $captured If the charge was created without capturing, this boolean represents whether or not it is still uncaptured or has since been captured. */
     private $captured;
 
-    /** @var  \DateTime */
+    /** @var \DateTime */
     private $created;
 
-    /** @var  string $currency Three-letter ISO currency code representing the currency in which the charge was made. */
+    /** @var string $currency Three-letter ISO currency code representing the currency in which the charge was made. */
     private $currency;
 
     /** @var StripeLocalCustomer $customer ID of the customer this charge is for if one exists. */
     private $customer;
 
-    /** @var  string */
+    /** @var string */
     private $description;
 
-    /** @var  null|string $failureCode Error code explaining reason for charge failure if available (see the errors section for a list of codes). */
+    /** @var null|string $failureCode Error code explaining reason for charge failure if available (see the errors section for a list of codes). */
     private $failureCode;
 
-    /** @var  null|string $failureMessage Message to user further explaining reason for charge failure if available. */
+    /** @var null|string $failureMessage Message to user further explaining reason for charge failure if available. */
     private $failureMessage;
 
-    /** @var string $fraudDetails Hash with information on fraud assessments for the charge. Assessments reported by you have the key user_report and, if set, possible values of safe and fraudulent. Assessments from Stripe have the key stripe_report and, if set, the value fraudulent.  */
+    /** @var string $fraudDetails Hash with information on fraud assessments for the charge. Assessments reported by you have the key user_report and, if set, possible values of safe and fraudulent. Assessments from Stripe have the key stripe_report and, if set, the value fraudulent. */
     private $fraudDetails;
 
-    /** @var  bool */
+    /** @var bool */
     private $livemode;
 
-    /** @var  string $metadata A set of key/value pairs that you can attach to a charge object. It can be useful for storing additional information about the charge in a structured format. */
+    /** @var string $metadata A set of key/value pairs that you can attach to a charge object. It can be useful for storing additional information about the charge in a structured format. */
     private $metadata;
 
-    /** @var string $order ID of the order this charge is for if one exists.  */
+    /** @var string $order ID of the order this charge is for if one exists. */
     private $order;
 
-    /** @var  bool $paid true if the charge succeeded, or was successfully authorized for later capture. */
+    /** @var bool $paid true if the charge succeeded, or was successfully authorized for later capture. */
     private $paid;
 
-    /** @var  null|string  $receiptEmail This is the email address that the receipt for this charge was sent to. */
+    /** @var null|string $receiptEmail This is the email address that the receipt for this charge was sent to. */
     private $receiptEmail;
 
-    /** @var string $receiptNumber This is the transaction number that appears on email receipts sent for this charge.  */
+    /** @var string $receiptNumber This is the transaction number that appears on email receipts sent for this charge. */
     private $receiptNumber;
 
     /** @var StripeLocalCard $source For most Stripe users, the source of every charge is a credit or debit card. This hash is then the card object describing that card. */
     private $source;
 
-    /** @var string $statementDescriptor Extra information about a charge. This will appear on your customer’s credit card statement.  */
+    /** @var string $statementDescriptor Extra information about a charge. This will appear on your customer’s credit card statement. */
     private $statementDescriptor;
 
     /** @var string $status The status of the payment is either succeeded, pending, or failed. */

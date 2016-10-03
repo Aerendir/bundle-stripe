@@ -45,7 +45,7 @@ class StripeSourceSubscriber implements EventSubscriberInterface
      * @param $eventName
      * @param ContainerAwareEventDispatcher $dispatcher The passed EventDispatcher gives anyway access to the container,
      *                                                  also if the autocompletion doesn't report it. There is something
-     *                                                  missed in comments in the Symfony Framework.
+     *                                                  missed in comments in the Symfony Framework
      */
     public function onSourceCreate(StripeSourceCreateEvent $event, $eventName, EventDispatcherInterface $dispatcher)
     {
@@ -57,7 +57,7 @@ class StripeSourceSubscriber implements EventSubscriberInterface
      * @param $eventName
      * @param ContainerAwareEventDispatcher $dispatcher The passed EventDispatcher gives anyway access to the container,
      *                                                  also if the autocompletion doesn't report it. There is something
-     *                                                  missed in comments in the Symfony Framework.
+     *                                                  missed in comments in the Symfony Framework
      */
     public function onStripeSourceCreated(StripeSourceCreateEvent $event, $eventName, EventDispatcherInterface $dispatcher)
     {

@@ -40,7 +40,7 @@ class StripeManager
     public function chargeCustomer($customerId, Money $amount)
     {
         return Charge::create([
-            'amount'   => $amount->getAmount(),
+            'amount' => $amount->getAmount(),
             'currency' => $amount->getCurrency()->getCurrencyCode(),
             'customer' => $customerId
         ]);
@@ -59,7 +59,7 @@ class StripeManager
     /**
      * @param $customerId
      * @param array $customerDetails
-     * 
+     *
      * @return Customer
      */
     public function updateCustomer($customerId, array $customerDetails)

@@ -24,7 +24,7 @@ class StripeLocalCard
     /** @var string The Stripe ID of the card (used in conjunction with a customer or recipient ID) */
     private $id;
 
-    /** @var null|string $addressCity  */
+    /** @var null|string $addressCity */
     private $addressCity;
 
     /** @var null|string */
@@ -33,7 +33,7 @@ class StripeLocalCard
     /** @var null|string */
     private $addressLine1;
 
-    /** @var null|string $addressLine1Check If address_line1 was provided, results of the check: pass, fail, unavailable, or unchecked.*/
+    /** @var null|string $addressLine1Check If address_line1 was provided, results of the check: pass, fail, unavailable, or unchecked. */
     private $addressLine1Check;
 
     /** @var null|string */
@@ -45,10 +45,10 @@ class StripeLocalCard
     /** @var null|string */
     private $addressZip;
 
-    /** @var null|string $addressZipCheck If address_zip was provided, results of the check: pass, fail, unavailable, or unchecked.*/
+    /** @var null|string $addressZipCheck If address_zip was provided, results of the check: pass, fail, unavailable, or unchecked. */
     private $addressZipCheck;
 
-    /** @var string $brand Card brand. Can be Visa, American Express, MasterCard, Discover, JCB, Diners Club, or Unknown.*/
+    /** @var string $brand Card brand. Can be Visa, American Express, MasterCard, Discover, JCB, Diners Club, or Unknown. */
     private $brand;
 
     /** @var string $country Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you’ve collected. */
@@ -57,7 +57,7 @@ class StripeLocalCard
     /** @var null|StripeLocalCustomer $customer The customer that this card belongs to. This attribute will not be in the card object if the card belongs to an account or recipient instead. */
     private $customer;
 
-    /** @var null|string $cvcCheck If a CVC was provided, results of the check: pass, fail, unavailable, or unchecked*/
+    /** @var null|string $cvcCheck If a CVC was provided, results of the check: pass, fail, unavailable, or unchecked */
     private $cvcCheck;
 
     /** @var null|string $dynamicLast4 (For tokenized numbers only.) The last four digits of the device account number. */

@@ -19,7 +19,7 @@ use Symfony\Component\EventDispatcher\Event;
  */
 class StripeCustomerUpdateEvent extends Event
 {
-    const UPDATE  = 'stripe.local.customer.update';
+    const UPDATE = 'stripe.local.customer.update';
     const UPDATED = 'stripe.local.customer.updated';
-    const FAILED  = 'stripe.local.customer.update_failed';
+    const FAILED = 'stripe.local.customer.update_failed';
 }
