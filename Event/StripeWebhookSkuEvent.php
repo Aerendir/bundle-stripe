@@ -22,23 +22,26 @@ class StripeWebhookSkuEvent extends AbstractStripeWebhookEvent
      * Occurs whenever an sku is created.
      *
      * @var string
+     *
      * @see https://stripe.com/docs/api#event_types-sku.created
      */
-    const CREATED  = 'stripe.webhook.sku.created';
+    const CREATED = 'stripe.webhook.sku.created';
 
     /**
      * Occurs whenever an sku is deleted.
      *
      * @var string
+     *
      * @see https://stripe.com/docs/api#event_types-sku.deleted
      */
-    const DELETED  = 'stripe.webhook.sku.deleted';
+    const DELETED = 'stripe.webhook.sku.deleted';
 
     /**
      * Occurs whenever an sku is updated.
      *
      * @var string
+     *
      * @see https://stripe.com/docs/api#event_types-sku.updated
      */
-    const UPDATED  = 'stripe.webhook.sku.updated';
+    const UPDATED = 'stripe.webhook.sku.updated';
 }

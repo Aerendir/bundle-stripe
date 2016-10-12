@@ -21,10 +21,10 @@ use SerendipityHQ\Component\ValueObjects\Email\Email;
  */
 class StripeLocalCustomer implements StripeLocalResourceInterface
 {
-    /** @var string The Stripe ID of the StripeLocalCustomer*/
+    /** @var string The Stripe ID of the StripeLocalCustomer */
     private $id;
 
-    /** @var  int $accountBalance Current balance, if any, being stored on the customer’s account. If negative, the customer has credit to apply to the next invoice. If positive, the customer has an amount owed that will be added to the next invoice. The balance does not refer to any unpaid invoices; it solely takes into account amounts that have yet to be successfully applied to any invoice. This balance is only taken into account for recurring billing purposes (i.e., subscriptions, invoices, invoice items). */
+    /** @var int $accountBalance Current balance, if any, being stored on the customer’s account. If negative, the customer has credit to apply to the next invoice. If positive, the customer has an amount owed that will be added to the next invoice. The balance does not refer to any unpaid invoices; it solely takes into account amounts that have yet to be successfully applied to any invoice. This balance is only taken into account for recurring billing purposes (i.e., subscriptions, invoices, invoice items). */
     private $accountBalance;
 
     /** @var string $businessVatId The customer’s VAT identification number. */
@@ -36,28 +36,28 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     /** @var ArrayCollection $charges The charges of the customer */
     private $charges;
 
-    /** @var  \DateTime $created */
+    /** @var \DateTime $created */
     private $created;
 
-    /** @var  string $currency The currency the customer can be charged in for recurring billing purposes. */
+    /** @var string $currency The currency the customer can be charged in for recurring billing purposes. */
     private $currency;
 
-    /** @var  StripeLocalCard $defaultSource ID of the default source attached to this customer. */
+    /** @var StripeLocalCard $defaultSource ID of the default source attached to this customer. */
     private $defaultSource;
 
-    /** @var  bool $delinquent Whether or not the latest charge for the customer’s latest invoice has failed. */
+    /** @var bool $delinquent Whether or not the latest charge for the customer’s latest invoice has failed. */
     private $delinquent;
 
-    /** @var  string $description */
+    /** @var string $description */
     private $description;
 
-    /** @var  Email $email */
+    /** @var Email $email */
     private $email;
 
-    /** @var  bool $livemode */
+    /** @var bool $livemode */
     private $livemode;
 
-    /** @var string $metadata A set of key/value pairs that you can attach to a customer object. It can be useful for storing additional information about the customer in a structured format.  */
+    /** @var string $metadata A set of key/value pairs that you can attach to a customer object. It can be useful for storing additional information about the customer in a structured format. */
     private $metadata;
 
     /** @var string $newSource Used to create a new source for the customer */
@@ -239,6 +239,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
 
     /**
      * @param $currency
+     *
      * @return $this
      */
     public function setCurrency($currency)
@@ -286,12 +287,14 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
 
     /**
      * @param string $source
+     *
      * @return $this
      */
     public function setNewSource($source)
     {
-        if (false === strpos($source, 'tok_'))
+        if (false === strpos($source, 'tok_')) {
             throw new \InvalidArgumentException(sprintf('The token you passed seems not to be a card token: %s', $source));
+        }
 
         $this->newSource = $source;
 
@@ -303,9 +306,10 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
      */
     public function toStripe($action)
     {
-        if ('create' !== $action && 'update' !== $action)
+        if ('create' !== $action && 'update' !== $action) {
             throw new \InvalidArgumentException('StripeLocalCustomer::__toArray() accepts only "create" or "update" as parameter.');
-        
+        }
+
         $return = [];
 
         if (null !== $this->getAccountBalance() && 'create' === $action) {

@@ -15,15 +15,15 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 use Doctrine\ORM\Tools\Setup;
 
-$paths     = [getcwd() . '/Model'];
+$paths = [getcwd() . '/Model'];
 $isDevMode = true;
 
 // the connection configuration
 $dbParams = [
-    'driver'   => 'pdo_mysql',
-    'user'     => 'root',
+    'driver' => 'pdo_mysql',
+    'user' => 'root',
     'password' => 'root',
-    'dbname'   => 'test_stripe_bundle',
+    'dbname' => 'test_stripe_bundle',
 ];
 
 // @see http://stackoverflow.com/a/19129147/1399706

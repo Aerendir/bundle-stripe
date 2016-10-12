@@ -22,23 +22,26 @@ class StripeWebhookPlanEvent extends AbstractStripeWebhookEvent
      * Occurs whenever an plan is created.
      *
      * @var string
+     *
      * @see https://stripe.com/docs/api#event_types-plan.created
      */
-    const CREATED  = 'stripe.webhook.plan.created';
+    const CREATED = 'stripe.webhook.plan.created';
 
     /**
      * Occurs whenever an plan is deleted.
      *
      * @var string
+     *
      * @see https://stripe.com/docs/api#event_types-plan.deleted
      */
-    const DELETED  = 'stripe.webhook.plan.deleted';
+    const DELETED = 'stripe.webhook.plan.deleted';
 
     /**
      * Occurs whenever an plan is updated.
      *
      * @var string
+     *
      * @see https://stripe.com/docs/api#event_types-plan.updated
      */
-    const UPDATED  = 'stripe.webhook.plan.updated';
+    const UPDATED = 'stripe.webhook.plan.updated';
 }

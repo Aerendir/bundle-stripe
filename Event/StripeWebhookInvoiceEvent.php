@@ -28,11 +28,12 @@ class StripeWebhookInvoiceEvent extends AbstractStripeWebhookEvent
      * regardless of whether or not your webhooks have succeeded.
      *
      * @var string
+     *
      * @see https://stripe.com/docs/api#event_types-invoice.created
      * @see https://stripe.com/docs/webhooks
      * @see https://stripe.com/docs/webhooks#responding_to_a_webhook
      */
-    const CREATED  = 'stripe.webhook.invoice.created';
+    const CREATED = 'stripe.webhook.invoice.created';
 
     /**
      * Occurs whenever an invoice attempts to be paid, and the payment fails.
@@ -42,23 +43,26 @@ class StripeWebhookInvoiceEvent extends AbstractStripeWebhookEvent
      * notification will occur.
      *
      * @var string
+     *
      * @see https://stripe.com/docs/api#event_types-invoice.payment_failed
      */
-    const PAYMENT_FAILED  = 'stripe.webhook.invoice.payment_failed';
+    const PAYMENT_FAILED = 'stripe.webhook.invoice.payment_failed';
 
     /**
      * Occurs whenever an invoice attempts to be paid, and the payment succeeds.
      *
      * @var string
+     *
      * @see https://stripe.com/docs/api#event_types-invoice.payment_succeeded
      */
-    const PAYMENT_SUCCEEDED  = 'stripe.webhook.invoice.payment_succeeded';
+    const PAYMENT_SUCCEEDED = 'stripe.webhook.invoice.payment_succeeded';
 
     /**
      * Occurs whenever an invoice changes (for example, the amount could change).
      *
      * @var string
+     *
      * @see https://stripe.com/docs/api#event_types-invoice.updated
      */
-    const UPDATED  = 'stripe.webhook.invoice.updated';
+    const UPDATED = 'stripe.webhook.invoice.updated';
 }

@@ -24,13 +24,13 @@ abstract class AbstractSyncer implements SyncerInterface
     /** @var EntityManager $entityManager */
     private static $entityManager;
 
-    /** @var  CardSyncer $cardHydrator */
+    /** @var CardSyncer $cardHydrator */
     private $cardHydrator;
 
-    /** @var  ChargeSyncer $chargeHydrator */
+    /** @var ChargeSyncer $chargeHydrator */
     private $chargeHydrator;
 
-    /** @var  CustomerSyncer $customerHydrator */
+    /** @var CustomerSyncer $customerHydrator */
     private $customerHydrator;
 
     /**
@@ -38,8 +38,9 @@ abstract class AbstractSyncer implements SyncerInterface
      */
     public function getEntityManager()
     {
-        if (null === self::$entityManager)
+        if (null === self::$entityManager) {
             throw new \InvalidArgumentException('No EntityManager were set. Set one to get it.');
+        }
 
         return self::$entityManager;
     }
@@ -105,6 +106,7 @@ abstract class AbstractSyncer implements SyncerInterface
      * not yet flushed.
      *
      * @param $stripeCustomerId
+     *
      * @return bool|StripeLocalCustomer false if the StripeLocalCustomer was not found
      */
     protected function getLocalCustomer($stripeCustomerId)
@@ -113,8 +115,9 @@ abstract class AbstractSyncer implements SyncerInterface
         $localCustomer = $this->getEntityManager()->getRepository('StripeBundle:StripeLocalCustomer')->findOneByStripeId($stripeCustomerId);
 
         // If we found it, return it
-        if (null !== $localCustomer)
+        if (null !== $localCustomer) {
             return $localCustomer;
+        }
 
         // Try to find the customer in the newly created one that are not already persisted
         return $this->getEntityManager()->getUnitOfWork()->tryGetById($stripeCustomerId, StripeLocalCustomer::class);

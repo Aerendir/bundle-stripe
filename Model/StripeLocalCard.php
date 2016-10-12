@@ -23,7 +23,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /** @var string The Stripe ID of the card (used in conjunction with a customer or recipient ID) */
     private $id;
 
-    /** @var null|string $addressCity  */
+    /** @var null|string $addressCity */
     private $addressCity;
 
     /** @var null|string */
@@ -32,7 +32,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /** @var null|string */
     private $addressLine1;
 
-    /** @var null|string $addressLine1Check If address_line1 was provided, results of the check: pass, fail, unavailable, or unchecked.*/
+    /** @var null|string $addressLine1Check If address_line1 was provided, results of the check: pass, fail, unavailable, or unchecked. */
     private $addressLine1Check;
 
     /** @var null|string */
@@ -44,10 +44,10 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /** @var null|string */
     private $addressZip;
 
-    /** @var null|string $addressZipCheck If address_zip was provided, results of the check: pass, fail, unavailable, or unchecked.*/
+    /** @var null|string $addressZipCheck If address_zip was provided, results of the check: pass, fail, unavailable, or unchecked. */
     private $addressZipCheck;
 
-    /** @var string $brand Card brand. Can be Visa, American Express, MasterCard, Discover, JCB, Diners Club, or Unknown.*/
+    /** @var string $brand Card brand. Can be Visa, American Express, MasterCard, Discover, JCB, Diners Club, or Unknown. */
     private $brand;
 
     /** @var string $country Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you’ve collected. */
@@ -56,7 +56,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /** @var null|StripeLocalCustomer $customer The customer that this card belongs to. This attribute will not be in the card object if the card belongs to an account or recipient instead. */
     private $customer;
 
-    /** @var null|string $cvcCheck If a CVC was provided, results of the check: pass, fail, unavailable, or unchecked*/
+    /** @var null|string $cvcCheck If a CVC was provided, results of the check: pass, fail, unavailable, or unchecked */
     private $cvcCheck;
 
     /** @var null|string $dynamicLast4 (For tokenized numbers only.) The last four digits of the device account number. */
@@ -86,7 +86,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /** @var null|string $tokenizationMethod If the card number is tokenized, this is the method that was used. Can be apple_pay or android_pay. */
     private $tokenizationMethod;
 
-    /** @var  ArrayCollection $charges */
+    /** @var ArrayCollection $charges */
     private $charges;
 
     /**
@@ -312,6 +312,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
 
     /**
      * @param string $addressCity
+     *
      * @return $this
      */
     public function setAddressCity($addressCity)
@@ -323,6 +324,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
 
     /**
      * @param string $addressCountry
+     *
      * @return $this
      */
     public function setAddressCountry($addressCountry)
@@ -334,6 +336,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
 
     /**
      * @param string $addressLine1
+     *
      * @return $this
      */
     public function setAddressLine1($addressLine1)
@@ -345,6 +348,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
 
     /**
      * @param string $addressLine2
+     *
      * @return $this
      */
     public function setAddressLine2($addressLine2)
@@ -356,6 +360,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
 
     /**
      * @param string $addressState
+     *
      * @return $this
      */
     public function setAddressState($addressState)
@@ -367,6 +372,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
 
     /**
      * @param int $addressZip
+     *
      * @return $this
      */
     public function setAddressZip($addressZip)
@@ -378,6 +384,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
 
     /**
      * @param string $country
+     *
      * @return $this
      */
     public function setCountry($country)
@@ -389,6 +396,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
 
     /**
      * @param StripeLocalCustomer $customer
+     *
      * @return $this
      */
     public function setCustomer(StripeLocalCustomer $customer)
@@ -400,6 +408,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
 
     /**
      * @param int $expMonth
+     *
      * @return $this
      */
     public function setExpMonth($expMonth)
@@ -411,6 +420,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
 
     /**
      * @param int $expYear
+     *
      * @return $this
      */
     public function setExpYear($expYear)
@@ -422,6 +432,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
 
     /**
      * @param string $metadata
+     *
      * @return $this
      */
     public function setMetadata($metadata)
@@ -433,6 +444,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
 
     /**
      * @param string $name
+     *
      * @return $this
      */
     public function setName($name)
@@ -453,7 +465,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /**
      * {@inheritdoc}
      */
-    public  function toStripe($action)
+    public function toStripe($action)
     {
         throw new \RuntimeException('Method not yet implemented.');
     }

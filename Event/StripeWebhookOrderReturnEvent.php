@@ -22,7 +22,8 @@ class StripeWebhookOrderReturnEvent extends AbstractStripeWebhookEvent
      * Occurs whenever an order return is created.
      *
      * @var string
+     *
      * @see https://stripe.com/docs/api#event_types-order_return.created
      */
-    const CREATED  = 'stripe.webhook.order_return.created';
+    const CREATED = 'stripe.webhook.order_return.created';
 }
