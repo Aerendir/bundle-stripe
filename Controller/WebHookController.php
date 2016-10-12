@@ -26,7 +26,7 @@ class WebHookController extends Controller
      *
      * @return Response
      */
-    public function NotifyAction(Request $request)
+    public function notifyAction(Request $request)
     {
         /** @var Event $content */
         $content = json_decode($request->getContent(), true);

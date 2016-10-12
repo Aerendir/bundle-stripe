@@ -22,7 +22,7 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
 abstract class AbstractSyncer implements SyncerInterface
 {
     /** @var EntityManager $entityManager */
-    private static $entityManager;
+    private $entityManager;
 
     /** @var CardSyncer $cardHydrator */
     private $cardHydrator;
@@ -34,15 +34,19 @@ abstract class AbstractSyncer implements SyncerInterface
     private $customerHydrator;
 
     /**
+     * @param EntityManager $entityManager
+     */
+    public function __construct(EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+    /**
      * @return EntityManager
      */
     public function getEntityManager()
     {
-        if (null === self::$entityManager) {
-            throw new \InvalidArgumentException('No EntityManager were set. Set one to get it.');
-        }
-
-        return self::$entityManager;
+        return $this->entityManager;
     }
 
     /**
@@ -67,14 +71,6 @@ abstract class AbstractSyncer implements SyncerInterface
     public function getCustomerSyncer()
     {
         return $this->cardHydrator;
-    }
-
-    /**
-     * @param EntityManager $entityManager
-     */
-    public static function setEntityManager(EntityManager $entityManager)
-    {
-        self::$entityManager = $entityManager;
     }
 
     /**
@@ -112,7 +108,7 @@ abstract class AbstractSyncer implements SyncerInterface
     protected function getLocalCustomer($stripeCustomerId)
     {
         // First try to get the customer from the database
-        $localCustomer = $this->getEntityManager()->getRepository('StripeBundle:StripeLocalCustomer')->findOneByStripeId($stripeCustomerId);
+        $localCustomer = $this->getEntityManager()->getRepository('StripeBundle:StripeLocalCustomer')->findOneBy(['stripeId' => $stripeCustomerId]);
 
         // If we found it, return it
         if (null !== $localCustomer) {

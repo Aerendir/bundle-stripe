@@ -14,9 +14,7 @@
             <argument type="service" id="stripe_bundle.syncer.customer" />
         </service>
         <service id="stripe_bundle.syncer.card" class="SerendipityHQ\Bundle\StripeBundle\Syncer\CardSyncer">
-            <call method="setEntityManager">
-                <argument type="service" id="stripe_bundle.entity_manager" />
-            </call>
+            <argument type="service" id="stripe_bundle.entity_manager" />
             <call method="setChargeSyncer">
                 <argument type="service" id="stripe_bundle.syncer.charge" />
             </call>
@@ -25,9 +23,7 @@
             </call>
         </service>
         <service id="stripe_bundle.syncer.charge" class="SerendipityHQ\Bundle\StripeBundle\Syncer\ChargeSyncer">
-            <call method="setEntityManager">
-                <argument type="service" id="stripe_bundle.entity_manager" />
-            </call>
+            <argument type="service" id="stripe_bundle.entity_manager" />
             <call method="setCardSyncer">
                 <argument type="service" id="stripe_bundle.syncer.card" />
             </call>
@@ -36,9 +32,7 @@
             </call>
         </service>
         <service id="stripe_bundle.syncer.customer" class="SerendipityHQ\Bundle\StripeBundle\Syncer\CustomerSyncer">
-            <call method="setEntityManager">
-                <argument type="service" id="stripe_bundle.entity_manager" />
-            </call>
+            <argument type="service" id="stripe_bundle.entity_manager" />
             <call method="setChargeSyncer">
                 <argument type="service" id="stripe_bundle.syncer.charge" />
             </call>
