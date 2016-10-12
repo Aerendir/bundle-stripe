@@ -11,7 +11,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard;
-use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
+use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalWebhookEvent;
 
 /**
  * @author Audrius Karabanovas <audrius@karabanovas.net>
@@ -19,12 +19,12 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
  *
  * {@inheritdoc}
  */
-class StripeLocalChargeRepository extends EntityRepository implements ByStripeIdInterface
+class StripeLocalWebhookEventRepository extends EntityRepository implements ByStripeIdInterface
 {
     /**
      * @param $id
      *
-     * @return object|StripeLocalCharge|null
+     * @return object|StripeLocalWebhookEvent|null
      */
     public function findOneByStripeId($id)
     {

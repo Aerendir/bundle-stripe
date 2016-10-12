@@ -16,7 +16,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\Event;
  *
  * @author Adamo Crespi <hello@aerendir.me>
  */
-class StripeWebhookOrderReturnEvent extends AbstractStripeWebhookEvent
+class StripeWebhookOrderReturnEventEvent extends AbstractStripeWebhookEventEvent
 {
     /**
      * Occurs whenever an order return is created.

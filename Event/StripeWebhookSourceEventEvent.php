@@ -16,7 +16,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\Event;
  *
  * @author Adamo Crespi <hello@aerendir.me>
  */
-class StripeWebhookSourceEvent extends AbstractStripeWebhookEvent
+class StripeWebhookSourceEventEvent extends AbstractStripeWebhookEventEvent
 {
     /**
      * Occurs whenever an source is canceled.

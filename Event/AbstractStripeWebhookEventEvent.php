@@ -11,27 +11,27 @@
 
 namespace SerendipityHQ\Bundle\StripeBundle\Event;
 
-use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
+use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalWebhookEvent;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
  * Abstract class to manage Charges.
  */
-class AbstractStripeWebhookEvent extends Event
+class AbstractStripeWebhookEventEvent extends Event
 {
-    /** @var StripeLocalCharge $webhookEvent */
+    /** @var StripeLocalWebhookEvent $webhookEvent */
     private $webhookEvent;
 
     /**
-     * @param \Stripe\Event $webhookEvent
+     * @param StripeLocalWebhookEvent $webhookEvent The local entity representing the \Stripe\Event
      */
-    public function __construct(\Stripe\Event $webhookEvent)
+    public function __construct(StripeLocalWebhookEvent $webhookEvent)
     {
         $this->webhookEvent = $webhookEvent;
     }
 
     /**
-     * @return StripeLocalCharge
+     * @return StripeLocalWebhookEvent
      */
     public function getWebhookEvent()
     {

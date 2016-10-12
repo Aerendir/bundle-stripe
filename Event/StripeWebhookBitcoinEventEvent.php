@@ -16,7 +16,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\Event;
  *
  * @author Adamo Crespi <hello@aerendir.me>
  */
-class StripeWebhookBitcoinEvent extends AbstractStripeWebhookEvent
+class StripeWebhookBitcoinEventEvent extends AbstractStripeWebhookEventEvent
 {
     /**
      * Occurs whenever a receiver has been created.

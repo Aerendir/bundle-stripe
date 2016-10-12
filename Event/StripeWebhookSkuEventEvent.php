@@ -16,7 +16,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\Event;
  *
  * @author Adamo Crespi <hello@aerendir.me>
  */
-class StripeWebhookSkuEvent extends AbstractStripeWebhookEvent
+class StripeWebhookSkuEventEvent extends AbstractStripeWebhookEventEvent
 {
     /**
      * Occurs whenever an sku is created.

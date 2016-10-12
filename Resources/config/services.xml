@@ -5,6 +5,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
+        <service id="stripe_bundle.guesser.event_guesser" class="SerendipityHQ\Bundle\StripeBundle\Service\EventGuesser" />
         <service id="stripe_bundle.manager.stripe_api" class="SerendipityHQ\Bundle\StripeBundle\Service\StripeManager">
             <argument>%stripe.secret_key%</argument>
             <argument>%kernel.environment%</argument>
@@ -12,6 +13,7 @@
             <argument type="service" id="stripe_bundle.syncer.card" />
             <argument type="service" id="stripe_bundle.syncer.charge" />
             <argument type="service" id="stripe_bundle.syncer.customer" />
+            <argument type="service" id="stripe_bundle.syncer.webhook_event" />
         </service>
         <service id="stripe_bundle.syncer.card" class="SerendipityHQ\Bundle\StripeBundle\Syncer\CardSyncer">
             <argument type="service" id="stripe_bundle.entity_manager" />
@@ -33,11 +35,23 @@
         </service>
         <service id="stripe_bundle.syncer.customer" class="SerendipityHQ\Bundle\StripeBundle\Syncer\CustomerSyncer">
             <argument type="service" id="stripe_bundle.entity_manager" />
+            <call method="setCardSyncer">
+                <argument type="service" id="stripe_bundle.syncer.card" />
+            </call>
             <call method="setChargeSyncer">
                 <argument type="service" id="stripe_bundle.syncer.charge" />
             </call>
+        </service>
+        <service id="stripe_bundle.syncer.webhook_event" class="SerendipityHQ\Bundle\StripeBundle\Syncer\WebhookEventSyncer">
+            <argument type="service" id="stripe_bundle.entity_manager" />
             <call method="setCardSyncer">
                 <argument type="service" id="stripe_bundle.syncer.card" />
+            </call>
+            <call method="setChargeSyncer">
+                <argument type="service" id="stripe_bundle.syncer.charge" />
+            </call>
+            <call method="setCustomerSyncer">
+                <argument type="service" id="stripe_bundle.syncer.customer" />
             </call>
         </service>
     </services>

@@ -13,11 +13,13 @@ namespace SerendipityHQ\Bundle\StripeBundle\Service;
 
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
+use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalWebhookEvent;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\CardSyncer;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\ChargeSyncer;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\CustomerSyncer;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
+use SerendipityHQ\Bundle\StripeBundle\Syncer\WebhookEventSyncer;
 use Stripe\ApiResource;
 use Stripe\Charge;
 use Stripe\Collection;
@@ -28,10 +30,11 @@ use Stripe\Error\Base;
 use Stripe\Error\Card;
 use Stripe\Error\InvalidRequest;
 use Stripe\Error\RateLimit;
+use Stripe\Event;
 use Stripe\Stripe;
 
 /**
- * Manage the premium plans.
+ * Manages the Stripe's API calls
  */
 class StripeManager
 {
@@ -66,8 +69,9 @@ class StripeManager
      * @param CardSyncer             $cardSyncer
      * @param ChargeSyncer           $chargeSyncer
      * @param CustomerSyncer         $customerSyncer
+     * @param WebhookEventSyncer     $webhookEventSyncer
      */
-    public function __construct($secretKey, $environment, LoggerInterface $logger, CardSyncer $cardSyncer, ChargeSyncer $chargeSyncer, CustomerSyncer $customerSyncer)
+    public function __construct($secretKey, $environment, LoggerInterface $logger, CardSyncer $cardSyncer, ChargeSyncer $chargeSyncer, CustomerSyncer $customerSyncer, WebhookEventSyncer $webhookEventSyncer)
     {
         Stripe::setApiKey($secretKey);
         $this->environment = $environment;
@@ -75,6 +79,7 @@ class StripeManager
         $this->cardSyncer = $cardSyncer;
         $this->chargeSyncer = $chargeSyncer;
         $this->customerSyncer = $customerSyncer;
+        $this->WebhookEventSyncer = $webhookEventSyncer;
     }
 
     /**
@@ -215,12 +220,43 @@ class StripeManager
     /**
      * @param StripeLocalCustomer $localCustomer
      *
+     * @throws InvalidRequest
+     *
+     * @return bool|Customer|ApiResource
+     */
+    public function retrieveCustomer(StripeLocalCustomer $localCustomer)
+    {
+        // If no ID is set, return false
+        if (null === $localCustomer->getId()) {
+            return false;
+        }
+
+        // Return the stripe object that can be "false" or "Customer"
+        return $this->callStripe(Customer::class, 'retrieve', $localCustomer->getId());
+    }
+
+    /**
+     * @param string $eventStripeId
+     *
+     * @throws InvalidRequest
+     *
+     * @return bool|Event|ApiResource
+     */
+    public function retrieveEvent($eventStripeId)
+    {
+        // Return the stripe object that can be "false" or "Customer"
+        return $this->callStripe(Event::class, 'retrieve', $eventStripeId);
+    }
+
+    /**
+     * @param StripeLocalCustomer $localCustomer
+     *
      * @return bool
      */
     public function updateCustomer(StripeLocalCustomer $localCustomer)
     {
         // Get the stripe object
-        $stripeCustomer = $this->getCustomer($localCustomer);
+        $stripeCustomer = $this->retrieveCustomer($localCustomer);
 
         // The retrieving failed: return false
         if (false === $stripeCustomer) {
@@ -245,33 +281,16 @@ class StripeManager
     }
 
     /**
-     * @param StripeLocalCustomer $localCustomer
-     *
-     * @throws InvalidRequest
-     *
-     * @return bool|Customer|ApiResource
-     */
-    public function getCustomer(StripeLocalCustomer $localCustomer)
-    {
-        // If no ID is set, return false
-        if (null === $localCustomer->getId()) {
-            return false;
-        }
-
-        // Return the stripe object that can be "false" or "Customer"
-        return $this->callStripe(Customer::class, 'retrieve', $localCustomer->getId());
-    }
-
-    /**
      * @param \Exception $e
      *
-     * @return bool|string
+     * @return bool|string Returns false in "production" if something goes wrong.
+     *                     May return "retry" if rate limit is reached.
      *
-     * @throws ApiConnection
-     * @throws Authentication
-     * @throws Card
-     * @throws InvalidRequest
-     * @throws RateLimit
+     * @throws ApiConnection Only in dev and test environments
+     * @throws Authentication Only in dev and test environments
+     * @throws Card Only in dev and test environments
+     * @throws InvalidRequest Only in dev and test environments
+     * @throws RateLimit Only in dev and test environments
      */
     private function handleException(\Exception $e)
     {

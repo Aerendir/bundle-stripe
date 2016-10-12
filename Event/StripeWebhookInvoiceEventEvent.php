@@ -16,7 +16,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\Event;
  *
  * @author Adamo Crespi <hello@aerendir.me>
  */
-class StripeWebhookInvoiceEvent extends AbstractStripeWebhookEvent
+class StripeWebhookInvoiceEventEvent extends AbstractStripeWebhookEventEvent
 {
     /**
      * Occurs whenever a new invoice is created.

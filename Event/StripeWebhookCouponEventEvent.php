@@ -16,7 +16,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\Event;
  *
  * @author Adamo Crespi <hello@aerendir.me>
  */
-class StripeWebhookCouponEvent extends AbstractStripeWebhookEvent
+class StripeWebhookCouponEventEvent extends AbstractStripeWebhookEventEvent
 {
     /**
      * Occurs whenever a coupon is created.
