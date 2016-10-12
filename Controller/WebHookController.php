@@ -23,6 +23,7 @@ class WebHookController extends Controller
 {
     /**
      * @param Request $request
+     *
      * @return Response
      */
     public function NotifyAction(Request $request)

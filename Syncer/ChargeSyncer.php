@@ -10,6 +10,7 @@
  */
 
 namespace SerendipityHQ\Bundle\StripeBundle\Syncer;
+
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;
@@ -28,7 +29,7 @@ class ChargeSyncer extends AbstractSyncer
     /**
      * {@inheritdoc}
      */
-    public  function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource)
+    public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource)
     {
         /** @var StripeLocalCharge $localResource */
         if (!$localResource instanceof StripeLocalCharge) {

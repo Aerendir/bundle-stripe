@@ -10,6 +10,7 @@
  */
 
 namespace SerendipityHQ\Bundle\StripeBundle\Syncer;
+
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;

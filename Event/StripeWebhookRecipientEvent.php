@@ -22,23 +22,26 @@ class StripeWebhookRecipientEvent extends AbstractStripeWebhookEvent
      * Occurs whenever an recipient is created.
      *
      * @var string
+     *
      * @see https://stripe.com/docs/api#event_types-recipient.created
      */
-    const CREATED  = 'stripe.webhook.recipient.created';
+    const CREATED = 'stripe.webhook.recipient.created';
 
     /**
      * Occurs whenever an recipient is deleted.
      *
      * @var string
+     *
      * @see https://stripe.com/docs/api#event_types-recipient.deleted
      */
-    const DELETED  = 'stripe.webhook.recipient.deleted';
+    const DELETED = 'stripe.webhook.recipient.deleted';
 
     /**
      * Occurs whenever an recipient is updated.
      *
      * @var string
+     *
      * @see https://stripe.com/docs/api#event_types-recipient.updated
      */
-    const UPDATED  = 'stripe.webhook.recipient.updated';
+    const UPDATED = 'stripe.webhook.recipient.updated';
 }

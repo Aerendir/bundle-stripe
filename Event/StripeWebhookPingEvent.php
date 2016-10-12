@@ -22,7 +22,8 @@ class StripeWebhookPingEvent extends AbstractStripeWebhookEvent
      * May be sent by Stripe at any time to see if a provided webhook URL is working.
      *
      * @var string
+     *
      * @see https://stripe.com/docs/api#event_types-ping
      */
-    const PING  = 'stripe.webhook.ping';
+    const PING = 'stripe.webhook.ping';
 }

@@ -22,23 +22,26 @@ class StripeWebhookInvoiceItemEvent extends AbstractStripeWebhookEvent
      * Occurs whenever an invoice item is created.
      *
      * @var string
+     *
      * @see https://stripe.com/docs/api#event_types-invoiceitem.created
      */
-    const CREATED  = 'stripe.webhook.invoiceitem.created';
+    const CREATED = 'stripe.webhook.invoiceitem.created';
 
     /**
      * Occurs whenever an invoice item is deleted.
      *
      * @var string
+     *
      * @see https://stripe.com/docs/api#event_types-invoiceitem.deleted
      */
-    const DELETED  = 'stripe.webhook.invoiceitem.deleted';
+    const DELETED = 'stripe.webhook.invoiceitem.deleted';
 
     /**
      * Occurs whenever an invoice item is updated.
      *
      * @var string
+     *
      * @see https://stripe.com/docs/api#event_types-invoiceitem.updated
      */
-    const UPDATED  = 'stripe.webhook.invoiceitem.updated';
+    const UPDATED = 'stripe.webhook.invoiceitem.updated';
 }

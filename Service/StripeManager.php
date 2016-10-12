@@ -35,7 +35,7 @@ use Stripe\Stripe;
  */
 class StripeManager
 {
-    /** @var  string $environment */
+    /** @var string $environment */
     private $environment;
 
     /** @var LoggerInterface $logger */
@@ -60,12 +60,12 @@ class StripeManager
     private $customerSyncer;
 
     /**
-     * @param string $secretKey
-     * @param string $environment
+     * @param string                 $secretKey
+     * @param string                 $environment
      * @param LoggerInterface|Logger $logger
-     * @param CardSyncer $cardSyncer
-     * @param ChargeSyncer $chargeSyncer
-     * @param CustomerSyncer $customerSyncer
+     * @param CardSyncer             $cardSyncer
+     * @param ChargeSyncer           $chargeSyncer
+     * @param CustomerSyncer         $customerSyncer
      */
     public function __construct($secretKey, $environment, LoggerInterface $logger, CardSyncer $cardSyncer, ChargeSyncer $chargeSyncer, CustomerSyncer $customerSyncer)
     {
@@ -95,8 +95,9 @@ class StripeManager
         } catch (Base $e) {
             $return = $this->handleException($e);
 
-            if ('retry' === $return)
+            if ('retry' === $return) {
                 $return = $this->callStripe($endpoint, $action, $params);
+            }
         }
 
         // Reset the number of retries
@@ -111,7 +112,7 @@ class StripeManager
      * This method wraps the calls in a try / catch statement to intercept exceptions raised by the Stripe client.
      *
      * @param ApiResource $object
-     * @param string $method
+     * @param string      $method
      *
      * @return bool|ApiResource
      */
@@ -122,8 +123,9 @@ class StripeManager
         } catch (Base $e) {
             $return = $this->handleException($e);
 
-            if ('retry' === $return)
+            if ('retry' === $return) {
                 $return = $this->callStripeObject($object, $method);
+            }
         }
 
         // Reset the number of retries
@@ -138,8 +140,8 @@ class StripeManager
      * This method wraps the calls in a try / catch statement to intercept exceptions raised by the Stripe client.
      *
      * @param Collection $collection
-     * @param string $method
-     * @param array $options
+     * @param string     $method
+     * @param array      $options
      *
      * @return bool|ApiResource
      */
@@ -150,8 +152,9 @@ class StripeManager
         } catch (Base $e) {
             $return = $this->handleException($e);
 
-            if ('retry' === $return)
+            if ('retry' === $return) {
                 $return = $this->callStripeCollection($collection, $method, $options);
+            }
         }
 
         // Reset the number of retries
@@ -173,8 +176,9 @@ class StripeManager
         $stripeCharge = $this->callStripe(Charge::class, 'create', $details);
 
         // If the creation failed, return false
-        if (false === $stripeCharge)
+        if (false === $stripeCharge) {
             return false;
+        }
 
         // Set the data returned by Stripe in the LocalCustomer object
         $this->chargeSyncer->syncLocalFromStripe($localCharge, $stripeCharge);
@@ -197,8 +201,9 @@ class StripeManager
         $stripeCustomer = $this->callStripe(Customer::class, 'create', $details);
 
         // If the creation failed, return false
-        if (false === $stripeCustomer)
+        if (false === $stripeCustomer) {
             return false;
+        }
 
         // Set the data returned by Stripe in the LocalCustomer object
         $this->customerSyncer->syncLocalFromStripe($localCustomer, $stripeCustomer);
@@ -209,7 +214,7 @@ class StripeManager
 
     /**
      * @param StripeLocalCustomer $localCustomer
-     * 
+     *
      * @return bool
      */
     public function updateCustomer(StripeLocalCustomer $localCustomer)
@@ -218,8 +223,9 @@ class StripeManager
         $stripeCustomer = $this->getCustomer($localCustomer);
 
         // The retrieving failed: return false
-        if (false === $stripeCustomer)
+        if (false === $stripeCustomer) {
             return false;
+        }
 
         // Update the stripe object with info set in the local object
         $this->customerSyncer->syncStripeFromLocal($stripeCustomer, $localCustomer);
@@ -228,8 +234,9 @@ class StripeManager
         $stripeCustomer = $this->callStripeObject($stripeCustomer, 'save');
 
         // If the update failed, return false
-        if (false === $stripeCustomer)
+        if (false === $stripeCustomer) {
             return false;
+        }
 
         // Set the data returned by Stripe in the LocalCustomer object
         $this->customerSyncer->syncLocalFromStripe($localCustomer, $stripeCustomer);
@@ -247,8 +254,9 @@ class StripeManager
     public function getCustomer(StripeLocalCustomer $localCustomer)
     {
         // If no ID is set, return false
-        if (null === $localCustomer->getId())
+        if (null === $localCustomer->getId()) {
             return false;
+        }
 
         // Return the stripe object that can be "false" or "Customer"
         return $this->callStripe(Customer::class, 'retrieve', $localCustomer->getId());
@@ -256,6 +264,7 @@ class StripeManager
 
     /**
      * @param \Exception $e
+     *
      * @return bool|string
      *
      * @throws ApiConnection
@@ -269,8 +278,9 @@ class StripeManager
         // If we received a rate limit exception, we have to retry with an exponential backoff
         if ($e instanceof RateLimit) {
             // If the maximum number of retries is already reached
-            if ($this->retries >= $this->maxRetries)
+            if ($this->retries >= $this->maxRetries) {
                 goto raise;
+            }
 
             // First, put the script on sleep
             sleep($this->wait);
@@ -279,32 +289,32 @@ class StripeManager
             $this->wait += $this->wait;
 
             // Increment by 1 the number of retries
-            $this->retries++;
+            ++$this->retries;
 
             return 'retry';
-        }
-        elseif ($e instanceof Card) {
+        } elseif ($e instanceof Card) {
             die(dump('\Stripe\Error\Card error', $e));
         }
 
         // \Stripe\Error\Authentication, \Stripe\Error\InvalidRequest and \Stripe\Error\ApiConnection are raised immediately
         raise:
         $body = $e->getJsonBody();
-        $err  = $body['error'];
+        $err = $body['error'];
         $message = '[' . $e->getHttpStatus() . ' - ' . $e->getJsonBody()['error']['type'] . '] ' . $e->getMessage();
         $context = [
             'status' => $e->getHttpStatus(),
-            'type'   => isset($err['type']) ? $err['type'] : '',
-            'code'   => isset($err['code']) ? $err['code'] : '',
-            'param'  => isset($err['param']) ? $err['param'] : '',
+            'type' => isset($err['type']) ? $err['type'] : '',
+            'code' => isset($err['code']) ? $err['code'] : '',
+            'param' => isset($err['param']) ? $err['param'] : '',
             'request_id' => $e->getRequestId(),
             'stripe_version' => $e->getHttpHeaders()['Stripe-Version']
         ];
 
         $this->logger->error($message, $context);
 
-        if ('dev' === $this->environment || 'test' === $this->environment)
+        if ('dev' === $this->environment || 'test' === $this->environment) {
             throw $e;
+        }
 
         return false;
     }

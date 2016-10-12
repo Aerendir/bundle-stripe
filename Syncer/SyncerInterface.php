@@ -31,7 +31,7 @@ interface SyncerInterface
      * setter.
      *
      * @param StripeLocalResourceInterface $localResource
-     * @param ApiResource $stripeResource
+     * @param ApiResource                  $stripeResource
      *
      * @return StripeLocalResourceInterface
      */
@@ -46,7 +46,7 @@ interface SyncerInterface
      * For example, a Card object has the field cvc_check that has to be updatable from a \Stripe\Card but not using a
      * setter.
      *
-     * @param ApiResource $stripeResource
+     * @param ApiResource                  $stripeResource
      * @param StripeLocalResourceInterface $localResource
      *
      * @return StripeLocalResourceInterface

@@ -16,20 +16,22 @@ namespace SerendipityHQ\Bundle\StripeBundle\Event;
  *
  * @author Adamo Crespi <hello@aerendir.me>
  */
-class StripeWebhookAccountAEvent extends AbstractStripeWebhookEvent
+class StripeWebhookAccountEvent extends AbstractStripeWebhookEvent
 {
     /**
      * Occurs whenever an account status or property has changed.
      *
      * @var string
+     *
      * @see https://stripe.com/docs/api#event_types-account.updated
      */
-    const UPDATED  = 'stripe.webhook.account.updated';
+    const UPDATED = 'stripe.webhook.account.updated';
 
     /**
      * Occurs whenever a user deauthorizes an application. Sent to the related application only.
      *
      * @var string
+     *
      * @see https://stripe.com/docs/api#event_types-account.application.deauthorized
      */
     const APPLICATION_DEAUTHORIZED = 'stripe.webhook.account.application.deauthorized';
@@ -38,6 +40,7 @@ class StripeWebhookAccountAEvent extends AbstractStripeWebhookEvent
      * Occurs whenever an external account is created.
      *
      * @var string
+     *
      * @see https://stripe.com/docs/api#event_types-account.external_account.created
      */
     const EXTERNAL_ACCOUNT_CREATED = 'stripe.webhook.account.external_account.created';
@@ -46,6 +49,7 @@ class StripeWebhookAccountAEvent extends AbstractStripeWebhookEvent
      * Occurs whenever an external account is deleted.
      *
      * @var string
+     *
      * @see https://stripe.com/docs/api#event_types-account.external_account.deleted
      */
     const EXTERNAL_ACCOUNT_DELETED = 'stripe.webhook.account.external_account.deleted';
@@ -54,6 +58,7 @@ class StripeWebhookAccountAEvent extends AbstractStripeWebhookEvent
      * Occurs whenever an external account is updated.
      *
      * @var string
+     *
      * @see https://stripe.com/docs/api#event_types-account.external_account.updated
      */
     const EXTERNAL_ACCOUNT_UPDATED = 'stripe.webhook.account.external_account.updated';

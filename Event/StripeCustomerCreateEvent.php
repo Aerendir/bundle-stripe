@@ -18,7 +18,7 @@ use Stripe\Customer;
  */
 class StripeCustomerCreateEvent extends AbstractStripeCustomerEvent
 {
-    const CREATE  = 'stripe.local.customer.create';
+    const CREATE = 'stripe.local.customer.create';
     const CREATED = 'stripe.local.customer.created';
-    const FAILED  = 'stripe.local.customer.create_failed';
+    const FAILED = 'stripe.local.customer.create_failed';
 }
