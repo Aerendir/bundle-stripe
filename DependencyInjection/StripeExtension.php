@@ -38,11 +38,12 @@ class StripeExtension extends Extension
         $container->setParameter('stripe_bundle.stripe_config', $config['stripe_config']);
         $container->setParameter('stripe_bundle.endpoint', $config['endpoint']);
 
-        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('services.xml');
-        $loader->load('listeners.xml');
+        $filelocator = new FileLocator(__DIR__ . '/../Resources/config');
+        $xmlLoader = new Loader\XmlFileLoader($container, $filelocator);
+        $xmlLoader->load('listeners.xml');
+        $xmlLoader->load('services.xml');
 
         // load db_driver container configuration
-        $loader->load(sprintf('%s.xml', $config['db_driver']));
+        $xmlLoader->load(sprintf('%s.xml', $config['db_driver']));
     }
 }

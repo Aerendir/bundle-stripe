@@ -1,0 +1,44 @@
+<?php
+
+/*
+ * This file is part of the SerendipityHQ Stripe Bundle.
+ *
+ * Copyright (c) Adamo Crespi <hello@aerendir.me>.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace SerendipityHQ\Bundle\StripeBundle\Event;
+
+/**
+ * Dispatched when a sku.* event has been received by the webhook endpoint.
+ *
+ * @author Adamo Crespi <hello@aerendir.me>
+ */
+class StripeWebhookSkuEvent extends AbstractStripeWebhookEvent
+{
+    /**
+     * Occurs whenever an sku is created.
+     *
+     * @var string
+     * @see https://stripe.com/docs/api#event_types-sku.created
+     */
+    const CREATED  = 'stripe.webhook.sku.created';
+
+    /**
+     * Occurs whenever an sku is deleted.
+     *
+     * @var string
+     * @see https://stripe.com/docs/api#event_types-sku.deleted
+     */
+    const DELETED  = 'stripe.webhook.sku.deleted';
+
+    /**
+     * Occurs whenever an sku is updated.
+     *
+     * @var string
+     * @see https://stripe.com/docs/api#event_types-sku.updated
+     */
+    const UPDATED  = 'stripe.webhook.sku.updated';
+}

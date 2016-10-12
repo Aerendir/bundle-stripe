@@ -11,7 +11,10 @@
 
 namespace SerendipityHQ\Bundle\StripeBundle\Controller;
 
+use Stripe\Event;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * {@inheritdoc}
@@ -19,10 +22,25 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class WebHookController extends Controller
 {
     /**
-     * @return array
+     * @param Request $request
+     * @return Response
      */
-    public function NotifyAction()
+    public function NotifyAction(Request $request)
     {
-        return [];
+        /** @var Event $content */
+        $content = json_decode($request->getContent(), true);
+
+
+
+        /*
+        $this->container->get('event_dispatcher')->dispatch(
+            'mrp_stripe_webhook.generic',
+            new StripeWebhookEvent($event, $content)
+        );
+        $this->container->get('event_dispatcher')->dispatch(
+            'mrp_stripe_webhook.'. $event,
+            new StripeWebhookEvent($event, $content)
+        );*/
+        return new Response('ok', 200);
     }
 }
