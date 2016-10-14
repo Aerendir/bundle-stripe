@@ -13,7 +13,6 @@ namespace SerendipityHQ\Bundle\StripeBundle\Service;
 
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
-use SerendipityHQ\Bundle\StripeBundle\Syncer\CardSyncer;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\ChargeSyncer;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\CustomerSyncer;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
@@ -52,9 +51,6 @@ class StripeManager
     /** @var int $wait The time in seconds the manager has to wait before retrying the request */
     private $wait = 1;
 
-    /** @var CardSyncer $cardSyncer */
-    private $cardSyncer;
-
     /** @var ChargeSyncer $chargeSyncer */
     private $chargeSyncer;
 
@@ -65,17 +61,15 @@ class StripeManager
      * @param string                 $secretKey
      * @param string                 $environment
      * @param LoggerInterface|Logger $logger
-     * @param CardSyncer             $cardSyncer
      * @param ChargeSyncer           $chargeSyncer
      * @param CustomerSyncer         $customerSyncer
      * @param WebhookEventSyncer     $webhookEventSyncer
      */
-    public function __construct($secretKey, $environment, LoggerInterface $logger, CardSyncer $cardSyncer, ChargeSyncer $chargeSyncer, CustomerSyncer $customerSyncer, WebhookEventSyncer $webhookEventSyncer)
+    public function __construct($secretKey, $environment, LoggerInterface $logger, ChargeSyncer $chargeSyncer, CustomerSyncer $customerSyncer, WebhookEventSyncer $webhookEventSyncer)
     {
         Stripe::setApiKey($secretKey);
         $this->environment = $environment;
         $this->logger = $logger instanceof Logger ? $logger->withName('StripeBundle') : $logger;
-        $this->cardSyncer = $cardSyncer;
         $this->chargeSyncer = $chargeSyncer;
         $this->customerSyncer = $customerSyncer;
         $this->WebhookEventSyncer = $webhookEventSyncer;

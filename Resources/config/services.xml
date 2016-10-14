@@ -10,7 +10,6 @@
             <argument>%stripe.secret_key%</argument>
             <argument>%kernel.environment%</argument>
             <argument type="service" id="logger" />
-            <argument type="service" id="stripe_bundle.syncer.card" />
             <argument type="service" id="stripe_bundle.syncer.charge" />
             <argument type="service" id="stripe_bundle.syncer.customer" />
             <argument type="service" id="stripe_bundle.syncer.webhook_event" />
