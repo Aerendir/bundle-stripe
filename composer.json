@@ -26,6 +26,7 @@
         "doctrine/doctrine-bundle": "*",
         "doctrine/common": "~2.4",
         "friendsofphp/php-cs-fixer": "*",
+        "monolog/monolog": "*",
         "phpunit/phpunit": "*",
         "symfony/yaml": "~2.5",
         "symfony/var-dumper": "*"
