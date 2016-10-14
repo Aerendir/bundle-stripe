@@ -10,5 +10,6 @@
         <field name="pendingWebhooks" type="integer" column="pending_webhooks" nullable="false" length="200" />
         <field name="request" type="string" column="request" nullable="true" length="40" />
         <field name="type" type="string" column="type" nullable="false" />
+        <field name="data" type="text" column="data" nullable="true" />
     </entity>
 </doctrine-mapping>

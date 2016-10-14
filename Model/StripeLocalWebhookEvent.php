@@ -103,6 +103,19 @@ class StripeLocalWebhookEvent implements StripeLocalResourceInterface
     }
 
     /**
+     * @param string $data
+     * @return $this
+     */
+    public function setData($data)
+    {
+        // Set data only if the property is null to avoid overwriting and preserve the immutability
+        if (null === $this->data)
+            $this->data = $data;
+
+        return $this;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function toStripe($action)

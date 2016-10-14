@@ -80,11 +80,13 @@ class WebhookEventSyncer extends AbstractSyncer
         // Ever first persist the $localStripeResource: descendant syncers may require the object is known by the EntityManager.
         $this->getEntityManager()->persist($localResource);
 
-        // Out of the foreach, process the data to understand if they are a string or a local object.
-        //die(dump($stripeResource->data['object']));
-        /*switch () {
-            case '':
-                /*
+        // Now process the "data" property: here there are the object involved by this event
+        switch ($stripeResource->data->object->object) {
+            default:
+                // The event type is not supported: persist data directly in the webhook_events table, in the event's row
+                $localResource->setData($stripeResource->data->object->__toString());
+            /*
+                case '':
                 $stripeDefaultCard = $stripeResource->sources->retrieve($stripeResource->default_source);
                 $localCard = $this->getEntityManager()->getRepository('StripeBundle:StripeLocalCard')->findOneBy(['id' => $stripeDefaultCard->id]);
 
@@ -107,10 +109,9 @@ class WebhookEventSyncer extends AbstractSyncer
                 $defaultSourceProperty = $reflect->getProperty('defaultSource');
                 $defaultSourceProperty->setAccessible(true);
                 $defaultSourceProperty->setValue($localResource, $localCard);
-                *
                 break;
+            */
         }
-        */
 
         $this->getEntityManager()->flush();
     }
