@@ -15,6 +15,10 @@ engines:
                 enabled: false
             Design/TooManyFields:
                 enabled: false
+        exclude_fingerprints:
+            - 7a283bcd86064bda3fbe9667aae1cf82
+            - c38fdeddb93fa4922ed66544e7f62fb3
+            - ac278cf33dc9365db00a6de30e4da3ab
 ratings:
     paths:
     - "**.php"
