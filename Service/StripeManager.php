@@ -81,8 +81,8 @@ class StripeManager
      * This method wraps the calls in a try / catch statement to intercept exceptions raised by the Stripe client.
      *
      * @param ApiResource $endpoint
-     * @param string $action
-     * @param array  $params
+     * @param string      $action
+     * @param array       $params
      *
      * @return bool|ApiResource
      */
