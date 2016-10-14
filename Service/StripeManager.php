@@ -13,7 +13,6 @@ namespace SerendipityHQ\Bundle\StripeBundle\Service;
 
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
-use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalWebhookEvent;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\CardSyncer;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\ChargeSyncer;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\CustomerSyncer;
@@ -34,7 +33,7 @@ use Stripe\Event;
 use Stripe\Stripe;
 
 /**
- * Manages the Stripe's API calls
+ * Manages the Stripe's API calls.
  */
 class StripeManager
 {
@@ -284,13 +283,13 @@ class StripeManager
      * @param \Exception $e
      *
      * @return bool|string Returns false in "production" if something goes wrong.
-     *                     May return "retry" if rate limit is reached.
+     *                     May return "retry" if rate limit is reached
      *
-     * @throws ApiConnection Only in dev and test environments
+     * @throws ApiConnection  Only in dev and test environments
      * @throws Authentication Only in dev and test environments
-     * @throws Card Only in dev and test environments
+     * @throws Card           Only in dev and test environments
      * @throws InvalidRequest Only in dev and test environments
-     * @throws RateLimit Only in dev and test environments
+     * @throws RateLimit      Only in dev and test environments
      */
     private function handleException(\Exception $e)
     {

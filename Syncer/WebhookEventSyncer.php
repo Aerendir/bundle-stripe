@@ -16,7 +16,6 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalWebhookEvent;
-use SerendipityHQ\Component\ValueObjects\Email\Email;
 use Stripe\ApiResource;
 use Stripe\Customer;
 use Stripe\Event;
@@ -93,8 +92,9 @@ class WebhookEventSyncer extends AbstractSyncer
                 $localCharge = $this->getEntityManager()->getRepository('StripeBundle:StripeLocalCharge')->findOneByStripeId($stripeObjectData->id);
 
                 // Create the new Local object if it doesn't exist
-                if (null === $localCharge)
+                if (null === $localCharge) {
                     $localCharge = new StripeLocalCharge();
+                }
 
                 // Sync the local object with the remote one
                 $this->getChargeSyncer()->syncLocalFromStripe($localCharge, $stripeObjectData);
@@ -105,8 +105,9 @@ class WebhookEventSyncer extends AbstractSyncer
                 $localCustomer = $this->getEntityManager()->getRepository('StripeBundle:StripeLocalCustomer')->findOneByStripeId($stripeObjectData->id);
 
                 // Create the new Local object if it doesn't exist
-                if (null === $localCustomer)
+                if (null === $localCustomer) {
                     $localCustomer = new StripeLocalCustomer();
+                }
 
                 // Sync the local object with the remote one
                 $this->getChargeSyncer()->syncLocalFromStripe($localCustomer, $stripeResource->data->object);
