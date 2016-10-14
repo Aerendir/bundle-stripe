@@ -24,14 +24,14 @@ abstract class AbstractSyncer implements SyncerInterface
     /** @var EntityManager $entityManager */
     private $entityManager;
 
-    /** @var CardSyncer $cardHydrator */
-    private $cardHydrator;
+    /** @var CardSyncer $cardSyncer */
+    private $cardSyncer;
 
-    /** @var ChargeSyncer $chargeHydrator */
-    private $chargeHydrator;
+    /** @var ChargeSyncer $chargeSyncer */
+    private $chargeSyncer;
 
-    /** @var CustomerSyncer $customerHydrator */
-    private $customerHydrator;
+    /** @var CustomerSyncer $customerSyncer */
+    private $customerSyncer;
 
     /**
      * @param EntityManager $entityManager
@@ -54,7 +54,7 @@ abstract class AbstractSyncer implements SyncerInterface
      */
     public function getCardSyncer()
     {
-        return $this->cardHydrator;
+        return $this->cardSyncer;
     }
 
     /**
@@ -62,39 +62,39 @@ abstract class AbstractSyncer implements SyncerInterface
      */
     public function getChargeSyncer()
     {
-        return $this->chargeHydrator;
+        return $this->chargeSyncer;
     }
 
     /**
-     * @return CardSyncer
+     * @return CustomerSyncer
      */
     public function getCustomerSyncer()
     {
-        return $this->cardHydrator;
+        return $this->customerSyncer;
     }
 
     /**
-     * @param CardSyncer $cardHydrator
+     * @param CardSyncer $cardSyncer
      */
-    public function setCardSyncer(CardSyncer $cardHydrator)
+    public function setCardSyncer(CardSyncer $cardSyncer)
     {
-        $this->cardHydrator = $cardHydrator;
+        $this->cardSyncer = $cardSyncer;
     }
 
     /**
-     * @param ChargeSyncer $chargeHydrator
+     * @param ChargeSyncer $chargeSyncer
      */
-    public function setChargeSyncer(ChargeSyncer $chargeHydrator)
+    public function setChargeSyncer(ChargeSyncer $chargeSyncer)
     {
-        $this->chargeHydrator = $chargeHydrator;
+        $this->chargeSyncer = $chargeSyncer;
     }
 
     /**
-     * @param CustomerSyncer $customerHydrator
+     * @param CustomerSyncer $customerSyncer
      */
-    public function setCustomerSyncer(CustomerSyncer $customerHydrator)
+    public function setCustomerSyncer(CustomerSyncer $customerSyncer)
     {
-        $this->customerHydrator = $customerHydrator;
+        $this->customerSyncer = $customerSyncer;
     }
 
     /**
