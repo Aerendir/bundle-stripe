@@ -39,7 +39,7 @@ class StripeLocalWebhookEvent implements StripeLocalResourceInterface
      * If null, the event was automatic (e.g. Stripe’s automatic subscription handling).
      * Request logs are available in the dashboard but currently not in the API.
      *
-     * @var string $request
+     * @var string
      */
     private $request;
 
@@ -104,13 +104,15 @@ class StripeLocalWebhookEvent implements StripeLocalResourceInterface
 
     /**
      * @param string $data
+     *
      * @return $this
      */
     public function setData($data)
     {
         // Set data only if the property is null to avoid overwriting and preserve the immutability
-        if (null === $this->data)
+        if (null === $this->data) {
             $this->data = $data;
+        }
 
         return $this;
     }

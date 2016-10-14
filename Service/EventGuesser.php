@@ -35,7 +35,7 @@ use Stripe\Event;
 class EventGuesser
 {
     /**
-     * @param Event $stripeEvent
+     * @param Event                   $stripeEvent
      * @param StripeLocalWebhookEvent $localEventEntity
      *
      * @return array
@@ -47,6 +47,7 @@ class EventGuesser
         switch ($pieces['kind']) {
             case 'account':
                 $disptachingEvent = new StripeWebhookAccountEventEvent($localEventEntity);
+
                 return [
                     'type' => constant(StripeWebhookAccountEventEvent::class . '::' . $pieces['type']),
                     'object' => $disptachingEvent
@@ -55,6 +56,7 @@ class EventGuesser
 
             case 'application_fee':
                 $disptachingEvent = new StripeWebhookApplicationFeeEventEvent($localEventEntity);
+
                 return [
                     'type' => constant(StripeWebhookApplicationFeeEventEvent::class . '::' . $pieces['type']),
                     'object' => $disptachingEvent
@@ -63,6 +65,7 @@ class EventGuesser
 
             case 'balance':
                 $disptachingEvent = new StripeWebhookBalanceEventEvent($localEventEntity);
+
                 return [
                     'type' => constant(StripeWebhookBalanceEventEvent::class . '::' . $pieces['type']),
                     'object' => $disptachingEvent
@@ -71,6 +74,7 @@ class EventGuesser
 
             case 'bitcoin':
                 $disptachingEvent = new StripeWebhookBitcoinEventEvent($localEventEntity);
+
                 return [
                     'type' => constant(StripeWebhookBitcoinEventEvent::class . '::' . $pieces['type']),
                     'object' => $disptachingEvent
@@ -79,6 +83,7 @@ class EventGuesser
 
             case 'charge':
                 $disptachingEvent = new StripeWebhookChargeEventEvent($localEventEntity);
+
                 return [
                     'type' => constant(StripeWebhookChargeEventEvent::class . '::' . $pieces['type']),
                     'object' => $disptachingEvent
@@ -87,6 +92,7 @@ class EventGuesser
 
             case 'coupon':
                 $disptachingEvent = new StripeWebhookCouponEventEvent($localEventEntity);
+
                 return [
                     'type' => constant(StripeWebhookCouponEventEvent::class . '::' . $pieces['type']),
                     'object' => $disptachingEvent
@@ -95,6 +101,7 @@ class EventGuesser
 
             case 'customer':
                 $disptachingEvent = new StripeWebhookCustomerEventEvent($localEventEntity);
+
                 return [
                     'type' => constant(StripeWebhookCustomerEventEvent::class . '::' . $pieces['type']),
                     'object' => $disptachingEvent
@@ -103,6 +110,7 @@ class EventGuesser
 
             case 'invoice':
                 $disptachingEvent = new StripeWebhookInvoiceEventEvent($localEventEntity);
+
                 return [
                     'type' => constant(StripeWebhookInvoiceEventEvent::class . '::' . $pieces['type']),
                     'object' => $disptachingEvent
@@ -111,6 +119,7 @@ class EventGuesser
 
             case 'invpiceitem':
                 $disptachingEvent = new StripeWebhookInvoiceItemEventEvent($localEventEntity);
+
                 return [
                     'type' => constant(StripeWebhookInvoiceItemEventEvent::class . '::' . $pieces['type']),
                     'object' => $disptachingEvent
@@ -119,6 +128,7 @@ class EventGuesser
 
             case 'order':
                 $disptachingEvent = new StripeWebhookOrderEventEvent($localEventEntity);
+
                 return [
                     'type' => constant(StripeWebhookOrderEventEvent::class . '::' . $pieces['type']),
                     'object' => $disptachingEvent
@@ -127,6 +137,7 @@ class EventGuesser
 
             case 'order_return':
                 $disptachingEvent = new StripeWebhookOrderReturnEventEvent($localEventEntity);
+
                 return [
                     'type' => constant(StripeWebhookOrderReturnEventEvent::class . '::' . $pieces['type']),
                     'object' => $disptachingEvent
@@ -135,6 +146,7 @@ class EventGuesser
 
             case 'plan':
                 $disptachingEvent = new StripeWebhookPlanEventEvent($localEventEntity);
+
                 return [
                     'type' => constant(StripeWebhookPlanEventEvent::class . '::' . $pieces['type']),
                     'object' => $disptachingEvent
@@ -143,6 +155,7 @@ class EventGuesser
 
             case 'product':
                 $disptachingEvent = new StripeWebhookProductEventEvent($localEventEntity);
+
                 return [
                     'type' => constant(StripeWebhookProductEventEvent::class . '::' . $pieces['type']),
                     'object' => $disptachingEvent
@@ -151,6 +164,7 @@ class EventGuesser
 
             case 'recipient':
                 $disptachingEvent = new StripeWebhookRecipientEventEvent($localEventEntity);
+
                 return [
                     'type' => constant(StripeWebhookRecipientEventEvent::class . '::' . $pieces['type']),
                     'object' => $disptachingEvent
@@ -159,6 +173,7 @@ class EventGuesser
 
             case 'sku':
                 $disptachingEvent = new StripeWebhookSkuEventEvent($localEventEntity);
+
                 return [
                     'type' => constant(StripeWebhookSkuEventEvent::class . '::' . $pieces['type']),
                     'object' => $disptachingEvent
@@ -167,6 +182,7 @@ class EventGuesser
 
             case 'source':
                 $disptachingEvent = new StripeWebhookSourceEventEvent($localEventEntity);
+
                 return [
                     'type' => constant(StripeWebhookSourceEventEvent::class . '::' . $pieces['type']),
                     'object' => $disptachingEvent
@@ -175,6 +191,7 @@ class EventGuesser
 
             case 'transfer':
                 $disptachingEvent = new StripeWebhookTransferEventEvent($localEventEntity);
+
                 return [
                     'type' => constant(StripeWebhookTransferEventEvent::class . '::' . $pieces['type']),
                     'object' => $disptachingEvent
@@ -183,6 +200,7 @@ class EventGuesser
 
             case 'ping':
                 $disptachingEvent = new StripeWebhookPingEventEvent($localEventEntity);
+
                 return [
                     'type' => constant(StripeWebhookPingEventEvent::class . '::' . $pieces['type']),
                     'object' => $disptachingEvent
