@@ -11,8 +11,6 @@
 
 namespace SerendipityHQ\Bundle\StripeBundle\Event;
 
-use Stripe\Customer;
-
 /**
  * Dispatched when a Cusrtomer has to be updated.
  */

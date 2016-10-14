@@ -11,7 +11,6 @@
 
 namespace SerendipityHQ\Bundle\StripeBundle\Model;
 
-use SerendipityHQ\Component\ValueObjects\Currency\Currency;
 use SerendipityHQ\Component\ValueObjects\Email\Email;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 
