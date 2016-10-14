@@ -1,6 +1,7 @@
 <?php
 
 namespace SerendipityHQ\Bundle\StripeBundle\Tests\Model;
+
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
@@ -23,7 +24,7 @@ class StripeLocalChargeTest extends ModelTestCase
         $mockCard = $this->createMock(StripeLocalCard::class);
         $mockCard->method('getId')->willReturn('123');
 
-        $test     = [
+        $test = [
             'id' => 'this_is_the_id',
             'amount' => $this->createMock(Money::class),
             'balanceTransaction' => '0',
