@@ -12,6 +12,7 @@
 namespace SerendipityHQ\Bundle\StripeBundle\Syncer;
 
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard;
+use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalWebhookEvent;
@@ -59,6 +60,10 @@ class WebhookEventSyncer extends AbstractSyncer
                     $reflectedProperty->setValue($localResource, $created->setTimestamp($stripeResource->created));
                     break;
 
+                case 'data':
+                    $reflectedProperty->setValue($localResource, $stripeResource->data->__toString());
+                    break;
+
                 case 'livemode':
                     $reflectedProperty->setValue($localResource, $stripeResource->livemode);
                     break;
@@ -80,37 +85,49 @@ class WebhookEventSyncer extends AbstractSyncer
         // Ever first persist the $localStripeResource: descendant syncers may require the object is known by the EntityManager.
         $this->getEntityManager()->persist($localResource);
 
+        $stripeObjectData = $stripeResource->data->object;
         // Now process the "data" property: here there are the object involved by this event
-        switch ($stripeResource->data->object->object) {
-            default:
-                // The event type is not supported: persist data directly in the webhook_events table, in the event's row
-                $localResource->setData($stripeResource->data->object->__toString());
-            /*
-                case '':
-                $stripeDefaultCard = $stripeResource->sources->retrieve($stripeResource->default_source);
-                $localCard = $this->getEntityManager()->getRepository('StripeBundle:StripeLocalCard')->findOneBy(['id' => $stripeDefaultCard->id]);
+        switch ($stripeObjectData->object) {
+            case 'charge':
+                // Get the Charge from the database
+                $localCharge = $this->getEntityManager()->getRepository('StripeBundle:StripeLocalCharge')->findOneByStripeId($stripeObjectData->id);
 
-                // Chek if the card exists
-                if (null === $localCard) {
-                    // It doesn't exist: create and persist it
-                    $localCard = new StripeLocalCard();
-                }
+                // Create the new Local object if it doesn't exist
+                if (null === $localCharge)
+                    $localCharge = new StripeLocalCharge();
 
-                // Sync the local card with the remote object
-                $this->getCardSyncer()->syncLocalFromStripe($localCard, $stripeDefaultCard);
-
-                /*
-                 * Persist the card again: if it is a newly created card, we have to persist it, but, as the id of a local card
-                 * is its Stripe ID, we can persist it only after the sync.
-                 *
-                $this->getEntityManager()->persist($localCard);
-
-                // Now set the Card as default source of the StripeLocalCustomer object
-                $defaultSourceProperty = $reflect->getProperty('defaultSource');
-                $defaultSourceProperty->setAccessible(true);
-                $defaultSourceProperty->setValue($localResource, $localCard);
+                // Sync the local object with the remote one
+                $this->getChargeSyncer()->syncLocalFromStripe($localCharge, $stripeObjectData);
                 break;
-            */
+
+            case 'customer':
+                // Get the Charge from the database
+                $localCustomer = $this->getEntityManager()->getRepository('StripeBundle:StripeLocalCustomer')->findOneByStripeId($stripeObjectData->id);
+
+                // Create the new Local object if it doesn't exist
+                if (null === $localCustomer)
+                    $localCustomer = new StripeLocalCustomer();
+
+                // Sync the local object with the remote one
+                $this->getChargeSyncer()->syncLocalFromStripe($localCustomer, $stripeResource->data->object);
+                break;
+
+            case 'source':
+                // If the source is a card, process it (maybe it is a bitcoin source that is not supported)
+                if ('card' === $stripeObjectData->source->object) {
+                    // Get the loca l object
+                    $localCard = $this->getEntityManager()->getRepository('StripeBundle:StripeLocalCard')->findOneByStripeId($stripeObjectData->source->id);
+
+                    // Chek if the card exists
+                    if (null === $localCard) {
+                        // It doesn't exist: create and persist it
+                        $localCard = new StripeLocalCard();
+                    }
+
+                    // Sync the local card with the remote object
+                    $this->getCardSyncer()->syncLocalFromStripe($localCard, $stripeObjectData->source);
+                }
+                break;
         }
 
         $this->getEntityManager()->flush();

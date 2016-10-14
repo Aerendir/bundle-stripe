@@ -1,3 +1,7 @@
 _stripe_bundle_endpoint:
-  path: /endpoint/stripe/notify
-  defaults: { _controller: StripeBundle:Webhook:notify }
+    path: /endpoint/stripe/notify
+    defaults: { _controller: StripeBundle:Webhook:notify }
+
+_stripe_bundle_endpoint_dump:
+    path: /endpoint/stripe/dump
+    defaults: { _controller: StripeBundle:Webhook:dump }

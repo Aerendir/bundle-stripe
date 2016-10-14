@@ -53,4 +53,12 @@ class WebhookController extends Controller
 
         return new Response('ok', 200);
     }
+
+    public function dumpAction()
+    {
+        // Get the event again the Event from Stripe for security reasons
+        $event = $this->get('stripe_bundle.manager.stripe_api')->retrieveEvent('evt_194SwfJeKiEdErWDLQd9pH6G');
+        //$localCharge = $this->get('stripe_bundle.entity_manager')->getRepository('StripeBundle:StripeLocalCharge')->findOneByStripeId($event->data->object->id);
+        die(dump($event->da->__toString()));
+    }
 }
