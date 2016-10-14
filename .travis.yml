@@ -18,12 +18,12 @@ script:
     - phpenv config-rm xdebug.ini || return 0
 
 after_script:
-  - CODECLIMATE_REPO_TOKEN="5b637b19c0d7a15be90c9a6d123d3cb8f10a30cfdff84fdcd47e76be4a6700e7" vendor/bin/test-reporter --stdout > codeclimate.json
+  - CODECLIMATE_REPO_TOKEN="88a73a48685982ddd8ed5ba5e4b5fc098f9fa3419cb88aebb043ea0d32dad428" vendor/bin/test-reporter --stdout > codeclimate.json
   - "curl -X POST -d @codeclimate.json -H 'Content-Type: application/json' -H 'User-Agent: Code Climate (PHP Test Reporter v0.1.1)' https://codeclimate.com/test_reports"
 
 addons:
   code_climate:
-    repo_token: 5b637b19c0d7a15be90c9a6d123d3cb8f10a30cfdff84fdcd47e76be4a6700e7
+    repo_token: 88a73a48685982ddd8ed5ba5e4b5fc098f9fa3419cb88aebb043ea0d32dad428
 
 after_success:
     - php vendor/bin/coveralls -v

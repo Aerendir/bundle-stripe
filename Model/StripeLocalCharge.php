@@ -188,7 +188,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getFraudDetails()
     {
@@ -196,7 +196,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getMetadata()
     {
@@ -301,10 +301,14 @@ class StripeLocalCharge implements StripeLocalResourceInterface
 
     /**
      * @param Email $email
+     *
+     * @return $this
      */
     public function setReceiptEmail(Email $email)
     {
         $this->receiptEmail = $email;
+
+        return $this;
     }
 
     /**
