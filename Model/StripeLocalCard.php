@@ -53,7 +53,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /** @var string $country Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you’ve collected. */
     private $country;
 
-    /** @var null|StripeLocalCustomer $customer The customer that this card belongs to. This attribute will not be in the card object if the card belongs to an account or recipient instead. */
+    /** @var StripeLocalCustomer $customer The customer that this card belongs to. This attribute will not be in the card object if the card belongs to an account or recipient instead. */
     private $customer;
 
     /** @var null|string $cvcCheck If a CVC was provided, results of the check: pass, fail, unavailable, or unchecked */
@@ -105,13 +105,10 @@ class StripeLocalCard implements StripeLocalResourceInterface
     public function addCharge(StripeLocalCharge $charge)
     {
         // If the cards is already set
-        if ($this->charges->contains($charge)) {
-            // Return
-            return $this;
+        if (false === $this->charges->contains($charge)) {
+            // Add the card to the collection
+            $this->charges->add($charge);
         }
-
-        // Add the card to the collection
-        $this->charges->add($charge);
 
         return $this;
     }
@@ -213,7 +210,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @return null|string
+     * @return StripeLocalCustomer
      */
     public function getCustomer()
     {
