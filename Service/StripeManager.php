@@ -80,9 +80,9 @@ class StripeManager
      *
      * This method wraps the calls in a try / catch statement to intercept exceptions raised by the Stripe client.
      *
-     * @param $endpoint
-     * @param $action
-     * @param $params
+     * @param string $endpoint
+     * @param string $action
+     * @param array $params
      *
      * @return bool|ApiResource
      */
@@ -305,7 +305,11 @@ class StripeManager
 
             return 'retry';
         } elseif ($e instanceof Card) {
-            die(dump('\Stripe\Error\Card error', $e));
+            if ('dev' === $this->environment || 'test' === $this->environment) {
+                throw $e;
+            }
+
+            return false;
         }
 
         // \Stripe\Error\Authentication, \Stripe\Error\InvalidRequest and \Stripe\Error\ApiConnection are raised immediately
