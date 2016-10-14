@@ -1,13 +1,11 @@
 <?php
 
 namespace SerendipityHQ\Bundle\StripeBundle\Tests\Model;
+
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
 use SerendipityHQ\Bundle\StripeBundle\Tests\ModelTestCase;
-use SerendipityHQ\Component\ValueObjects\Currency\Currency;
-use SerendipityHQ\Component\ValueObjects\Email\Email;
-use SerendipityHQ\Component\ValueObjects\Money\Money;
 
 /**
  * Tests the StripeLocalCard entity.
