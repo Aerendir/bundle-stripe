@@ -82,7 +82,7 @@ class StripeManager
      *
      * @param string $endpoint
      * @param string $action
-     * @param array $params
+     * @param array  $params
      *
      * @return bool|ApiResource
      */
