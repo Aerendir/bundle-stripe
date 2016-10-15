@@ -1,6 +1,7 @@
 <?php
 
 namespace SerendipityHQ\Bundle\StripeBundle\Tests\Model;
+
 use SerendipityHQ\Bundle\StripeBundle\Form\Type\CreditCardStripeTokenType;
 use Symfony\Component\Form\Test\TypeTestCase;
 
@@ -27,7 +28,7 @@ class CreditCardStripeTokenTypeTest extends TypeTestCase
         $view = $form->createView();
         $children = $view->children;
 
-        foreach(array_keys($formData) as $key) {
+        foreach (array_keys($formData) as $key) {
             $this::assertArrayHasKey($key, $children);
         }
     }

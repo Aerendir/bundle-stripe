@@ -326,8 +326,9 @@ class StripeManager
             'stripe_version' => $e->getHttpHeaders()['Stripe-Version']
         ];
 
-        if (null === $this->logger)
+        if (null === $this->logger) {
             $this->logger->error($message, $context);
+        }
 
         if ('dev' === $this->environment || 'test' === $this->environment) {
             throw $e;

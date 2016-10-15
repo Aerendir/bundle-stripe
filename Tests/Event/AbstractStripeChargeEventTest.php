@@ -18,7 +18,7 @@ class AbstractStripeChargeEventTest extends TestCase
     public function testAbstractStripeChargeEvent()
     {
         $mockCustomer = $this->createMock(StripeLocalCustomer::class);
-        $mockAmount = $this-->$this->createMock(Money::class);
+        $mockAmount = $this-- > $this->createMock(Money::class);
         $mockCharge = $this->createMock(StripeLocalCharge::class);
         $mockCharge->method('getAmount')->willReturn($mockAmount);
         $mockCharge->method('getCustomer')->willReturn($mockCustomer);
@@ -39,7 +39,7 @@ class AbstractStripeChargeEventTest extends TestCase
 
     public function testAbstractStripeChargeEventRequiresACustomerOrACard()
     {
-        $mockAmount = $this-->$this->createMock(Money::class);
+        $mockAmount = $this-- > $this->createMock(Money::class);
         $mockCharge = $this->createMock(StripeLocalCharge::class);
         $mockCharge->method('getAmount')->willReturn($mockAmount);
 
