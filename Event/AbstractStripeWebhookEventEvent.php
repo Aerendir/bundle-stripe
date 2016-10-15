@@ -19,22 +19,22 @@ use Symfony\Component\EventDispatcher\Event;
  */
 class AbstractStripeWebhookEventEvent extends Event
 {
-    /** @var StripeLocalWebhookEvent $webhookEvent */
-    private $webhookEvent;
+    /** @var StripeLocalWebhookEvent $localWebhookEvent */
+    private $localWebhookEvent;
 
     /**
-     * @param StripeLocalWebhookEvent $webhookEvent The local entity representing the \Stripe\Event
+     * @param StripeLocalWebhookEvent $localWebhookEvent The local entity representing the \Stripe\Event
      */
-    public function __construct(StripeLocalWebhookEvent $webhookEvent)
+    public function __construct(StripeLocalWebhookEvent $localWebhookEvent)
     {
-        $this->webhookEvent = $webhookEvent;
+        $this->localWebhookEvent = $localWebhookEvent;
     }
 
     /**
      * @return StripeLocalWebhookEvent
      */
-    public function getWebhookEvent()
+    public function getLocalWebhookEvent()
     {
-        return $this->webhookEvent;
+        return $this->localWebhookEvent;
     }
 }
