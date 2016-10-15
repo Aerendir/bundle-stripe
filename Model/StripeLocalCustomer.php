@@ -80,13 +80,10 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     public function addCharge(StripeLocalCharge $charge)
     {
         // If the cards is already set
-        if ($this->charges->contains($charge)) {
-            // Return
-            return $this;
+        if (false === $this->charges->contains($charge)) {
+            // Add the card to the collection
+            $this->charges->add($charge);
         }
-
-        // Add the card to the collection
-        $this->charges->add($charge);
 
         return $this;
     }
@@ -214,7 +211,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     }
 
     /**
-     * @param $balance
+     * @param int $balance
      *
      * @return $this
      */
@@ -238,7 +235,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     }
 
     /**
-     * @param $currency
+     * @param string $currency
      *
      * @return $this
      */
@@ -292,7 +289,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
      */
     public function setNewSource($source)
     {
-        if (false === strpos($source, 'tok_')) {
+        if (0 < strpos($source, 'tok_')) {
             throw new \InvalidArgumentException(sprintf('The token you passed seems not to be a card token: %s', $source));
         }
 
