@@ -12,7 +12,7 @@ Step 3: Configure the Stripe Client
 
 First, add the Stripe's keys to your `parameters.yml`.
 
-Stripe will give you two keys: one is secret and MUST be used only for communication server-2-server; another is your "publishable key" and can be used on the client side to communicate with the Stripe's API via `Stripe.js` (it is not a popup, but a simple `javascript` that permits you to do some tasks in a secure way without your user will know you are communicating with Stripe's API - more on this later).  
+Stripe will give you two keys: one is secret and MUST be used only for communication server-2-server; another is your "publishable key" and can be used on the client side to communicate with the Stripe's API via `Stripe.js` (it is not a popup, but a simple `javascript` that permits you to do some tasks in a secure way without your user will know you are communicating with Stripe's API - more on this later).
 
 So, in your `parameters.yml`:
 
@@ -25,14 +25,15 @@ parameters:
 
 These keys will be used by the bundle to integrate Stripe in your Symfony app, communicating with the API and making you able to display a SYMFONY'S FORM TYPE on your pages where the customer will give you his credit number and other payment details.
 
-STEP 4: CONFIGURE AWS SES MONITOR BUNDLE
-----------------------------------------
+STEP 4: CONFIGURE STRIPE BUNDLE
+-------------------------------
 
 The full configuration is as follows. The set values are the default ones:
 
 ```yaml
 # Default configuration for "StripeBundle"
-stripe:
+stripe_bundle:
+    kernel_environment: "%kernel_environment%"
     db_driver: orm #OPTIONL. Currently only ORM supported.
     model_manager_name: null # OPTIONAL. Set this if you are using a custom ORM model manager.
     stripe_config:

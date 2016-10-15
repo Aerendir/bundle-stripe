@@ -1,0 +1,5 @@
+stripe:
+    kernel_environment: 'test'
+    stripe_config:
+        secret_key: "secret"
+        publishable_key: "publishable"

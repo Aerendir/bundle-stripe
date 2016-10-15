@@ -35,7 +35,9 @@ class StripeExtension extends Extension
         $container->setParameter('stripe_bundle.db_driver', $config['db_driver']);
         $container->setParameter(sprintf('stripe_bundle.backend_%s', $config['db_driver']), true);
         $container->setParameter('stripe_bundle.model_manager_name', $config['model_manager_name']);
-        $container->setParameter('stripe_bundle.stripe_config', $config['stripe_config']);
+        $container->setParameter('stripe_bundle.secret_key', $config['stripe_config']['secret_key']);
+        $container->setParameter('stripe_bundle.publishable_key', $config['stripe_config']['publishable_key']);
+        $container->setParameter('stripe_bundle.kernel_environment', $config['kernel_environment']);
         $container->setParameter('stripe_bundle.endpoint', $config['endpoint']);
 
         $filelocator = new FileLocator(__DIR__ . '/../Resources/config');

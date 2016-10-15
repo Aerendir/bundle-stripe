@@ -65,7 +65,7 @@ class StripeManager
      * @param CustomerSyncer         $customerSyncer
      * @param WebhookEventSyncer     $webhookEventSyncer
      */
-    public function __construct($secretKey, $environment, LoggerInterface $logger, ChargeSyncer $chargeSyncer, CustomerSyncer $customerSyncer, WebhookEventSyncer $webhookEventSyncer)
+    public function __construct($secretKey, $environment, LoggerInterface $logger = null, ChargeSyncer $chargeSyncer, CustomerSyncer $customerSyncer, WebhookEventSyncer $webhookEventSyncer)
     {
         Stripe::setApiKey($secretKey);
         $this->environment = $environment;
@@ -326,7 +326,8 @@ class StripeManager
             'stripe_version' => $e->getHttpHeaders()['Stripe-Version']
         ];
 
-        $this->logger->error($message, $context);
+        if (null === $this->logger)
+            $this->logger->error($message, $context);
 
         if ('dev' === $this->environment || 'test' === $this->environment) {
             throw $e;

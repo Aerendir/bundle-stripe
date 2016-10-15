@@ -32,16 +32,6 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * The list of supported protocols.
-     *
-     * @return array
-     */
-    public static function getSupportedProtocols()
-    {
-        return ['HTTP', 'HTTPS', 'http', 'https'];
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getConfigTreeBuilder()
@@ -51,6 +41,9 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->scalarNode('kernel_environment')
+                    ->cannotBeEmpty()
+                ->end()
                 ->scalarNode('db_driver')
                     ->validate()
                         ->ifNotInArray(self::getSupportedDrivers())
@@ -72,13 +65,6 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('route_name')->defaultValue('_stripe_bundle_endpoint')->cannotBeEmpty()->end()
-                        ->scalarNode('protocol')
-                        ->validate()
-                        ->ifNotInArray(self::getSupportedProtocols())
-                        ->thenInvalid('The protocol %s is not supported. Please choose one of ' . json_encode(self::getSupportedProtocols()))->end()
-                        ->defaultValue('http')->cannotBeEmpty()
-                        ->end()
-                        ->scalarNode('host')->isRequired()->cannotBeEmpty()->end()
                     ->end()
                 ->end();
 
