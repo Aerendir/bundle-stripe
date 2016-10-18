@@ -1,9 +1,11 @@
+{% trans_default_domain "CreditCard" %}
+
 <div id="cc-form">
     <span class="payment-errors"></span>
     <div class="row">
         <div class="col-sm-12">
             <div class="form-group cc-number-group">
-                <label for="cc-number" class="control-label">StripeLocalCard number</label>
+                <label for="cc-number" class="control-label">{% trans %}card.number.label{% endtrans %}</label>
                 <div class="input-group">
                     <input style="border-right: 0;" id="cc-number" type="tel" size="20" data-stripe="number"  value="4242424242424242" class="form-control cc-number card-generic form-control input-sm" autocomplete="cc-number" />
                     <div class="input-group-addon">
@@ -16,7 +18,7 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
-                    <label for="cc-exp" class="control-label">Expiration (MM / YY)</label>
+                    <label for="cc-exp" class="control-label">{% trans %}card.expiration.label{% endtrans %}Expiration (MM / YY)</label>
                     <input id="cc-exp" type="tel"  class="cc-exp input-sm form-control cc-exp" autocomplete="cc-exp" placeholder="•• / ••" required value="01 / 17" />
                     <input id="exp_month" type="hidden" data-numeric size="2" data-stripe="exp_month"  />
                     <input id="exp_year" type="hidden" data-numeric  size="2" data-stripe="exp_year"  />
@@ -24,7 +26,7 @@
         </div>
         <div class="col-sm-6">
             <div class="form-group">
-                <label for="cc-cvc" class="control-label">CVC</label>
+                <label for="cc-cvc" class="control-label">{% trans %}card.number.CVC{% endtrans %}</label>
                 <input id="cc-cvc" data-numeric  type="tel" size="4" value="123" data-stripe="cvc" class="cc-cvc form-control input-sm" />
             </div>
         </div>
