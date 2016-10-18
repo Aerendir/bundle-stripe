@@ -80,13 +80,13 @@ class StripeManager
      *
      * This method wraps the calls in a try / catch statement to intercept exceptions raised by the Stripe client.
      *
-     * @param ApiResource $endpoint
+     * @param string $endpoint
      * @param string      $action
      * @param array       $params
      *
      * @return bool|ApiResource
      */
-    public function callStripe(ApiResource $endpoint, $action, $params)
+    public function callStripe($endpoint, $action, $params)
     {
         try {
             $return = $endpoint::$action($params);
@@ -109,12 +109,12 @@ class StripeManager
      *
      * This method wraps the calls in a try / catch statement to intercept exceptions raised by the Stripe client.
      *
-     * @param ApiResource $object
+     * @param string $object
      * @param string      $method
      *
      * @return bool|ApiResource
      */
-    public function callStripeObject(ApiResource $object, $method)
+    public function callStripeObject($object, $method)
     {
         try {
             $return = $object->$method();
