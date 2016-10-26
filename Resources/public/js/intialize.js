@@ -66,7 +66,12 @@ jQuery(function($) {
             // Add expiration month and yaer to the form
             $('#exp_month').val($('.cc-exp').payment('cardExpiryVal').month);
             $('#exp_year').val($('.cc-exp').payment('cardExpiryVal').year);
-            Stripe.card.createToken(form, stripeResponseHandler);
+            try {
+                Stripe.card.createToken(form, stripeResponseHandler);
+            } catch (err) {
+                console.log(err);
+                return false;
+            }
         }
 
         // Prevent the form from being submitted:
