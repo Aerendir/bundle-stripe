@@ -14,7 +14,7 @@
         <field name="failureMessage" type="string" column="failure_message" nullable="true" />
         <field name="fraudDetails" type="array" column="fraud_details" nullable="true" />
         <field name="livemode" type="boolean" column="livemode" nullable="false" />
-        <field name="metadata" type="string" column="metadata" nullable="true" />
+        <field name="metadata" type="array" column="metadata" nullable="true" />
         <field name="paid" type="boolean" column="paid" nullable="false" />
         <field name="receiptEmail" type="email" column="receipt_email" nullable="true" />
         <field name="receiptNumber" type="string" column="receipt_number" nullable="true" />
@@ -28,5 +28,10 @@
         <many-to-one field="source" target-entity="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard" inversed-by="charges">
             <join-column name="source" referenced-column-name="id" />
         </many-to-one>
+
+        <lifecycle-callbacks>
+            <lifecycle-callback type="prePersist" method="metadataTransformer"/>
+            <lifecycle-callback type="postLoad" method="metadataTransformer"/>
+        </lifecycle-callbacks>
     </entity>
 </doctrine-mapping>

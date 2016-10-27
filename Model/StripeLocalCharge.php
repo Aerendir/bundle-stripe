@@ -300,6 +300,14 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     }
 
     /**
+     * @param string|array $metadata
+     */
+    public function setMetadata($metadata)
+    {
+        $this->metadata = $metadata;
+    }
+
+    /**
      * @param Email $email
      *
      * @return $this
@@ -369,6 +377,21 @@ class StripeLocalCharge implements StripeLocalResourceInterface
         $this->capture = false;
 
         return $this;
+    }
+
+    /**
+     * Transforms metadata from string to array.
+     *
+     * As metadata can be set by the developer or by reflection during syncronization of the StripeCustomer object with
+     * this local one, may happen the value is a string.
+     *
+     * This lifecycle callback ensures the value ever is an array.
+     */
+    public function metadataTransformer()
+    {
+        if (is_string($this->getMetadata())) {
+            $this->setMetadata(json_decode($this->getMetadata(), true));
+        }
     }
 
     /**
