@@ -84,6 +84,10 @@ class CustomerSyncer extends AbstractSyncer
                 case 'livemode':
                     $reflectedProperty->setValue($localResource, $stripeResource->livemode);
                     break;
+
+                case 'metadata':
+                    $reflectedProperty->setValue($localResource, $stripeResource->metadata);
+                    break;
             }
         }
 

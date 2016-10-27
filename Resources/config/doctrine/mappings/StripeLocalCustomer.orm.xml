@@ -13,11 +13,15 @@
         <field name="description" type="text" column="description" nullable="true"/>
         <field name="email" type="email" column="email" nullable="true"/>
         <field name="livemode" type="boolean" column="livemode" nullable="true"/>
-        <field name="metadata" type="string" column="metadata" nullable="true"/>
+        <field name="metadata" type="array" column="metadata" nullable="true"/>
         <one-to-one target-entity="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard" field="defaultSource">
             <join-column name="default_source" referenced-column-name="id" />
         </one-to-one>
         <one-to-many target-entity="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard" mapped-by="customer" field="cards" />
         <one-to-many target-entity="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge" mapped-by="customer" field="charges" />
+        <lifecycle-callbacks>
+            <lifecycle-callback type="prePersist" method="metadataTransformer"/>
+            <lifecycle-callback type="postLoad" method="metadataTransformer"/>
+        </lifecycle-callbacks>
     </entity>
 </doctrine-mapping>

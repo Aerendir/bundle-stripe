@@ -57,7 +57,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     /** @var bool $livemode */
     private $livemode;
 
-    /** @var string $metadata A set of key/value pairs that you can attach to a customer object. It can be useful for storing additional information about the customer in a structured format. */
+    /** @var array $metadata A set of key/value pairs that you can attach to a customer object. It can be useful for storing additional information about the customer in a structured format. */
     private $metadata;
 
     /** @var string $newSource Used to create a new source for the customer */
@@ -334,6 +334,21 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
         }
 
         return $return;
+    }
+
+    /**
+     * Transforms metadata from string to array.
+     *
+     * As metadata can be set by the developer or by reflection during syncronization of the StripeCustomer object with
+     * this local one, may happen the value is a string.
+     *
+     * This lifecycle callback ensures the value ever is an array.
+     */
+    public function metadataTransformer()
+    {
+        if (is_string($this->getMetadata())) {
+            $this->setMetadata(json_decode($this->getMetadata(), true));
+        }
     }
 
     /**
