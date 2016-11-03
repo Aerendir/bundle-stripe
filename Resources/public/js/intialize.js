@@ -20,6 +20,7 @@ jQuery(function($) {
     $(document).ready(function(){
         inputHeight = $('#cc-number').height();
         $('.credit-card-icon').attr('height', inputHeight-2);
+        form.find('#' + window.stripe_card_token_input_id).val('');
     });
     $('.cc-number').payment('formatCardNumber');
     $('.cc-exp').payment('formatCardExpiry');
