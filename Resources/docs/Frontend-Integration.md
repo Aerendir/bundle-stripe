@@ -234,4 +234,28 @@ The entire procedure is described in full details on the [Stripe's documentation
 
 Now that we have a form ready to be used, and that we have a tokenized representation of the credit card, we only remains to write the code for the backend.
 
+## To show past used credit cards
+
+```
+{% if company.stripeCustomer.cards.count > 1 %}
+<div style="display: block;" role="button" data-toggle="collapse" href="#past-cards" aria-expanded="false">
+    <span class="glyphicon glyphicon-chevron-down"></span>{% trans %}company.account.billing.past_cards_are{% endtrans %}
+    <div class="collapse out" id="past-cards">
+        <p><small>{% trans %}company.account.billing.past_cards_are.disclaimer{% endtrans %}</small></p>
+        <ul>
+        {% for card in company.stripeCustomer.cards %}
+            {% if card.id != company.stripeCustomer.defaultSource %}
+                <li>{{ card.brand }}: xxxx-xxxx-xxxx-{{ card.last4 }} ({{ card.expMonth }}/{{ card.expYear }})</li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endif %}
+```
+
+In the disclaimer something like:
+
+    Di queste carte non abbiamo più nessun dato utile per addebitarle: conserviamo per referenza solo le ultime 4 cifre e la data di scadenza.
+
 ([Go back to index](Index.md)) | Next step: [Integrate the back-end](Backend-Integration.md)
