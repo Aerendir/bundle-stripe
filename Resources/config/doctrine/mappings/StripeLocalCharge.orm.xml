@@ -26,7 +26,7 @@
         </many-to-one>
 
         <many-to-one field="source" target-entity="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard" inversed-by="charges">
-            <join-column name="source" referenced-column-name="id" />
+            <join-column name="source" referenced-column-name="id" nullable="true" on-delete="SET NULL" />
         </many-to-one>
 
         <lifecycle-callbacks>

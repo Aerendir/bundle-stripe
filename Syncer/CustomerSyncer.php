@@ -17,6 +17,8 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;
 use SerendipityHQ\Component\ValueObjects\Email\Email;
 use Stripe\ApiResource;
+use Stripe\Card;
+use Stripe\Collection;
 use Stripe\Customer;
 
 /**
@@ -175,5 +177,55 @@ class CustomerSyncer extends AbstractSyncer
 
         if (null !== $localResource->getAccountBalance())
             $stripeResource->metadata    = $localResource->getMetadata();
+    }
+
+    /**
+     * @param StripeLocalResourceInterface $localResource
+     * @param ApiResource $stripeResource
+     */
+    public function syncLocalSources(StripeLocalResourceInterface $localResource, ApiResource $stripeResource)
+    {
+        /** @var StripeLocalCustomer $localResource */
+        if (!$localResource instanceof StripeLocalCustomer) {
+            throw new \InvalidArgumentException('CustomerSyncer::syncLocalFromStripe() accepts only StripeLocalCustoer objects as first parameter.');
+        }
+
+        /** @var Customer $stripeResource */
+        if (!$stripeResource instanceof Customer) {
+            throw new \InvalidArgumentException('CustomerSyncer::syncLocalFromStripe() accepts only Stripe\Customer objects as second parameter.');
+        }
+
+        // Now, be sure the sources are in sync
+        foreach ($localResource->getCards() as $card) {
+            if (false === $this->sourceExists($card, $stripeResource->sources)) {
+                // The card doesn't exists on the Stripe account: remove it from the local one
+                $this->getEntityManager()->remove($card);
+            }
+
+        }
+
+        $this->getEntityManager()->persist($localResource);
+        $this->getEntityManager()->flush();
+    }
+
+    /**
+     * Checks if the given card is set source in the StripeCustomer object.
+     *
+     * Perfrom this check guarantees that the local database is ever in sync with the Stripe Account.
+     *
+     * @param StripeLocalCard $card
+     * @param Collection $sources
+     *
+     * @return bool
+     */
+    private function sourceExists(StripeLocalCard $card, Collection $sources)
+    {
+        /** @var Card $source */
+        foreach($sources->data as $source) {
+            if ($card->getId() === $source->id)
+                return true;
+        }
+
+        return false;
     }
 }

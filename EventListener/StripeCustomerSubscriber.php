@@ -67,7 +67,7 @@ class StripeCustomerSubscriber extends AbstractStripeSubscriber
     {
         $localCustomer = $event->getLocalCustomer();
 
-        $result = $this->getStripeManager()->updateCustomer($localCustomer);
+        $result = $this->getStripeManager()->updateCustomer($localCustomer, $event->hasToSyncSources());
 
         // Check if something went wrong
         if (false === $result) {

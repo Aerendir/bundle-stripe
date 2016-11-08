@@ -243,10 +243,11 @@ class StripeManager
 
     /**
      * @param StripeLocalCustomer $localCustomer
+     * @param bool $syncSources
      *
      * @return bool
      */
-    public function updateCustomer(StripeLocalCustomer $localCustomer)
+    public function updateCustomer(StripeLocalCustomer $localCustomer, $syncSources)
     {
         // Get the stripe object
         $stripeCustomer = $this->retrieveCustomer($localCustomer);
@@ -269,6 +270,9 @@ class StripeManager
 
         // Set the data returned by Stripe in the LocalCustomer object
         $this->customerSyncer->syncLocalFromStripe($localCustomer, $stripeCustomer);
+
+        if (true === $syncSources)
+            $this->customerSyncer->syncLocalSources($localCustomer, $stripeCustomer);
 
         return true;
     }

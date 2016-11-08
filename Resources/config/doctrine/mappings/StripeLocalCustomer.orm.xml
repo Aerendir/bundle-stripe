@@ -15,7 +15,7 @@
         <field name="livemode" type="boolean" column="livemode" nullable="true"/>
         <field name="metadata" type="array" column="metadata" nullable="true"/>
         <one-to-one target-entity="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard" field="defaultSource">
-            <join-column name="default_source" referenced-column-name="id" />
+            <join-column name="default_source" referenced-column-name="id" nullable="true" on-delete="SET NULL" />
         </one-to-one>
         <one-to-many target-entity="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard" mapped-by="customer" field="cards" />
         <one-to-many target-entity="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge" mapped-by="customer" field="charges" />
