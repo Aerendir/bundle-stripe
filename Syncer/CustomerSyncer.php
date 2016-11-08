@@ -11,6 +11,7 @@
 
 namespace SerendipityHQ\Bundle\StripeBundle\Syncer;
 
+use Doctrine\Common\Persistence\Proxy;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;
@@ -41,6 +42,9 @@ class CustomerSyncer extends AbstractSyncer
         }
 
         $reflect = new \ReflectionClass($localResource);
+
+        if ($localResource instanceof Proxy)
+            $reflect = $reflect->getParentClass();
 
         foreach ($reflect->getProperties() as $reflectedProperty) {
             // Set the property as accessible
@@ -86,7 +90,7 @@ class CustomerSyncer extends AbstractSyncer
                     break;
 
                 case 'metadata':
-                    $reflectedProperty->setValue($localResource, $stripeResource->metadata);
+                    $reflectedProperty->setValue($localResource, $stripeResource->metadata->__toArray());
                     break;
             }
         }
@@ -132,6 +136,7 @@ class CustomerSyncer extends AbstractSyncer
         $defaultSourceProperty->setAccessible(true);
         $defaultSourceProperty->setValue($localResource, $localCard);
 
+        $this->getEntityManager()->persist($localResource);
         $this->getEntityManager()->flush();
     }
 
@@ -150,6 +155,25 @@ class CustomerSyncer extends AbstractSyncer
             throw new \InvalidArgumentException('CustomerSyncer::syncStripeFromLocal() accepts only StripeLocalCustoer objects as second parameter.');
         }
 
-        throw new \RuntimeException('Method not yet implemented');
+        if (null !== $localResource->getAccountBalance())
+            $stripeResource->account_balance = $localResource->getAccountBalance();
+
+        if (null !== $localResource->getBusinessVatId())
+            $stripeResource->business_vat_id = $localResource->getBusinessVatId();
+
+        if (null !== $localResource->getCurrency())
+            $stripeResource->currency = $localResource->getCurrency();
+
+        if (null !== $localResource->getNewSource())
+            $stripeResource->source  = $localResource->getNewSource();
+
+        if (null !== $localResource->getDescription())
+            $stripeResource->description = $localResource->getDescription();
+
+        if (null !== $localResource->getEmail())
+            $stripeResource->email = $localResource->getEmail();
+
+        if (null !== $localResource->getAccountBalance())
+            $stripeResource->metadata    = $localResource->getMetadata();
     }
 }

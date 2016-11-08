@@ -17,7 +17,7 @@ use Symfony\Component\EventDispatcher\Event;
 /**
  * Abstract class to manage Charges.
  */
-class AbstractStripeWebhookEventEvent extends Event
+abstract class AbstractStripeWebhookEventEvent extends Event
 {
     /** @var StripeLocalWebhookEvent $localWebhookEvent */
     private $localWebhookEvent;

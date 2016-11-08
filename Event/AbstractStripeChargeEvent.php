@@ -17,7 +17,7 @@ use Symfony\Component\EventDispatcher\Event;
 /**
  * Abstract class to manage Charges.
  */
-class AbstractStripeChargeEvent extends Event
+abstract class AbstractStripeChargeEvent extends Event
 {
     /** @var StripeLocalCharge $localCharge */
     private $localCharge;
