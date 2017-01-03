@@ -539,7 +539,7 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
 
             if (null !== $this->getTrialEnd()) {
                 $return['trial_end'] = $this->getTrialEnd();
-                $return['trial_period_days'] = $this->getTrialEnd() - $this->getTrialStart() + 1;
+                $return['trial_period_days'] = $this->getTrialEnd()->diff($this->getTrialStart())->format('%a') + 1;
             }
         }
 
