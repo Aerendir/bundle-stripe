@@ -14,12 +14,15 @@ namespace SerendipityHQ\Bundle\StripeBundle\Service;
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\ChargeSyncer;
+use SerendipityHQ\Bundle\StripeBundle\Syncer\SubscriptionSyncer;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\CustomerSyncer;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
+use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalSubscription;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\WebhookEventSyncer;
 use Stripe\ApiResource;
 use Stripe\Charge;
+use Stripe\Subscription;
 use Stripe\Collection;
 use Stripe\Customer;
 use Stripe\Error\ApiConnection;
@@ -54,6 +57,9 @@ class StripeManager
     /** @var ChargeSyncer $chargeSyncer */
     private $chargeSyncer;
 
+    /** @var ChargeSyncer $chargeSyncer */
+    private $subscriptionSyncer;
+
     /** @var CustomerSyncer $customerSyncer */
     private $customerSyncer;
 
@@ -62,15 +68,17 @@ class StripeManager
      * @param string                 $environment
      * @param LoggerInterface|Logger $logger
      * @param ChargeSyncer           $chargeSyncer
+     * @param SubscriptionSyncer     $subscriptionSyncer
      * @param CustomerSyncer         $customerSyncer
      * @param WebhookEventSyncer     $webhookEventSyncer
      */
-    public function __construct($secretKey, $environment, LoggerInterface $logger = null, ChargeSyncer $chargeSyncer, CustomerSyncer $customerSyncer, WebhookEventSyncer $webhookEventSyncer)
+    public function __construct($secretKey, $environment, LoggerInterface $logger = null, ChargeSyncer $chargeSyncer, SubscriptionSyncer $subscriptionSyncer, CustomerSyncer $customerSyncer, WebhookEventSyncer $webhookEventSyncer)
     {
         Stripe::setApiKey($secretKey);
         $this->environment = $environment;
         $this->logger = $logger instanceof Logger ? $logger->withName('StripeBundle') : $logger;
         $this->chargeSyncer = $chargeSyncer;
+        $this->subscriptionSyncer = $subscriptionSyncer;
         $this->customerSyncer = $customerSyncer;
         $this->WebhookEventSyncer = $webhookEventSyncer;
     }
@@ -180,6 +188,30 @@ class StripeManager
 
         // Set the data returned by Stripe in the LocalCustomer object
         $this->chargeSyncer->syncLocalFromStripe($localCharge, $stripeCharge);
+
+        // The creation was successful: return true
+        return true;
+    }
+
+    /**
+     * @param StripeLocalSubscription $localSubscription
+     *
+     * @return bool
+     */
+    public function createSubscription(StripeLocalSubscription $localSubscription)
+    {
+        // Get the object as an array
+        $details = $localSubscription->toStripe('create');
+
+        $stripeSubscription = $this->callStripe(Subscription::class, 'create', $details);
+
+        // If the creation failed, return false
+        if (false === $stripeSubscription) {
+            return false;
+        }
+
+        // Set the data returned by Stripe in the LocalCustomer object
+        $this->subscriptionSyncer->syncLocalFromStripe($localSubscription, $stripeSubscription);
 
         // The creation was successful: return true
         return true;

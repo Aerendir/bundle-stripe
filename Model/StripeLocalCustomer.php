@@ -36,6 +36,9 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     /** @var ArrayCollection $charges The charges of the customer */
     private $charges;
 
+    /** @var ArrayCollection $subscriptions The subscriptions of the customer */
+    private $subscriptions;
+
     /** @var \DateTime $created */
     private $created;
 
@@ -69,6 +72,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     public function __construct()
     {
         $this->charges = new ArrayCollection();
+        $this->subscriptions = new ArrayCollection();
         $this->cards = new ArrayCollection();
     }
 
@@ -83,6 +87,22 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
         if (false === $this->charges->contains($charge)) {
             // Add the card to the collection
             $this->charges->add($charge);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param StripeLocalSubscription $subscription
+     *
+     * @return $this
+     */
+    public function addSubscription(StripeLocalSubscription $subscription)
+    {
+        // If the subscription is already set
+        if (false === $this->subscriptions->contains($subscription)) {
+            // Add the subscription to the collection
+            $this->subscriptions->add($subscription);
         }
 
         return $this;
@@ -118,6 +138,14 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     public function getCharges()
     {
         return $this->charges;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSubscriptions()
+    {
+        return $this->subscriptions;
     }
 
     /**
@@ -208,6 +236,16 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     public function removeCharge(StripeLocalCharge $charge)
     {
         return $this->charges->removeElement($charge);
+    }
+
+    /**
+     * @param StripeLocalSubscription $subscription
+     *
+     * @return bool
+     */
+    public function removeSubscription(StripeLocalSubscription $subscription)
+    {
+        return $this->subscriptions->removeElement($subscription);
     }
 
     /**
