@@ -2,7 +2,6 @@
 
 namespace SerendipityHQ\Bundle\StripeBundle\Model;
 
-
 /**
  * @see https://stripe.com/docs/api#subscription_object
  */
@@ -15,7 +14,7 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
      * @var float
      *
      * A positive decimal that represents the fee percentage of the subscription invoice amount that will be transferred
-     * to the application owner’s Stripe account each billing period.
+     * to the application owner’s Stripe account each billing period
      *
      * @see https://stripe.com/docs/api#subscription_object-application_fee_percent
      */
@@ -75,13 +74,12 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
     private $customer;
 
     /**
-     * @var string DiscountObject optional, default is null.
+     * @var string discountObject optional, default is null
      *
      * @see https://stripe.com/docs/api#discount_object
      *
      * Describes the current discount applied to this subscription, if there is one. When billing, a discount applied to
      * a subscription overrides a discount applied on a customer-wide basis.
-     *
      * @see https://stripe.com/docs/api#subscription_object-discount
      */
     private $discount;
@@ -99,8 +97,7 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
     /** @var bool */
     private $livemode;
 
-    /** @var string $metadata
-     *
+    /** @var string
      * A set of key/value pairs that you can attach to a charge object. It can be useful for storing additional
      * information about the charge in a structured format.
      *
@@ -108,18 +105,15 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
      */
     private $metadata;
 
-
     /**
      * @var string
-
-     * Hash describing the plan the customer is subscribed to
+     *             Hash describing the plan the customer is subscribed to
      *
      * @see https://stripe.com/docs/api#subscription_object-plan
      */
     private $plan;
 
-    /** @var integer $quantity
-     *
+    /** @var int
      * The quantity of the plan to which the customer should be subscribed. For example, if your plan is $10/user/month,
      * and your customer has 5 users, you could pass 5 as the quantity to have the customer charged $50 (5 x $10)
      * monthly.
@@ -131,7 +125,7 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
     /**
      * @var \DateTime
      *
-     * Date the most recent update to this subscription started.
+     * Date the most recent update to this subscription started
      *
      * @see https://stripe.com/docs/api#subscription_object-start
      */
@@ -157,7 +151,7 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
      * @var float
      *
      * If provided, each invoice created by this subscription will apply the tax rate, increasing the amount billed to
-     * the customer.
+     * the customer
      *
      * @see https://stripe.com/docs/api#subscription_object-tax_percent
      */
@@ -166,7 +160,7 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
     /**
      * @var \DateTime
      *
-     * If the subscription has a trial, the end of that trial.
+     * If the subscription has a trial, the end of that trial
      *
      * @see https://stripe.com/docs/api#subscription_object-trial_end
      */
@@ -175,7 +169,7 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
     /**
      * @var \DateTime
      *
-     * If the subscription has a trial, the beginning of that trial.
+     * If the subscription has a trial, the beginning of that trial
      *
      * @see https://stripe.com/docs/api#subscription_object-trial_start
      */
@@ -270,7 +264,7 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getQuantity()
     {
@@ -358,7 +352,7 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
     }
 
     /**
-     * @param integer $quantity
+     * @param int $quantity
      *
      * @return $this
      */
@@ -479,7 +473,7 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
                 $return['metadata'] = $this->getMetadata();
             }
 
-            /**
+            /*
              * plan optional
              *
              * The identifier of the plan to subscribe the customer to.
@@ -492,8 +486,7 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
                 $return['plan'] = $this->getPlan();
             }
 
-
-            /**
+            /*
              * quantity optional, default 1
              *
              * The quantity you’d like to apply to the subscription you’re creating. For example, if your plan is
@@ -510,7 +503,7 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
                 $return['quantity'] = $this->getQuantity();
             }
 
-            /**
+            /*
              * tax_percent optional
              *
              * A positive decimal (with at most four decimal places) between 1 and 100. This represents the percentage
@@ -525,7 +518,7 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
                 $return['tax_percent'] = $this->getTaxPercent();
             }
 
-            /**
+            /*
              * trial_end optional
              *
              * Unix timestamp representing the end of the trial period the customer will get before being charged for

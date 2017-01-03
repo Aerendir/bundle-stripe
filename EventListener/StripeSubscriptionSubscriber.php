@@ -48,5 +48,4 @@ class StripeSubscriptionSubscriber extends AbstractStripeSubscriber
 
         $dispatcher->dispatch(StripeSubscriptionCreateEvent::CREATED, $event);
     }
-
 }

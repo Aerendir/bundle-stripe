@@ -122,7 +122,6 @@ class SubscriptionSyncer extends AbstractSyncer
                     $trialStart = new \DateTime();
                     $reflectedProperty->setValue($localResource, $trialStart->setTimestamp($stripeResource->trial_start));
                     break;
-
             }
         }
 

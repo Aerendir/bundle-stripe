@@ -89,8 +89,8 @@ class StripeManager
      * This method wraps the calls in a try / catch statement to intercept exceptions raised by the Stripe client.
      *
      * @param string $endpoint
-     * @param string      $action
-     * @param array       $params
+     * @param string $action
+     * @param array  $params
      *
      * @return bool|ApiResource
      */
@@ -118,7 +118,7 @@ class StripeManager
      * This method wraps the calls in a try / catch statement to intercept exceptions raised by the Stripe client.
      *
      * @param string $object
-     * @param string      $method
+     * @param string $method
      *
      * @return bool|ApiResource
      */
@@ -275,7 +275,7 @@ class StripeManager
 
     /**
      * @param StripeLocalCustomer $localCustomer
-     * @param bool $syncSources
+     * @param bool                $syncSources
      *
      * @return bool
      */
@@ -303,8 +303,9 @@ class StripeManager
         // Set the data returned by Stripe in the LocalCustomer object
         $this->customerSyncer->syncLocalFromStripe($localCustomer, $stripeCustomer);
 
-        if (true === $syncSources)
+        if (true === $syncSources) {
             $this->customerSyncer->syncLocalSources($localCustomer, $stripeCustomer);
+        }
 
         return true;
     }
