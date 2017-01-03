@@ -95,6 +95,7 @@ class StripeLocalSubscriptionTest extends ModelTestCase
             'taxPercent' => 0,
             'trialEnd' => $now,
             'trialStart' => $now,
+            'source' => 'source',
         ];
 
         // Populate the object
