@@ -219,7 +219,7 @@ class StripeManager
 
     /**
      * @param StripeLocalSubscription $localSubscription
-     * @param bool                $syncSources
+     * @param bool                    $syncSources
      *
      * @return bool
      */
