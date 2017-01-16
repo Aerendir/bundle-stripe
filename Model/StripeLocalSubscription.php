@@ -327,6 +327,7 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
     public function setCancelAtPeriodEnd($cancelAtPeriodEnd)
     {
         $this->cancelAtPeriodEnd = $cancelAtPeriodEnd;
+
         return $this;
     }
 
