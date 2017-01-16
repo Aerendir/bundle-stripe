@@ -320,6 +320,17 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
     }
 
     /**
+     * @param bool $cancelAtPeriodEnd
+     *
+     * @return $this
+     */
+    public function setCancelAtPeriodEnd($cancelAtPeriodEnd)
+    {
+        $this->cancelAtPeriodEnd = $cancelAtPeriodEnd;
+        return $this;
+    }
+
+    /**
      * @return bool
      */
     public function isLivemode()
@@ -540,6 +551,20 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
             if (null !== $this->getTrialEnd()) {
                 $return['trial_end'] = $this->getTrialEnd();
                 $return['trial_period_days'] = $this->getTrialEnd()->diff($this->getTrialStart())->format('%a') + 1;
+            }
+        } else if ('cancel' === $action) { // Prepare the array for cancelation
+            $return = [];
+
+            /*
+             * at_period_end optional, default is false
+             *
+             * A flag that if set to true will delay the cancellation of the subscription until the end of the current
+             * period.
+             *
+             * @see https://stripe.com/docs/api#cancel_subscription-at_period_end
+             */
+            if (null !== $this->isCancelAtPeriodEnd()) {
+                $return['at_period_end'] = $this->isCancelAtPeriodEnd();
             }
         }
 

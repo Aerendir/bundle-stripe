@@ -2,6 +2,7 @@
 
 namespace SerendipityHQ\Bundle\StripeBundle\EventListener;
 
+use SerendipityHQ\Bundle\StripeBundle\Event\StripeSubscriptionCancelEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeSubscriptionCreateEvent;
 use Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -17,7 +18,8 @@ class StripeSubscriptionSubscriber extends AbstractStripeSubscriber
     public static function getSubscribedEvents()
     {
         return [
-            StripeSubscriptionCreateEvent::CREATE => 'onSubscriptionCreate'
+            StripeSubscriptionCreateEvent::CREATE => 'onSubscriptionCreate',
+            StripeSubscriptionCancelEvent::CANCEL => 'onSubscriptionCancel'
         ];
     }
 
@@ -47,5 +49,35 @@ class StripeSubscriptionSubscriber extends AbstractStripeSubscriber
         }
 
         $dispatcher->dispatch(StripeSubscriptionCreateEvent::CREATED, $event);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param StripeSubscriptionCancelEvent $event
+     * @param $eventName
+     * @param ContainerAwareEventDispatcher|EventDispatcherInterface $dispatcher
+     */
+    public function onSubscriptionCancel(StripeSubscriptionCancelEvent $event, $eventName, EventDispatcherInterface $dispatcher)
+    {
+        $localSubscription = $event->getLocalSubscription();
+
+        $localSubscription->setCancelAtPeriodEnd(true);
+
+        $result = $this->getStripeManager()->cancelSubscription($localSubscription, true);
+
+        // Check if something went wrong
+        if (false === $result) {
+            // Stop progation
+            $event->stopPropagation();
+
+            // Dispatch a failed event
+            $dispatcher->dispatch(StripeSubscriptionCancelEvent::FAILED, $event);
+
+            // exit
+            return;
+        }
+
+        $dispatcher->dispatch(StripeSubscriptionCancelEvent::CANCELED, $event);
     }
 }

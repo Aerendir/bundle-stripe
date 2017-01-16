@@ -218,6 +218,33 @@ class StripeManager
     }
 
     /**
+     * @param StripeLocalSubscription $localSubscription
+     * @param bool                $syncSources
+     *
+     * @return bool
+     */
+    public function cancelSubscription(StripeLocalSubscription $localSubscription)
+    {
+        // Get the stripe object
+        $stripeSubscription = $this->retrieveSubscription($localSubscription);
+
+        // The retrieving failed: return false
+        if (false === $stripeSubscription) {
+            return false;
+        }
+
+        // Save the customer object
+        $stripeSubscription = $this->callStripeObject($stripeSubscription, 'cancel');
+
+        // If the update failed, return false
+        if (false === $stripeSubscription) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * @param StripeLocalCustomer $localCustomer
      *
      * @return bool
@@ -271,6 +298,24 @@ class StripeManager
     {
         // Return the stripe object that can be "false" or "Customer"
         return $this->callStripe(Event::class, 'retrieve', $eventStripeId);
+    }
+
+    /**
+     * @param StripeLocalSubscription $localCustomer
+     *
+     * @throws InvalidRequest
+     *
+     * @return bool|Subscription|ApiResource
+     */
+    public function retrieveSubscription(StripeLocalSubscription $localSubscription)
+    {
+        // If no ID is set, return false
+        if (null === $localSubscription->getId()) {
+            return false;
+        }
+
+        // Return the stripe object that can be "false" or "Subscription"
+        return $this->callStripe(Subscription::class, 'retrieve', $localSubscription->getId());
     }
 
     /**
