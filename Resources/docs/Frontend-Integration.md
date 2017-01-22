@@ -69,13 +69,13 @@ Stripe Bundle ships a form type for this and a pre-buil template.
 
 The form type is really simple: it is composed of only one field: [`card_token`](https://github.com/Aerendir/stripe-bundle/blob/master/Form/Type/CreditCardStripeTokenType.php).
 
-Before you ask why, let me explain a bit about how Stripe's credit cards processing works (you can see it in action in the link above).
+Before you ask why, let us explain a bit about how Stripe's credit cards processing works (you can see it in action in the link above).
 
 ### 2.1: How does Stripe's credit cards processing work
 
 In abstract, the flow is this:
 
-1. Your customer provides his credit card details on a form on your page or, alternatively,, you can load a modal box served directly by the Stripe's secure servers.
+1. Your customer provides his credit card details on a form on your page or, alternatively, you can load a modal box served directly by the Stripe's secure servers.
 2. The customer enters his credit card details in the form and submit it (more about submissionvery soon);
 3. Stripe processes these data and returns you a card token that is a unique identifier of the card on the Stripe's systems;
 4. You use the token to charge the customer.
@@ -87,15 +87,15 @@ First, which kind of form can we use to get the credit cards information?
 We can use:
 
 * [Checkout](https://stripe.com/docs/checkout/tutorial), that is a javascript based modal box that is served directly by the Stripe's secured servers;
-* [Stripe.js](https://stripe.com/docs/custom-form), that is a javascript file loaded directly from the Stripe's secure servers that silently sends the form data to Stripe and returns the token. The user never knows that something is happening on the bakcground.
+* [Stripe.js](https://stripe.com/docs/custom-form), that is a javascript file loaded directly from the Stripe's secure servers that silently sends the form data to Stripe and returns the token. The user never knows that something is happening on the background.
 
 This second option is the one we have implemented in Stripe Bundle as we want the user fills a form rendered on our pages using the Symfony's form types and that he never notice that we are communicating with Stripe: all MUST happen in the background.
 
 So, **THIS IS THE STRIPE FLOW FOLLOWED BY THE SERENDIPITY HQ STRIPE BUNDLE**:
 
-1. We create a form type, let's call it `PremiumType`, with the fields we like (they can be what we like: a set of features to select or what you like;
+1. We create a form type, let's call it `PremiumType`, with the fields we like (they can be what we like: a set of features to select or what you like);
 2. To this form type we add the Stripe Bundle `CreditCardStripeTokenType` that will contain the token returned by Stripe (yes, Stripe will return your app a token - be patient :) );
-3. On our page, we will render our form `FeatureType`;
+3. On our page, we will render our form `PremiumType`;
 4. In the form we will simply include the template `StripeBundle::creditCardForm.html.twig` to render the form where the customer will give us his credit card info;
 5. We'll add to the form a button to submit the entire form;
 
@@ -128,7 +128,7 @@ We have created a method that serves the form:
 public function getPlansForm(Store $store)
     {
         $form = $this->formFactory->createBuilder(FormType::class, [
-            'action' => $this->router->generate('storeSubscription', ['id' => $store->getId()]),
+            'action' => $this->router->generate('store_subscription', ['id' => $store->getId()]),
             'method' => 'POST',
         ])
             ->add('plan', PremiumType::class, [
@@ -180,7 +180,7 @@ The questions:
 1. Where is the form ID set?
 2. Where are set the variable passed to the included template?
 
-Answers: in our `conf.yml` file... Let's add them!
+Answers: in our `config.yml` file... Let's add them!
 
 ### 2.5: Create twig global variable to use with the form template
 
