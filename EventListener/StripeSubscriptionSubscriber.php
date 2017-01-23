@@ -39,7 +39,7 @@ class StripeSubscriptionSubscriber extends AbstractStripeSubscriber
         // Check if something went wrong
         if (false === $result) {
             // Stop progation
-            $event->stopPropagation();
+            $event->setStopReason($this->getStripeManager()->getError())->stopPropagation();
 
             // Dispatch a failed event
             $dispatcher->dispatch(StripeSubscriptionCreateEvent::FAILED, $event);
@@ -69,7 +69,7 @@ class StripeSubscriptionSubscriber extends AbstractStripeSubscriber
         // Check if something went wrong
         if (false === $result) {
             // Stop progation
-            $event->stopPropagation();
+            $event->setStopReason($this->getStripeManager()->getError())->stopPropagation();
 
             // Dispatch a failed event
             $dispatcher->dispatch(StripeSubscriptionCancelEvent::FAILED, $event);

@@ -12,12 +12,11 @@
 namespace SerendipityHQ\Bundle\StripeBundle\Event;
 
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
-use Symfony\Component\EventDispatcher\Event;
 
 /**
  * Abstract class to manage Charges.
  */
-abstract class AbstractStripeChargeEvent extends Event
+abstract class AbstractStripeChargeEvent extends AbstractStripeEvent
 {
     /** @var StripeLocalCharge $localCharge */
     private $localCharge;
