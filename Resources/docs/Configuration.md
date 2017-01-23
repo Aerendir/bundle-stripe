@@ -33,7 +33,7 @@ The full configuration is as follows. The set values are the default ones:
 ```yaml
 # Default configuration for "StripeBundle"
 stripe_bundle:
-    kernel_environment: "%kernel_environment%"
+    debug: true|false # If not set is === kernel.debug. If set, overwrites kernel.debug
     db_driver: orm #OPTIONL. Currently only ORM supported.
     model_manager_name: null # OPTIONAL. Set this if you are using a custom ORM model manager.
     stripe_config:

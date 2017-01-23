@@ -8,7 +8,7 @@
         <service id="stripe_bundle.guesser.event_guesser" class="SerendipityHQ\Bundle\StripeBundle\Service\EventGuesser" />
         <service id="stripe_bundle.manager.stripe_api" class="SerendipityHQ\Bundle\StripeBundle\Service\StripeManager">
             <argument>%stripe_bundle.secret_key%</argument>
-            <argument>%stripe_bundle.kernel_environment%</argument>
+            <argument>%stripe_bundle.debug%</argument>
             <argument type="service" id="logger" on-invalid="null" />
             <argument type="service" id="stripe_bundle.syncer.charge" />
             <argument type="service" id="stripe_bundle.syncer.subscription" />

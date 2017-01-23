@@ -31,13 +31,20 @@ class StripeExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        $debug = $config['debug'] ?? $container->getParameter('kernel.debug');
+
+        // Ever set the debug mode to off in production
+        if ('prod' === $container->getParameter('kernel.environment')) {
+            $debug = false;
+        }
+
         // Set parameters in the container
         $container->setParameter('stripe_bundle.db_driver', $config['db_driver']);
         $container->setParameter(sprintf('stripe_bundle.backend_%s', $config['db_driver']), true);
         $container->setParameter('stripe_bundle.model_manager_name', $config['model_manager_name']);
         $container->setParameter('stripe_bundle.secret_key', $config['stripe_config']['secret_key']);
         $container->setParameter('stripe_bundle.publishable_key', $config['stripe_config']['publishable_key']);
-        $container->setParameter('stripe_bundle.kernel_environment', $config['kernel_environment']);
+        $container->setParameter('stripe_bundle.debug', $debug);
         $container->setParameter('stripe_bundle.endpoint', $config['endpoint']);
 
         $filelocator = new FileLocator(__DIR__ . '/../Resources/config');

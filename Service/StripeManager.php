@@ -39,8 +39,11 @@ use Stripe\Stripe;
  */
 class StripeManager
 {
-    /** @var string $environment */
-    private $environment;
+    /** @var string $debug */
+    private $debug;
+
+    /** @var  null|array $errors Saves the errors thrown by the Stripe API */
+    private $error;
 
     /** @var LoggerInterface $logger */
     private $logger;
@@ -65,17 +68,17 @@ class StripeManager
 
     /**
      * @param string                 $secretKey
-     * @param string                 $environment
+     * @param string                 $debug
      * @param LoggerInterface|Logger $logger
      * @param ChargeSyncer           $chargeSyncer
      * @param SubscriptionSyncer     $subscriptionSyncer
      * @param CustomerSyncer         $customerSyncer
      * @param WebhookEventSyncer     $webhookEventSyncer
      */
-    public function __construct($secretKey, $environment, LoggerInterface $logger = null, ChargeSyncer $chargeSyncer, SubscriptionSyncer $subscriptionSyncer, CustomerSyncer $customerSyncer, WebhookEventSyncer $webhookEventSyncer)
+    public function __construct($secretKey, $debug, LoggerInterface $logger = null, ChargeSyncer $chargeSyncer, SubscriptionSyncer $subscriptionSyncer, CustomerSyncer $customerSyncer, WebhookEventSyncer $webhookEventSyncer)
     {
         Stripe::setApiKey($secretKey);
-        $this->environment = $environment;
+        $this->debug = $debug;
         $this->logger = $logger instanceof Logger ? $logger->withName('StripeBundle') : $logger;
         $this->chargeSyncer = $chargeSyncer;
         $this->subscriptionSyncer = $subscriptionSyncer;
@@ -110,6 +113,23 @@ class StripeManager
         $this->retries = 0;
 
         return $return;
+    }
+
+    /**
+     * This should be called only if an error exists. Use hasError().
+     * @return array|null
+     */
+    public function getError() : array
+    {
+        return $this->error;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasErrors() : bool
+    {
+        return empty($this->error);
     }
 
     /**
@@ -219,7 +239,6 @@ class StripeManager
 
     /**
      * @param StripeLocalSubscription $localSubscription
-     * @param bool                    $syncSources
      *
      * @return bool
      */
@@ -301,7 +320,7 @@ class StripeManager
     }
 
     /**
-     * @param StripeLocalSubscription $localCustomer
+     * @param StripeLocalSubscription $localSubscription
      *
      * @throws InvalidRequest
      *
@@ -324,7 +343,7 @@ class StripeManager
      *
      * @return bool
      */
-    public function updateCustomer(StripeLocalCustomer $localCustomer, $syncSources)
+    public function updateCustomer(StripeLocalCustomer $localCustomer, $syncSources) : bool
     {
         // Get the stripe object
         $stripeCustomer = $this->retrieveCustomer($localCustomer);
@@ -369,13 +388,8 @@ class StripeManager
      */
     private function handleException(\Exception $e)
     {
-        // If we received a rate limit exception, we have to retry with an exponential backoff
-        if ($e instanceof RateLimit) {
-            // If the maximum number of retries is already reached
-            if ($this->retries >= $this->maxRetries) {
-                goto raise;
-            }
-
+        // If we received a rate limit exception, we have to retry with an exponential backoff if is not reached the maximum number of retries
+        if ($e instanceof RateLimit && $this->retries <= $this->maxRetries) {
             // First, put the script on sleep
             sleep($this->wait);
 
@@ -386,24 +400,17 @@ class StripeManager
             ++$this->retries;
 
             return 'retry';
-        } elseif ($e instanceof Card) {
-            if ('dev' === $this->environment || 'test' === $this->environment) {
-                throw $e;
-            }
-
-            return false;
         }
 
-        // \Stripe\Error\Authentication, \Stripe\Error\InvalidRequest and \Stripe\Error\ApiConnection are raised immediately
-        raise:
+        // \Stripe\Error\Authentication, \Stripe\Error\InvalidRequest and \Stripe\Error\ApiConnection are processed immediately
         $body = $e->getJsonBody();
         $err = $body['error'];
         $message = '[' . $e->getHttpStatus() . ' - ' . $e->getJsonBody()['error']['type'] . '] ' . $e->getMessage();
         $context = [
             'status' => $e->getHttpStatus(),
-            'type' => isset($err['type']) ? $err['type'] : '',
-            'code' => isset($err['code']) ? $err['code'] : '',
-            'param' => isset($err['param']) ? $err['param'] : '',
+            'type' => $err['type'] ?? '',
+            'code' => $err['code'] ?? '',
+            'param' => $err['param'] ?? '',
             'request_id' => $e->getRequestId(),
             'stripe_version' => $e->getHttpHeaders()['Stripe-Version']
         ];
@@ -412,9 +419,17 @@ class StripeManager
             $this->logger->error($message, $context);
         }
 
-        if ('dev' === $this->environment || 'test' === $this->environment) {
+        // If we are in debug mode, raise the exception immediately
+        if ($this->debug) {
             throw $e;
         }
+
+        // Set the error so it can be retrieved
+        $this->error = [
+            'error' => $err,
+            'message' => $message,
+            'context' => $context
+        ];
 
         return false;
     }
