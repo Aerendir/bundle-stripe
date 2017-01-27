@@ -68,6 +68,9 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /** @var string */
     private $expYear;
 
+    /** @var  string|null $error If an error occurred with the card, it is stored here. */
+    private $error;
+
     /** @var string $fingerprint Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. */
     private $fingerprint;
 
@@ -250,6 +253,14 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
+     * @return null|string
+     */
+    public function getError()
+    {
+        return $this->error;
+    }
+
+    /**
      * @return string
      */
     public function getFingerprint()
@@ -308,11 +319,10 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @param string $addressCity
-     *
-     * @return $this
+     * @param $addressCity
+     * @return StripeLocalCard
      */
-    public function setAddressCity($addressCity)
+    public function setAddressCity($addressCity) : self
     {
         $this->addressCity = $addressCity;
 
@@ -320,11 +330,10 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @param string $addressCountry
-     *
-     * @return $this
+     * @param $addressCountry
+     * @return StripeLocalCard
      */
-    public function setAddressCountry($addressCountry)
+    public function setAddressCountry($addressCountry) : self
     {
         $this->addressCountry = $addressCountry;
 
@@ -332,11 +341,10 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @param string $addressLine1
-     *
-     * @return $this
+     * @param $addressLine1
+     * @return StripeLocalCard
      */
-    public function setAddressLine1($addressLine1)
+    public function setAddressLine1($addressLine1) : self
     {
         $this->addressLine1 = $addressLine1;
 
@@ -344,11 +352,10 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @param string $addressLine2
-     *
-     * @return $this
+     * @param $addressLine2
+     * @return StripeLocalCard
      */
-    public function setAddressLine2($addressLine2)
+    public function setAddressLine2($addressLine2) : self
     {
         $this->addressLine2 = $addressLine2;
 
@@ -356,11 +363,10 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @param string $addressState
-     *
-     * @return $this
+     * @param $addressState
+     * @return StripeLocalCard
      */
-    public function setAddressState($addressState)
+    public function setAddressState($addressState) : self
     {
         $this->addressState = $addressState;
 
@@ -368,11 +374,10 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @param int $addressZip
-     *
-     * @return $this
+     * @param $addressZip
+     * @return StripeLocalCard
      */
-    public function setAddressZip($addressZip)
+    public function setAddressZip($addressZip) : self
     {
         $this->addressZip = $addressZip;
 
@@ -380,11 +385,10 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @param string $country
-     *
-     * @return $this
+     * @param $country
+     * @return StripeLocalCard
      */
-    public function setCountry($country)
+    public function setCountry($country) : self
     {
         $this->country = $country;
 
@@ -393,10 +397,9 @@ class StripeLocalCard implements StripeLocalResourceInterface
 
     /**
      * @param StripeLocalCustomer $customer
-     *
-     * @return $this
+     * @return StripeLocalCard
      */
-    public function setCustomer(StripeLocalCustomer $customer)
+    public function setCustomer(StripeLocalCustomer $customer) : self
     {
         $this->customer = $customer;
 
@@ -404,11 +407,10 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @param int $expMonth
-     *
-     * @return $this
+     * @param $expMonth
+     * @return StripeLocalCard
      */
-    public function setExpMonth($expMonth)
+    public function setExpMonth($expMonth) : self
     {
         $this->expMonth = $expMonth;
 
@@ -416,11 +418,10 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @param int $expYear
-     *
-     * @return $this
+     * @param $expYear
+     * @return StripeLocalCard
      */
-    public function setExpYear($expYear)
+    public function setExpYear($expYear) : self
     {
         $this->expYear = $expYear;
 
@@ -428,11 +429,21 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @param string $metadata
-     *
-     * @return $this
+     * @param string $error
+     * @return StripeLocalCard
      */
-    public function setMetadata($metadata)
+    public function setError(string $error) : self
+    {
+        $this->error = $error;
+
+        return $this;
+    }
+
+    /**
+     * @param $metadata
+     * @return StripeLocalCard
+     */
+    public function setMetadata($metadata) : self
     {
         $this->metadata = $metadata;
 
@@ -440,11 +451,10 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @param string $name
-     *
-     * @return $this
+     * @param $name
+     * @return StripeLocalCard
      */
-    public function setName($name)
+    public function setName($name) : self
     {
         $this->name = $name;
 
@@ -454,7 +464,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString() : string
     {
         return (string) $this->getId();
     }

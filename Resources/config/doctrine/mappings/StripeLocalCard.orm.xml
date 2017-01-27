@@ -19,6 +19,7 @@
         <field name="dynamicLast4" type="text" column="dynamic_last4" precision="0" scale="0" nullable="true"/>
         <field name="expMonth" type="integer" column="exp_month" precision="0" scale="0" nullable="false"/>
         <field name="expYear" type="integer" column="exp_year" precision="0" scale="0" nullable="false"/>
+        <field name="error" type="string" column="error" precision="0" scale="0" nullable="true"/>
         <field name="fingerprint" type="string" column="fingerprint" precision="0" scale="0" nullable="false"/>
         <field name="funding" type="string" column="funding" precision="0" scale="0" nullable="false"/>
         <field name="last4" type="string" column="last4" precision="0" scale="0" nullable="false"/>

@@ -328,8 +328,14 @@ class StripeManager
 
         $stripeCharge = $this->callStripeApi(Charge::class, 'create', $arguments);
 
-        // If the creation failed, return false
+        // If the creation failed...
         if (false === $stripeCharge) {
+            // ... Check if it was due to a fraudulent detection
+            if (isset($this->error['error']['type'])) {
+                $this->chargeSyncer->handleFraudDetection($localCharge, $this->error);
+            }
+
+            // ... return false as the payment anyway failed
             return false;
         }
 
@@ -538,20 +544,36 @@ class StripeManager
      * @throws InvalidRequest Only in dev and test environments
      * @throws RateLimit      Only in dev and test environments
      */
-    private function handleException(\Exception $e)
+    private function handleException(Base $e)
     {
-        // If we received a rate limit exception, we have to retry with an exponential backoff if is not reached the maximum number of retries
-        if ($e instanceof RateLimit && $this->retries <= $this->maxRetries) {
-            // First, put the script on sleep
-            sleep($this->wait);
+        switch (get_class($e)) {
+            case RateLimit::class:
+                // We have to retry with an exponential backoff if is not reached the maximum number of retries
+                if ($this->retries <= $this->maxRetries) {
+                    // First, put the script on sleep
+                    sleep($this->wait);
 
-            // Then we have to increment the sleep time
-            $this->wait += $this->wait;
+                    // Then we have to increment the sleep time
+                    $this->wait += $this->wait;
 
-            // Increment by 1 the number of retries
-            ++$this->retries;
+                    // Increment by 1 the number of retries
+                    ++$this->retries;
 
-            return 'retry';
+                    return 'retry';
+                }
+                break;
+            case Card::class:
+                $concatenated = 'stripe';
+                if (isset($e->getJsonBody()['error']['type'])) {
+                    $concatenated .= '.' . $e->getJsonBody()['error']['type'];
+                }
+                if (isset($e->getJsonBody()['error']['code'])) {
+                    $concatenated .= '.' . $e->getJsonBody()['error']['code'];
+                }
+                if (isset($e->getJsonBody()['error']['decline_code'])) {
+                    $concatenated .= '.' . $e->getJsonBody()['error']['decline_code'];
+                }
+                break;
         }
 
         // \Stripe\Error\Authentication, \Stripe\Error\InvalidRequest and \Stripe\Error\ApiConnection are processed immediately
@@ -567,17 +589,6 @@ class StripeManager
             'stripe_version' => $e->getHttpHeaders()['Stripe-Version']
         ];
 
-        $concatenated = 'stripe';
-        if (isset($err['type'])) {
-            $concatenated .= '.' . $err['type'];
-        }
-        if (isset($err['code'])) {
-            $concatenated .= '.' . $err['code'];
-        }
-        if (isset($err['decline_code'])) {
-            $concatenated .= '.' . $err['decline_code'];
-        }
-
         if (null === $this->logger) {
             $this->logger->error($message, $context);
         }
@@ -592,8 +603,11 @@ class StripeManager
             'error' => $err,
             'message' => $message,
             'context' => $context,
-            'concatenated' => $concatenated
         ];
+
+        if (isset($concatenated)) {
+            $this->error['concatenated'] = $concatenated;
+        }
 
         return false;
     }

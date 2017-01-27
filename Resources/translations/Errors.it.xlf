@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
+  <file date="2017-01-27T16:13:33Z" source-language="en" target-language="it" datatype="plaintext" original="not.available">
+    <header>
+      <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
+      <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
+    </header>
+    <body>
+      <trans-unit id="5eea87cf9c6d106dbf432892f99f8da4436cbc7b" resname="stripe.card_error.card_declined.fraudulent">
+        <source>stripe.card_error.card_declined.fraudulent</source>
+        <target>La carta è stata rifiutata. Purtroppo la transazione è stata identificata come fraudolenta. Forse sarebbe il caso di contattare la banca emittente per chiarire la faccenda.</target>
+      </trans-unit>
+      <trans-unit id="70a8cef8043f02967285e2703c11b75d0a10e1b2" resname="stripe.card_error.card_declined.generic_decline">
+        <source>stripe.card_error.card_declined.generic_decline</source>
+        <target>La carta è stata rifiutata ma non ci è stato fornito il motivo. È possibile che i fondi non siano sufficienti o il motivo potrebbe essere altro. È necessario contattare la banca emittente per verificarne la validità.</target>
+      </trans-unit>
+      <trans-unit id="8141c39dd7386261bacd91190f96daf9e7f89c97" resname="stripe.card_error.expired_card">
+        <source>stripe.card_error.expired_card</source>
+        <target>La carta è scaduta. Usane una in corso di validità per poter completare il pagamento.</target>
+      </trans-unit>
+      <trans-unit id="c310e574f9528745f837949af38bf138b2fc13d0" resname="stripe.card_error.incorrect_cvc">
+        <source>stripe.card_error.incorrect_cvc</source>
+        <target>Il codice di sicurezza (CVC) della carta non è corretto. Ricontrollalo per assicurarti che sia correttamente inserito.</target>
+      </trans-unit>
+      <trans-unit id="cc79b7b7eaa1275ce48396fd475cc9587c76201a" resname="stripe.card_error.incorrect_number">
+        <source>stripe.card_error.incorrect_number</source>
+        <target>Il numero della carta sembra essere sbagliato. Ricontrollalo per assicurarti che sia correttamente inserito.</target>
+      </trans-unit>
+      <trans-unit id="73e87640f3349d1077e8e2fc24c1cd19b913fea7" resname="stripe.card_error.missing">
+        <source>stripe.card_error.missing</source>
+        <target>Non è stata fornita alcuna carta da addebitare.</target>
+      </trans-unit>
+      <trans-unit id="961937e5be5ed94b9841c1d9d1a0757776431e61" resname="stripe.card_error.processing_error">
+        <source>stripe.card_error.processing_error</source>
+        <target>Errore durante l'addebitamento della carta. Riprova. Se l'errore persiste contatta la nostra assistenza clienti che saprà come aiutarti.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

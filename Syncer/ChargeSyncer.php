@@ -163,4 +163,43 @@ class ChargeSyncer extends AbstractSyncer
 
         throw new \RuntimeException('Method not yet implemented');
     }
+
+    /**
+     * @param StripeLocalCharge $localCharge
+     * @param array $error
+     */
+    public function handleFraudDetection(StripeLocalCharge $localCharge, array $error)
+    {
+        $reflect = new \ReflectionClass($localCharge);
+
+        // Set the Charge Stripe ID as returned by the error
+        $propertyId = $reflect->getProperty('id');
+        $propertyId->setAccessible(true);
+        $propertyId->setValue($localCharge, $error['error']['charge']);
+
+        // Set other required fields. They will be update with right data by the webhook calling
+        $propertyCaptured = $reflect->getProperty('captured');
+        $propertyCaptured->setAccessible(true);
+        $propertyCaptured->setValue($localCharge, false);
+
+        $propertyCreated = $reflect->getProperty('created');
+        $propertyCreated->setAccessible(true);
+        // Set fictionally
+        $propertyCreated->setValue($localCharge, new \DateTime());
+
+        $propertyLivemode = $reflect->getProperty('livemode');
+        $propertyLivemode->setAccessible(true);
+        $propertyLivemode->setValue($localCharge, true);
+
+        $propertyPaid = $reflect->getProperty('paid');
+        $propertyPaid->setAccessible(true);
+        $propertyPaid->setValue($localCharge, false);
+
+        // Mark the card as fraudulent
+        $localCharge->getCustomer()->getDefaultSource()->setError($error['concatenated']);
+
+        // Save the local charge to the database
+        $this->getEntityManager()->persist($localCharge);
+        $this->getEntityManager()->flush();
+    }
 }
