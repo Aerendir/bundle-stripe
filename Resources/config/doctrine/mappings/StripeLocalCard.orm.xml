@@ -23,7 +23,7 @@
         <field name="fingerprint" type="string" column="fingerprint" precision="0" scale="0" nullable="false"/>
         <field name="funding" type="string" column="funding" precision="0" scale="0" nullable="false"/>
         <field name="last4" type="string" column="last4" precision="0" scale="0" nullable="false"/>
-        <field name="metadata" type="string" column="metadata" precision="0" scale="0" nullable="true"/>
+        <field name="metadata" type="array" column="metadata" nullable="true"/>
         <field name="name" type="string" column="name" precision="0" scale="0" nullable="true"/>
         <field name="tokenizationMethod" type="string" column="tokenization_method" precision="0" scale="0" nullable="true"/>
 

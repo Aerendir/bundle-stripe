@@ -153,7 +153,7 @@ And now it's time to render our form on the frontend:
 
 ```
 {# ATTENTION 1: NOTE WE GIVE THE FORM AN ID #}
-{{ form_start(form, {'attr': {'id': subscription_form_id}}) }}
+{{ form_start(form, {'attr': {'id': subscription_form_id, 'autocomplete': 'on'}}) }}
 
 {{ form_widget(form.plan.ads) }}
 {{ form_widget(form.plan.seo) }}

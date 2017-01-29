@@ -122,7 +122,7 @@ _Not fully tested yet. Please, provide feedbacks [opening an issue](https://gith
 
 **Bundle Behavior**: no customer is created (and so, no card associated and no charge created)
 
-### CARD 4000 0000 0000 0019
+### CARD 4100 0000 0000 0019
 
 **Descripted behavior**: Charge is declined with a `card_declined` code and a `fraudulent` reason.
 

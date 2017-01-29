@@ -45,6 +45,7 @@ class StripeExtension extends Extension
         $container->setParameter('stripe_bundle.secret_key', $config['stripe_config']['secret_key']);
         $container->setParameter('stripe_bundle.publishable_key', $config['stripe_config']['publishable_key']);
         $container->setParameter('stripe_bundle.debug', $debug);
+        $container->setParameter('stripe_bundle.statement_descriptor', $config['stripe_config']['statement_descriptor']);
         $container->setParameter('stripe_bundle.endpoint', $config['endpoint']);
 
         $filelocator = new FileLocator(__DIR__ . '/../Resources/config');

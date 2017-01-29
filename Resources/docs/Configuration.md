@@ -39,6 +39,7 @@ stripe_bundle:
     stripe_config:
         secret_key: "%stripe.secret_key%"
         publishable_key: "%stripe.publishable_key%"
+        statement_descriptor: "your_statement" # OPTION. If not set is null. It may be overwritten when creating a Charge.
     endpoint:
         route_name: _stripe_bundle_endpoint # OTIONAL. The endpoint Stripe calls when notify an event.
         protocolol: http # OPTIONAL. The protocol to use. Accepted values are: http, HTTP, https, HTTPS.

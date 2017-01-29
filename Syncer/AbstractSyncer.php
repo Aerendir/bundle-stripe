@@ -47,7 +47,7 @@ abstract class AbstractSyncer implements SyncerInterface
     /**
      * @return EntityManager
      */
-    public function getEntityManager()
+    public function getEntityManager() : EntityManager
     {
         return $this->entityManager;
     }
@@ -55,7 +55,7 @@ abstract class AbstractSyncer implements SyncerInterface
     /**
      * @return CardSyncer
      */
-    public function getCardSyncer()
+    public function getCardSyncer() : CardSyncer
     {
         return $this->cardSyncer;
     }
@@ -63,7 +63,7 @@ abstract class AbstractSyncer implements SyncerInterface
     /**
      * @return ChargeSyncer
      */
-    public function getChargeSyncer()
+    public function getChargeSyncer() : ChargeSyncer
     {
         return $this->chargeSyncer;
     }
@@ -71,7 +71,7 @@ abstract class AbstractSyncer implements SyncerInterface
     /**
      * @return SubscriptionSyncer
      */
-    public function getSubscriptionSyncer()
+    public function getSubscriptionSyncer() : SubscriptionSyncer
     {
         return $this->subscriptionSyncer;
     }
@@ -79,7 +79,7 @@ abstract class AbstractSyncer implements SyncerInterface
     /**
      * @return CustomerSyncer
      */
-    public function getCustomerSyncer()
+    public function getCustomerSyncer() : CustomerSyncer
     {
         return $this->customerSyncer;
     }

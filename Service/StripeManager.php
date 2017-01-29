@@ -42,6 +42,9 @@ class StripeManager
     /** @var string $debug */
     private $debug;
 
+    /** @var  string $statementDescriptor */
+    private $statementDescriptor;
+
     /** @var  null|array $errors Saves the errors thrown by the Stripe API */
     private $error;
 
@@ -69,16 +72,18 @@ class StripeManager
     /**
      * @param string                 $secretKey
      * @param string                 $debug
+     * @param string                 $statementDescriptor
      * @param LoggerInterface|Logger $logger
      * @param ChargeSyncer           $chargeSyncer
      * @param SubscriptionSyncer     $subscriptionSyncer
      * @param CustomerSyncer         $customerSyncer
      * @param WebhookEventSyncer     $webhookEventSyncer
      */
-    public function __construct($secretKey, $debug, LoggerInterface $logger = null, ChargeSyncer $chargeSyncer, SubscriptionSyncer $subscriptionSyncer, CustomerSyncer $customerSyncer, WebhookEventSyncer $webhookEventSyncer)
+    public function __construct($secretKey, $debug, $statementDescriptor, LoggerInterface $logger = null, ChargeSyncer $chargeSyncer, SubscriptionSyncer $subscriptionSyncer, CustomerSyncer $customerSyncer, WebhookEventSyncer $webhookEventSyncer)
     {
         Stripe::setApiKey($secretKey);
         $this->debug = $debug;
+        $this->statementDescriptor = $statementDescriptor;
         $this->logger = $logger instanceof Logger ? $logger->withName('StripeBundle') : $logger;
         $this->chargeSyncer = $chargeSyncer;
         $this->subscriptionSyncer = $subscriptionSyncer;
@@ -320,6 +325,12 @@ class StripeManager
     {
         // Get the object as an array
         $params = $localCharge->toStripe('create');
+
+        // If the statement descriptor is not set and the default one is not null...
+        if (false === isset($params['statement_descriptor']) && false === is_null($this->statementDescriptor)) {
+            // Set it
+            $params['statement_descriptor'] = $this->statementDescriptor;
+        }
 
         $arguments = [
             'params' => $params,

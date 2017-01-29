@@ -83,9 +83,10 @@ class WebhookEventSyncer extends AbstractSyncer
 
         // Ever first persist the $localStripeResource: descendant syncers may require the object is known by the EntityManager.
         $this->getEntityManager()->persist($localResource);
+        $this->getEntityManager()->flush();
 
         $stripeObjectData = $stripeResource->data->object;
-        // Now process the "data" property: here there are the object involved by this event
+        // Now process the "data" property: here there are the objects involved by this event
         switch ($stripeObjectData->object) {
             case 'charge':
                 // Get the Charge from the database
@@ -110,7 +111,7 @@ class WebhookEventSyncer extends AbstractSyncer
                 }
 
                 // Sync the local object with the remote one
-                $this->getChargeSyncer()->syncLocalFromStripe($localCustomer, $stripeResource->data->object);
+                $this->getCustomerSyncer()->syncLocalFromStripe($localCustomer, $stripeResource->data->object);
                 break;
 
             case 'source':
