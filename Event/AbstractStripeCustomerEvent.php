@@ -12,12 +12,11 @@
 namespace SerendipityHQ\Bundle\StripeBundle\Event;
 
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
-use Symfony\Component\EventDispatcher\Event;
 
 /**
  * Abstract class to manage Customers.
  */
-abstract class AbstractStripeCustomerEvent extends Event
+abstract class AbstractStripeCustomerEvent extends AbstractStripeEvent
 {
     /** @var StripeLocalCustomer $localCustomer */
     private $localCustomer;

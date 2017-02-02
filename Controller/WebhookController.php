@@ -32,7 +32,7 @@ class WebhookController extends Controller
         /** @var Event $content */
         $content = json_decode($request->getContent(), true);
 
-        // Get the event again the Event from Stripe for security reasons
+        // Get the Event again from Stripe for security reasons
         $stripeWebhookEvent = $this->get('stripe_bundle.manager.stripe_api')->retrieveEvent($content['id']);
 
         // Now check the event doesn't already exist in the database
@@ -42,7 +42,7 @@ class WebhookController extends Controller
             // Create the entity object (this will be persisted)
             $localWebhookEvent = new StripeLocalWebhookEvent();
 
-            // Now sync the entity LocalWebhookEvent eith the remote Stripe\Event (persisting is automatically handled)
+            // Now sync the entity LocalWebhookEvent with the remote Stripe\Event (persisting is automatically handled)
             $this->get('stripe_bundle.syncer.webhook_event')->syncLocalFromStripe($localWebhookEvent, $stripeWebhookEvent);
         }
 

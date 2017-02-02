@@ -28,8 +28,8 @@ jQuery(function($) {
     $('[data-numeric]').payment('restrictNumeric');
 
     $.fn.toggleInputError = function(hasError) {
-        this.parent('.form-group').toggleClass('has-error', hasError);
-        return this;
+        this.parents('.form-group').toggleClass('has-error', hasError);
+        return hasError;
     };
 
     $(form.find('#cc-number')).keyup(function () {
@@ -40,26 +40,30 @@ jQuery(function($) {
     form.submit(function(e) {
         var cardType = $.payment.cardType($('#cc-number').val());
         var hasErrors = false;
+        var toggle = false;
 
         // Disable the submit button to prevent repeated clicks:
         form.find('.submit').prop('disabled', true);
 
         // Validate cc-number
-        if (false === $.payment.validateCardNumber($('.cc-number').val())) {
+        toggle = $('.cc-number').toggleInputError(false === $.payment.validateCardNumber($('.cc-number').val()));
+        if (true === toggle) {
             hasErrors = true;
-            $('.cc-number').toggleInputError(hasErrors);
+            console.log('Error in credit card number.');
         }
 
         // Validate cc-exp
-        if (false === $.payment.validateCardExpiry($('.cc-exp').payment('cardExpiryVal'))) {
+        toggle = $('.cc-exp').toggleInputError(false === $.payment.validateCardExpiry($('.cc-exp').payment('cardExpiryVal')));
+        if (true === toggle) {
             hasErrors = true;
-            $('.cc-exp').toggleInputError(hasErrors);
+            console.log('Error in expiration date.');
         }
 
         // Validate cc-cvc
-        if (false === $.payment.validateCardCVC($('.cc-cvc').val(), cardType)) {
+        toggle = $('.cc-cvc').toggleInputError(false === $.payment.validateCardCVC($('.cc-cvc').val(), cardType));
+        if (true === toggle) {
             hasErrors = true;
-            $('.cc-cvc').toggleInputError(hasErrors);
+            console.log('Error in cvc.');
         }
 
         // Request a token from Stripe:
@@ -70,7 +74,6 @@ jQuery(function($) {
             try {
                 Stripe.card.createToken(form, stripeResponseHandler);
             } catch (err) {
-                console.log(err);
                 return false;
             }
         }

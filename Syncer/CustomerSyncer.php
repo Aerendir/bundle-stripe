@@ -20,6 +20,7 @@ use Stripe\ApiResource;
 use Stripe\Card;
 use Stripe\Collection;
 use Stripe\Customer;
+use Stripe\Error\Base;
 
 /**
  * @author Adamo Crespi <hello@aerendir.me>
@@ -115,7 +116,14 @@ class CustomerSyncer extends AbstractSyncer
          *
          * The cancellation process of a card is handled differently and does not concerns this updating process.
          */
-        $stripeDefaultCard = $stripeResource->sources->retrieve($stripeResource->default_source);
+        try {
+            $stripeDefaultCard = $stripeResource->sources->retrieve($stripeResource->default_source);
+        } catch (Base $e) {
+            // If an error occurs, simply flush the Customer object
+            $this->getEntityManager()->flush();
+            return;
+        }
+
         $localCard = $this->getEntityManager()->getRepository('StripeBundle:StripeLocalCard')->findOneByStripeId($stripeDefaultCard->id);
 
         // Chek if the card exists

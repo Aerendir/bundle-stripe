@@ -32,7 +32,7 @@ See the documentation for the full list of features.
 Requirements
 ------------
 
-1. PHP ^5.6|^7.0
+1. PHP ^7.0
 
 Status: ACTIVE DEVELOPMENT
 --------------------------
@@ -45,7 +45,7 @@ It is as stable as possible. If you, using it, find bugs or scenarios not covere
 
 All issues are reviewd and fixed.
 
-If you have a feature request, euqally, please, open an issue and we will review it and evaluate if it may be implemented.
+If you have a feature request, equally, please, open an issue and we will review it and evaluate if it may be implemented.
 
 Thank you for your collaboration.
 

@@ -41,9 +41,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('kernel_environment')
-                    ->cannotBeEmpty()
-                ->end()
+                ->booleanNode('debug')->end()
                 ->scalarNode('db_driver')
                     ->validate()
                         ->ifNotInArray(self::getSupportedDrivers())
@@ -59,6 +57,7 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->scalarNode('secret_key')->cannotBeEmpty()->end()
                         ->scalarNode('publishable_key')->cannotBeEmpty()->end()
+                        ->scalarNode('statement_descriptor')->defaultNull()->end()
                     ->end()
                 ->end()
                 ->arrayNode('endpoint')

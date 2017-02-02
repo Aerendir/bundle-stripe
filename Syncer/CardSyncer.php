@@ -32,7 +32,7 @@ class CardSyncer extends AbstractSyncer
     {
         /** @var StripeLocalCard $localResource */
         if (!$localResource instanceof StripeLocalCard) {
-            throw new \InvalidArgumentException('CardSyncer::hydrateLocal() accepts only StripeLocalCard objects as first parameter.');
+            throw new \InvalidArgumentException('CardSyncer::hydrateLocal() accepts only StripeLocalCard objects as first parameter');
         }
 
         /** @var Card $stripeResource */
@@ -132,7 +132,7 @@ class CardSyncer extends AbstractSyncer
                     break;
 
                 case 'metadata':
-                    $reflectedProperty->setValue($localResource, $stripeResource->metadata);
+                    $reflectedProperty->setValue($localResource, $stripeResource->metadata->__toArray());
                     break;
 
                 case 'name':

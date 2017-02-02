@@ -14,7 +14,7 @@
         <field name="livemode" type="boolean" column="livemode" nullable="false" />
         <field name="metadata" type="array" column="metadata" nullable="true" />
         <field name="name" type="string" column="name" nullable="true"/>
-        <field name="statementDescriptor" type="string" column="state_descriptor" nullable="true"/>
+        <field name="statementDescriptor" type="string" column="statement_descriptor" nullable="true"/>
         <field name="trialPeriodDays" type="integer" column="trial_period_days" nullable="true"/>
     </entity>
 </doctrine-mapping>

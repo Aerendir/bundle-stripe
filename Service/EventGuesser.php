@@ -17,6 +17,7 @@ use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookPingEventEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookPlanEventEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookProductEventEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookRecipientEventEvent;
+use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookReviewEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookSkuEventEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookSourceEventEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookTransferEventEvent;
@@ -34,15 +35,26 @@ use Stripe\Event;
  */
 class EventGuesser
 {
+    /** @var bool $debug Defines if the class has to operate in debug mode or not */
+    private $debug;
+
+    /**
+     * @param bool $debug
+     */
+    public function __construct(bool $debug)
+    {
+        $this->debug = $debug;
+    }
+
     /**
      * @param Event                   $stripeEvent
      * @param StripeLocalWebhookEvent $localEventEntity
      *
      * @return array
      */
-    public static function guess(Event $stripeEvent, StripeLocalWebhookEvent $localEventEntity)
+    public function guess(Event $stripeEvent, StripeLocalWebhookEvent $localEventEntity)
     {
-        $pieces = self::guessEventPieces($stripeEvent->type);
+        $pieces = $this->guessEventPieces($stripeEvent->type);
 
         switch ($pieces['kind']) {
             case 'account':
@@ -171,6 +183,15 @@ class EventGuesser
                 ];
                 break;
 
+            case 'review':
+                $disptachingEvent = new StripeWebhookReviewEvent($localEventEntity);
+
+                return [
+                    'type' => constant(StripeWebhookReviewEvent::class . '::' . $pieces['type']),
+                    'object' => $disptachingEvent
+                ];
+                break;
+
             case 'sku':
                 $disptachingEvent = new StripeWebhookSkuEventEvent($localEventEntity);
 
@@ -208,7 +229,11 @@ class EventGuesser
                 break;
 
             default:
-                throw new \RuntimeException('Event type not recognized. Maybe it is a new one or is not yet supported by the bundle. Report this issue to the GitHub Issue tracker.');
+                if ($this->debug) {
+                    throw new \RuntimeException('Event type not recognized. Maybe it is a new one or is not yet supported by the bundle. Report this issue to the GitHub Issue tracker.');
+                }
+
+                return ['type' => null, 'object' => null];
         }
     }
 
@@ -217,7 +242,7 @@ class EventGuesser
      *
      * @return array
      */
-    public static function guessEventPieces($type)
+    public function guessEventPieces($type)
     {
         /*
          * Guess the event kind.

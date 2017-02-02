@@ -3,18 +3,17 @@
 namespace SerendipityHQ\Bundle\StripeBundle\Event;
 
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalSubscription;
-use Symfony\Component\EventDispatcher\Event;
 
 /**
  * Abstract class to manage Subscriptions.
  */
-abstract class AbstractStripeSubscriptionEvent extends Event
+abstract class AbstractStripeSubscriptionEvent extends AbstractStripeEvent
 {
     /** @var StripeLocalSubscription $localSubscription */
     private $localSubscription;
 
     /**
-     * @param StripeLocalSubscription $charge
+     * @param StripeLocalSubscription $subscription
      */
     public function __construct(StripeLocalSubscription $subscription)
     {

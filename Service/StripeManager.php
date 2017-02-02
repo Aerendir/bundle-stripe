@@ -42,8 +42,14 @@ use Stripe\Stripe;
  */
 class StripeManager
 {
-    /** @var string $environment */
-    private $environment;
+    /** @var string $debug */
+    private $debug;
+
+    /** @var  string $statementDescriptor */
+    private $statementDescriptor;
+
+    /** @var  null|array $errors Saves the errors thrown by the Stripe API */
+    private $error;
 
     /** @var LoggerInterface $logger */
     private $logger;
@@ -71,7 +77,8 @@ class StripeManager
 
     /**
      * @param string                 $secretKey
-     * @param string                 $environment
+     * @param string                 $debug
+     * @param string                 $statementDescriptor
      * @param LoggerInterface|Logger $logger
      * @param ChargeSyncer           $chargeSyncer
      * @param SubscriptionSyncer     $subscriptionSyncer
@@ -79,10 +86,11 @@ class StripeManager
      * @param CustomerSyncer         $customerSyncer
      * @param WebhookEventSyncer     $webhookEventSyncer
      */
-    public function __construct($secretKey, $environment, LoggerInterface $logger = null, ChargeSyncer $chargeSyncer, SubscriptionSyncer $subscriptionSyncer, PlanSyncer $planSyncer, CustomerSyncer $customerSyncer, WebhookEventSyncer $webhookEventSyncer)
+    public function __construct($secretKey, $debug, $statementDescriptor, LoggerInterface $logger = null, ChargeSyncer $chargeSyncer, SubscriptionSyncer $subscriptionSyncer, PlanSyncer $planSyncer, CustomerSyncer $customerSyncer, WebhookEventSyncer $webhookEventSyncer)
     {
         Stripe::setApiKey($secretKey);
-        $this->environment = $environment;
+        $this->debug = $debug;
+        $this->statementDescriptor = $statementDescriptor;
         $this->logger = $logger instanceof Logger ? $logger->withName('StripeBundle') : $logger;
         $this->chargeSyncer = $chargeSyncer;
         $this->subscriptionSyncer = $subscriptionSyncer;
@@ -92,25 +100,109 @@ class StripeManager
     }
 
     /**
-     * Method to call the Stripe Api.
+     * Method to call the Stripe PHP SDK's static methods.
      *
      * This method wraps the calls in a try / catch statement to intercept exceptions raised by the Stripe client.
      *
+     * It receives three arguments:
+     *
+     * 1) The FQN of the Stripe Entity class;
+     * 2) The method of the class to invoke;
+     * 3) The arguments to pass to the method.
+     *
+     * As the methods of the Stripe PHP SDK have all the same structure, it is possible to extract a pattern.
+     *
+     * So, the alternatives are as following:
+     *
+     * 1) options
+     * 2) id, options
+     * 3) params, options
+     * 4) id, params, options
+     *
+     * Only the case 2 and 3 are confusable.
+     *
+     * To make this method able to match the right Stripe SDK's method signature, always set all the required arguments.
+     * If one argument is not required (only options or params are allowed to be missed), anyway set it as an empty array.
+     * BUT ANYWAY SET IT to make the switch able to match the proper method signature.
+     *
+     * So, to call a Stripe API's entity with a method with signature that matches case 1:
+     *
+     *     $arguments = [
+     *         'options' => [...] // Or an empty array
+     *     ];
+     *     $this->callStripe(Customer::class, 'save', $arguments)
+     *
+     * To call a Stripe API's entity with a method with signature that matches case 2:
+     *
+     *     $arguments = [
+     *         'id' => 'the_id_of_the_entity',
+     *         'options' => [...] // Or an empty array
+     *     ];
+     *     $this->callStripe(Customer::class, 'save', $arguments)
+     *
+     * To call a Stripe API's entity with a method with signature that matches case 3:
+     *
+     *     $arguments = [
+     *         'params' => [...] // Or an empty array,
+     *         'options' => [...] // Or an empty array
+     *     ];
+     *     $this->callStripe(Customer::class, 'save', $arguments)
+     *
+     * To call a Stripe API's entity with a method with signature that matches case 4:
+     *
+     *     $arguments = [
+     *         'id' => 'the_id_of_the_entity',
+     *         'params' => [...] // Or an empty array,
+     *         'options' => [...] // Or an empty array
+     *     ];
+     *     $this->callStripe(Customer::class, 'save', $arguments)
+     *
      * @param string $endpoint
      * @param string $action
-     * @param array  $params
+     * @param array  $arguments
      *
      * @return bool|ApiResource
      */
-    public function callStripe($endpoint, $action, $params)
+    public function callStripeApi(string $endpoint, string $action, array $arguments)
     {
         try {
-            $return = $endpoint::$action($params);
+            switch (count($arguments)) {
+                // Method with 1 argument only accept "options"
+                case 1:
+                    // If the value is an empty array, then set it as null
+                    $options = empty($arguments['options']) ? null : $arguments['options'];
+                    $return = $endpoint::$action($options);
+                    break;
+                case 2:
+                    // If the ID exists, we have to call for sure a method that in the signature has the ID and the options
+                    if (isset($arguments['id'])) {
+                        // If the value is an empty array, then set it as null
+                        $options = empty($arguments['options']) ? null : $arguments['options'];
+                        $return = $endpoint::$action($arguments['id'], $options);
+                    }
+                    // Else the method has params and options
+                    else {
+                        // If the value is an empty array, then set it as null
+                        $params = empty($arguments['params']) ? null : $arguments['params'];
+                        $options = empty($arguments['options']) ? null : $arguments['options'];
+                        $return = $endpoint::$action($params, $options);
+                    }
+                    break;
+                // Method with 3 arguments accept id, params and options
+                case 3:
+                    // If the value is an empty array, then set it as null
+                    $params = empty($arguments['params']) ? null : $arguments['params'];
+                    $options = empty($arguments['options']) ? null : $arguments['options'];
+                    $return = $endpoint::$action($arguments['id'], $params, $options);
+                    break;
+                default:
+                    throw new \RuntimeException('The arguments passed don\'t correspond to the allowed number. Please, review them.');
+            }
         } catch (Base $e) {
             $return = $this->handleException($e);
 
             if ('retry' === $return) {
-                $return = $this->callStripe($endpoint, $action, $params);
+                $return = $this->callStripeApi($endpoint, $action, $arguments);
             }
         }
 
@@ -121,19 +213,86 @@ class StripeManager
     }
 
     /**
-     * Method to call the Stripe Api.
+     * Method to call the Stripe PHP SDK's NON static methods.
+     *
+     * This method is usually used to call methods of a Stripe entity that is already initialized.
+     *
+     * For example, it can be used to call "cancel" or "save" methods after they have been retrieved through
+     * $this->callStripe(...).
      *
      * This method wraps the calls in a try / catch statement to intercept exceptions raised by the Stripe client.
      *
-     * @param string $object
+     * It receives three arguments:
+     *
+     * 1) The FQN of the Stripe Entity class;
+     * 2) The method of the class to invoke;
+     * 3) The arguments to pass to the method.
+     *
+     * As the methods of the Stripe PHP SDK have all the same structure, it is possible to extract a pattern.
+     *
+     * So, the alternatives are as following:
+     *
+     * 1) options
+     * 2) params, options
+     * 3) params
+     * 4) [No arguments]
+     *
+     * There are no confusable cases.
+     *
+     * To make this method able to match the right Stripe SDK's method signature, set all the required arguments only
+     * for methods that match the case 2 and if If one argument is not required, anyway set it as an empty array BUT
+     * ANYWAY SET IT to make the switch able to match the proper method signature.
+     *
+     * So, to call a Stripe SDK's method with signature that matches case 1 or case 3:
+     *
+     *     $arguments = [
+     *         [...] // Or an empty array
+     *     ];
+     *     $this->callStripeObject(Customer::class, 'save', $arguments)
+     *
+     * You can give the key a name for clarity, but in the callStripeObject method it is anyway referenced to as
+     * $arguments[0], so is irrelevant you give a key or not.
+     *
+     * To call a Stripe SDK's method with signature that matches case 2:
+     *
+     *     $arguments = [
+     *         'params' => [...] // Or an empty array,
+     *         'options' => [...] // Or an empty array
+     *     ];
+     *     $this->callStripeObject(Customer::class, 'cancel', $arguments)
+     *
+     * You can give the key a name for clarity, but in the callStripeObject method it is anyway referenced to as
+     * $arguments[0], so is irrelevant you give a key or not.
+     *
+     * @param ApiResource $object
      * @param string $method
+     * @param array $arguments
      *
      * @return bool|ApiResource
      */
-    public function callStripeObject($object, $method)
+    public function callStripeObject(ApiResource $object, string $method, array $arguments = [])
     {
         try {
-            $return = $object->$method();
+            switch (count($arguments)) {
+                // Method has no signature (it doesn't accept any argument)
+                case 0:
+                    $return = $object->$method();
+                    break;
+                // Method with 1 argument only accept one between "options" or "params"
+                case 1:
+                    // So we simply use the unique value in the array
+                    $return = $object->$method($arguments[0]);
+                    break;
+                // Method with 3 arguments accept id, params and options
+                case 2:
+                    // If the value is an empty array, then set it as null
+                    $params = empty($arguments['params']) ? null : $arguments['params'];
+                    $options = empty($arguments['options']) ? null : $arguments['options'];
+                    $return = $object->$method($params, $options);
+                    break;
+                default:
+                    throw new \RuntimeException('The arguments passed don\'t correspond to the allowed number. Please, review them.');
+            }
         } catch (Base $e) {
             $return = $this->handleException($e);
 
@@ -149,32 +308,20 @@ class StripeManager
     }
 
     /**
-     * Method to call the Stripe Api.
-     *
-     * This method wraps the calls in a try / catch statement to intercept exceptions raised by the Stripe client.
-     *
-     * @param Collection $collection
-     * @param string     $method
-     * @param array      $options
-     *
-     * @return bool|ApiResource
+     * This should be called only if an error exists. Use hasError().
+     * @return array|null
      */
-    public function callStripeCollection(Collection $collection, $method, $options = [])
+    public function getError() : array
     {
-        try {
-            $return = $collection->$method($options);
-        } catch (Base $e) {
-            $return = $this->handleException($e);
+        return $this->error;
+    }
 
-            if ('retry' === $return) {
-                $return = $this->callStripeCollection($collection, $method, $options);
-            }
-        }
-
-        // Reset the number of retries
-        $this->retries = 0;
-
-        return $return;
+    /**
+     * @return bool
+     */
+    public function hasErrors() : bool
+    {
+        return empty($this->error);
     }
 
     /**
@@ -185,12 +332,29 @@ class StripeManager
     public function createCharge(StripeLocalCharge $localCharge)
     {
         // Get the object as an array
-        $details = $localCharge->toStripe('create');
+        $params = $localCharge->toStripe('create');
 
-        $stripeCharge = $this->callStripe(Charge::class, 'create', $details);
+        // If the statement descriptor is not set and the default one is not null...
+        if (false === isset($params['statement_descriptor']) && false === is_null($this->statementDescriptor)) {
+            // Set it
+            $params['statement_descriptor'] = $this->statementDescriptor;
+        }
 
-        // If the creation failed, return false
+        $arguments = [
+            'params' => $params,
+            'options' => []
+        ];
+
+        $stripeCharge = $this->callStripeApi(Charge::class, 'create', $arguments);
+
+        // If the creation failed...
         if (false === $stripeCharge) {
+            // ... Check if it was due to a fraudulent detection
+            if (isset($this->error['error']['type'])) {
+                $this->chargeSyncer->handleFraudDetection($localCharge, $this->error);
+            }
+
+            // ... return false as the payment anyway failed
             return false;
         }
 
@@ -209,9 +373,14 @@ class StripeManager
     public function createSubscription(StripeLocalSubscription $localSubscription)
     {
         // Get the object as an array
-        $details = $localSubscription->toStripe('create');
+        $params = $localSubscription->toStripe('create');
 
-        $stripeSubscription = $this->callStripe(Subscription::class, 'create', $details);
+        $arguments = [
+            'params' => $params,
+            'options' => []
+        ];
+
+        $stripeSubscription = $this->callStripeApi(Subscription::class, 'create', $arguments);
 
         // If the creation failed, return false
         if (false === $stripeSubscription) {
@@ -227,7 +396,6 @@ class StripeManager
 
     /**
      * @param StripeLocalSubscription $localSubscription
-     * @param bool                    $syncSources
      *
      * @return bool
      */
@@ -260,10 +428,15 @@ class StripeManager
     public function createCustomer(StripeLocalCustomer $localCustomer)
     {
         // Get the object as an array
-        $details = $localCustomer->toStripe('create');
+        $params = $localCustomer->toStripe('create');
+
+        $arguments = [
+            'params' => $params,
+            'options' => []
+        ];
 
         /** @var Customer $stripeCustomer */
-        $stripeCustomer = $this->callStripe(Customer::class, 'create', $details);
+        $stripeCustomer = $this->callStripeApi(Customer::class, 'create', $arguments);
 
         // If the creation failed, return false
         if (false === $stripeCustomer) {
@@ -291,8 +464,13 @@ class StripeManager
             return false;
         }
 
+        $arguments = [
+            'id' => $localCustomer->getId(),
+            'options' => []
+        ];
+
         // Return the stripe object that can be "false" or "Customer"
-        return $this->callStripe(Customer::class, 'retrieve', $localCustomer->getId());
+        return $this->callStripeApi(Customer::class, 'retrieve', $arguments);
     }
 
     /**
@@ -356,14 +534,19 @@ class StripeManager
      *
      * @return bool|Event|ApiResource
      */
-    public function retrieveEvent($eventStripeId)
+    public function retrieveEvent(string $eventStripeId)
     {
+        $arguments = [
+            'id' => $eventStripeId,
+            'options' => []
+        ];
+
         // Return the stripe object that can be "false" or "Customer"
-        return $this->callStripe(Event::class, 'retrieve', $eventStripeId);
+        return $this->callStripeApi(Event::class, 'retrieve', $arguments);
     }
 
     /**
-     * @param StripeLocalSubscription $localCustomer
+     * @param StripeLocalSubscription $localSubscription
      *
      * @throws InvalidRequest
      *
@@ -376,8 +559,13 @@ class StripeManager
             return false;
         }
 
+        $arguments = [
+            'id' => $localSubscription->getId(),
+            'options' => []
+        ];
+
         // Return the stripe object that can be "false" or "Subscription"
-        return $this->callStripe(Subscription::class, 'retrieve', $localSubscription->getId());
+        return $this->callStripeApi(Subscription::class, 'retrieve', $arguments);
     }
 
     /**
@@ -386,7 +574,7 @@ class StripeManager
      *
      * @return bool
      */
-    public function updateCustomer(StripeLocalCustomer $localCustomer, $syncSources)
+    public function updateCustomer(StripeLocalCustomer $localCustomer, $syncSources) : bool
     {
         // Get the stripe object
         $stripeCustomer = $this->retrieveCustomer($localCustomer);
@@ -466,43 +654,47 @@ class StripeManager
      * @throws InvalidRequest Only in dev and test environments
      * @throws RateLimit      Only in dev and test environments
      */
-    private function handleException(\Exception $e)
+    private function handleException(Base $e)
     {
-        // If we received a rate limit exception, we have to retry with an exponential backoff
-        if ($e instanceof RateLimit) {
-            // If the maximum number of retries is already reached
-            if ($this->retries >= $this->maxRetries) {
-                goto raise;
-            }
+        switch (get_class($e)) {
+            case RateLimit::class:
+                // We have to retry with an exponential backoff if is not reached the maximum number of retries
+                if ($this->retries <= $this->maxRetries) {
+                    // First, put the script on sleep
+                    sleep($this->wait);
 
-            // First, put the script on sleep
-            sleep($this->wait);
+                    // Then we have to increment the sleep time
+                    $this->wait += $this->wait;
 
-            // Then we have to increment the sleep time
-            $this->wait += $this->wait;
+                    // Increment by 1 the number of retries
+                    ++$this->retries;
 
-            // Increment by 1 the number of retries
-            ++$this->retries;
-
-            return 'retry';
-        } elseif ($e instanceof Card) {
-            if ('dev' === $this->environment || 'test' === $this->environment) {
-                throw $e;
-            }
-
-            return false;
+                    return 'retry';
+                }
+                break;
+            case Card::class:
+                $concatenated = 'stripe';
+                if (isset($e->getJsonBody()['error']['type'])) {
+                    $concatenated .= '.' . $e->getJsonBody()['error']['type'];
+                }
+                if (isset($e->getJsonBody()['error']['code'])) {
+                    $concatenated .= '.' . $e->getJsonBody()['error']['code'];
+                }
+                if (isset($e->getJsonBody()['error']['decline_code'])) {
+                    $concatenated .= '.' . $e->getJsonBody()['error']['decline_code'];
+                }
+                break;
         }
 
-        // \Stripe\Error\Authentication, \Stripe\Error\InvalidRequest and \Stripe\Error\ApiConnection are raised immediately
-        raise:
+        // \Stripe\Error\Authentication, \Stripe\Error\InvalidRequest and \Stripe\Error\ApiConnection are processed immediately
         $body = $e->getJsonBody();
         $err = $body['error'];
         $message = '[' . $e->getHttpStatus() . ' - ' . $e->getJsonBody()['error']['type'] . '] ' . $e->getMessage();
         $context = [
             'status' => $e->getHttpStatus(),
-            'type' => isset($err['type']) ? $err['type'] : '',
-            'code' => isset($err['code']) ? $err['code'] : '',
-            'param' => isset($err['param']) ? $err['param'] : '',
+            'type' => $err['type'] ?? '',
+            'code' => $err['code'] ?? '',
+            'param' => $err['param'] ?? '',
             'request_id' => $e->getRequestId(),
             'stripe_version' => $e->getHttpHeaders()['Stripe-Version']
         ];
@@ -511,8 +703,20 @@ class StripeManager
             $this->logger->error($message, $context);
         }
 
-        if ('dev' === $this->environment || 'test' === $this->environment) {
+        // If we are in debug mode, raise the exception immediately
+        if ($this->debug) {
             throw $e;
+        }
+
+        // Set the error so it can be retrieved
+        $this->error = [
+            'error' => $err,
+            'message' => $message,
+            'context' => $context,
+        ];
+
+        if (isset($concatenated)) {
+            $this->error['concatenated'] = $concatenated;
         }
 
         return false;

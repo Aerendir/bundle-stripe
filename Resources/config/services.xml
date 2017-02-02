@@ -5,10 +5,13 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="stripe_bundle.guesser.event_guesser" class="SerendipityHQ\Bundle\StripeBundle\Service\EventGuesser" />
+        <service id="stripe_bundle.guesser.event_guesser" class="SerendipityHQ\Bundle\StripeBundle\Service\EventGuesser">
+            <argument>%stripe_bundle.debug%</argument>
+        </service>
         <service id="stripe_bundle.manager.stripe_api" class="SerendipityHQ\Bundle\StripeBundle\Service\StripeManager">
             <argument>%stripe_bundle.secret_key%</argument>
-            <argument>%stripe_bundle.kernel_environment%</argument>
+            <argument>%stripe_bundle.debug%</argument>
+            <argument>%stripe_bundle.statement_descriptor%</argument>
             <argument type="service" id="logger" on-invalid="null" />
             <argument type="service" id="stripe_bundle.syncer.charge" />
             <argument type="service" id="stripe_bundle.syncer.subscription" />
