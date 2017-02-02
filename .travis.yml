@@ -14,7 +14,7 @@ install:
     - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction
 
 script:
-    - phpunit --verbose --coverage-clover build/logs/clover.xml
+    - vendor/bin/phpunit --verbose --coverage-clover build/logs/clover.xml
     - phpenv config-rm xdebug.ini || return 0
 
 after_script:
