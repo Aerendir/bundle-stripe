@@ -40,7 +40,7 @@ class StripeLocalChargeTest extends ModelTestCase
             'receiptNumber' => 'xxxxxxx',
             'source' => $mockCard,
             'statementDescriptor' => 'descriptor',
-            'status' => 'status',
+            'status' => true,
             'captured' => true,
             'livemode' => false
         ];
