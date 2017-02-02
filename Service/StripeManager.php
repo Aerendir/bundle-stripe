@@ -484,7 +484,7 @@ class StripeManager
         $details = $localPlan->toStripe('create');
 
         /** @var Plan $stripePlan */
-        $stripePlan = $this->callStripe(Plan::class, 'create', $details);
+        $stripePlan = $this->callStripeApi(Plan::class, 'create', $details);
 
         // If the creation failed, return false
         if (false === $stripePlan) {
@@ -512,8 +512,13 @@ class StripeManager
             return false;
         }
 
+        $arguments = [
+            'id' => $localPlan->getId(),
+            'options' => []
+        ];
+
         // Return the stripe object that can be "false" or "Plan"
-        return $this->callStripe(Plan::class, 'retrieve', $localPlan->getId());
+        return $this->callStripeApi(Plan::class, 'retrieve', $arguments);
     }
 
     /**
@@ -524,7 +529,7 @@ class StripeManager
     public function retrievePlans()
     {
         // Return the all plans
-        return $this->callStripe(Plan::class, 'all', '');
+        return $this->callStripeApi(Plan::class, 'all', ['limit' => 100]);
     }
 
     /**
