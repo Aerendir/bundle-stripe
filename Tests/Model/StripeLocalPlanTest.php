@@ -52,7 +52,6 @@ class StripeLocalPlanTest extends ModelTestCase
 
         $this::assertSame($expected['amount'], $resource->getAmount());
         $this::assertSame($expected['created'], $resource->getCreated());
-        $this::assertSame($expected['currency'], $resource->getCurrency());
         $this::assertSame($expected['interval'], $resource->getInterval());
         $this::assertSame($expected['interval_count'], $resource->getIntervalCount());
         $this::assertFalse($resource->isLivemode());
