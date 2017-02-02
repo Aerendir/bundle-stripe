@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity
+            name="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalPlan"
+            table="stripe_plans"
+            repository-class="SerendipityHQ\Bundle\StripeBundle\Repository\StripeLocalPlanRepository">
+        <id name="id" type="string" column="id" length="40"/>
+        <field name="object" type="string" column="object"/>
+        <field name="amount" type="money" column="amount" nullable="false"/>
+        <field name="created" type="datetime" column="created" nullable="false" />
+        <field name="currency" type="string" column="currency" nullable="true"/>
+        <field name="interval" type="string" column="intervalf" nullable="true"/>
+        <field name="intervalCount" type="integer" column="interval_count" nullable="true"/>
+        <field name="livemode" type="boolean" column="livemode" nullable="false" />
+        <field name="metadata" type="array" column="metadata" nullable="true" />
+        <field name="name" type="string" column="name" nullable="true"/>
+        <field name="statementDescriptor" type="string" column="state_descriptor" nullable="true"/>
+        <field name="trialPeriodDays" type="integer" column="trial_period_days" nullable="true"/>
+    </entity>
+</doctrine-mapping>

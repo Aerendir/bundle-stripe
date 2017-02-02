@@ -23,6 +23,12 @@
             <argument type="service" id="stripe_bundle.manager.stripe_api" />
             <tag name="kernel.event_subscriber" />
         </service>
+        <service
+                id="stripe_bundle.subscriber.plan"
+                class="SerendipityHQ\Bundle\StripeBundle\EventListener\StripePlanSubscriber">
+            <argument type="service" id="stripe_bundle.manager.stripe_api" />
+            <tag name="kernel.event_subscriber" />
+        </service>
     </services>
 
 </container>
