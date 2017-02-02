@@ -90,7 +90,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     /** @var array $fraudDetails Hash with information on fraud assessments for the charge. Assessments reported by you have the key user_report and, if set, possible values of safe and fraudulent. Assessments from Stripe have the key stripe_report and, if set, the value fraudulent. */
     private $fraudDetails;
 
-    /** @var  array $outcome Details about whether or not the payment was accepted, and why. See understanding declines for details (https://stripe.com/docs/declines). */
+    /** @var array $outcome Details about whether or not the payment was accepted, and why. See understanding declines for details (https://stripe.com/docs/declines). */
     private $outcome;
 
     /** @var bool */
@@ -257,7 +257,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     /**
      * @return bool
      */
-    public function getStatus() : bool
+    public function getStatus(): bool
     {
         return $this->status;
     }
@@ -265,7 +265,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     /**
      * @return bool
      */
-    public function isCaptured() : bool
+    public function isCaptured(): bool
     {
         return $this->captured;
     }
@@ -273,7 +273,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     /**
      * @return bool
      */
-    public function isLivemode() : bool
+    public function isLivemode(): bool
     {
         return $this->livemode;
     }
@@ -289,7 +289,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
      *
      * @return StripeLocalCharge
      */
-    public function setAmount(Money $amount) : self
+    public function setAmount(Money $amount): self
     {
         if (null === $this->amount) {
             $this->amount = $amount;
@@ -303,7 +303,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
      *
      * @return StripeLocalCharge
      */
-    public function setCustomer(StripeLocalCustomer $customer) : self
+    public function setCustomer(StripeLocalCustomer $customer): self
     {
         $this->customer = $customer;
 
@@ -312,9 +312,10 @@ class StripeLocalCharge implements StripeLocalResourceInterface
 
     /**
      * @param string $description
+     *
      * @return StripeLocalCharge
      */
-    public function setDescription(string $description) : self
+    public function setDescription(string $description): self
     {
         $this->description = $description;
 
@@ -326,7 +327,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
      *
      * @return StripeLocalCharge
      */
-    public function setMetadata($metadata) : self
+    public function setMetadata($metadata): self
     {
         $this->metadata = $metadata;
 
@@ -338,7 +339,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
      *
      * @return StripeLocalCharge
      */
-    public function setReceiptEmail(Email $email) : self
+    public function setReceiptEmail(Email $email): self
     {
         $this->receiptEmail = $email;
 
@@ -350,7 +351,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
      *
      * @return StripeLocalCharge
      */
-    public function setSource($card) : self
+    public function setSource($card): self
     {
         if ($card instanceof StripeLocalCard) {
             $card = $card->getId();
@@ -378,7 +379,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
      *
      * @see https://stripe.com/docs/api/php#create_charge-statement_descriptor
      */
-    public function setStatementDescriptor($statementDescriptor) : self
+    public function setStatementDescriptor($statementDescriptor): self
     {
         $this->statementDescriptor = $statementDescriptor;
 
@@ -388,7 +389,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     /**
      * @return StripeLocalCharge
      */
-    public function capture() : self
+    public function capture(): self
     {
         $this->capture = true;
 
@@ -398,7 +399,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     /**
      * @return StripeLocalCharge
      */
-    public function notCapture() : self
+    public function notCapture(): self
     {
         $this->capture = false;
 

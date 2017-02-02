@@ -193,7 +193,7 @@ class ChargeSyncer extends AbstractSyncer
 
     /**
      * @param StripeLocalCharge $localCharge
-     * @param array $error
+     * @param array             $error
      */
     public function handleFraudDetection(StripeLocalCharge $localCharge, array $error)
     {

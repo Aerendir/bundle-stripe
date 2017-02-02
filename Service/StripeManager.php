@@ -23,7 +23,6 @@ use SerendipityHQ\Bundle\StripeBundle\Syncer\WebhookEventSyncer;
 use Stripe\ApiResource;
 use Stripe\Charge;
 use Stripe\Subscription;
-use Stripe\Collection;
 use Stripe\Customer;
 use Stripe\Error\ApiConnection;
 use Stripe\Error\Authentication;
@@ -42,10 +41,10 @@ class StripeManager
     /** @var string $debug */
     private $debug;
 
-    /** @var  string $statementDescriptor */
+    /** @var string $statementDescriptor */
     private $statementDescriptor;
 
-    /** @var  null|array $errors Saves the errors thrown by the Stripe API */
+    /** @var null|array $errors Saves the errors thrown by the Stripe API */
     private $error;
 
     /** @var LoggerInterface $logger */
@@ -257,8 +256,8 @@ class StripeManager
      * $arguments[0], so is irrelevant you give a key or not.
      *
      * @param ApiResource $object
-     * @param string $method
-     * @param array $arguments
+     * @param string      $method
+     * @param array       $arguments
      *
      * @return bool|ApiResource
      */
@@ -301,9 +300,10 @@ class StripeManager
 
     /**
      * This should be called only if an error exists. Use hasError().
+     *
      * @return array|null
      */
-    public function getError() : array
+    public function getError(): array
     {
         return $this->error;
     }
@@ -311,7 +311,7 @@ class StripeManager
     /**
      * @return bool
      */
-    public function hasErrors() : bool
+    public function hasErrors(): bool
     {
         return empty($this->error);
     }
@@ -512,7 +512,7 @@ class StripeManager
      *
      * @return bool
      */
-    public function updateCustomer(StripeLocalCustomer $localCustomer, $syncSources) : bool
+    public function updateCustomer(StripeLocalCustomer $localCustomer, $syncSources): bool
     {
         // Get the stripe object
         $stripeCustomer = $this->retrieveCustomer($localCustomer);

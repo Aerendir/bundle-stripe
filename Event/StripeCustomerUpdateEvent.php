@@ -20,7 +20,7 @@ class StripeCustomerUpdateEvent extends AbstractStripeCustomerEvent
     const UPDATED = 'stripe.local.customer.updated';
     const FAILED = 'stripe.local.customer.update_failed';
 
-    /** @var bool  */
+    /** @var bool */
     private $syncSources = true;
 
     /**

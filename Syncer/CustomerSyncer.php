@@ -46,8 +46,9 @@ class CustomerSyncer extends AbstractSyncer
 
         $reflect = new \ReflectionClass($localResource);
 
-        if ($localResource instanceof Proxy)
+        if ($localResource instanceof Proxy) {
             $reflect = $reflect->getParentClass();
+        }
 
         foreach ($reflect->getProperties() as $reflectedProperty) {
             // Set the property as accessible
@@ -121,6 +122,7 @@ class CustomerSyncer extends AbstractSyncer
         } catch (Base $e) {
             // If an error occurs, simply flush the Customer object
             $this->getEntityManager()->flush();
+
             return;
         }
 
@@ -165,31 +167,38 @@ class CustomerSyncer extends AbstractSyncer
             throw new \InvalidArgumentException('CustomerSyncer::syncStripeFromLocal() accepts only StripeLocalCustoer objects as second parameter.');
         }
 
-        if (null !== $localResource->getAccountBalance())
+        if (null !== $localResource->getAccountBalance()) {
             $stripeResource->account_balance = $localResource->getAccountBalance();
+        }
 
-        if (null !== $localResource->getBusinessVatId())
+        if (null !== $localResource->getBusinessVatId()) {
             $stripeResource->business_vat_id = $localResource->getBusinessVatId();
+        }
 
-        if (null !== $localResource->getCurrency())
+        if (null !== $localResource->getCurrency()) {
             $stripeResource->currency = $localResource->getCurrency();
+        }
 
-        if (null !== $localResource->getNewSource())
-            $stripeResource->source  = $localResource->getNewSource();
+        if (null !== $localResource->getNewSource()) {
+            $stripeResource->source = $localResource->getNewSource();
+        }
 
-        if (null !== $localResource->getDescription())
+        if (null !== $localResource->getDescription()) {
             $stripeResource->description = $localResource->getDescription();
+        }
 
-        if (null !== $localResource->getEmail())
+        if (null !== $localResource->getEmail()) {
             $stripeResource->email = $localResource->getEmail();
+        }
 
-        if (null !== $localResource->getAccountBalance())
-            $stripeResource->metadata    = $localResource->getMetadata();
+        if (null !== $localResource->getAccountBalance()) {
+            $stripeResource->metadata = $localResource->getMetadata();
+        }
     }
 
     /**
      * @param StripeLocalResourceInterface $localResource
-     * @param ApiResource $stripeResource
+     * @param ApiResource                  $stripeResource
      */
     public function syncLocalSources(StripeLocalResourceInterface $localResource, ApiResource $stripeResource)
     {
@@ -209,7 +218,6 @@ class CustomerSyncer extends AbstractSyncer
                 // The card doesn't exists on the Stripe account: remove it from the local one
                 $this->getEntityManager()->remove($card);
             }
-
         }
 
         $this->getEntityManager()->persist($localResource);
@@ -222,16 +230,17 @@ class CustomerSyncer extends AbstractSyncer
      * Perfrom this check guarantees that the local database is ever in sync with the Stripe Account.
      *
      * @param StripeLocalCard $card
-     * @param Collection $sources
+     * @param Collection      $sources
      *
      * @return bool
      */
     private function sourceExists(StripeLocalCard $card, Collection $sources)
     {
         /** @var Card $source */
-        foreach($sources->data as $source) {
-            if ($card->getId() === $source->id)
+        foreach ($sources->data as $source) {
+            if ($card->getId() === $source->id) {
                 return true;
+            }
         }
 
         return false;
