@@ -34,6 +34,8 @@ class StripeLocalPlanTest extends ModelTestCase
             'livemode' => false,
             'metadata' => [],
             'name' => 'plan',
+            'statement_description' => null,
+            'trial_period_days' => null
         ];
 
         // Test setMethods
