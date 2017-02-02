@@ -40,7 +40,6 @@ class StripeLocalPlanTest extends ModelTestCase
         $resource->setObject($expected['object'])
             ->setAmount($expected['amount'])
             ->setCreated($expected['created'])
-            ->setCurrency($expected['currency'])
             ->setInterval($expected['interval'])
             ->setIntervalCount($expected['interval_count'])
             ->setLivemode($expected['livemode'])
