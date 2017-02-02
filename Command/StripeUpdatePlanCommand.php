@@ -34,7 +34,7 @@ class StripeUpdatePlanCommand extends DoctrineCommand
             $aPlan = $plan->__toArray();
 
             $stripeLocalPlan = $em
-                ->getRepository("SerendipityHQ\\Bundle\\StripeBundle\\Model\\StripeLocalPlan")
+                ->getRepository('SerendipityHQ\\Bundle\\StripeBundle\\Model\\StripeLocalPlan')
                 ->findOneBy(['id' => $aPlan['id']]);
             if ($stripeLocalPlan == null) {
                 $stripeLocalPlan = new StripeLocalPlan();
@@ -58,13 +58,14 @@ class StripeUpdatePlanCommand extends DoctrineCommand
                 StripePlanUpdateEvent::UPDATE, $planUpdateEvent
             );
         }
-        try{
+        try {
             $em->getConnection()->commit();
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             $em->getConnection()->rollBack();
-            print_r(get_class($e)."\n");
-            print_r($e->getMessage()."\n");
+            print_r(get_class($e) . "\n");
+            print_r($e->getMessage() . "\n");
             exit(1);
+
             return false;
         }
         $output->writeln('Updated Plans.');

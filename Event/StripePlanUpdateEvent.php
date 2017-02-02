@@ -18,7 +18,7 @@ class StripePlanUpdateEvent extends AbstractStripePlanEvent
     const UPDATED = 'stripe.local.plan.updated';
     const FAILED = 'stripe.local.plan.update_failed';
 
-    /** @var bool  */
+    /** @var bool */
     private $syncSources = true;
 
     /**

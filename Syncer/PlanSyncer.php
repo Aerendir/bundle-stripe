@@ -117,7 +117,7 @@ class PlanSyncer extends AbstractSyncer
 
     /**
      * @param StripeLocalResourceInterface $localResource
-     * @param ApiResource $stripeResource
+     * @param ApiResource                  $stripeResource
      */
     public function syncLocalSources(StripeLocalResourceInterface $localResource, ApiResource $stripeResource)
     {

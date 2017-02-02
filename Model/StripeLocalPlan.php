@@ -11,7 +11,6 @@
 
 namespace SerendipityHQ\Bundle\StripeBundle\Model;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 
 /**
@@ -90,7 +89,7 @@ class StripeLocalPlan implements StripeLocalResourceInterface
     /**
      * @var null|string
      *
-     * Extra information about a charge for the customer’s credit card statement.
+     * Extra information about a charge for the customer’s credit card statement
      *
      * @see https://stripe.com/docs/api#plan_object-statement_descriptor
      */
@@ -129,8 +128,6 @@ class StripeLocalPlan implements StripeLocalResourceInterface
     {
         return $this->id = $id;
     }
-
-
 
     /**
      * @return 'plan'|string
@@ -219,7 +216,6 @@ class StripeLocalPlan implements StripeLocalResourceInterface
     {
         return $this->trialPeriodDays;
     }
-
 
     /**
      * @param string $object
@@ -391,7 +387,6 @@ class StripeLocalPlan implements StripeLocalResourceInterface
         if (null !== $this->getObject() && 'create' === $action) {
             $return['object'] = $this->getObject();
         }
-
 
         if (null !== $this->getCreated() && 'create' === $action) {
             $return['created'] = $this->getCreated();
