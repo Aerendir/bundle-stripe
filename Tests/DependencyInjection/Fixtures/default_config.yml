@@ -1,5 +1,5 @@
 stripe:
-    kernel_environment: 'test'
+    debug: false
     stripe_config:
         secret_key: "secret"
         publishable_key: "publishable"
