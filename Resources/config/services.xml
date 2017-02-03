@@ -15,6 +15,7 @@
             <argument type="service" id="logger" on-invalid="null" />
             <argument type="service" id="stripe_bundle.syncer.charge" />
             <argument type="service" id="stripe_bundle.syncer.subscription" />
+            <argument type="service" id="stripe_bundle.syncer.plan" />
             <argument type="service" id="stripe_bundle.syncer.customer" />
             <argument type="service" id="stripe_bundle.syncer.webhook_event" />
         </service>
@@ -25,6 +26,9 @@
             </call>
             <call method="setSubscriptionSyncer">
                 <argument type="service" id="stripe_bundle.syncer.subscription" />
+            </call>
+            <call method="setPlanSyncer">
+                <argument type="service" id="stripe_bundle.syncer.plan" />
             </call>
             <call method="setCustomerSyncer">
                 <argument type="service" id="stripe_bundle.syncer.customer" />
@@ -47,6 +51,21 @@
             <call method="setCustomerSyncer">
                 <argument type="service" id="stripe_bundle.syncer.customer" />
             </call>
+            <call method="setPlanSyncer">
+                <argument type="service" id="stripe_bundle.syncer.plan" />
+            </call>
+        </service>
+        <service id="stripe_bundle.syncer.plan" class="SerendipityHQ\Bundle\StripeBundle\Syncer\PlanSyncer">
+            <argument type="service" id="stripe_bundle.entity_manager" />
+            <call method="setChargeSyncer">
+                <argument type="service" id="stripe_bundle.syncer.charge" />
+            </call>
+            <call method="setSubscriptionSyncer">
+                <argument type="service" id="stripe_bundle.syncer.subscription" />
+            </call>
+            <call method="setCustomerSyncer">
+                <argument type="service" id="stripe_bundle.syncer.customer" />
+            </call>
         </service>
         <service id="stripe_bundle.syncer.customer" class="SerendipityHQ\Bundle\StripeBundle\Syncer\CustomerSyncer">
             <argument type="service" id="stripe_bundle.entity_manager" />
@@ -58,6 +77,9 @@
             </call>
             <call method="setSubscriptionSyncer">
                 <argument type="service" id="stripe_bundle.syncer.subscription" />
+            </call>
+            <call method="setPlanSyncer">
+                <argument type="service" id="stripe_bundle.syncer.plan" />
             </call>
         </service>
         <service id="stripe_bundle.syncer.webhook_event" class="SerendipityHQ\Bundle\StripeBundle\Syncer\WebhookEventSyncer">
@@ -73,6 +95,9 @@
             </call>
             <call method="setCustomerSyncer">
                 <argument type="service" id="stripe_bundle.syncer.customer" />
+            </call>
+            <call method="setPlanSyncer">
+                <argument type="service" id="stripe_bundle.syncer.plan" />
             </call>
         </service>
     </services>

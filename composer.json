@@ -27,7 +27,7 @@
         "doctrine/common": "~2.4",
         "friendsofphp/php-cs-fixer": "*",
         "monolog/monolog": "*",
-        "phpunit/phpunit": "*",
+        "phpunit/phpunit": "5.*",
         "symfony/form": "~2.8|~3",
         "symfony/yaml": "~2.5",
         "symfony/var-dumper": "*"

@@ -33,6 +33,9 @@ abstract class AbstractSyncer implements SyncerInterface
     /** @var SubscriptionSyncer $subscriptionSyncer */
     private $subscriptionSyncer;
 
+    /** @var PlanSyncer $planSyncer */
+    private $planSyncer;
+
     /** @var CustomerSyncer $customerSyncer */
     private $customerSyncer;
 
@@ -77,6 +80,14 @@ abstract class AbstractSyncer implements SyncerInterface
     }
 
     /**
+     * @return PlanSyncer
+     */
+    public function getPlanSyncer()
+    {
+        return $this->planSyncer;
+    }
+
+    /**
      * @return CustomerSyncer
      */
     public function getCustomerSyncer(): CustomerSyncer
@@ -106,6 +117,14 @@ abstract class AbstractSyncer implements SyncerInterface
     public function setSubscriptionSyncer(SubscriptionSyncer $subscriptionSyncer)
     {
         $this->subscriptionSyncer = $subscriptionSyncer;
+    }
+
+    /**
+     * @param PlanSyncer $PlanSyncer
+     */
+    public function setPlanSyncer(PlanSyncer $planSyncer)
+    {
+        $this->planSyncer = $planSyncer;
     }
 
     /**

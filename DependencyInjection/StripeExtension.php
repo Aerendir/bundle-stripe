@@ -34,7 +34,7 @@ class StripeExtension extends Extension
         $debug = $config['debug'] ?? $container->getParameter('kernel.debug');
 
         // Ever set the debug mode to off in production
-        if ('prod' === $container->getParameter('kernel.environment')) {
+        if ($container->hasParameter('kernel.environment') && 'prod' === $container->getParameter('kernel.environment')) {
             $debug = false;
         }
 

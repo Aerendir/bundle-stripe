@@ -2,6 +2,7 @@ parameters:
     kernel.debug: true
     kernel.environment: 'dev'
 stripe:
+    debug: false
     stripe_config:
         secret_key: "secret"
         publishable_key: "publishable"
