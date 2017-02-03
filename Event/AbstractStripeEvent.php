@@ -18,22 +18,23 @@ use Symfony\Component\EventDispatcher\Event;
  */
 abstract class AbstractStripeEvent extends Event
 {
-    /** @var  array $stopReason */
+    /** @var array $stopReason */
     private $stopReason;
 
     /**
      * @return array
      */
-    public function getStopReason() : array
+    public function getStopReason(): array
     {
         return $this->stopReason;
     }
 
     /**
      * @param array $stopReason
+     *
      * @return AbstractStripeEvent
      */
-    public function setStopReason(array $stopReason) : self
+    public function setStopReason(array $stopReason): self
     {
         $this->stopReason = $stopReason;
 

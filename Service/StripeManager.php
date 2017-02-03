@@ -26,7 +26,6 @@ use Stripe\ApiResource;
 use Stripe\Charge;
 use Stripe\Plan;
 use Stripe\Subscription;
-use Stripe\Collection;
 use Stripe\Customer;
 use Stripe\Error\ApiConnection;
 use Stripe\Error\Authentication;

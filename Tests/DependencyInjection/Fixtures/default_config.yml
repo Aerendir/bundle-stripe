@@ -1,3 +1,6 @@
+parameters:
+    kernel.debug: true
+    kernel.environment: 'dev'
 stripe:
     debug: false
     stripe_config:
