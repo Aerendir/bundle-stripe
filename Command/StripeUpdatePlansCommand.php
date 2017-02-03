@@ -10,12 +10,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Doctrine\Bundle\DoctrineBundle\Command\DoctrineCommand;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalPlan;
 
-class StripeUpdatePlanCommand extends DoctrineCommand
+class StripeUpdatePlansCommand extends DoctrineCommand
 {
     protected function configure()
     {
         $this
-            ->setName('stripe:update:plan')
+            ->setName('stripe:update:plans')
             ->setDescription('Update plans to your database.')
             ->addOption('em', null, InputOption::VALUE_REQUIRED, 'The entity manager to use for this command.');
     }
