@@ -97,3 +97,4 @@ As an example, let's subscribe our customer to one plan. If the plan has no tria
             StripeSubscriptionCreateEvent::CREATE, $subscriptionCreateEvent
         );
     }
+ 
