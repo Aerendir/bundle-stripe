@@ -157,5 +157,4 @@ class SubscriptionSyncer extends AbstractSyncer
         $this->getEntityManager()->remove($localResource);
         $this->getEntityManager()->flush();
     }
-
 }

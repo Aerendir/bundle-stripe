@@ -38,7 +38,7 @@ class WebhookController extends Controller
         // Now check the event doesn't already exist in the database
         $localWebhookEvent = $this->get('stripe_bundle.entity_manager')->getRepository('StripeBundle:StripeLocalWebhookEvent')->findOneByStripeId($stripeWebhookEvent->id);
 
-        if (strpos($content['type'], "deleted") !== false) {
+        if (strpos($content['type'], 'deleted') !== false) {
             $objectType = ucfirst($content['data']['object']['object']);
             if ($localWebhookEvent === null) {
                 $localResource = $this->get('stripe_bundle.entity_manager')
@@ -46,6 +46,7 @@ class WebhookController extends Controller
                     ->findOneBy(['id' => $content['data']['object']['id']]);
             }
             $this->get('stripe_bundle.syncer.' . $objectType)->removeLocal($localResource, $stripeWebhookEvent);
+
             return new Response('ok', 200);
         }
 
