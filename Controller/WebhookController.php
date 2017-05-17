@@ -45,7 +45,10 @@ class WebhookController extends Controller
                     ->getRepository('StripeBundle:StripeLocal' . $objectType)
                     ->findOneBy(['id' => $content['data']['object']['id']]);
             }
-            $this->get('stripe_bundle.syncer.' . $objectType)->removeLocal($localResource, $stripeWebhookEvent);
+            $syncer = $this->get('stripe_bundle.syncer.' . $objectType);
+            if (method_exists($syncer, "removeLocal")) {
+                $this->get('stripe_bundle.syncer.' . $objectType)->removeLocal($localResource, $stripeWebhookEvent);
+            }
 
             return new Response('ok', 200);
         }

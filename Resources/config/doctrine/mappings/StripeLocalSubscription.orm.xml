@@ -15,7 +15,7 @@
         <field name="endedAt" type="datetime" column="ended_at" nullable="true" />
         <field name="livemode" type="boolean" column="livemode" nullable="false" />
         <field name="metadata" type="array" column="metadata" nullable="true" />
-        <field name="plan" type="string" column="plan" nullable="false" />
+        <field name="plan" type="text" column="plan" nullable="false" />
         <field name="quantity" type="integer" column="quantity" nullable="false" />
         <field name="start" type="datetime" column="start" nullable="true" />
         <field name="status" type="string" column="status" nullable="true" />
