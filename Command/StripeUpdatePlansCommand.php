@@ -36,7 +36,7 @@ class StripeUpdatePlansCommand extends DoctrineCommand
             $stripeLocalPlan = $em
                 ->getRepository('SerendipityHQ\\Bundle\\StripeBundle\\Model\\StripeLocalPlan')
                 ->findOneBy(['id' => $aPlan['id']]);
-            if ($stripeLocalPlan == null) {
+            if ($stripeLocalPlan === null) {
                 $stripeLocalPlan = new StripeLocalPlan();
                 $stripeLocalPlan->setId($aPlan['id']);
                 $stripeLocalPlan->setCreated(new \DateTime());
@@ -60,14 +60,12 @@ class StripeUpdatePlansCommand extends DoctrineCommand
         }
         try {
             $em->getConnection()->commit();
+
+            $output->writeln('Updated Plans.');
         } catch (\Exception $e) {
             $em->getConnection()->rollBack();
-            print_r(get_class($e) . "\n");
-            print_r($e->getMessage() . "\n");
-            exit(1);
-
-            return false;
+            $output->writeln(get_class($e));
+            $output->writeln($e->getMessage());
         }
-        $output->writeln('Updated Plans.');
     }
 }

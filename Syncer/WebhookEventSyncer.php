@@ -114,6 +114,19 @@ class WebhookEventSyncer extends AbstractSyncer
                 $this->getCustomerSyncer()->syncLocalFromStripe($localCustomer, $stripeResource->data->object);
                 break;
 
+            case 'subscription':
+                // Get the Subscription from the database
+                $localSubscription = $this->getEntityManager()->getRepository('StripeBundle:StripeLocalSubscription')->findOneByStripeId($stripeObjectData->id);
+
+                // Create the new Local object if it doesn't exist
+                if (null === $localSubscription) {
+                    $localSubscription = new StripeLocalSubscription();
+                }
+
+                // Sync the local object with the remote one
+                $this->getSubscriptionSyncer()->syncLocalFromStripe($localSubscription, $stripeResource->data->object);
+                break;
+
             case 'source':
                 // If the source is a card, process it (maybe it is a bitcoin source that is not supported)
                 if ('card' === $stripeObjectData->source->object) {

@@ -148,4 +148,13 @@ class SubscriptionSyncer extends AbstractSyncer
 
         throw new \RuntimeException('Method not yet implemented');
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeLocal(StripeLocalResourceInterface $localResource)
+    {
+        $this->getEntityManager()->remove($localResource);
+        $this->getEntityManager()->flush();
+    }
 }
