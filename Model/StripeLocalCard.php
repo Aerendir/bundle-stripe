@@ -323,7 +323,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return StripeLocalCard
      */
-    public function setAddressCity($addressCity): self
+    public function setAddressCity($addressCity)
     {
         $this->addressCity = $addressCity;
 
@@ -335,7 +335,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return StripeLocalCard
      */
-    public function setAddressCountry($addressCountry): self
+    public function setAddressCountry($addressCountry)
     {
         $this->addressCountry = $addressCountry;
 
@@ -347,7 +347,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return StripeLocalCard
      */
-    public function setAddressLine1($addressLine1): self
+    public function setAddressLine1($addressLine1)
     {
         $this->addressLine1 = $addressLine1;
 
@@ -359,7 +359,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return StripeLocalCard
      */
-    public function setAddressLine2($addressLine2): self
+    public function setAddressLine2($addressLine2)
     {
         $this->addressLine2 = $addressLine2;
 
@@ -371,7 +371,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return StripeLocalCard
      */
-    public function setAddressState($addressState): self
+    public function setAddressState($addressState)
     {
         $this->addressState = $addressState;
 
@@ -383,7 +383,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return StripeLocalCard
      */
-    public function setAddressZip($addressZip): self
+    public function setAddressZip($addressZip)
     {
         $this->addressZip = $addressZip;
 
@@ -395,7 +395,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return StripeLocalCard
      */
-    public function setCountry($country): self
+    public function setCountry($country)
     {
         $this->country = $country;
 
@@ -407,7 +407,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return StripeLocalCard
      */
-    public function setCustomer(StripeLocalCustomer $customer): self
+    public function setCustomer(StripeLocalCustomer $customer)
     {
         $this->customer = $customer;
 
@@ -419,7 +419,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return StripeLocalCard
      */
-    public function setExpMonth($expMonth): self
+    public function setExpMonth($expMonth)
     {
         $this->expMonth = $expMonth;
 
@@ -431,7 +431,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return StripeLocalCard
      */
-    public function setExpYear($expYear): self
+    public function setExpYear($expYear)
     {
         $this->expYear = $expYear;
 
@@ -443,7 +443,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return StripeLocalCard
      */
-    public function setError(string $error): self
+    public function setError(string $error)
     {
         $this->error = $error;
 
@@ -455,7 +455,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return StripeLocalCard
      */
-    public function setMetadata($metadata): self
+    public function setMetadata($metadata)
     {
         $this->metadata = $metadata;
 
@@ -467,7 +467,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return StripeLocalCard
      */
-    public function setName($name): self
+    public function setName($name)
     {
         $this->name = $name;
 
@@ -477,7 +477,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /**
      * @return string
      */
-    public function __toString(): string
+    public function __toString()
     {
         return (string) $this->getId();
     }

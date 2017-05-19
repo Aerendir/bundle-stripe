@@ -8,14 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace SerendipityHQ\Bundle\StripeBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-
 /**
  * {@inheritdoc}
  *
@@ -31,7 +29,7 @@ class StripeExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $debug = $config['debug'] ?? $container->getParameter('kernel.debug');
+        $debug = isset($config['debug']) ? $config['debug'] : $container->getParameter('kernel.debug');
 
         // Ever set the debug mode to off in production
         if ($container->hasParameter('kernel.environment') && 'prod' === $container->getParameter('kernel.environment')) {

@@ -41,7 +41,7 @@ class CustomerSyncer extends AbstractSyncer
 
         /** @var Customer $stripeResource */
         if (!$stripeResource instanceof Customer) {
-            throw new \InvalidArgumentException('CustomerSyncer::syncLocalFromStripe() accepts only Stripe\Customer objects as second parameter.');
+            throw new \InvalidArgumentException('CustomerSyncer::syncLocalFromStripe() accepts only Stripe\\Customer objects as second parameter.');
         }
 
         $reflect = new \ReflectionClass($localResource);
@@ -159,7 +159,7 @@ class CustomerSyncer extends AbstractSyncer
     {
         /** @var Customer $stripeResource */
         if (!$stripeResource instanceof Customer) {
-            throw new \InvalidArgumentException('CustomerSyncer::syncStripeFromLocal() accepts only Stripe\Customer objects as first parameter.');
+            throw new \InvalidArgumentException('CustomerSyncer::syncStripeFromLocal() accepts only Stripe\\Customer objects as first parameter.');
         }
 
         /** @var StripeLocalCustomer $localResource */
@@ -209,7 +209,7 @@ class CustomerSyncer extends AbstractSyncer
 
         /** @var Customer $stripeResource */
         if (!$stripeResource instanceof Customer) {
-            throw new \InvalidArgumentException('CustomerSyncer::syncLocalFromStripe() accepts only Stripe\Customer objects as second parameter.');
+            throw new \InvalidArgumentException('CustomerSyncer::syncLocalFromStripe() accepts only Stripe\\Customer objects as second parameter.');
         }
 
         // Now, be sure the sources are in sync

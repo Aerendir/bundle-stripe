@@ -41,7 +41,7 @@ class EventGuesser
     /**
      * @param bool $debug
      */
-    public function __construct(bool $debug)
+    public function __construct($debug)
     {
         $this->debug = $debug;
     }

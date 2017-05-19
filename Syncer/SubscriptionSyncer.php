@@ -33,7 +33,7 @@ class SubscriptionSyncer extends AbstractSyncer
 
         /** @var Subscription $stripeResource */
         if (!$stripeResource instanceof Subscription) {
-            throw new \InvalidArgumentException('SubscriptionSyncer::syncLocalFromStripe() accepts only Stripe\Subscription objects as second parameter.');
+            throw new \InvalidArgumentException('SubscriptionSyncer::syncLocalFromStripe() accepts only Stripe\\Subscription objects as second parameter.');
         }
 
         $reflect = new \ReflectionClass($localResource);
@@ -138,7 +138,7 @@ class SubscriptionSyncer extends AbstractSyncer
     {
         /** @var Subscription $stripeResource */
         if (!$stripeResource instanceof Subscription) {
-            throw new \InvalidArgumentException('SubscriptionSyncer::hydrateStripe() accepts only Stripe\Subscription objects as first parameter.');
+            throw new \InvalidArgumentException('SubscriptionSyncer::hydrateStripe() accepts only Stripe\\Subscription objects as first parameter.');
         }
 
         /** @var StripeLocalSubscription $localResource */

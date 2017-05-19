@@ -162,7 +162,7 @@ class StripeManager
      *
      * @return bool|ApiResource
      */
-    public function callStripeApi(string $endpoint, string $action, array $arguments)
+    public function callStripeApi($endpoint, $action, array $arguments)
     {
         try {
             switch (count($arguments)) {
@@ -269,25 +269,25 @@ class StripeManager
      *
      * @return bool|ApiResource
      */
-    public function callStripeObject(ApiResource $object, string $method, array $arguments = [])
+    public function callStripeObject(ApiResource $object, $method, array $arguments = [])
     {
         try {
             switch (count($arguments)) {
                 // Method has no signature (it doesn't accept any argument)
                 case 0:
-                    $return = $object->$method();
+                    $return = $object->{$method}();
                     break;
                 // Method with 1 argument only accept one between "options" or "params"
                 case 1:
                     // So we simply use the unique value in the array
-                    $return = $object->$method($arguments[0]);
+                    $return = $object->{$method}($arguments[0]);
                     break;
                 // Method with 3 arguments accept id, params and options
                 case 2:
                     // If the value is an empty array, then set it as null
                     $params = empty($arguments['params']) ? null : $arguments['params'];
                     $options = empty($arguments['options']) ? null : $arguments['options'];
-                    $return = $object->$method($params, $options);
+                    $return = $object->{$method}($params, $options);
                     break;
                 default:
                     throw new \RuntimeException('The arguments passed don\'t correspond to the allowed number. Please, review them.');
@@ -311,7 +311,7 @@ class StripeManager
      *
      * @return array|null
      */
-    public function getError(): array
+    public function getError()
     {
         return $this->error;
     }
@@ -319,7 +319,7 @@ class StripeManager
     /**
      * @return bool
      */
-    public function hasErrors(): bool
+    public function hasErrors()
     {
         return empty($this->error);
     }
@@ -539,7 +539,7 @@ class StripeManager
      *
      * @return bool|Event|ApiResource
      */
-    public function retrieveEvent(string $eventStripeId)
+    public function retrieveEvent($eventStripeId)
     {
         $arguments = [
             'id' => $eventStripeId,
@@ -579,7 +579,7 @@ class StripeManager
      *
      * @return bool
      */
-    public function updateCustomer(StripeLocalCustomer $localCustomer, $syncSources): bool
+    public function updateCustomer(StripeLocalCustomer $localCustomer, $syncSources)
     {
         // Get the stripe object
         $stripeCustomer = $this->retrieveCustomer($localCustomer);
@@ -695,11 +695,12 @@ class StripeManager
         $body = $e->getJsonBody();
         $err = $body['error'];
         $message = '[' . $e->getHttpStatus() . ' - ' . $e->getJsonBody()['error']['type'] . '] ' . $e->getMessage();
+
         $context = [
             'status' => $e->getHttpStatus(),
-            'type' => $err['type'] ?? '',
-            'code' => $err['code'] ?? '',
-            'param' => $err['param'] ?? '',
+            'type' => isset($err['type']) ? $err['type'] : '',
+            'code' => isset($err['code']) ? $err['code'] : '',
+            'param' => isset($err['param']) ? $err['param'] : '',
             'request_id' => $e->getRequestId(),
             'stripe_version' => $e->getHttpHeaders()['Stripe-Version']
         ];

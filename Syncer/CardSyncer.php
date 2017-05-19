@@ -37,7 +37,7 @@ class CardSyncer extends AbstractSyncer
 
         /** @var Card $stripeResource */
         if (!$stripeResource instanceof Card) {
-            throw new \InvalidArgumentException('CardSyncer::hydrateLocal() accepts only Stripe\Card objects as second parameter.');
+            throw new \InvalidArgumentException('CardSyncer::hydrateLocal() accepts only Stripe\\Card objects as second parameter.');
         }
 
         $reflect = new \ReflectionClass($localResource);
@@ -153,7 +153,7 @@ class CardSyncer extends AbstractSyncer
     {
         /** @var Card $stripeResource */
         if (!$stripeResource instanceof Card) {
-            throw new \InvalidArgumentException('CardSyncer::hydrateLocal() accepts only Stripe\Card objects as first parameter.');
+            throw new \InvalidArgumentException('CardSyncer::hydrateLocal() accepts only Stripe\\Card objects as first parameter.');
         }
 
         /** @var StripeLocalCard $localResource */

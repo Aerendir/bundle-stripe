@@ -39,7 +39,7 @@ class WebhookEventSyncer extends AbstractSyncer
 
         /** @var Customer $stripeResource */
         if (!$stripeResource instanceof Event) {
-            throw new \InvalidArgumentException('WebhookEventSyncer::syncLocalFromStripe() accepts only Stripe\Event objects as second parameter.');
+            throw new \InvalidArgumentException('WebhookEventSyncer::syncLocalFromStripe() accepts only Stripe\\Event objects as second parameter.');
         }
 
         $reflect = new \ReflectionClass($localResource);
@@ -153,6 +153,6 @@ class WebhookEventSyncer extends AbstractSyncer
      */
     public function syncStripeFromLocal(ApiResource $stripeResource, StripeLocalResourceInterface $localResource)
     {
-        throw new \BadMethodCallException('You cannot synchronize a Stripe\Event from a StripeLocalWebhookEvent.');
+        throw new \BadMethodCallException('You cannot synchronize a Stripe\\Event from a StripeLocalWebhookEvent.');
     }
 }

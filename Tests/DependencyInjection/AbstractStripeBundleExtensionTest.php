@@ -32,7 +32,7 @@ abstract class AbstractStripeBundleExtensionTest extends \PHPUnit_Framework_Test
      * @param ContainerBuilder $container
      * @param $resource
      */
-    abstract protected function loadConfiguration(ContainerBuilder $container, $resource);
+    protected abstract function loadConfiguration(ContainerBuilder $container, $resource);
 
     public function testDefaultConfig()
     {
