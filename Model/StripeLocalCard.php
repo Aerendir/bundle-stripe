@@ -443,7 +443,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return StripeLocalCard
      */
-    public function setError(string $error)
+    public function setError($error)
     {
         $this->error = $error;
 

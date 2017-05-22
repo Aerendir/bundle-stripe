@@ -315,7 +315,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
      *
      * @return StripeLocalCharge
      */
-    public function setDescription(string $description)
+    public function setDescription($description)
     {
         $this->description = $description;
 
