@@ -46,7 +46,7 @@ class WebhookController extends Controller
                     ->findOneBy(['id' => $content['data']['object']['id']]);
             }
             $syncer = $this->get('stripe_bundle.syncer.' . $objectType);
-            if (method_exists($syncer, 'removeLocal')) {
+            if (method_exists($syncer, 'removeLocal') && $localResource != null) {
                 $this->get('stripe_bundle.syncer.' . $objectType)->removeLocal($localResource, $stripeWebhookEvent);
             }
 
