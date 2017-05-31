@@ -408,6 +408,30 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
     }
 
     /**
+     * @param float $taxPercent
+     */
+    public function setTaxPercent($taxPercent)
+    {
+        $this->taxPercent = $taxPercent;
+    }
+
+    /**
+     * @param \DateTime $trialStart
+     */
+    public function setTrialStart($trialStart)
+    {
+        $this->trialStart = $trialStart;
+    }
+
+    /**
+     * @param \DateTime $trialEnd
+     */
+    public function setTrialEnd($trialEnd)
+    {
+        $this->trialEnd = $trialEnd;
+    }
+
+    /**
      * Transforms metadata from string to array.
      *
      * As metadata can be set by the developer or by reflection during syncronization of the StripeCustomer object with
