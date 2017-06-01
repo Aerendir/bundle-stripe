@@ -98,3 +98,57 @@ As an example, let's subscribe our customer to one plan. If the plan has no tria
         );
     }
  
+##How to charge an amount and create an invoice
+Basically, the charge process only charge the amount but it doesn't create an invoice.
+
+In this section, we will able to create an invoice and call to Stripe for paying.
+
+1. Stage: We have a created customer.
+2. The process start with the creation of invoice item
+3. The second step is the creation of the invoice
+4. Last step is to call to Stripe for paying the invoice. Stripe will try to charge the amount.
+
+
+    ...
+    use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalSubscription;
+    use SerendipityHQ\Bundle\StripeBundle\Event\StripeInvoiceCreateEvent;
+    use SerendipityHQ\Bundle\StripeBundle\Event\StripeInvoiceItemCreateEvent;
+    use SerendipityHQ\Bundle\StripeBundle\Event\StripeInvoicePayEvent;
+    use SerendipityHQ\Component\ValueObjects\Email\Email;
+    use SerendipityHQ\Component\ValueObjects\Money\Money;
+    ...    
+    
+    // 1. Stage: We have a created customer
+    $email = new Email('USER@DOMAIN.TLD');
+    $stripeLocalCustomer = $em->getRepository("SerendipityHQ\\Bundle\\StripeBundle\\Model\\StripeLocalCustomer")
+        ->findOneBy(['email' => $email]);
+        
+    // 2. Creating a invoice item 
+    $stripeLocalInvoiceItem = new StripeLocalInvoiceItem();
+    $stripeLocalInvoiceItem->setCustomer($stripeLocalCustomer);
+    $amountMoney = new Money(['amount' => 999, 'currency' => 'eur']);
+    $stripeLocalInvoiceItem->setAmount($amountMoney);
+    $stripeLocalInvoiceItem->setDescription('XYZ service');
+    $invoiceItemCreateEvent = new StripeInvoiceItemCreateEvent($stripeLocalInvoiceItem);
+    $this->eventDispatcher->dispatch(
+        StripeInvoiceItemCreateEvent::CREATE, $invoiceItemCreateEvent
+    );
+    
+    // 3. Creating a invoice with all pending invoice item 
+
+    $stripeLocalInvoice = new StripeLocalInvoice();
+    $stripeLocalInvoice->setCustomer($stripeLocalCustomer);
+    $stripeLocalInvoice->setTaxPercent(21);
+    $invoiceCreateEvent = new StripeInvoiceCreateEvent($stripeLocalInvoice);
+    $this->eventDispatcher->dispatch(
+        StripeInvoiceCreateEvent::CREATE, $invoiceCreateEvent
+    );
+    
+    // 4. Call to Stripe for paying the invoice using the customer sources
+
+    $invoicePayEvent = new StripeInvoicePayEvent($stripeLocalInvoice);
+    $this->eventDispatcher->dispatch(
+        StripeInvoicePayEvent::PAY, $invoicePayEvent
+    );
+
+([Go back to index](Index.md)) | Next step: [Configuring webhooks](WebHooks.md)
