@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity
+            name="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalInvoice"
+            table="stripe_invoices"
+            repository-class="SerendipityHQ\Bundle\StripeBundle\Repository\StripeLocalInvoiceRepository">
+        <id name="id" type="string" column="id" length="40"/>
+        <field name="object" type="string" column="string" nullable="false" />
+        <field name="amountDue" type="integer" column="amount_due" nullable="true" />
+        <field name="applicationFee" type="integer" column="application_fee" nullable="true" />
+        <field name="attemptCount" type="integer" column="attempt_count" nullable="true" />
+        <field name="attempted" type="boolean" column="attempted" nullable="true" />
+        <field name="charge" type="string" column="charge" nullable="true" />
+        <field name="closed" type="boolean" column="closed" nullable="true" />
+        <field name="currency" type="string" column="currency" nullable="true" />
+        <field name="date" type="datetime" column="date" nullable="true" />
+        <field name="description" type="string" column="description" nullable="true" />
+        <field name="discount" type="string" column="discount" nullable="true" />
+        <field name="endingBalance" type="integer" column="ending_balance" nullable="true" />
+        <field name="forgiven" type="boolean" column="forgiven" nullable="true" />
+        <field name="lines" type="text" column="lines_items" nullable="true" />
+        <field name="livemode" type="boolean" column="livemode" nullable="true" />
+        <field name="metadata" type="array" column="metadata" nullable="true" />
+        <field name="nextPaymentAttempt" type="datetime" column="next_payment_attempt" nullable="true" />
+        <field name="paid" type="boolean" column="paid" nullable="true" />
+        <field name="periodEnd" type="datetime" column="period_end" nullable="true" />
+        <field name="periodStart" type="datetime" column="period_start" nullable="true" />
+        <field name="receiptNumber" type="integer" column="receipt_number" nullable="true" />
+        <field name="startingBalance" type="integer" column="starting_balance" nullable="true" />
+        <field name="statementDescriptor" type="string" column="statement_descriptor" nullable="true" />
+        <field name="subscription" type="string" column="subscription" nullable="true" />
+        <field name="subscriptionProrationDate" type="datetime" column="subscription_proration_date" nullable="true" />
+        <field name="subtotal" type="integer" column="subtotal" nullable="true" />
+        <field name="tax" type="integer" column="tax" nullable="true" />
+        <field name="taxPercent" type="integer" column="tax_percent" nullable="true" />
+        <field name="total" type="integer" column="total" nullable="true" />
+        <field name="webhooksDeliveredAt" type="datetime" column="webhooksDeliveredAt" nullable="true" />
+
+        <many-to-one field="customer" target-entity="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer" inversed-by="subscriptions">
+            <join-column name="customer" referenced-column-name="id" />
+        </many-to-one>
+
+        <lifecycle-callbacks>
+            <lifecycle-callback type="prePersist" method="metadataTransformer"/>
+            <lifecycle-callback type="postLoad" method="metadataTransformer"/>
+        </lifecycle-callbacks>
+    </entity>
+</doctrine-mapping>

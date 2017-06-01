@@ -13,17 +13,23 @@ namespace SerendipityHQ\Bundle\StripeBundle\Service;
 
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
-use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalPlan;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\ChargeSyncer;
+use SerendipityHQ\Bundle\StripeBundle\Syncer\InvoiceItemSyncer;
+use SerendipityHQ\Bundle\StripeBundle\Syncer\InvoiceSyncer;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\PlanSyncer;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\SubscriptionSyncer;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\CustomerSyncer;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalSubscription;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
+use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalPlan;
+use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalInvoice;
+use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalInvoiceItem;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\WebhookEventSyncer;
 use Stripe\ApiResource;
 use Stripe\Charge;
+use Stripe\Invoice;
+use Stripe\InvoiceItem;
 use Stripe\Plan;
 use Stripe\Subscription;
 use Stripe\Customer;
@@ -74,6 +80,12 @@ class StripeManager
     /** @var CustomerSyncer $customerSyncer */
     private $customerSyncer;
 
+    /** @var InvoiceSyncer $invoiceSyncer */
+    private $invoiceSyncer;
+
+    /** @var InvoiceItemSyncer $invoiceItemSyncer */
+    private $invoiceItemSyncer;
+
     /**
      * @param string                 $secretKey
      * @param string                 $debug
@@ -85,7 +97,12 @@ class StripeManager
      * @param CustomerSyncer         $customerSyncer
      * @param WebhookEventSyncer     $webhookEventSyncer
      */
-    public function __construct($secretKey, $debug, $statementDescriptor, LoggerInterface $logger = null, ChargeSyncer $chargeSyncer, SubscriptionSyncer $subscriptionSyncer, PlanSyncer $planSyncer, CustomerSyncer $customerSyncer, WebhookEventSyncer $webhookEventSyncer)
+    public function __construct(
+        $secretKey, $debug, $statementDescriptor, LoggerInterface $logger = null, ChargeSyncer $chargeSyncer,
+        SubscriptionSyncer $subscriptionSyncer, PlanSyncer $planSyncer, CustomerSyncer $customerSyncer,
+        InvoiceSyncer $invoiceSyncer, InvoiceItemSyncer $invoiceItemSyncer,
+        WebhookEventSyncer $webhookEventSyncer
+    )
     {
         Stripe::setApiKey($secretKey);
         $this->debug = $debug;
@@ -95,6 +112,8 @@ class StripeManager
         $this->subscriptionSyncer = $subscriptionSyncer;
         $this->planSyncer = $planSyncer;
         $this->customerSyncer = $customerSyncer;
+        $this->invoiceSyncer = $invoiceSyncer;
+        $this->invoiceItemSyncer = $invoiceItemSyncer;
         $this->WebhookEventSyncer = $webhookEventSyncer;
     }
 
@@ -642,6 +661,113 @@ class StripeManager
 
         if (true === $syncSources) {
             $this->planSyncer->syncLocalSources($localPlan, $stripePlan);
+        }
+
+        return true;
+    }
+
+    /**
+     * @param StripeLocalInvoice $localInvoice
+     *
+     * @return bool
+     */
+    public function createInvoice(StripeLocalInvoice $localInvoice)
+    {
+        // Get the object as an array
+        $params = $localInvoice->toStripe('create');
+
+        $arguments = [
+            'params' => $params,
+            'options' => []
+        ];
+
+        $stripeInvoice = $this->callStripeApi(Invoice::class, 'create', $arguments);
+
+        // If the creation failed, return false
+        if (false === $stripeInvoice) {
+            return false;
+        }
+
+        // Set the data returned by Stripe in the LocalInvoice object
+        $this->invoiceSyncer->syncLocalFromStripe($localInvoice, $stripeInvoice);
+
+        // The creation was successful: return true
+        return true;
+    }
+
+    /**
+     * @param StripeLocalInvoiceItem $localInvoiceItem
+     *
+     * @return bool
+     */
+    public function createInvoiceItem(StripeLocalInvoiceItem $localInvoiceItem)
+    {
+        // Get the object as an array
+        $params = $localInvoiceItem->toStripe('create');
+
+        $arguments = [
+            'params' => $params,
+            'options' => []
+        ];
+
+        $stripeInvoiceItem = $this->callStripeApi(InvoiceItem::class, 'create', $arguments);
+
+        // If the creation failed, return false
+        if (false === $stripeInvoiceItem) {
+            return false;
+        }
+
+        // Set the data returned by Stripe in the LocalInvoice object
+        $this->invoiceItemSyncer->syncLocalFromStripe($localInvoiceItem, $stripeInvoiceItem);
+
+        // The creation was successful: return true
+        return true;
+    }
+
+    /**
+     * @param StripeLocalInvoice $localInvoice
+     *
+     * @throws InvalidRequest
+     *
+     * @return bool|Invoice|ApiResource
+     */
+    public function retrieveInvoice(StripeLocalInvoice $localInvoice)
+    {
+        // If no ID is set, return false
+        if (null === $localInvoice->getId()) {
+            return false;
+        }
+
+        $arguments = [
+            'id' => $localInvoice->getId(),
+            'options' => []
+        ];
+
+        // Return the stripe object that can be "false" or "Subscription"
+        return $this->callStripeApi(Invoice::class, 'retrieve', $arguments);
+    }
+
+    /**
+     * @param StripeLocalInvoice $localInvoice
+     *
+     * @return bool
+     */
+    public function payInvoice(StripeLocalInvoice $localInvoice)
+    {
+        // Get the stripe object
+        $stripeInvoice = $this->retrieveInvoice($localInvoice);
+
+        // The retrieving failed: return false
+        if (false === $stripeInvoice) {
+            return false;
+        }
+
+        // Save the invoice object
+        $stripeInvoice = $this->callStripeObject($stripeInvoice, 'pay');
+
+        // If the update failed, return false
+        if (false === $stripeInvoice) {
+            return false;
         }
 
         return true;

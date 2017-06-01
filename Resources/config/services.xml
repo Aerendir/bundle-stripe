@@ -17,6 +17,8 @@
             <argument type="service" id="stripe_bundle.syncer.subscription" />
             <argument type="service" id="stripe_bundle.syncer.plan" />
             <argument type="service" id="stripe_bundle.syncer.customer" />
+            <argument type="service" id="stripe_bundle.syncer.invoice" />
+            <argument type="service" id="stripe_bundle.syncer.invoiceitem" />
             <argument type="service" id="stripe_bundle.syncer.webhook_event" />
         </service>
         <service id="stripe_bundle.syncer.card" class="SerendipityHQ\Bundle\StripeBundle\Syncer\CardSyncer">
@@ -33,6 +35,12 @@
             <call method="setCustomerSyncer">
                 <argument type="service" id="stripe_bundle.syncer.customer" />
             </call>
+            <call method="setInvoiceSyncer">
+                <argument type="service" id="stripe_bundle.syncer.invoice" />
+            </call>
+            <call method="setInvoiceItemSyncer">
+                <argument type="service" id="stripe_bundle.syncer.invoiceitem" />
+            </call>
         </service>
         <service id="stripe_bundle.syncer.charge" class="SerendipityHQ\Bundle\StripeBundle\Syncer\ChargeSyncer">
             <argument type="service" id="stripe_bundle.entity_manager" />
@@ -41,6 +49,12 @@
             </call>
             <call method="setCustomerSyncer">
                 <argument type="service" id="stripe_bundle.syncer.customer" />
+            </call>
+            <call method="setInvoiceSyncer">
+                <argument type="service" id="stripe_bundle.syncer.invoice" />
+            </call>
+            <call method="setInvoiceItemSyncer">
+                <argument type="service" id="stripe_bundle.syncer.invoiceitem" />
             </call>
         </service>
         <service id="stripe_bundle.syncer.subscription" class="SerendipityHQ\Bundle\StripeBundle\Syncer\SubscriptionSyncer">
@@ -54,6 +68,48 @@
             <call method="setPlanSyncer">
                 <argument type="service" id="stripe_bundle.syncer.plan" />
             </call>
+            <call method="setInvoiceSyncer">
+                <argument type="service" id="stripe_bundle.syncer.invoice" />
+            </call>
+            <call method="setInvoiceItemSyncer">
+                <argument type="service" id="stripe_bundle.syncer.invoiceitem" />
+            </call>
+        </service>
+        <service id="stripe_bundle.syncer.invoice" class="SerendipityHQ\Bundle\StripeBundle\Syncer\InvoiceSyncer">
+            <argument type="service" id="stripe_bundle.entity_manager" />
+            <call method="setCardSyncer">
+                <argument type="service" id="stripe_bundle.syncer.card" />
+            </call>
+            <call method="setCustomerSyncer">
+                <argument type="service" id="stripe_bundle.syncer.customer" />
+            </call>
+            <call method="setPlanSyncer">
+                <argument type="service" id="stripe_bundle.syncer.plan" />
+            </call>
+            <call method="setSubscriptionSyncer">
+                <argument type="service" id="stripe_bundle.syncer.subscription" />
+            </call>
+            <call method="setInvoiceItemSyncer">
+                <argument type="service" id="stripe_bundle.syncer.invoiceitem" />
+            </call>
+        </service>
+        <service id="stripe_bundle.syncer.invoiceitem" class="SerendipityHQ\Bundle\StripeBundle\Syncer\InvoiceItemSyncer">
+            <argument type="service" id="stripe_bundle.entity_manager" />
+            <call method="setCardSyncer">
+                <argument type="service" id="stripe_bundle.syncer.card" />
+            </call>
+            <call method="setCustomerSyncer">
+                <argument type="service" id="stripe_bundle.syncer.customer" />
+            </call>
+            <call method="setPlanSyncer">
+                <argument type="service" id="stripe_bundle.syncer.plan" />
+            </call>
+            <call method="setSubscriptionSyncer">
+                <argument type="service" id="stripe_bundle.syncer.subscription" />
+            </call>
+            <call method="setInvoiceSyncer">
+                <argument type="service" id="stripe_bundle.syncer.invoice" />
+            </call>
         </service>
         <service id="stripe_bundle.syncer.plan" class="SerendipityHQ\Bundle\StripeBundle\Syncer\PlanSyncer">
             <argument type="service" id="stripe_bundle.entity_manager" />
@@ -65,6 +121,12 @@
             </call>
             <call method="setCustomerSyncer">
                 <argument type="service" id="stripe_bundle.syncer.customer" />
+            </call>
+            <call method="setInvoiceSyncer">
+                <argument type="service" id="stripe_bundle.syncer.invoice" />
+            </call>
+            <call method="setInvoiceItemSyncer">
+                <argument type="service" id="stripe_bundle.syncer.invoiceitem" />
             </call>
         </service>
         <service id="stripe_bundle.syncer.customer" class="SerendipityHQ\Bundle\StripeBundle\Syncer\CustomerSyncer">
@@ -80,6 +142,12 @@
             </call>
             <call method="setPlanSyncer">
                 <argument type="service" id="stripe_bundle.syncer.plan" />
+            </call>
+            <call method="setInvoiceSyncer">
+                <argument type="service" id="stripe_bundle.syncer.invoice" />
+            </call>
+            <call method="setInvoiceItemSyncer">
+                <argument type="service" id="stripe_bundle.syncer.invoiceitem" />
             </call>
         </service>
         <service id="stripe_bundle.syncer.webhook_event" class="SerendipityHQ\Bundle\StripeBundle\Syncer\WebhookEventSyncer">
@@ -98,6 +166,12 @@
             </call>
             <call method="setPlanSyncer">
                 <argument type="service" id="stripe_bundle.syncer.plan" />
+            </call>
+            <call method="setInvoiceSyncer">
+                <argument type="service" id="stripe_bundle.syncer.invoice" />
+            </call>
+            <call method="setInvoiceItemSyncer">
+                <argument type="service" id="stripe_bundle.syncer.invoiceitem" />
             </call>
         </service>
     </services>

@@ -39,6 +39,12 @@ abstract class AbstractSyncer implements SyncerInterface
     /** @var CustomerSyncer $customerSyncer */
     private $customerSyncer;
 
+    /** @var InvoiceSyncer $invoiceSyncer */
+    private $invoiceSyncer;
+
+    /** @var InvoiceItemSyncer $invoiceItemSyncer */
+    private $invoiceItemSyncer;
+
     /**
      * @param EntityManager $entityManager
      */
@@ -134,6 +140,23 @@ abstract class AbstractSyncer implements SyncerInterface
     {
         $this->customerSyncer = $customerSyncer;
     }
+
+    /**
+     * @param InvoiceSyncer $invoiceSyncer
+     */
+    public function setInvoiceSyncer(InvoiceSyncer $invoiceSyncer)
+    {
+        $this->invoiceSyncer = $invoiceSyncer;
+    }
+
+    /**
+     * @param InvoiceItemSyncer $invoiceItemSyncer
+     */
+    public function setInvoiceItemSyncer(InvoiceItemSyncer $invoiceItemSyncer)
+    {
+        $this->invoiceItemSyncer = $invoiceItemSyncer;
+    }
+
 
     /**
      * Gets the local customer object searching for it in the database or in the newly created entities persisted but

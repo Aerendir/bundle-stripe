@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity
+            name="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalInvoiceItem"
+            table="stripe_invoice_items"
+            repository-class="SerendipityHQ\Bundle\StripeBundle\Repository\StripeLocalInvoiceItemRepository">
+        <id name="id" type="string" column="id" length="40"/>
+        <field name="object" type="string" column="string" nullable="false" />
+        <field name="amount" type="integer" column="amount" nullable="false" />
+        <field name="currency" type="string" column="currency" nullable="true" />
+        <field name="description" type="string" column="description" nullable="true" />
+        <field name="discountable" type="boolean" column="discountable" nullable="true" />
+        <field name="livemode" type="boolean" column="livemode" nullable="true" />
+        <field name="metadata" type="array" column="metadata" nullable="true" />
+        <field name="period" type="array" column="period" nullable="true" />
+        <field name="plan" type="array" column="plan" nullable="false" />
+        <field name="proration" type="boolean" column="proration" nullable="true" />
+        <field name="quantity" type="integer" column="quantity" nullable="true" />
+        <field name="subscription" type="string" column="subscription" nullable="true" />
+        <field name="subscriptionItem" type="string" column="subscription_item" nullable="true" />
+
+        <many-to-one field="customer" target-entity="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer" inversed-by="subscriptions">
+            <join-column name="customer" referenced-column-name="id" />
+        </many-to-one>
+
+        <lifecycle-callbacks>
+            <lifecycle-callback type="prePersist" method="metadataTransformer"/>
+            <lifecycle-callback type="postLoad" method="metadataTransformer"/>
+        </lifecycle-callbacks>
+    </entity>
+</doctrine-mapping>
