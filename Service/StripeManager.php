@@ -102,8 +102,7 @@ class StripeManager
         SubscriptionSyncer $subscriptionSyncer, PlanSyncer $planSyncer, CustomerSyncer $customerSyncer,
         InvoiceSyncer $invoiceSyncer, InvoiceItemSyncer $invoiceItemSyncer,
         WebhookEventSyncer $webhookEventSyncer
-    )
-    {
+    ) {
         Stripe::setApiKey($secretKey);
         $this->debug = $debug;
         $this->statementDescriptor = $statementDescriptor;

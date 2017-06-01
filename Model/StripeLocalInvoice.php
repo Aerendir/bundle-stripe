@@ -35,7 +35,7 @@ class StripeLocalInvoice implements StripeLocalResourceInterface
      * @var int
      *
      * The fee in cents that will be applied to the invoice and transferred to the application owner’s Stripe account
-     * when the invoice is paid.
+     * when the invoice is paid
      *
      * @see https://stripe.com/docs/api/curl#invoice_object-application_fee
      */
@@ -65,16 +65,16 @@ class StripeLocalInvoice implements StripeLocalResourceInterface
     /**
      * @var string
      *
-     * ID of the latest charge generated for this invoice, if any.
+     * ID of the latest charge generated for this invoice, if any
      *
      * @see https://stripe.com/docs/api/curl#invoice_object-charge
      */
     private $charge;
 
     /**
-     * @var boolean
+     * @var bool
      *
-     * ID of the latest charge generated for this invoice, if any.
+     * ID of the latest charge generated for this invoice, if any
      *
      * @see https://stripe.com/docs/api/curl#invoice_object-closed
      */
@@ -138,7 +138,7 @@ class StripeLocalInvoice implements StripeLocalResourceInterface
     private $endingBalance;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * Whether or not the invoice has been forgiven. Forgiving an invoice instructs us to update the subscription status
      * as if the invoice were successfully paid. Once an invoice has been forgiven, it cannot be unforgiven or reopened.
@@ -171,14 +171,14 @@ class StripeLocalInvoice implements StripeLocalResourceInterface
     /**
      * @var \DateTime
      *
-     * The time at which payment will next be attempted.
+     * The time at which payment will next be attempted
      *
      * @see https://stripe.com/docs/api/curl#invoice_object-next_payment_attempt
      */
     private $nextPaymentAttempt;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * Whether or not payment was successfully collected for this invoice. An invoice can be paid (most commonly) with a
      * charge or with credit from the customer’s account balance.
@@ -187,11 +187,10 @@ class StripeLocalInvoice implements StripeLocalResourceInterface
      */
     private $paid;
 
-
     /**
      * @var \DateTime
      *
-     * End of the usage period during which invoice items were added to this invoice.
+     * End of the usage period during which invoice items were added to this invoice
      *
      * @see https://stripe.com/docs/api/curl#invoice_object-period_end
      */
@@ -200,7 +199,7 @@ class StripeLocalInvoice implements StripeLocalResourceInterface
     /**
      * @var \DateTime
      *
-     * Start of the usage period during which invoice items were added to this invoice.
+     * Start of the usage period during which invoice items were added to this invoice
      *
      * @see https://stripe.com/docs/api/curl#invoice_object-period_start
      */
@@ -209,7 +208,7 @@ class StripeLocalInvoice implements StripeLocalResourceInterface
     /**
      * @var string
      *
-     * This is the transaction number that appears on email receipts sent for this invoice.
+     * This is the transaction number that appears on email receipts sent for this invoice
      *
      * @see https://stripe.com/docs/api/curl#invoice_object-receipt_number
      */
@@ -228,7 +227,7 @@ class StripeLocalInvoice implements StripeLocalResourceInterface
     /**
      * @var string
      *
-     * Extra information about an invoice for the customer’s credit card statement.
+     * Extra information about an invoice for the customer’s credit card statement
      *
      * @see https://stripe.com/docs/api/curl#invoice_object-statement_descriptor
      */
@@ -237,7 +236,7 @@ class StripeLocalInvoice implements StripeLocalResourceInterface
     /**
      * @var string
      *
-     * The subscription that this invoice was prepared for, if any.
+     * The subscription that this invoice was prepared for, if any
      *
      * @see https://stripe.com/docs/api/curl#invoice_object-subscription
      */
@@ -255,7 +254,7 @@ class StripeLocalInvoice implements StripeLocalResourceInterface
     /**
      * @var int
      *
-     * Total of all subscriptions, invoice items, and prorations on the invoice before any discount is applied.
+     * Total of all subscriptions, invoice items, and prorations on the invoice before any discount is applied
      *
      * @see https://stripe.com/docs/api/curl#invoice_object-subtotal
      */
@@ -285,7 +284,7 @@ class StripeLocalInvoice implements StripeLocalResourceInterface
     /**
      * @var int
      *
-     * Total after discount.
+     * Total after discount
      *
      * @see https://stripe.com/docs/api/curl#invoice_object-total
      */
@@ -445,7 +444,6 @@ class StripeLocalInvoice implements StripeLocalResourceInterface
     {
         return $this->metadata;
     }
-
 
     /**
      * @return \DateTime
@@ -942,7 +940,6 @@ class StripeLocalInvoice implements StripeLocalResourceInterface
             if (null !== $this->getTaxPercent()) {
                 $return['tax_percent'] = $this->getTaxPercent();
             }
-
         } elseif ('pay' === $action) { // Prepare the array for paying
             $return = [];
 

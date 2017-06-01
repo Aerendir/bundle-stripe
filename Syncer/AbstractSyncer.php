@@ -157,7 +157,6 @@ abstract class AbstractSyncer implements SyncerInterface
         $this->invoiceItemSyncer = $invoiceItemSyncer;
     }
 
-
     /**
      * Gets the local customer object searching for it in the database or in the newly created entities persisted but
      * not yet flushed.

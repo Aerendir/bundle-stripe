@@ -24,7 +24,7 @@ class StripeLocalInvoiceItem implements StripeLocalResourceInterface
     /**
      * @var int
      *
-     * Amount (in the currency specified) of the invoice item.
+     * Amount (in the currency specified) of the invoice item
      *
      * @see https://stripe.com/docs/api/curl#invoiceitem_object-amount
      */
@@ -76,7 +76,7 @@ class StripeLocalInvoiceItem implements StripeLocalResourceInterface
     /**
      * @var string
      *
-     * The ID of the invoice this invoice item belongs to.
+     * The ID of the invoice this invoice item belongs to
      *
      * @see https://stripe.com/docs/api/curl#invoiceitem_object-invoice
      */
@@ -94,7 +94,6 @@ class StripeLocalInvoiceItem implements StripeLocalResourceInterface
     private $metadata;
 
     /** @var string
-     *
      * @see https://stripe.com/docs/api/curl#invoiceitem_object-period
      */
     private $period;
@@ -102,7 +101,7 @@ class StripeLocalInvoiceItem implements StripeLocalResourceInterface
     /**
      * @var string
      *
-     * If the invoice item is a proration, the plan of the subscription that the proration was computed for.
+     * If the invoice item is a proration, the plan of the subscription that the proration was computed for
      *
      * @see https://stripe.com/docs/api#invoiceitem_object-plan
      */
@@ -112,7 +111,7 @@ class StripeLocalInvoiceItem implements StripeLocalResourceInterface
      * @var bool
      *
      * Whether or not the invoice item was created automatically as a proration adjustment when the customer switched
-     * plans.
+     * plans
      *
      * @see https://stripe.com/docs/api/curl#invoiceitem_object-proration
      */
@@ -121,7 +120,7 @@ class StripeLocalInvoiceItem implements StripeLocalResourceInterface
     /**
      * @var int
      *
-     * If the invoice item is a proration, the quantity of the subscription that the proration was computed for.
+     * If the invoice item is a proration, the quantity of the subscription that the proration was computed for
      *
      * @see https://stripe.com/docs/api/curl#invoiceitem_object-quantity
      */
@@ -130,7 +129,7 @@ class StripeLocalInvoiceItem implements StripeLocalResourceInterface
     /**
      * @var string
      *
-     * The subscription that this invoice item has been created for, if any.
+     * The subscription that this invoice item has been created for, if any
      *
      * @see https://stripe.com/docs/api/curl#invoiceitem_object-subscription
      */
@@ -142,7 +141,6 @@ class StripeLocalInvoiceItem implements StripeLocalResourceInterface
      * @see https://stripe.com/docs/api/curl#invoiceitem_object-subscription_item
      */
     private $subscriptionItem;
-
 
     /**
      * @return int
@@ -175,6 +173,7 @@ class StripeLocalInvoiceItem implements StripeLocalResourceInterface
     {
         return $this->currency;
     }
+
     /**
      * @return StripeLocalCustomer
      */
@@ -494,7 +493,6 @@ class StripeLocalInvoiceItem implements StripeLocalResourceInterface
                 'currency' => $this->getAmount()->getCurrency()->getCurrencyCode(),
             ];
 
-
             /*
              * customer required
              *
@@ -544,7 +542,6 @@ class StripeLocalInvoiceItem implements StripeLocalResourceInterface
                 $return['invoice'] = $this->getInvoice();
             }
 
-
             /*
              * metadata optional, default is { }.
              *
@@ -571,7 +568,6 @@ class StripeLocalInvoiceItem implements StripeLocalResourceInterface
             if (null !== $this->getSubscription()) {
                 $return['subscription'] = $this->getSubscription();
             }
-
         }
 
         return $return;
