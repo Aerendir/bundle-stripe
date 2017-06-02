@@ -39,6 +39,12 @@ abstract class AbstractSyncer implements SyncerInterface
     /** @var CustomerSyncer $customerSyncer */
     private $customerSyncer;
 
+    /** @var InvoiceSyncer $invoiceSyncer */
+    private $invoiceSyncer;
+
+    /** @var InvoiceItemSyncer $invoiceItemSyncer */
+    private $invoiceItemSyncer;
+
     /**
      * @param EntityManager $entityManager
      */
@@ -50,7 +56,7 @@ abstract class AbstractSyncer implements SyncerInterface
     /**
      * @return EntityManager
      */
-    public function getEntityManager(): EntityManager
+    public function getEntityManager()
     {
         return $this->entityManager;
     }
@@ -58,7 +64,7 @@ abstract class AbstractSyncer implements SyncerInterface
     /**
      * @return CardSyncer
      */
-    public function getCardSyncer(): CardSyncer
+    public function getCardSyncer()
     {
         return $this->cardSyncer;
     }
@@ -66,7 +72,7 @@ abstract class AbstractSyncer implements SyncerInterface
     /**
      * @return ChargeSyncer
      */
-    public function getChargeSyncer(): ChargeSyncer
+    public function getChargeSyncer()
     {
         return $this->chargeSyncer;
     }
@@ -74,7 +80,7 @@ abstract class AbstractSyncer implements SyncerInterface
     /**
      * @return SubscriptionSyncer
      */
-    public function getSubscriptionSyncer(): SubscriptionSyncer
+    public function getSubscriptionSyncer()
     {
         return $this->subscriptionSyncer;
     }
@@ -90,7 +96,7 @@ abstract class AbstractSyncer implements SyncerInterface
     /**
      * @return CustomerSyncer
      */
-    public function getCustomerSyncer(): CustomerSyncer
+    public function getCustomerSyncer()
     {
         return $this->customerSyncer;
     }
@@ -133,6 +139,22 @@ abstract class AbstractSyncer implements SyncerInterface
     public function setCustomerSyncer(CustomerSyncer $customerSyncer)
     {
         $this->customerSyncer = $customerSyncer;
+    }
+
+    /**
+     * @param InvoiceSyncer $invoiceSyncer
+     */
+    public function setInvoiceSyncer(InvoiceSyncer $invoiceSyncer)
+    {
+        $this->invoiceSyncer = $invoiceSyncer;
+    }
+
+    /**
+     * @param InvoiceItemSyncer $invoiceItemSyncer
+     */
+    public function setInvoiceItemSyncer(InvoiceItemSyncer $invoiceItemSyncer)
+    {
+        $this->invoiceItemSyncer = $invoiceItemSyncer;
     }
 
     /**

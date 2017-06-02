@@ -40,7 +40,7 @@ class ChargeSyncer extends AbstractSyncer
 
         /** @var Charge $stripeResource */
         if (!$stripeResource instanceof Charge) {
-            throw new \InvalidArgumentException('ChargeSyncer::syncLocalFromStripe() accepts only Stripe\Charge objects as second parameter.');
+            throw new \InvalidArgumentException('ChargeSyncer::syncLocalFromStripe() accepts only Stripe\\Charge objects as second parameter.');
         }
 
         $reflect = new \ReflectionClass($localResource);
@@ -126,7 +126,7 @@ class ChargeSyncer extends AbstractSyncer
                     break;
 
                 case 'receiptEmail':
-                    $email = ('' === trim($stripeResource->receipt_email)) ? null : new Email($stripeResource->receipt_email);
+                    $email = '' === trim($stripeResource->receipt_email) ? null : new Email($stripeResource->receipt_email);
                     $reflectedProperty->setValue($localResource, $email);
                     break;
 
@@ -180,7 +180,7 @@ class ChargeSyncer extends AbstractSyncer
     {
         /** @var Charge $stripeResource */
         if (!$stripeResource instanceof Charge) {
-            throw new \InvalidArgumentException('ChargeSyncer::hydrateStripe() accepts only Stripe\Charge objects as first parameter.');
+            throw new \InvalidArgumentException('ChargeSyncer::hydrateStripe() accepts only Stripe\\Charge objects as first parameter.');
         }
 
         /** @var StripeLocalCharge $localResource */

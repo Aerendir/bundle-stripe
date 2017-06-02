@@ -32,7 +32,7 @@ class PlanSyncer extends AbstractSyncer
 
         /** @var Plan $stripeResource */
         if (!$stripeResource instanceof Plan) {
-            throw new \InvalidArgumentException('PlanSyncer::syncLocalFromStripe() accepts only Stripe\Plan objects as second parameter.');
+            throw new \InvalidArgumentException('PlanSyncer::syncLocalFromStripe() accepts only Stripe\\Plan objects as second parameter.');
         }
 
         $reflect = new \ReflectionClass($localResource);
@@ -103,7 +103,7 @@ class PlanSyncer extends AbstractSyncer
     {
         /** @var Plan $stripeResource */
         if (!$stripeResource instanceof Plan) {
-            throw new \InvalidArgumentException('PlanSyncer::hydrateStripe() accepts only Stripe\Plan objects as first parameter.');
+            throw new \InvalidArgumentException('PlanSyncer::hydrateStripe() accepts only Stripe\\Plan objects as first parameter.');
         }
 
         /** @var StripeLocalPlan $localResource */
@@ -128,7 +128,7 @@ class PlanSyncer extends AbstractSyncer
 
         /** @var Plan $stripeResource */
         if (!$stripeResource instanceof Plan) {
-            throw new \InvalidArgumentException('PlanSyncer::syncLocalFromStripe() accepts only Stripe\Plan objects as second parameter.');
+            throw new \InvalidArgumentException('PlanSyncer::syncLocalFromStripe() accepts only Stripe\\Plan objects as second parameter.');
         }
 
         $this->getEntityManager()->persist($localResource);
