@@ -2,6 +2,7 @@
 
 namespace SerendipityHQ\Bundle\StripeBundle\Tests\DependencyInjection;
 
+use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\StripeBundle\DependencyInjection\StripeExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -10,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
-abstract class AbstractStripeBundleExtensionTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractStripeBundleExtensionTest extends TestCase
 {
     private $extension;
 
