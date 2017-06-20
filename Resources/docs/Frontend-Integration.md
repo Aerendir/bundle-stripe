@@ -160,7 +160,7 @@ And now it's time to render our form on the frontend:
 {{ form_widget(form.plan.social) }}
 
 {# ATTENTION 2: NOTE WE INCLUDE THE BUNDLED TEMPLATE PASSING IT SOME VARIABLES #}
-{% include('StripeBundle::creditCardForm.html.twig') with {'publishable_key': stripe_publishable_key, 'form_id': subscription_form_id, 'token_input_id': subscription_token_input_id} %}
+{% include('StripeBundle::creditCardForm.html.twig') with {'publishable_key': stripe_publishable_key, 'form_id': subscription_form_id, 'token_input_id': subscription_token_input_id, 'env': app.environment} %}
 
 {# ATTENTION 3: NOTE WE RENDER THE FIELD WE ADDED AT STEP 2.3 #}
 {{ form_widget(form.credit_card.card_token) }}
@@ -174,6 +174,7 @@ KEEP ATTENTION NOW: note these things:
 1. We gave the form an `id`;
 2. We simply included a template provided by Stripe Bundle, BUT we passed it some variables;
 3. We render the field `card_token` we added at step 2.3;
+4. We add an `env` variable set to `app.environment`: this way on development the credit card form will be prepopulated with some dummy data while on production it is empty. (The prepopulated data are of the [test card 424242424242](https://stripe.com/docs/testing#cards)
 
 The questions:
 
