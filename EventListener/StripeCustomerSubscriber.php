@@ -41,6 +41,11 @@ class StripeCustomerSubscriber extends AbstractStripeSubscriber
     {
         $localCustomer = $event->getLocalCustomer();
 
+        // To create a Customer the currency parameter is not allowed.
+        // So, if in our app we get it, when creating the customer we lose it.
+        // We save the currency here to add it again later.
+        $currency = $localCustomer->getCurrency();
+
         $result = $this->getStripeManager()->createCustomer($localCustomer);
 
         // Check if something went wrong
@@ -53,6 +58,12 @@ class StripeCustomerSubscriber extends AbstractStripeSubscriber
 
             // exit
             return;
+        }
+
+        if (null !== $currency) {
+            // We readd the currency to the object to be sure to save it to the database.
+            // It is allowed when charging the customer or updating it.
+            $localCustomer->setCurrency($currency);
         }
 
         $dispatcher->dispatch(StripeCustomerCreateEvent::CREATED, $event);
