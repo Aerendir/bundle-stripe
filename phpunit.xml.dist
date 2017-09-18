@@ -2,7 +2,7 @@
 <phpunit colors="true" bootstrap="./vendor/autoload.php">
     <testsuites>
         <testsuite name="Stripe Bundle">
-            <directory suffix=".php">./Tests</directory>
+            <directory suffix=".php">./tests</directory>
         </testsuite>
     </testsuites>
     <logging>
@@ -14,8 +14,8 @@
         <whitelist>
             <directory>.</directory>
             <exclude>
-                <directory>./Resources</directory>
-                <directory>./Tests</directory>
+                <directory>./src/Resources</directory>
+                <directory>./tests</directory>
                 <directory>./vendor</directory>
                 <directory>./build</directory>
             </exclude>
