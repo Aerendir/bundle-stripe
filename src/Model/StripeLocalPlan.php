@@ -377,7 +377,7 @@ class StripeLocalPlan implements StripeLocalResourceInterface
         if (null !== $this->getAmount() && 'create' === $action) {
             $return = [
                 'amount'   => $this->getAmount()->getAmount(),
-                'currency' => $this->getAmount()->getCurrency()->getCurrencyCode(),
+                'currency' => $this->getAmount()->getCurrency()->getCode(),
             ];
         }
 

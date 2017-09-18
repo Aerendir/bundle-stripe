@@ -1,7 +1,7 @@
 parameters:
     kernel.debug: true
     kernel.environment: 'dev'
-stripe:
+shq_stripe:
     debug: false
     stripe_config:
         secret_key: "secret"

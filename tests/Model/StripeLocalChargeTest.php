@@ -18,11 +18,11 @@
 
 namespace SerendipityHQ\Bundle\StripeBundle\Tests\Model;
 
+use Money\Currency;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
 use SerendipityHQ\Bundle\StripeBundle\Tests\ModelTestCase;
-use SerendipityHQ\Component\ValueObjects\Currency\Currency;
 use SerendipityHQ\Component\ValueObjects\Email\Email;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 
@@ -94,6 +94,8 @@ class StripeLocalChargeTest extends ModelTestCase
 
     public function testToStripeCreateFullArray()
     {
+        // This is not mockable as is a final class. Maybe in the future we will use Mockery, but for the moment it is good as is.
+        $currency = new Currency('EUR');
         $resource = new StripeLocalCharge();
 
         $expected = [
@@ -108,12 +110,9 @@ class StripeLocalChargeTest extends ModelTestCase
             'statement_descriptor' => 'descriptor',
         ];
 
-        $mockCurrency = $this->createMock(Currency::class);
-        $mockCurrency->method('getCurrencyCode')->willReturn($expected['currency']);
-
         $mockMoney = $this->createMock(Money::class);
         $mockMoney->method('getAmount')->willReturn($expected['amount']);
-        $mockMoney->method('getCurrency')->willReturn($mockCurrency);
+        $mockMoney->method('getCurrency')->willReturn($currency);
 
         $mockCard = $this->createMock(StripeLocalCard::class);
         $mockCard->method('getId')->willReturn($expected['source']);
