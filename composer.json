@@ -17,7 +17,7 @@
     "require": {
         "php": "~7.1",
         "doctrine/orm": "~2.5",
-        "serendipity_hq/php_value_objects": "~4",
+        "serendipity_hq/php_value_objects": "dev-master",
         "symfony/framework-bundle": "~3",
         "stripe/stripe-php": "*"
     },
