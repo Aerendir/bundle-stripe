@@ -35,7 +35,7 @@
     "autoload": {
         "psr-4": {
             "SerendipityHQ\\Bundle\\StripeBundle\\": "src",
-            "SerendipityHQ\\Bundle\\StripeBundle\\Tests": "tests",
+            "SerendipityHQ\\Bundle\\StripeBundle\\Tests\\": "tests"
         }
     }
 }

@@ -1,5 +1,21 @@
 <?php
 
+/*
+ * This file is part of the SHQStripeBundle.
+ *
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * This code is to consider private and non disclosable to anyone for whatever reason.
+ * Every right on this code is reserved.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
+ */
+
 namespace SerendipityHQ\Bundle\StripeBundle\Model;
 
 /**
@@ -232,7 +248,7 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getDiscount()
     {
@@ -400,7 +416,7 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
     }
 
     /**
-     * @param string|array $metadata
+     * @param array|string $metadata
      */
     public function setMetadata($metadata)
     {
@@ -550,7 +566,7 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
              */
 
             if (null !== $this->getTrialEnd()) {
-                $return['trial_end'] = $this->getTrialEnd();
+                $return['trial_end']         = $this->getTrialEnd();
                 $return['trial_period_days'] = $this->getTrialEnd()->diff($this->getTrialStart())->format('%a') + 1;
             }
         } elseif ('cancel' === $action) { // Prepare the array for cancelation

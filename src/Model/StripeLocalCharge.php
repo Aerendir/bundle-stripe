@@ -1,12 +1,19 @@
 <?php
 
 /*
- * This file is part of the SerendipityHQ Stripe Bundle.
+ * This file is part of the SHQStripeBundle.
  *
- * Copyright (c) Adamo Crespi <hello@aerendir.me>.
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * This code is to consider private and non disclosable to anyone for whatever reason.
+ * Every right on this code is reserved.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\StripeBundle\Model;
@@ -81,10 +88,10 @@ class StripeLocalCharge implements StripeLocalResourceInterface
      */
     private $description;
 
-    /** @var null|string $failureCode Error code explaining reason for charge failure if available (see the errors section for a list of codes). */
+    /** @var string|null $failureCode Error code explaining reason for charge failure if available (see the errors section for a list of codes). */
     private $failureCode;
 
-    /** @var null|string $failureMessage Message to user further explaining reason for charge failure if available. */
+    /** @var string|null $failureMessage Message to user further explaining reason for charge failure if available. */
     private $failureMessage;
 
     /** @var array $fraudDetails Hash with information on fraud assessments for the charge. Assessments reported by you have the key user_report and, if set, possible values of safe and fraudulent. Assessments from Stripe have the key stripe_report and, if set, the value fraudulent. */
@@ -102,7 +109,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     /** @var bool $paid true if the charge succeeded, or was successfully authorized for later capture. */
     private $paid;
 
-    /** @var null|Email $receiptEmail This is the email address that the receipt for this charge was sent to. */
+    /** @var Email|null $receiptEmail This is the email address that the receipt for this charge was sent to. */
     private $receiptEmail;
 
     /** @var string $receiptNumber This is the transaction number that appears on email receipts sent for this charge. */
@@ -175,7 +182,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getFailureCode()
     {
@@ -183,7 +190,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getFailureMessage()
     {
@@ -223,7 +230,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     }
 
     /**
-     * @return null|Email
+     * @return Email|null
      */
     public function getReceiptEmail()
     {
@@ -323,7 +330,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     }
 
     /**
-     * @param string|array $metadata
+     * @param array|string $metadata
      *
      * @return StripeLocalCharge
      */
@@ -347,7 +354,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     }
 
     /**
-     * @param StripeLocalCard|string $card
+     * @param string|StripeLocalCard $card
      *
      * @return StripeLocalCharge
      */
@@ -440,7 +447,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
             }
 
             $return = [
-                'amount' => $this->getAmount()->getAmount(),
+                'amount'   => $this->getAmount()->getAmount(),
                 'currency' => $this->getAmount()->getCurrency()->getCurrencyCode(),
 
                 /*
@@ -452,7 +459,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
                  *
                  * @see https://stripe.com/docs/api/php#create_charge-capture
                  */
-                'capture' => $this->capture
+                'capture' => $this->capture,
                 ];
 
             if (null !== $this->getDescription()) {

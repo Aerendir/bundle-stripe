@@ -1,5 +1,21 @@
 <?php
 
+/*
+ * This file is part of the SHQStripeBundle.
+ *
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * This code is to consider private and non disclosable to anyone for whatever reason.
+ * Every right on this code is reserved.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
+ */
+
 namespace SerendipityHQ\Bundle\StripeBundle\Tests\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -25,12 +41,12 @@ class StripeLocalCustomerTest extends ModelTestCase
 
         $expected = [
             'accountBalance' => 100,
-            'businessVatId' => 'IT1234567890',
-            'currency' => 'EUR',
-            'description' => 'dummy description',
-            'email' => $mockEmail,
-            'metadata' => 'metadata',
-            'source' => 'tok_isastring',
+            'businessVatId'  => 'IT1234567890',
+            'currency'       => 'EUR',
+            'description'    => 'dummy description',
+            'email'          => $mockEmail,
+            'metadata'       => 'metadata',
+            'source'         => 'tok_isastring',
         ];
 
         // Test setMethods
@@ -61,16 +77,16 @@ class StripeLocalCustomerTest extends ModelTestCase
         $resource->removeCharge($mockCharge);
         $this::assertSame(0, $resource->getCharges()->count());
 
-        $mockCard = $this::createMock(StripeLocalCard::class);
+        $mockCard  = $this::createMock(StripeLocalCard::class);
         $mockCards = $this::createMock(ArrayCollection::class);
 
         $expectedData = [
-            'id' => 'cus_customeridisastring',
-            'cards' => $mockCards,
-            'created' => $this::createMock(\DateTime::class),
+            'id'            => 'cus_customeridisastring',
+            'cards'         => $mockCards,
+            'created'       => $this::createMock(\DateTime::class),
             'defaultSource' => $mockCard,
-            'delinquent' => false,
-            'livemode' => false,
+            'delinquent'    => false,
+            'livemode'      => false,
         ];
 
         // Populate the object
@@ -87,10 +103,10 @@ class StripeLocalCustomerTest extends ModelTestCase
         $expectedToStripeCreate = [
             'account_balance' => $expected['accountBalance'],
             'business_vat_id' => $expected['businessVatId'],
-            'description' => $expected['description'],
-            'email' => 'test@example.com',
-            'metadata' => $expected['metadata'],
-            'source' => $expected['source'],
+            'description'     => $expected['description'],
+            'email'           => 'test@example.com',
+            'metadata'        => $expected['metadata'],
+            'source'          => $expected['source'],
         ];
         $this::assertSame($expectedToStripeCreate, $resource->toStripe('create'));
     }

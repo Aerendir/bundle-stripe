@@ -1,18 +1,25 @@
 <?php
 
 /*
- * This file is part of the SerendipityHQ Stripe Bundle.
+ * This file is part of the SHQStripeBundle.
  *
- * Copyright (c) Adamo Crespi <hello@aerendir.me>.
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * This code is to consider private and non disclosable to anyone for whatever reason.
+ * Every right on this code is reserved.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\StripeBundle\Syncer;
 
-use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalSubscription;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;
+use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalSubscription;
 use Stripe\ApiResource;
 use Stripe\Subscription;
 
@@ -27,12 +34,12 @@ class SubscriptionSyncer extends AbstractSyncer
     public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource)
     {
         /** @var StripeLocalSubscription $localResource */
-        if (!$localResource instanceof StripeLocalSubscription) {
+        if ( ! $localResource instanceof StripeLocalSubscription) {
             throw new \InvalidArgumentException('SubscriptionSyncer::syncLocalFromStripe() accepts only StripeLocalSubscription objects as first parameter.');
         }
 
         /** @var Subscription $stripeResource */
-        if (!$stripeResource instanceof Subscription) {
+        if ( ! $stripeResource instanceof Subscription) {
             throw new \InvalidArgumentException('SubscriptionSyncer::syncLocalFromStripe() accepts only Stripe\Subscription objects as second parameter.');
         }
 
@@ -137,12 +144,12 @@ class SubscriptionSyncer extends AbstractSyncer
     public function syncStripeFromLocal(ApiResource $stripeResource, StripeLocalResourceInterface $localResource)
     {
         /** @var Subscription $stripeResource */
-        if (!$stripeResource instanceof Subscription) {
+        if ( ! $stripeResource instanceof Subscription) {
             throw new \InvalidArgumentException('SubscriptionSyncer::hydrateStripe() accepts only Stripe\Subscription objects as first parameter.');
         }
 
         /** @var StripeLocalSubscription $localResource */
-        if (!$localResource instanceof StripeLocalSubscription) {
+        if ( ! $localResource instanceof StripeLocalSubscription) {
             throw new \InvalidArgumentException('SubscriptionSyncer::hydrateStripe() accepts only StripeLocalSubscription objects as second parameter.');
         }
 

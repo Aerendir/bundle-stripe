@@ -1,12 +1,19 @@
 <?php
 
 /*
- * This file is part of the SerendipityHQ Stripe Bundle.
+ * This file is part of the SHQStripeBundle.
  *
- * Copyright (c) Adamo Crespi <hello@aerendir.me>.
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * This code is to consider private and non disclosable to anyone for whatever reason.
+ * Every right on this code is reserved.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\StripeBundle\Syncer;
@@ -34,12 +41,12 @@ class ChargeSyncer extends AbstractSyncer
     public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource)
     {
         /** @var StripeLocalCharge $localResource */
-        if (!$localResource instanceof StripeLocalCharge) {
+        if ( ! $localResource instanceof StripeLocalCharge) {
             throw new \InvalidArgumentException('ChargeSyncer::syncLocalFromStripe() accepts only StripeLocalCharge objects as first parameter.');
         }
 
         /** @var Charge $stripeResource */
-        if (!$stripeResource instanceof Charge) {
+        if ( ! $stripeResource instanceof Charge) {
             throw new \InvalidArgumentException('ChargeSyncer::syncLocalFromStripe() accepts only Stripe\Charge objects as second parameter.');
         }
 
@@ -179,12 +186,12 @@ class ChargeSyncer extends AbstractSyncer
     public function syncStripeFromLocal(ApiResource $stripeResource, StripeLocalResourceInterface $localResource)
     {
         /** @var Charge $stripeResource */
-        if (!$stripeResource instanceof Charge) {
+        if ( ! $stripeResource instanceof Charge) {
             throw new \InvalidArgumentException('ChargeSyncer::hydrateStripe() accepts only Stripe\Charge objects as first parameter.');
         }
 
         /** @var StripeLocalCharge $localResource */
-        if (!$localResource instanceof StripeLocalCharge) {
+        if ( ! $localResource instanceof StripeLocalCharge) {
             throw new \InvalidArgumentException('ChargeSyncer::hydrateStripe() accepts only StripeLocalCharge objects as second parameter.');
         }
 

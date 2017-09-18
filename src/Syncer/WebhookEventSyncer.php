@@ -1,12 +1,19 @@
 <?php
 
 /*
- * This file is part of the SerendipityHQ Stripe Bundle.
+ * This file is part of the SHQStripeBundle.
  *
- * Copyright (c) Adamo Crespi <hello@aerendir.me>.
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * This code is to consider private and non disclosable to anyone for whatever reason.
+ * Every right on this code is reserved.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\StripeBundle\Syncer;
@@ -33,12 +40,12 @@ class WebhookEventSyncer extends AbstractSyncer
     public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource)
     {
         /** @var StripeLocalCustomer $localResource */
-        if (!$localResource instanceof StripeLocalWebhookEvent) {
+        if ( ! $localResource instanceof StripeLocalWebhookEvent) {
             throw new \InvalidArgumentException('WebhookEventSyncer::syncLocalFromStripe() accepts only StripeLocalWebhookEvent objects as first parameter.');
         }
 
         /** @var Customer $stripeResource */
-        if (!$stripeResource instanceof Event) {
+        if ( ! $stripeResource instanceof Event) {
             throw new \InvalidArgumentException('WebhookEventSyncer::syncLocalFromStripe() accepts only Stripe\Event objects as second parameter.');
         }
 

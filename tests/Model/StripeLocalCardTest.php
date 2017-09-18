@@ -1,5 +1,21 @@
 <?php
 
+/*
+ * This file is part of the SHQStripeBundle.
+ *
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * This code is to consider private and non disclosable to anyone for whatever reason.
+ * Every right on this code is reserved.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
+ */
+
 namespace SerendipityHQ\Bundle\StripeBundle\Tests\Model;
 
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard;
@@ -21,18 +37,18 @@ class StripeLocalCardTest extends ModelTestCase
         $mockCustomer = $this->createMock(StripeLocalCustomer::class);
 
         $expected = [
-            'addressCity' => 'nocera inferiore',
+            'addressCity'    => 'nocera inferiore',
             'addressCountry' => 'Italy',
-            'addressLine1' => 'via papa giovanni XXIII, 6',
-            'addressLine2' => 'dummy line',
-            'addressState' => 'Salerno',
-            'addressZip' => '84014',
-            'country' => 'IT',
-            'customer' => $mockCustomer,
-            'expMonth' => 'nocera inferiore',
-            'expYear' => 'nocera inferiore',
-            'metadata' => 'nocera inferiore',
-            'name' => 'nocera inferiore',
+            'addressLine1'   => 'via papa giovanni XXIII, 6',
+            'addressLine2'   => 'dummy line',
+            'addressState'   => 'Salerno',
+            'addressZip'     => '84014',
+            'country'        => 'IT',
+            'customer'       => $mockCustomer,
+            'expMonth'       => 'nocera inferiore',
+            'expYear'        => 'nocera inferiore',
+            'metadata'       => 'nocera inferiore',
+            'name'           => 'nocera inferiore',
         ];
 
         // Test setMethods
@@ -74,16 +90,16 @@ class StripeLocalCardTest extends ModelTestCase
         $this::assertSame(0, $resource->getCharges()->count());
 
         $expectedData = [
-            'id' => 'card_cardidisastring',
-            'addressLine1Check' => 'unknown',
-            'addressZipCheck' => 'unknown',
-            'brand' => 'Visa',
-            'cvcCheck' => 'unknown',
-            'dynamicLast4' => 'unknown',
-            'fingerprint' => 'iXD4WZkydnrqcdDr',
-            'funding' => 'credit',
-            'last4' => '4242',
-            'tokenizationMethod' => 'unknown'
+            'id'                 => 'card_cardidisastring',
+            'addressLine1Check'  => 'unknown',
+            'addressZipCheck'    => 'unknown',
+            'brand'              => 'Visa',
+            'cvcCheck'           => 'unknown',
+            'dynamicLast4'       => 'unknown',
+            'fingerprint'        => 'iXD4WZkydnrqcdDr',
+            'funding'            => 'credit',
+            'last4'              => '4242',
+            'tokenizationMethod' => 'unknown',
         ];
         // Populate the object
         $this->populateModel($resource, $expectedData);

@@ -1,31 +1,36 @@
 <?php
 
 /*
- * This file is part of the SerendipityHQ Stripe Bundle.
+ * This file is part of the SHQStripeBundle.
  *
- * Copyright (c) Adamo Crespi <hello@aerendir.me>.
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * This code is to consider private and non disclosable to anyone for whatever reason.
+ * Every right on this code is reserved.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\StripeBundle\Service;
 
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
+use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
+use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalPlan;
+use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalSubscription;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\ChargeSyncer;
+use SerendipityHQ\Bundle\StripeBundle\Syncer\CustomerSyncer;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\PlanSyncer;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\SubscriptionSyncer;
-use SerendipityHQ\Bundle\StripeBundle\Syncer\CustomerSyncer;
-use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
-use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalSubscription;
-use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\WebhookEventSyncer;
 use Stripe\ApiResource;
 use Stripe\Charge;
-use Stripe\Plan;
-use Stripe\Subscription;
 use Stripe\Customer;
 use Stripe\Error\ApiConnection;
 use Stripe\Error\Authentication;
@@ -34,7 +39,9 @@ use Stripe\Error\Card;
 use Stripe\Error\InvalidRequest;
 use Stripe\Error\RateLimit;
 use Stripe\Event;
+use Stripe\Plan;
 use Stripe\Stripe;
+use Stripe\Subscription;
 
 /**
  * Manages the Stripe's API calls.
@@ -47,7 +54,7 @@ class StripeManager
     /** @var string $statementDescriptor */
     private $statementDescriptor;
 
-    /** @var null|array $errors Saves the errors thrown by the Stripe API */
+    /** @var array|null $errors Saves the errors thrown by the Stripe API */
     private $error;
 
     /** @var LoggerInterface $logger */
@@ -78,7 +85,7 @@ class StripeManager
      * @param string                 $secretKey
      * @param string                 $debug
      * @param string                 $statementDescriptor
-     * @param LoggerInterface|Logger $logger
+     * @param Logger|LoggerInterface $logger
      * @param ChargeSyncer           $chargeSyncer
      * @param SubscriptionSyncer     $subscriptionSyncer
      * @param PlanSyncer             $planSyncer
@@ -88,14 +95,14 @@ class StripeManager
     public function __construct($secretKey, $debug, $statementDescriptor, LoggerInterface $logger = null, ChargeSyncer $chargeSyncer, SubscriptionSyncer $subscriptionSyncer, PlanSyncer $planSyncer, CustomerSyncer $customerSyncer, WebhookEventSyncer $webhookEventSyncer)
     {
         Stripe::setApiKey($secretKey);
-        $this->debug = $debug;
+        $this->debug               = $debug;
         $this->statementDescriptor = $statementDescriptor;
-        $this->logger = $logger instanceof Logger ? $logger->withName('SHQStripeBundle') : $logger;
-        $this->chargeSyncer = $chargeSyncer;
-        $this->subscriptionSyncer = $subscriptionSyncer;
-        $this->planSyncer = $planSyncer;
-        $this->customerSyncer = $customerSyncer;
-        $this->WebhookEventSyncer = $webhookEventSyncer;
+        $this->logger              = $logger instanceof Logger ? $logger->withName('SHQStripeBundle') : $logger;
+        $this->chargeSyncer        = $chargeSyncer;
+        $this->subscriptionSyncer  = $subscriptionSyncer;
+        $this->planSyncer          = $planSyncer;
+        $this->customerSyncer      = $customerSyncer;
+        $this->WebhookEventSyncer  = $webhookEventSyncer;
     }
 
     /**
@@ -160,7 +167,7 @@ class StripeManager
      * @param string $action
      * @param array  $arguments
      *
-     * @return bool|ApiResource
+     * @return ApiResource|bool
      */
     public function callStripeApi(string $endpoint, string $action, array $arguments)
     {
@@ -170,29 +177,29 @@ class StripeManager
                 case 1:
                     // If the value is an empty array, then set it as null
                     $options = empty($arguments['options']) ? null : $arguments['options'];
-                    $return = $endpoint::$action($options);
+                    $return  = $endpoint::$action($options);
                     break;
                 case 2:
                     // If the ID exists, we have to call for sure a method that in the signature has the ID and the options
                     if (isset($arguments['id'])) {
                         // If the value is an empty array, then set it as null
                         $options = empty($arguments['options']) ? null : $arguments['options'];
-                        $return = $endpoint::$action($arguments['id'], $options);
+                        $return  = $endpoint::$action($arguments['id'], $options);
                     }
                     // Else the method has params and options
                     else {
                         // If the value is an empty array, then set it as null
-                        $params = empty($arguments['params']) ? null : $arguments['params'];
+                        $params  = empty($arguments['params']) ? null : $arguments['params'];
                         $options = empty($arguments['options']) ? null : $arguments['options'];
-                        $return = $endpoint::$action($params, $options);
+                        $return  = $endpoint::$action($params, $options);
                     }
                     break;
                 // Method with 3 arguments accept id, params and options
                 case 3:
                     // If the value is an empty array, then set it as null
-                    $params = empty($arguments['params']) ? null : $arguments['params'];
+                    $params  = empty($arguments['params']) ? null : $arguments['params'];
                     $options = empty($arguments['options']) ? null : $arguments['options'];
-                    $return = $endpoint::$action($arguments['id'], $params, $options);
+                    $return  = $endpoint::$action($arguments['id'], $params, $options);
                     break;
                 default:
                     throw new \RuntimeException('The arguments passed don\'t correspond to the allowed number. Please, review them.');
@@ -267,7 +274,7 @@ class StripeManager
      * @param string      $method
      * @param array       $arguments
      *
-     * @return bool|ApiResource
+     * @return ApiResource|bool
      */
     public function callStripeObject(ApiResource $object, string $method, array $arguments = [])
     {
@@ -285,9 +292,9 @@ class StripeManager
                 // Method with 3 arguments accept id, params and options
                 case 2:
                     // If the value is an empty array, then set it as null
-                    $params = empty($arguments['params']) ? null : $arguments['params'];
+                    $params  = empty($arguments['params']) ? null : $arguments['params'];
                     $options = empty($arguments['options']) ? null : $arguments['options'];
-                    $return = $object->$method($params, $options);
+                    $return  = $object->$method($params, $options);
                     break;
                 default:
                     throw new \RuntimeException('The arguments passed don\'t correspond to the allowed number. Please, review them.');
@@ -341,8 +348,8 @@ class StripeManager
         }
 
         $arguments = [
-            'params' => $params,
-            'options' => []
+            'params'  => $params,
+            'options' => [],
         ];
 
         $stripeCharge = $this->callStripeApi(Charge::class, 'create', $arguments);
@@ -376,8 +383,8 @@ class StripeManager
         $params = $localSubscription->toStripe('create');
 
         $arguments = [
-            'params' => $params,
-            'options' => []
+            'params'  => $params,
+            'options' => [],
         ];
 
         $stripeSubscription = $this->callStripeApi(Subscription::class, 'create', $arguments);
@@ -431,8 +438,8 @@ class StripeManager
         $params = $localCustomer->toStripe('create');
 
         $arguments = [
-            'params' => $params,
-            'options' => []
+            'params'  => $params,
+            'options' => [],
         ];
 
         /** @var Customer $stripeCustomer */
@@ -455,7 +462,7 @@ class StripeManager
      *
      * @throws InvalidRequest
      *
-     * @return bool|Customer|ApiResource
+     * @return ApiResource|bool|Customer
      */
     public function retrieveCustomer(StripeLocalCustomer $localCustomer)
     {
@@ -465,8 +472,8 @@ class StripeManager
         }
 
         $arguments = [
-            'id' => $localCustomer->getId(),
-            'options' => []
+            'id'      => $localCustomer->getId(),
+            'options' => [],
         ];
 
         // Return the stripe object that can be "false" or "Customer"
@@ -503,7 +510,7 @@ class StripeManager
      *
      * @throws InvalidRequest
      *
-     * @return bool|Plan|ApiResource
+     * @return ApiResource|bool|Plan
      */
     public function retrievePlan(StripeLocalPlan $localPlan)
     {
@@ -513,8 +520,8 @@ class StripeManager
         }
 
         $arguments = [
-            'id' => $localPlan->getId(),
-            'options' => []
+            'id'      => $localPlan->getId(),
+            'options' => [],
         ];
 
         // Return the stripe object that can be "false" or "Plan"
@@ -524,7 +531,7 @@ class StripeManager
     /**
      * @throws InvalidRequest
      *
-     * @return bool|Collection|ApiResource
+     * @return ApiResource|bool|Collection
      */
     public function retrievePlans()
     {
@@ -537,13 +544,13 @@ class StripeManager
      *
      * @throws InvalidRequest
      *
-     * @return bool|Event|ApiResource
+     * @return ApiResource|bool|Event
      */
     public function retrieveEvent(string $eventStripeId)
     {
         $arguments = [
-            'id' => $eventStripeId,
-            'options' => []
+            'id'      => $eventStripeId,
+            'options' => [],
         ];
 
         // Return the stripe object that can be "false" or "Customer"
@@ -555,7 +562,7 @@ class StripeManager
      *
      * @throws InvalidRequest
      *
-     * @return bool|Subscription|ApiResource
+     * @return ApiResource|bool|Subscription
      */
     public function retrieveSubscription(StripeLocalSubscription $localSubscription)
     {
@@ -565,8 +572,8 @@ class StripeManager
         }
 
         $arguments = [
-            'id' => $localSubscription->getId(),
-            'options' => []
+            'id'      => $localSubscription->getId(),
+            'options' => [],
         ];
 
         // Return the stripe object that can be "false" or "Subscription"
@@ -650,14 +657,14 @@ class StripeManager
     /**
      * @param \Exception $e
      *
-     * @return bool|string Returns false in "production" if something goes wrong.
-     *                     May return "retry" if rate limit is reached
-     *
      * @throws ApiConnection  Only in dev and test environments
      * @throws Authentication Only in dev and test environments
      * @throws Card           Only in dev and test environments
      * @throws InvalidRequest Only in dev and test environments
      * @throws RateLimit      Only in dev and test environments
+     *
+     * @return bool|string Returns false in "production" if something goes wrong.
+     *                     May return "retry" if rate limit is reached
      */
     private function handleException(Base $e)
     {
@@ -692,16 +699,16 @@ class StripeManager
         }
 
         // \Stripe\Error\Authentication, \Stripe\Error\InvalidRequest and \Stripe\Error\ApiConnection are processed immediately
-        $body = $e->getJsonBody();
-        $err = $body['error'];
+        $body    = $e->getJsonBody();
+        $err     = $body['error'];
         $message = '[' . $e->getHttpStatus() . ' - ' . $e->getJsonBody()['error']['type'] . '] ' . $e->getMessage();
         $context = [
-            'status' => $e->getHttpStatus(),
-            'type' => $err['type'] ?? '',
-            'code' => $err['code'] ?? '',
-            'param' => $err['param'] ?? '',
-            'request_id' => $e->getRequestId(),
-            'stripe_version' => $e->getHttpHeaders()['Stripe-Version']
+            'status'         => $e->getHttpStatus(),
+            'type'           => $err['type'] ?? '',
+            'code'           => $err['code'] ?? '',
+            'param'          => $err['param'] ?? '',
+            'request_id'     => $e->getRequestId(),
+            'stripe_version' => $e->getHttpHeaders()['Stripe-Version'],
         ];
 
         if (null === $this->logger) {
@@ -715,7 +722,7 @@ class StripeManager
 
         // Set the error so it can be retrieved
         $this->error = [
-            'error' => $err,
+            'error'   => $err,
             'message' => $message,
             'context' => $context,
         ];

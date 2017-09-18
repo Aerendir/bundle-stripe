@@ -1,5 +1,21 @@
 <?php
 
+/*
+ * This file is part of the SHQStripeBundle.
+ *
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * This code is to consider private and non disclosable to anyone for whatever reason.
+ * Every right on this code is reserved.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
+ */
+
 namespace SerendipityHQ\Bundle\StripeBundle\Tests\Model;
 
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard;
@@ -25,24 +41,24 @@ class StripeLocalChargeTest extends ModelTestCase
         $mockCard->method('getId')->willReturn('123');
 
         $test = [
-            'id' => 'this_is_the_id',
-            'amount' => $this->createMock(Money::class),
-            'balanceTransaction' => '0',
-            'created' => $this->createMock(\DateTime::class),
-            'customer' => $this->createMock(StripeLocalCustomer::class),
-            'description' => 'the description',
-            'failureCode' => '123',
-            'failureMessage' => 'there ever is a reason',
-            'fraudDetails' => 'details about fraud',
-            'metadata' => 'metadata',
-            'paid' => true,
-            'receiptEmail' => $this->createMock(Email::class),
-            'receiptNumber' => 'xxxxxxx',
-            'source' => $mockCard,
+            'id'                  => 'this_is_the_id',
+            'amount'              => $this->createMock(Money::class),
+            'balanceTransaction'  => '0',
+            'created'             => $this->createMock(\DateTime::class),
+            'customer'            => $this->createMock(StripeLocalCustomer::class),
+            'description'         => 'the description',
+            'failureCode'         => '123',
+            'failureMessage'      => 'there ever is a reason',
+            'fraudDetails'        => 'details about fraud',
+            'metadata'            => 'metadata',
+            'paid'                => true,
+            'receiptEmail'        => $this->createMock(Email::class),
+            'receiptNumber'       => 'xxxxxxx',
+            'source'              => $mockCard,
             'statementDescriptor' => 'descriptor',
-            'status' => true,
-            'captured' => true,
-            'livemode' => false
+            'status'              => true,
+            'captured'            => true,
+            'livemode'            => false,
         ];
 
         $resource->setAmount($test['amount'])
@@ -81,14 +97,14 @@ class StripeLocalChargeTest extends ModelTestCase
         $resource = new StripeLocalCharge();
 
         $expected = [
-            'amount' => 1000,
-            'currency' => 'EUR',
-            'capture' => true,
-            'description' => 'the description',
-            'metadata' => 'metadata',
-            'receipt_email' => 'test@example.com',
-            'customer' => 'cus_idofcustomerisastring',
-            'source' => 'card_idofthecardisastring',
+            'amount'               => 1000,
+            'currency'             => 'EUR',
+            'capture'              => true,
+            'description'          => 'the description',
+            'metadata'             => 'metadata',
+            'receipt_email'        => 'test@example.com',
+            'customer'             => 'cus_idofcustomerisastring',
+            'source'               => 'card_idofthecardisastring',
             'statement_descriptor' => 'descriptor',
         ];
 
@@ -109,12 +125,12 @@ class StripeLocalChargeTest extends ModelTestCase
         $mockEmail->method('getEmail')->willReturn($expected['receipt_email']);
 
         $test = [
-            'amount' => $mockMoney,
-            'description' => $expected['description'],
-            'metadata' => $expected['metadata'],
-            'receiptEmail' => $mockEmail,
-            'customer' => $mockCustomer,
-            'source' => $mockCard,
+            'amount'              => $mockMoney,
+            'description'         => $expected['description'],
+            'metadata'            => $expected['metadata'],
+            'receiptEmail'        => $mockEmail,
+            'customer'            => $mockCustomer,
+            'source'              => $mockCard,
             'statementDescriptor' => $expected['statement_descriptor'],
         ];
 

@@ -1,12 +1,19 @@
 <?php
 
 /*
- * This file is part of the SerendipityHQ Stripe Bundle.
+ * This file is part of the SHQStripeBundle.
  *
- * Copyright (c) Adamo Crespi <hello@aerendir.me>.
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * This code is to consider private and non disclosable to anyone for whatever reason.
+ * Every right on this code is reserved.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\StripeBundle\Syncer;
@@ -35,12 +42,12 @@ class CustomerSyncer extends AbstractSyncer
     public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource)
     {
         /** @var StripeLocalCustomer $localResource */
-        if (!$localResource instanceof StripeLocalCustomer) {
+        if ( ! $localResource instanceof StripeLocalCustomer) {
             throw new \InvalidArgumentException('CustomerSyncer::syncLocalFromStripe() accepts only StripeLocalCustoer objects as first parameter.');
         }
 
         /** @var Customer $stripeResource */
-        if (!$stripeResource instanceof Customer) {
+        if ( ! $stripeResource instanceof Customer) {
             throw new \InvalidArgumentException('CustomerSyncer::syncLocalFromStripe() accepts only Stripe\Customer objects as second parameter.');
         }
 
@@ -158,12 +165,12 @@ class CustomerSyncer extends AbstractSyncer
     public function syncStripeFromLocal(ApiResource $stripeResource, StripeLocalResourceInterface $localResource)
     {
         /** @var Customer $stripeResource */
-        if (!$stripeResource instanceof Customer) {
+        if ( ! $stripeResource instanceof Customer) {
             throw new \InvalidArgumentException('CustomerSyncer::syncStripeFromLocal() accepts only Stripe\Customer objects as first parameter.');
         }
 
         /** @var StripeLocalCustomer $localResource */
-        if (!$localResource instanceof StripeLocalCustomer) {
+        if ( ! $localResource instanceof StripeLocalCustomer) {
             throw new \InvalidArgumentException('CustomerSyncer::syncStripeFromLocal() accepts only StripeLocalCustoer objects as second parameter.');
         }
 
@@ -203,12 +210,12 @@ class CustomerSyncer extends AbstractSyncer
     public function syncLocalSources(StripeLocalResourceInterface $localResource, ApiResource $stripeResource)
     {
         /** @var StripeLocalCustomer $localResource */
-        if (!$localResource instanceof StripeLocalCustomer) {
+        if ( ! $localResource instanceof StripeLocalCustomer) {
             throw new \InvalidArgumentException('CustomerSyncer::syncLocalFromStripe() accepts only StripeLocalCustoer objects as first parameter.');
         }
 
         /** @var Customer $stripeResource */
-        if (!$stripeResource instanceof Customer) {
+        if ( ! $stripeResource instanceof Customer) {
             throw new \InvalidArgumentException('CustomerSyncer::syncLocalFromStripe() accepts only Stripe\Customer objects as second parameter.');
         }
 

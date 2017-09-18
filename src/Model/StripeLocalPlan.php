@@ -1,12 +1,19 @@
 <?php
 
 /*
- * This file is part of the SerendipityHQ Stripe Bundle.
+ * This file is part of the SHQStripeBundle.
  *
- * Copyright (c) Adamo Crespi <hello@aerendir.me>.
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * This code is to consider private and non disclosable to anyone for whatever reason.
+ * Every right on this code is reserved.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\StripeBundle\Model;
@@ -37,7 +44,7 @@ class StripeLocalPlan implements StripeLocalResourceInterface
     private $created;
 
     /**
-     * @var null|string
+     * @var string|null
      *
      * Currency in which subscription will be charged
      *
@@ -46,7 +53,7 @@ class StripeLocalPlan implements StripeLocalResourceInterface
     private $currency;
 
     /**
-     * @var null|string
+     * @var string|null
      *
      * One of day, week, month or year. The frequency with which a subscription should be billed.
      *
@@ -78,7 +85,7 @@ class StripeLocalPlan implements StripeLocalResourceInterface
     private $metadata;
 
     /**
-     * @var null|string
+     * @var string|null
      *
      * Display name of the plan
      *
@@ -87,7 +94,7 @@ class StripeLocalPlan implements StripeLocalResourceInterface
     private $name;
 
     /**
-     * @var null|string
+     * @var string|null
      *
      * Extra information about a charge for the customer’s credit card statement
      *
@@ -122,6 +129,8 @@ class StripeLocalPlan implements StripeLocalResourceInterface
     }
 
     /**
+     * @param mixed $id
+     *
      * @return string
      */
     public function setId($id)
@@ -154,7 +163,7 @@ class StripeLocalPlan implements StripeLocalResourceInterface
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getCurrency()
     {
@@ -162,7 +171,7 @@ class StripeLocalPlan implements StripeLocalResourceInterface
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getInterval()
     {
@@ -194,7 +203,7 @@ class StripeLocalPlan implements StripeLocalResourceInterface
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getName()
     {
@@ -202,7 +211,7 @@ class StripeLocalPlan implements StripeLocalResourceInterface
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getStatementDescriptor()
     {
@@ -352,14 +361,6 @@ class StripeLocalPlan implements StripeLocalResourceInterface
     }
 
     /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return (string) $this->getId();
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function toStripe($action)
@@ -375,7 +376,7 @@ class StripeLocalPlan implements StripeLocalResourceInterface
         }
         if (null !== $this->getAmount() && 'create' === $action) {
             $return = [
-                'amount' => $this->getAmount()->getAmount(),
+                'amount'   => $this->getAmount()->getAmount(),
                 'currency' => $this->getAmount()->getCurrency()->getCurrencyCode(),
             ];
         }
@@ -421,5 +422,13 @@ class StripeLocalPlan implements StripeLocalResourceInterface
         }
 
         return $return;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->getId();
     }
 }

@@ -1,12 +1,19 @@
 <?php
 
 /*
- * This file is part of the SerendipityHQ Stripe Bundle.
+ * This file is part of the SHQStripeBundle.
  *
- * Copyright (c) Adamo Crespi <hello@aerendir.me>.
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * This code is to consider private and non disclosable to anyone for whatever reason.
+ * Every right on this code is reserved.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\StripeBundle\Model;
@@ -23,28 +30,28 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /** @var string The Stripe ID of the card (used in conjunction with a customer or recipient ID) */
     private $id;
 
-    /** @var null|string $addressCity */
+    /** @var string|null $addressCity */
     private $addressCity;
 
-    /** @var null|string */
+    /** @var string|null */
     private $addressCountry;
 
-    /** @var null|string */
+    /** @var string|null */
     private $addressLine1;
 
-    /** @var null|string $addressLine1Check If address_line1 was provided, results of the check: pass, fail, unavailable, or unchecked. */
+    /** @var string|null $addressLine1Check If address_line1 was provided, results of the check: pass, fail, unavailable, or unchecked. */
     private $addressLine1Check;
 
-    /** @var null|string */
+    /** @var string|null */
     private $addressLine2;
 
-    /** @var null|string */
+    /** @var string|null */
     private $addressState;
 
-    /** @var null|string */
+    /** @var string|null */
     private $addressZip;
 
-    /** @var null|string $addressZipCheck If address_zip was provided, results of the check: pass, fail, unavailable, or unchecked. */
+    /** @var string|null $addressZipCheck If address_zip was provided, results of the check: pass, fail, unavailable, or unchecked. */
     private $addressZipCheck;
 
     /** @var string $brand Card brand. Can be Visa, American Express, MasterCard, Discover, JCB, Diners Club, or Unknown. */
@@ -56,10 +63,10 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /** @var StripeLocalCustomer $customer The customer that this card belongs to. This attribute will not be in the card object if the card belongs to an account or recipient instead. */
     private $customer;
 
-    /** @var null|string $cvcCheck If a CVC was provided, results of the check: pass, fail, unavailable, or unchecked */
+    /** @var string|null $cvcCheck If a CVC was provided, results of the check: pass, fail, unavailable, or unchecked */
     private $cvcCheck;
 
-    /** @var null|string $dynamicLast4 (For tokenized numbers only.) The last four digits of the device account number. */
+    /** @var string|null $dynamicLast4 (For tokenized numbers only.) The last four digits of the device account number. */
     private $dynamicLast4;
 
     /** @var string */
@@ -80,13 +87,13 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /** @var string */
     private $last4;
 
-    /** @var null|string $metadata A set of key/value pairs that you can attach to a card object. It can be useful for storing additional information about the card in a structured format. */
+    /** @var string|null $metadata A set of key/value pairs that you can attach to a card object. It can be useful for storing additional information about the card in a structured format. */
     private $metadata;
 
-    /** @var null|string $name Cardholder name */
+    /** @var string|null $name Cardholder name */
     private $name;
 
-    /** @var null|string $tokenizationMethod If the card number is tokenized, this is the method that was used. Can be apple_pay or android_pay. */
+    /** @var string|null $tokenizationMethod If the card number is tokenized, this is the method that was used. Can be apple_pay or android_pay. */
     private $tokenizationMethod;
 
     /** @var ArrayCollection $charges */
@@ -125,7 +132,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getAddressCity()
     {
@@ -133,7 +140,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getAddressCountry()
     {
@@ -141,7 +148,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getAddressLine1()
     {
@@ -149,7 +156,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getAddressLine1Check()
     {
@@ -157,7 +164,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getAddressLine2()
     {
@@ -165,7 +172,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getAddressState()
     {
@@ -173,7 +180,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getAddressZip()
     {
@@ -181,7 +188,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getAddressZipCheck()
     {
@@ -221,7 +228,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getCvcCheck()
     {
@@ -229,7 +236,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getDynamicLast4()
     {
@@ -253,7 +260,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getError()
     {
@@ -285,7 +292,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getMetadata()
     {
@@ -293,7 +300,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getName()
     {
@@ -301,7 +308,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getTokenizationMethod()
     {
@@ -475,18 +482,18 @@ class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @return string
-     */
-    public function __toString(): string
-    {
-        return (string) $this->getId();
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function toStripe($action)
     {
         throw new \RuntimeException('Method not yet implemented.');
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return (string) $this->getId();
     }
 }

@@ -1,14 +1,30 @@
 <?php
 
+/*
+ * This file is part of the SHQStripeBundle.
+ *
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * This code is to consider private and non disclosable to anyone for whatever reason.
+ * Every right on this code is reserved.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
+ */
+
 namespace SerendipityHQ\Bundle\StripeBundle\Command;
 
-use SerendipityHQ\Bundle\StripeBundle\Event\StripePlanUpdateEvent;
-use SerendipityHQ\Component\ValueObjects\Currency\Currency;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 use Doctrine\Bundle\DoctrineBundle\Command\DoctrineCommand;
+use SerendipityHQ\Bundle\StripeBundle\Event\StripePlanUpdateEvent;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalPlan;
+use SerendipityHQ\Component\ValueObjects\Currency\Currency;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class StripeUpdatePlansCommand extends DoctrineCommand
 {
@@ -24,24 +40,24 @@ class StripeUpdatePlansCommand extends DoctrineCommand
     {
         /** @var $doctrine \Doctrine\Common\Persistence\ManagerRegistry */
         $doctrine = $this->getContainer()->get('doctrine');
-        $em = $doctrine->getManager($input->getOption('em'));
+        $em       = $doctrine->getManager($input->getOption('em'));
 
         $em->getConnection()->beginTransaction();
 
         $stripeManager = $this->getContainer()->get('stripe_bundle.manager.stripe_api');
-        $stripePlans = $stripeManager->retrievePlans();
+        $stripePlans   = $stripeManager->retrievePlans();
         foreach ($stripePlans['data'] as $plan) {
             $aPlan = $plan->__toArray();
 
             $stripeLocalPlan = $em
                 ->getRepository('SerendipityHQ\\Bundle\\StripeBundle\\Model\\StripeLocalPlan')
                 ->findOneBy(['id' => $aPlan['id']]);
-            if ($stripeLocalPlan === null) {
+            if (null === $stripeLocalPlan) {
                 $stripeLocalPlan = new StripeLocalPlan();
                 $stripeLocalPlan->setId($aPlan['id']);
                 $stripeLocalPlan->setCreated(new \DateTime());
             }
-            $amount = new \SerendipityHQ\Component\ValueObjects\Money\Money(['amount' => $aPlan['amount'], 'currency' => $aPlan['currency']]);
+            $amount   = new \SerendipityHQ\Component\ValueObjects\Money\Money(['amount' => $aPlan['amount'], 'currency' => $aPlan['currency']]);
             $currency = new Currency($aPlan['currency']);
             $stripeLocalPlan->setObject('plan')
                 ->setAmount($amount)

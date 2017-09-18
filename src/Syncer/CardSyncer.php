@@ -1,12 +1,19 @@
 <?php
 
 /*
- * This file is part of the SerendipityHQ Stripe Bundle.
+ * This file is part of the SHQStripeBundle.
  *
- * Copyright (c) Adamo Crespi <hello@aerendir.me>.
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * This code is to consider private and non disclosable to anyone for whatever reason.
+ * Every right on this code is reserved.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\StripeBundle\Syncer;
@@ -31,12 +38,12 @@ class CardSyncer extends AbstractSyncer
     public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource)
     {
         /** @var StripeLocalCard $localResource */
-        if (!$localResource instanceof StripeLocalCard) {
+        if ( ! $localResource instanceof StripeLocalCard) {
             throw new \InvalidArgumentException('CardSyncer::hydrateLocal() accepts only StripeLocalCard objects as first parameter');
         }
 
         /** @var Card $stripeResource */
-        if (!$stripeResource instanceof Card) {
+        if ( ! $stripeResource instanceof Card) {
             throw new \InvalidArgumentException('CardSyncer::hydrateLocal() accepts only Stripe\Card objects as second parameter.');
         }
 
@@ -152,12 +159,12 @@ class CardSyncer extends AbstractSyncer
     public function syncStripeFromLocal(ApiResource $stripeResource, StripeLocalResourceInterface $localResource)
     {
         /** @var Card $stripeResource */
-        if (!$stripeResource instanceof Card) {
+        if ( ! $stripeResource instanceof Card) {
             throw new \InvalidArgumentException('CardSyncer::hydrateLocal() accepts only Stripe\Card objects as first parameter.');
         }
 
         /** @var StripeLocalCard $localResource */
-        if (!$localResource instanceof StripeLocalCard) {
+        if ( ! $localResource instanceof StripeLocalCard) {
             throw new \InvalidArgumentException('CardSyncer::hydrateLocal() accepts only StripeLocalCard objects as second parameter.');
         }
 
