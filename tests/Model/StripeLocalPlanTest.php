@@ -15,9 +15,9 @@
 
 namespace SerendipityHQ\Bundle\StripeBundle\Tests\Model;
 
+use Money\Currency;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalPlan;
 use SerendipityHQ\Bundle\StripeBundle\Tests\ModelTestCase;
-use SerendipityHQ\Component\ValueObjects\Currency\Currency;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 
 /**
@@ -29,12 +29,11 @@ class StripeLocalPlanTest extends ModelTestCase
     {
         $amountExpected = ['amount' => 999, 'currency' => 'eur'];
 
-        $mockCurrency = $this->createMock(Currency::class);
-        $mockCurrency->method('getCurrencyCode')->willReturn($amountExpected['currency']);
+        $currency = new Currency($amountExpected['currency']);
 
         $mockMoney = $this->createMock(Money::class);
         $mockMoney->method('getAmount')->willReturn($amountExpected['amount']);
-        $mockMoney->method('getCurrency')->willReturn($mockCurrency);
+        $mockMoney->method('getCurrency')->willReturn($currency);
 
         $resource = new StripeLocalPlan();
 
