@@ -148,7 +148,7 @@ class ChargeSyncer extends AbstractSyncer
         $this->getEntityManager()->persist($localResource);
 
         // Out of the foreach, process the source to associate to the charge.
-        $localCard = $this->getEntityManager()->getRepository('StripeBundle:StripeLocalCard')->findOneByStripeId($stripeResource->source->id);
+        $localCard = $this->getEntityManager()->getRepository('SHQStripeBundle:StripeLocalCard')->findOneByStripeId($stripeResource->source->id);
 
         // Chek if the card exists
         if (null === $localCard) {

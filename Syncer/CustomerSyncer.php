@@ -126,7 +126,7 @@ class CustomerSyncer extends AbstractSyncer
             return;
         }
 
-        $localCard = $this->getEntityManager()->getRepository('StripeBundle:StripeLocalCard')->findOneByStripeId($stripeDefaultCard->id);
+        $localCard = $this->getEntityManager()->getRepository('SHQStripeBundle:StripeLocalCard')->findOneByStripeId($stripeDefaultCard->id);
 
         // Chek if the card exists
         if (null === $localCard) {

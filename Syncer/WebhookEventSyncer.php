@@ -90,7 +90,7 @@ class WebhookEventSyncer extends AbstractSyncer
         switch ($stripeObjectData->object) {
             case 'charge':
                 // Get the Charge from the database
-                $localCharge = $this->getEntityManager()->getRepository('StripeBundle:StripeLocalCharge')->findOneByStripeId($stripeObjectData->id);
+                $localCharge = $this->getEntityManager()->getRepository('SHQStripeBundle:StripeLocalCharge')->findOneByStripeId($stripeObjectData->id);
 
                 // Create the new Local object if it doesn't exist
                 if (null === $localCharge) {
@@ -103,7 +103,7 @@ class WebhookEventSyncer extends AbstractSyncer
 
             case 'customer':
                 // Get the Charge from the database
-                $localCustomer = $this->getEntityManager()->getRepository('StripeBundle:StripeLocalCustomer')->findOneByStripeId($stripeObjectData->id);
+                $localCustomer = $this->getEntityManager()->getRepository('SHQStripeBundle:StripeLocalCustomer')->findOneByStripeId($stripeObjectData->id);
 
                 // Create the new Local object if it doesn't exist
                 if (null === $localCustomer) {
@@ -116,7 +116,7 @@ class WebhookEventSyncer extends AbstractSyncer
 
             case 'subscription':
                 // Get the Subscription from the database
-                $localSubscription = $this->getEntityManager()->getRepository('StripeBundle:StripeLocalSubscription')->findOneByStripeId($stripeObjectData->id);
+                $localSubscription = $this->getEntityManager()->getRepository('SHQStripeBundle:StripeLocalSubscription')->findOneByStripeId($stripeObjectData->id);
 
                 // Create the new Local object if it doesn't exist
                 if (null === $localSubscription) {
@@ -131,7 +131,7 @@ class WebhookEventSyncer extends AbstractSyncer
                 // If the source is a card, process it (maybe it is a bitcoin source that is not supported)
                 if ('card' === $stripeObjectData->source->object) {
                     // Get the loca l object
-                    $localCard = $this->getEntityManager()->getRepository('StripeBundle:StripeLocalCard')->findOneByStripeId($stripeObjectData->source->id);
+                    $localCard = $this->getEntityManager()->getRepository('SHQStripeBundle:StripeLocalCard')->findOneByStripeId($stripeObjectData->source->id);
 
                     // Chek if the card exists
                     if (null === $localCard) {

@@ -26,8 +26,8 @@ Somewhere in your app templates, you should have a block that imports javascript
     {% javascripts
     '@AppBundle/Resources/public/js/jquery-1.11.3.min.js'
     ...
-    '@StripeBundle/Resources/public/js/jquery.payment/jquery.payment.min.js'
-    '@StripeBundle/Resources/public/js/intialize.js'
+    '@SHQStripeBundle/Resources/public/js/jquery.payment/jquery.payment.min.js'
+    '@SHQStripeBundle/Resources/public/js/intialize.js'
     %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
@@ -96,7 +96,7 @@ So, **THIS IS THE STRIPE FLOW FOLLOWED BY THE SERENDIPITY HQ STRIPE BUNDLE**:
 1. We create a form type, let's call it `PremiumType`, with the fields we like (they can be what we like: a set of features to select or what you like);
 2. To this form type we add the Stripe Bundle `CreditCardStripeTokenType` that will contain the token returned by Stripe (yes, Stripe will return your app a token - be patient :) );
 3. On our page, we will render our form `PremiumType`;
-4. In the form we will simply include the template `StripeBundle::creditCardForm.html.twig` to render the form where the customer will give us his credit card info;
+4. In the form we will simply include the template `SHQStripeBundle::creditCardForm.html.twig` to render the form where the customer will give us his credit card info;
 5. We'll add to the form a button to submit the entire form;
 
 A bit theoretical, isn't it? Let's make it practical! :)
@@ -160,7 +160,7 @@ And now it's time to render our form on the frontend:
 {{ form_widget(form.plan.social) }}
 
 {# ATTENTION 2: NOTE WE INCLUDE THE BUNDLED TEMPLATE PASSING IT SOME VARIABLES #}
-{% include('StripeBundle::creditCardForm.html.twig') with {'publishable_key': stripe_publishable_key, 'form_id': subscription_form_id, 'token_input_id': subscription_token_input_id, 'env': app.environment} %}
+{% include('SHQStripeBundle::creditCardForm.html.twig') with {'publishable_key': stripe_publishable_key, 'form_id': subscription_form_id, 'token_input_id': subscription_token_input_id, 'env': app.environment} %}
 
 {# ATTENTION 3: NOTE WE RENDER THE FIELD WE ADDED AT STEP 2.3 #}
 {{ form_widget(form.credit_card.card_token) }}

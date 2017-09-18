@@ -146,7 +146,7 @@ abstract class AbstractSyncer implements SyncerInterface
     protected function getLocalCustomer($stripeCustomerId)
     {
         // First try to get the customer from the database
-        $localCustomer = $this->getEntityManager()->getRepository('StripeBundle:StripeLocalCustomer')->findOneByStripeId($stripeCustomerId);
+        $localCustomer = $this->getEntityManager()->getRepository('SHQStripeBundle:StripeLocalCustomer')->findOneByStripeId($stripeCustomerId);
 
         // If we found it, return it
         if (null !== $localCustomer) {

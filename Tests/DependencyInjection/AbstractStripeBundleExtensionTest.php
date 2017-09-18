@@ -3,7 +3,7 @@
 namespace SerendipityHQ\Bundle\StripeBundle\Tests\DependencyInjection;
 
 use PHPUnit\Framework\TestCase;
-use SerendipityHQ\Bundle\StripeBundle\DependencyInjection\StripeExtension;
+use SerendipityHQ\Bundle\StripeBundle\DependencyInjection\SHQStripeExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
@@ -23,7 +23,7 @@ abstract class AbstractStripeBundleExtensionTest extends TestCase
      */
     protected function setUp()
     {
-        $this->extension = new StripeExtension();
+        $this->extension = new SHQStripeExtension();
 
         $this->container = new ContainerBuilder();
         $this->container->registerExtension($this->extension);

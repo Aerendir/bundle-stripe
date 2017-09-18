@@ -21,7 +21,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
-class StripeExtension extends Extension
+class SHQStripeExtension extends Extension
 {
     /**
      * {@inheritdoc}

@@ -36,13 +36,13 @@ class WebhookController extends Controller
         $stripeWebhookEvent = $this->get('stripe_bundle.manager.stripe_api')->retrieveEvent($content['id']);
 
         // Now check the event doesn't already exist in the database
-        $localWebhookEvent = $this->get('stripe_bundle.entity_manager')->getRepository('StripeBundle:StripeLocalWebhookEvent')->findOneByStripeId($stripeWebhookEvent->id);
+        $localWebhookEvent = $this->get('stripe_bundle.entity_manager')->getRepository('SHQStripeBundle:StripeLocalWebhookEvent')->findOneByStripeId($stripeWebhookEvent->id);
 
         if (strpos($content['type'], 'deleted') !== false) {
             $objectType = ucfirst($content['data']['object']['object']);
             if ($localWebhookEvent === null) {
                 $localResource = $this->get('stripe_bundle.entity_manager')
-                    ->getRepository('StripeBundle:StripeLocal' . $objectType)
+                    ->getRepository('SHQStripeBundle:StripeLocal' . $objectType)
                     ->findOneBy(['id' => $content['data']['object']['id']]);
             }
             $syncer = $this->get('stripe_bundle.syncer.' . $objectType);

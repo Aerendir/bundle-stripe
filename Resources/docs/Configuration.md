@@ -32,7 +32,7 @@ The full configuration is as follows. The set values are the default ones:
 
 ```yaml
 # Default configuration for "StripeBundle"
-stripe_bundle:
+shq_stripe:
     debug: true|false # If not set is === kernel.debug. If set, overwrites kernel.debug
     db_driver: orm #OPTIONL. Currently only ORM supported.
     model_manager_name: null # OPTIONAL. Set this if you are using a custom ORM model manager.
@@ -51,7 +51,7 @@ Add routing file for bounce endpoint (feel free to edit prefix)
 ```yaml
 # app/config/routing.yml
 stripe:
-    resource: '@StripeBundle/Resources/config/routing.yml'
+    resource: '@SHQStripeBundle/Resources/config/routing.yml'
     prefix: /stripe/endpoints # Optional. You can leave this blank to not add a prefix to the StripeBundle's routes.
 ```
 

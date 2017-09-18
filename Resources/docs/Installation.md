@@ -35,7 +35,7 @@ class AppKernel extends Kernel
         $bundles = array(
             // ...
 
-            new SerendipityHQ\Bundle\StripeBundle\StripeBundle(),
+            new SerendipityHQ\Bundle\StripeBundle\SHQStripeBundle(),
         );
 
         // ...

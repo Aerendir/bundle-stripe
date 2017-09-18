@@ -90,7 +90,7 @@ class StripeManager
         Stripe::setApiKey($secretKey);
         $this->debug = $debug;
         $this->statementDescriptor = $statementDescriptor;
-        $this->logger = $logger instanceof Logger ? $logger->withName('StripeBundle') : $logger;
+        $this->logger = $logger instanceof Logger ? $logger->withName('SHQStripeBundle') : $logger;
         $this->chargeSyncer = $chargeSyncer;
         $this->subscriptionSyncer = $subscriptionSyncer;
         $this->planSyncer = $planSyncer;

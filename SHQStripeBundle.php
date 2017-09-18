@@ -20,7 +20,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 /**
  * {@inheritdoc}
  */
-class StripeBundle extends Bundle
+class SHQStripeBundle extends Bundle
 {
     /**
      * {@inheritdoc}
@@ -63,7 +63,7 @@ class StripeBundle extends Bundle
             $mappings,
             ['stripe_bundle.model_manager_name'],
             'stripe_bundle.backend_orm',
-            ['StripeBundle' => 'SerendipityHQ\Bundle\StripeBundle\Model']
+            ['SHQStripeBundle' => 'SerendipityHQ\Bundle\StripeBundle\Model']
         );
     }
 }
