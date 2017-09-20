@@ -51,4 +51,4 @@ Thank you for your collaboration.
 DOCUMENTATION
 =============
 
-You can read how to install, configure, test and use the SerendipityHQ Stripe Bundle in the [documentation](Resources/docs/Index.md).
+You can read how to install, configure, test and use the SerendipityHQ Stripe Bundle in the [documentation](docs/Index.md).
