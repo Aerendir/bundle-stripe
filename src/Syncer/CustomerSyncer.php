@@ -179,10 +179,6 @@ class CustomerSyncer extends AbstractSyncer
             $stripeResource->business_vat_id = $localResource->getBusinessVatId();
         }
 
-        if (null !== $localResource->getCurrency()) {
-            $stripeResource->currency = $localResource->getCurrency();
-        }
-
         if (null !== $localResource->getNewSource()) {
             $stripeResource->source = $localResource->getNewSource();
         }
