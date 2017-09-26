@@ -108,7 +108,7 @@ class StripeLocalChargeTest extends ModelTestCase
         ];
 
         $mockMoney = $this->createMock(Money::class);
-        $mockMoney->method('getAmount')->willReturn($expected['amount']);
+        $mockMoney->method('getBaseAmount')->willReturn($expected['amount']);
         $mockMoney->method('getCurrency')->willReturn($currency);
 
         $mockCard = $this->createMock(StripeLocalCard::class);
