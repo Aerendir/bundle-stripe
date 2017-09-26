@@ -444,7 +444,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
             }
 
             $return = [
-                'amount'   => $this->getAmount()->getAmount(),
+                'amount'   => $this->getAmount()->getBaseAmount(),
                 'currency' => $this->getAmount()->getCurrency()->getCode(),
 
                 /*

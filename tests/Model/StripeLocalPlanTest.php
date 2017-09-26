@@ -32,7 +32,7 @@ class StripeLocalPlanTest extends ModelTestCase
         $currency = new Currency($amountExpected['currency']);
 
         $mockMoney = $this->createMock(Money::class);
-        $mockMoney->method('getAmount')->willReturn($amountExpected['amount']);
+        $mockMoney->method('getBaseAmount')->willReturn($amountExpected['amount']);
         $mockMoney->method('getCurrency')->willReturn($currency);
 
         $resource = new StripeLocalPlan();
