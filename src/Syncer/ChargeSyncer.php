@@ -60,7 +60,7 @@ class ChargeSyncer extends AbstractSyncer
                     break;
 
                 case 'amount':
-                    $reflectedProperty->setValue($localResource, new Money(['amount' => $stripeResource->amount, 'currency' => $stripeResource->currency]));
+                    $reflectedProperty->setValue($localResource, new Money(['baseAmount' => $stripeResource->amount, 'currency' => $stripeResource->currency]));
                     break;
 
                 case 'balanceTransaction':
