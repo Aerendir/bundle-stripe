@@ -42,6 +42,5 @@
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script type="text/javascript">
     Stripe.setPublishableKey('{{ stripe_publishable_key }}');
-    window.stripe_payment_form_id = '{{ form_id }}';
     window.stripe_card_token_input_id = '{{ token_input_id}}';
 </script>

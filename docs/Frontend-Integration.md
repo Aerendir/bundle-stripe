@@ -155,26 +155,35 @@ And now it's time to render our form on the frontend:
 {# ATTENTION 1: NOTE WE GIVE THE FORM AN ID #}
 {{ form_start(form, {'attr': {'id': subscription_form_id, 'autocomplete': 'on'}}) }}
 
+{# ATTENTION 2: Set the form ID in the "window" to make it globally accessible: this is required to disable the submit button once clicked for the charge
+<script type="text/javascript">
+    window.stripe_payment_form_id = '{{ subscription_form_id }}';
+</script>
+
 {{ form_widget(form.plan.ads) }}
 {{ form_widget(form.plan.seo) }}
 {{ form_widget(form.plan.social) }}
 
-{# ATTENTION 2: NOTE WE INCLUDE THE BUNDLED TEMPLATE PASSING IT SOME VARIABLES #}
-{% include('SHQStripeBundle::creditCardForm.html.twig') with {'publishable_key': stripe_publishable_key, 'form_id': subscription_form_id, 'token_input_id': subscription_token_input_id, 'env': app.environment} %}
+{# ATTENTION 3: NOTE WE INCLUDE THE BUNDLED TEMPLATE PASSING IT SOME VARIABLES #}
+{% include('SHQStripeBundle::creditCardForm.html.twig') with {'publishable_key': stripe_publishable_key, 'token_input_id': subscription_token_input_id, 'env': app.environment} %}
 
-{# ATTENTION 3: NOTE WE RENDER THE FIELD WE ADDED AT STEP 2.3 #}
+{# ATTENTION 4: NOTE WE RENDER THE FIELD WE ADDED AT STEP 2.3 #}
 {{ form_widget(form.credit_card.card_token) }}
 
-<div class="form-group"><input type="submit" value="{% trans %}subscription.update{% endtrans %}" class="btn btn-secure pull-right" /></div>
+{# ATTENTION 5: WE ADD THE CLASS `charge` to disable the button once clicked #}
+<div class="form-group"><input type="submit" value="{% trans %}subscription.update{% endtrans %}" class="btn btn-success pull-right charge" /></div>
 {{ form_end(form) }}
 ```
 
 KEEP ATTENTION NOW: note these things:
 
 1. We gave the form an `id`;
-2. We simply included a template provided by Stripe Bundle, BUT we passed it some variables;
-3. We render the field `card_token` we added at step 2.3;
-4. We add an `env` variable set to `app.environment`: this way on development the credit card form will be prepopulated with some dummy data while on production it is empty. (The prepopulated data are of the [test card 424242424242](https://stripe.com/docs/testing#cards)
+2. We set this same `id` in the `window` global variable: so the `Initialize.js` script can find it (See NOTE 1);
+3. We simply included a template provided by Stripe Bundle, BUT we passed it some variables;
+
+    3.1 One is the `env` variable set to `app.environment`: this way on development the credit card form will be prepopulated with some dummy data while on production it is empty. (The prepopulated data are of the [test card 424242424242](https://stripe.com/docs/testing#cards)
+
+4. We render the field `card_token` we added at step 2.3;
 
 The questions:
 
@@ -182,6 +191,11 @@ The questions:
 2. Where are set the variable passed to the included template?
 
 Answers: in our `config.yml` file... Let's add them!
+
+NOTE 1: We should add the `window.stripe_payment_form_id = '{{ subscription_form_id }}';` directly in the `creditCardForm.html.twig` template.
+But if you want to show directly the current saved card to you user, you will not include this template and so the variable will not be set preventing the `Initialize.js` script working the right way.
+
+So we set it manually in OUR template. 
 
 ### 2.5: Create twig global variable to use with the form template
 

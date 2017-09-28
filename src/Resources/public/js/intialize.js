@@ -43,7 +43,7 @@ jQuery(function($) {
         var toggle = false;
 
         // Disable the submit button to prevent repeated clicks:
-        form.find('.submit').prop('disabled', true);
+        form.find('.charge').prop('disabled', true);
 
         // Validate cc-number
         toggle = $('.cc-number').toggleInputError(false === $.payment.validateCardNumber($('.cc-number').val()));
@@ -91,7 +91,7 @@ function stripeResponseHandler(status, response) {
 
         // Show the errors on the form:
         form.find('.payment-errors').text(response.error.message);
-        form.find('.submit').prop('disabled', false); // Re-enable submission
+        form.find('.charge').prop('disabled', false); // Re-enable submission
 
     } else { // Token was created!
 
