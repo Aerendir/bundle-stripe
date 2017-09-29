@@ -1,4 +1,4 @@
-How to integrate Stripe Bundle into your application's Front-end
+How to integrate Stripe Bundle into your application's Back-end
 ================================================================
 
 Once we have integrated the bundle in the front-end, we need to handle the backend operations to persist data and update plans.
