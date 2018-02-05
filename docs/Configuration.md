@@ -38,7 +38,6 @@ shq_stripe:
     model_manager_name: null # OPTIONAL. Set this if you are using a custom ORM model manager.
     stripe_config:
         secret_key: "%stripe.secret_key%"
-        publishable_key: "%stripe.publishable_key%"
         statement_descriptor: "your_statement" # OPTION. If not set is null. It may be overwritten when creating a Charge.
     endpoint:
         route_name: _stripe_bundle_endpoint # OTIONAL. The endpoint Stripe calls when notify an event.

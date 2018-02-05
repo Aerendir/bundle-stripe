@@ -1,62 +1,62 @@
 How to integrate Stripe Bundle into your application's Front-end
 ================================================================
 
-To integrate Stripe into your application through Stripe Bundle you need to import some other files into your app.
+To integrate Stripe in the frontend of your application you have to basically follow the flow described by Stripe itself.
+
+This bundle doesn't provide much front-end integration tools as the ones provided by Stripe are really strong and as the
+the front-end integration is really tied to your concrete implementation.
+
+Are you using React? Or Bootstrap? Or are you using other technologies?
+
+Here we report just a recap of the fundamental steps required to integrate Stripe in your frontend. For all other
+information, refer to the [Stripe JS's documentation](https://stripe.com/docs/stripe-js).
 
 This is what we have to do:
 
-1. Import `jquery.payment.min.js` and `initialize.js`;
-2. Create the credit card form configuration;
-3. Integrate our form into the payment pages.
+1. Import `Stripe.js` in ALL your pages;
+2. Create the form to be included;
 
-Step 1: Import `jquery.payment.min.js` and `initialize.js`
-----------------------------------------------------------
+Step 1: Import `Stripe.js` in ALL your pages
+--------------------------------------------
 
-First of all, you need to import two javascript files: `jquery.payment.min.js` and `initialize.js`.
+`Stripe.js` permits your application to collect sensitive data from your customers in a secure way and send them to
+Stripe's servers to tokenize and then use them later.
 
-Thefirst one is a [javascript library](https://github.com/stripe/jquery.payment) that Stripes makes available to developers to help them integrate Stripe into their own applications.
- Its purpose is to render credit cards form fields in the right way and validate their values before submitting them to the Stripe API.
+Passing n Internet sensitive data such as the credit card information is really dangerous. For this reason Stripe
+provides this script that takes care of all the security aspects of handling customers' information and payment
+credentials.
 
-So, we first need to import thoes two scripts.
+The only thing required by us, is using their strong tools to communicate with the Stripe's servers.
 
-Somewhere in your app templates, you should have a block that imports javascript in your frontend:
+`Stripe.js` does exactly this: opens a communication channel between our app and Stripe's servers, handling all the
+informaiton flow in a secure way.
 
-```
-{% block javascripts %}
-    {% javascripts
-    '@AppBundle/Resources/public/js/jquery-1.11.3.min.js'
-    ...
-    '@SHQStripeBundle/Resources/public/js/jquery.payment/jquery.payment.min.js'
-    '@SHQStripeBundle/Resources/public/js/intialize.js'
-    %}
-    <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-{% endblock %}
+The `Stripe.js` script has to be included in all pages of the app as it is able to understand the users' behavior and
+intercept fraudolent behaviors by analyzing each action done by the user on our pages.
 
-```
+Including it in all your pages makes possible to spread the full potential of [Stripe's Radar](https://stripe.com/docs/radar), the anti-fraud system
+powered by the machine learning that analyzes and processes hundreds of signals about thousand of thousands credit card
+processings.
 
-Remember that `jquery.payment.min.js` requires JQuery library, so you have to import it too.
-
-You need to also import some `css`s:
+So, the first thing we have to do is include this script in all pages of our app (without minifying nor combining it
+with other javascripts!):
 
 ```
-{% block stylesheets %}
-    {% stylesheets filter='scssphp,cssrewrite' output='css/app.css'
-        'bundles/app/App/css/bootstrap.css'
-        'bundles/app/App/css/bootstrap-theme.css'
-        'bundles/app/App/css/jquery-ui-1.11.4-custom.css'
-        'bundles/app/App/css/jquery-ui-1.11.4-custom.structure.css'
+{# app/base.html.twig #}
+<!DOCTYPE html>
+<html lang="{{ locale }}">
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <meta name="description" content="{% block metaDescription %}{% endblock %}" />
+        {# This must be in the header as it is used by the credit card form that is loaded before all other Javascripts #}
+        <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
         ...
-        'bundles/serendipityhqstripe/css/payment.css'
-    %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
-    {% endstylesheets %}
-{% endblock %}
+    </head>
+    <body>
+    ...
+    </body>
+</html>
 ```
-
-Now you have to install the assets in your `web` folder to make them available to your app in the frontend:
-
-    app/console assets:install
 
 Step 2: Integrate the credit card form on your payment page
 -----------------------------------------------------------
@@ -65,7 +65,7 @@ To make your customer able to send you his credit card information, you need to 
 
 In the [Stripe's documentation](https://stripe.com/docs/custom-form) you can find some basic information about how to do this.
 
-Stripe Bundle ships a form type for this and a pre-buil template.
+Stripe Bundle ships a form type for this.
 
 The form type is really simple: it is composed of only one field: [`card_token`](https://github.com/Aerendir/stripe-bundle/blob/master/Form/Type/CreditCardStripeTokenType.php).
 
@@ -75,28 +75,20 @@ Before you ask why, let us explain a bit about how Stripe's credit cards process
 
 In abstract, the flow is this:
 
-1. Your customer provides his credit card details on a form on your page or, alternatively, you can load a modal box served directly by the Stripe's secure servers.
+1. Your customer provides his credit card details on a form generated using the `Stripe.js` (v3) script;
 2. The customer enters his credit card details in the form and submit it (more about submissionvery soon);
 3. Stripe processes these data and returns you a card token that is a unique identifier of the card on the Stripe's systems;
 4. You use the token to charge the customer.
 
 This is the very abstract process. In each step there is a lot to know. And we are going to know it!
 
-First, which kind of form can we use to get the credit cards information?
+To make it a bit more concrete, lets see how StripeBundle implements it.
 
-We can use:
-
-* [Checkout](https://stripe.com/docs/checkout/tutorial), that is a javascript based modal box that is served directly by the Stripe's secured servers;
-* [Stripe.js](https://stripe.com/docs/custom-form), that is a javascript file loaded directly from the Stripe's secure servers that silently sends the form data to Stripe and returns the token. The user never knows that something is happening on the background.
-
-This second option is the one we have implemented in Stripe Bundle as we want the user fills a form rendered on our pages using the Symfony's form types and that he never notice that we are communicating with Stripe: all MUST happen in the background.
-
-So, **THIS IS THE STRIPE FLOW FOLLOWED BY THE SERENDIPITY HQ STRIPE BUNDLE**:
+**THIS IS THE STRIPE FLOW FOLLOWED BY THE SERENDIPITY HQ STRIPE BUNDLE**:
 
 1. We create a form type, let's call it `PremiumType`, with the fields we like (they can be what we like: a set of features to select or what you like);
 2. To this form type we add the Stripe Bundle `CreditCardStripeTokenType` that will contain the token returned by Stripe (yes, Stripe will return your app a token - be patient :) );
 3. On our page, we will render our form `PremiumType`;
-4. In the form we will simply include the template `SHQStripeBundle::creditCardForm.html.twig` to render the form where the customer will give us his credit card info;
 5. We'll add to the form a button to submit the entire form;
 
 A bit theoretical, isn't it? Let's make it practical! :)
@@ -137,6 +129,7 @@ public function getPlansForm(Store $store)
             ]);
 
         if (null === $store->getBranchOf()->getStripeCustomer() || 0 === $store->getBranchOf()->getStripeCustomer()->getCards()->count())
+            // This will add an HIDDENTYPE input field
             $form->add('credit_card', CreditCardStripeTokenType::class);
 
         return $form->getForm();
@@ -155,17 +148,9 @@ And now it's time to render our form on the frontend:
 {# ATTENTION 1: NOTE WE GIVE THE FORM AN ID #}
 {{ form_start(form, {'attr': {'id': subscription_form_id, 'autocomplete': 'on'}}) }}
 
-{# ATTENTION 2: Set the form ID in the "window" to make it globally accessible: this is required to disable the submit button once clicked for the charge
-<script type="text/javascript">
-    window.stripe_payment_form_id = '{{ subscription_form_id }}';
-</script>
-
 {{ form_widget(form.plan.ads) }}
 {{ form_widget(form.plan.seo) }}
 {{ form_widget(form.plan.social) }}
-
-{# ATTENTION 3: NOTE WE INCLUDE THE BUNDLED TEMPLATE PASSING IT SOME VARIABLES #}
-{% include('SHQStripeBundle::creditCardForm.html.twig') with {'publishable_key': stripe_publishable_key, 'token_input_id': subscription_token_input_id, 'env': app.environment} %}
 
 {# ATTENTION 4: NOTE WE RENDER THE FIELD WE ADDED AT STEP 2.3 #}
 {{ form_widget(form.credit_card.card_token) }}
@@ -178,54 +163,76 @@ And now it's time to render our form on the frontend:
 KEEP ATTENTION NOW: note these things:
 
 1. We gave the form an `id`;
-2. We set this same `id` in the `window` global variable: so the `Initialize.js` script can find it (See NOTE 1);
-3. We simply included a template provided by Stripe Bundle, BUT we passed it some variables;
+2. We render the field `card_token` we added at step 2.3;
+3. We add a class `charge` to the button to submit the form so we will abe to disable it once the form is submitted.
+4. The credit card input field is a `HiddenType` input field: it is only a container and is not meant to be filled by the User (more on this later).
 
-    3.1 One is the `env` variable set to `app.environment`: this way on development the credit card form will be prepopulated with some dummy data while on production it is empty. (The prepopulated data are of the [test card 424242424242](https://stripe.com/docs/testing#cards)
+### Step 2.5: Create the Stripe JS script
 
-4. We render the field `card_token` we added at step 2.3;
+In this section the real "magic" happens.
 
-The questions:
+To get the credit card information, you have to first create the fields using the `Stripe.js` (v3) library and then submit them to the Stripe's servers.
 
-1. Where is the form ID set?
-2. Where are set the variable passed to the included template?
+So we don't use the Symfony Form Component, but the Stripe.js script itself: this is because the script is always loaded from a secure server and the data transmitted are always tunneled through an HTTPS connection.  
 
-Answers: in our `config.yml` file... Let's add them!
+Once sent to the Stripe's servers, Stripe processes the information and returns to your page a token that represents the data you provided.
 
-NOTE 1: We should add the `window.stripe_payment_form_id = '{{ subscription_form_id }}';` directly in the `creditCardForm.html.twig` template.
-But if you want to show directly the current saved card to you user, you will not include this template and so the variable will not be set preventing the `Initialize.js` script working the right way.
+The token is received via Javascript and stored in your form via Javascript, then the form is submitted to your server where you handle it using PHP (and StripeBundle).
 
-So we set it manually in OUR template. 
+The field that will store the token is the one we added at step 2.3: the one created adding `CreditCardStripeTokenType`.
 
-### 2.5: Create twig global variable to use with the form template
+Then you use this token to create the user on the Stripe's servers and associate the payment information to the just created user. 
 
-As you can note, we set three variables:
+So we need the Javascript code to use to submit the credit card info and get back the generated token.
 
-1. `stripe_publishable_key`;
-2. `subscription_form_id`;
-3. `subscription_token_input_id`.
+The Javascript code we have to use is exactly the the same described in the [Stripe's documentation](https://stripe.com/docs/stripe-js/elements/quickstart#setup):
+you have to only take care of the binding between the Stripe's form and the Symfony's form.
 
-We need to set these manually in our `config.yml` and make them available to Twig setting them in its `global` key.
+To do this you have to modify the code just a little bit.
 
-In your `config.yml`, in the `twig` section, put this:
+This is the code in the [`Submit the token and the rest of your form to your server`](https://stripe.com/docs/stripe-js/elements/quickstart#submit-token)
+section of the Quick Start Stripe's documentation there is this code:
 
 ```
-twig:
-    globals:
-        stripe_publishable_key: "%stripe.publishable_key%"
-        subscription_form_id: 'subscription'                                              # form_1 id
-        subscription_token_input_id: 'form_credit_card_card_token'                        # form_1 token input field id
-        company_billing_update_card_form_id: 'company_billing_update_card'                # form_2 id
-        company_billing_update_card_token_input_id: 'credit_card_stripe_token_card_token' # form_2 token input field id
+function stripeTokenHandler(token) {
+    // Insert the token ID into the form so it gets submitted to the server
+    var form = document.getElementById('payment-form');
+    var hiddenInput = document.createElement('input');
+    hiddenInput.setAttribute('type', 'hidden');
+    hiddenInput.setAttribute('name', 'stripeToken');
+    hiddenInput.setAttribute('value', token.id);
+    form.appendChild(hiddenInput);
+    
+    // Submit the form
+    form.submit();
+}
 ```
 
-As you can see, we have set details for two forms: `subscription` and `company_billing`: doing this is possible to include the form in different places with different parameters in a very flexible and intuitive way.
+Your code MUSt be a bit different:
 
-Note that the variable `stripe_form_id` is used as form ID and is also passed to the included credit card template: this variable, infact, is used by the javascript scripts to set the credit card token returned by Stripe (... yes, again, be patient! :) ).
+1) You have to not create the hidden input field as your form already has it (`CreditCardStripeTokenType`)
+2) You have to select the already existent credit card field
+3) You have to update it with the token returned by Stripe
 
-Now all is ready: try to render the page where you included the form and see what happens! :)
+So, the javascript code will become this:
 
-Do all work well? Right...
+```
+function stripeTokenHandler(token) {
+    // Insert the token ID into the form so it gets submitted to the server
+    var form = document.getElementById('payment-form');
+    
+    // Here we select the already rendered credit card form field
+    var hiddenInput = document.getElementById('form_credit_card_card_token');
+    
+    // Here we update it with the token returned by Stripe
+    hiddenInput.setAttribute('value', token.id); 
+    
+    // Submit the form
+    form.submit();
+}
+```
+
+Now load yur page and all should work well: the credit card form should be created and once submitted it should return back the token.
 
 Try to fill the form with some [test cards](https://stripe.com/docs/testing#cards) and submit it: what does it happen?
 
