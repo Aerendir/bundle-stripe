@@ -90,7 +90,10 @@ class CustomerSyncer extends AbstractSyncer
                     break;
 
                 case 'email':
-                    $reflectedProperty->setValue($localResource, new Email($stripeResource->email));
+                    // If the email were not passed to Stripe, this property is null and so cannot be set in the Email object
+                    if (null !== $stripeResource->email) {
+                        $reflectedProperty->setValue($localResource, new Email($stripeResource->email));
+                    }
                     break;
 
                 case 'livemode':
