@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
   <file date="2017-01-26T20:04:40Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
@@ -9,38 +9,31 @@
       <trans-unit id="5eea87cf9c6d106dbf432892f99f8da4436cbc7b" resname="stripe.card_error.card_declined.fraudulent">
         <source>stripe.card_error.card_declined.fraudulent</source>
         <target state="new">stripe.card_error.card_declined.fraudulent</target>
-        <jms:reference-file line="4">/../vendor/serendipity_hq/stripe-bundle/Resources/views/_translations_placeholder_errors.html.twig</jms:reference-file>
-      </trans-unit>
+              </trans-unit>
       <trans-unit id="70a8cef8043f02967285e2703c11b75d0a10e1b2" resname="stripe.card_error.card_declined.generic_decline">
         <source>stripe.card_error.card_declined.generic_decline</source>
         <target state="new">stripe.card_error.card_declined.generic_decline</target>
-        <jms:reference-file line="3">/../vendor/serendipity_hq/stripe-bundle/Resources/views/_translations_placeholder_errors.html.twig</jms:reference-file>
-      </trans-unit>
+              </trans-unit>
       <trans-unit id="8141c39dd7386261bacd91190f96daf9e7f89c97" resname="stripe.card_error.expired_card">
         <source>stripe.card_error.expired_card</source>
         <target state="new">stripe.card_error.expired_card</target>
-        <jms:reference-file line="6">/../vendor/serendipity_hq/stripe-bundle/Resources/views/_translations_placeholder_errors.html.twig</jms:reference-file>
-      </trans-unit>
+              </trans-unit>
       <trans-unit id="c310e574f9528745f837949af38bf138b2fc13d0" resname="stripe.card_error.incorrect_cvc">
         <source>stripe.card_error.incorrect_cvc</source>
         <target state="new">stripe.card_error.incorrect_cvc</target>
-        <jms:reference-file line="5">/../vendor/serendipity_hq/stripe-bundle/Resources/views/_translations_placeholder_errors.html.twig</jms:reference-file>
-      </trans-unit>
+              </trans-unit>
       <trans-unit id="cc79b7b7eaa1275ce48396fd475cc9587c76201a" resname="stripe.card_error.incorrect_number">
         <source>stripe.card_error.incorrect_number</source>
         <target state="new">stripe.card_error.incorrect_number</target>
-        <jms:reference-file line="8">/../vendor/serendipity_hq/stripe-bundle/Resources/views/_translations_placeholder_errors.html.twig</jms:reference-file>
-      </trans-unit>
+              </trans-unit>
       <trans-unit id="73e87640f3349d1077e8e2fc24c1cd19b913fea7" resname="stripe.card_error.missing">
         <source>stripe.card_error.missing</source>
         <target state="new">stripe.card_error.missing</target>
-        <jms:reference-file line="9">/../vendor/serendipity_hq/stripe-bundle/Resources/views/_translations_placeholder_errors.html.twig</jms:reference-file>
-      </trans-unit>
+              </trans-unit>
       <trans-unit id="961937e5be5ed94b9841c1d9d1a0757776431e61" resname="stripe.card_error.processing_error">
         <source>stripe.card_error.processing_error</source>
         <target state="new">stripe.card_error.processing_error</target>
-        <jms:reference-file line="7">/../vendor/serendipity_hq/stripe-bundle/Resources/views/_translations_placeholder_errors.html.twig</jms:reference-file>
-      </trans-unit>
+              </trans-unit>
     </body>
   </file>
 </xliff>
