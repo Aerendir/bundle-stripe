@@ -49,7 +49,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     /** @var string $currency The currency the customer can be charged in for recurring billing purposes. */
     private $currency;
 
-    /** @var StripeLocalCard $defaultSource ID of the default source attached to this customer. */
+    /** @var StripeLocalCard|null $defaultSource ID of the default source attached to this customer. */
     private $defaultSource;
 
     /** @var bool $delinquent Whether or not the latest charge for the customer’s latest invoice has failed. */
@@ -169,9 +169,9 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     }
 
     /**
-     * @return StripeLocalCard
+     * @return StripeLocalCard|null
      */
-    public function getDefaultSource()
+    public function getDefaultSource():?StripeLocalCard
     {
         return $this->defaultSource;
     }

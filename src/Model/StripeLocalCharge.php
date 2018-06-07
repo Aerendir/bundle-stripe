@@ -17,6 +17,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\Model;
 
 use SerendipityHQ\Component\ValueObjects\Email\Email;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
+use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
 /**
  * @author Adamo Crespi <hello@aerendir.me>
@@ -287,13 +288,13 @@ class StripeLocalCharge implements StripeLocalResourceInterface
      *
      * This is to prevent an accidental overwriting of it.
      *
-     * @param Money $amount
+     * @param Money|MoneyInterface $amount
      *
      * @throws \InvalidArgumentException If the amount is not an integer
      *
      * @return StripeLocalCharge
      */
-    public function setAmount(Money $amount): self
+    public function setAmount(MoneyInterface $amount): self
     {
         if (null === $this->amount) {
             $this->amount = $amount;
