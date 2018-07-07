@@ -1,3 +1,5 @@
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
+
 HOW TO MANAGE CARD ERRORS
 =========================
 
@@ -169,3 +171,5 @@ _Not fully tested yet. Please, provide feedbacks [opening an issue](https://gith
 
 **Bundle Returned error**: The form sending is blocked by JavaScript (remember that if JS is disabled a
  `stripe.card_error.missing` error is anyway returned as it is not possible to get the card token from Stripe)
+
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
