@@ -1,3 +1,5 @@
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
+
 SERENDIPITY HQ STRIPE BUNDLE
 ============================
 
@@ -12,3 +14,5 @@ These are the steps required to get up and running with the bundle:
 3. [Integrate the front-end](Frontend-Integration.md)
 4. [Integrate the back-end](Backend-Integration.md)
 5. [Configuring webhooks](WebHoonks.md)
+
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*

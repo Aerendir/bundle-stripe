@@ -1,3 +1,5 @@
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
+
 How to configure Serendipity HQ Stripe Bundle
 =============================================
 
@@ -11,3 +13,4 @@ To test the webhook you should use a service like ngrok.
 
 Be sure in your app_dev.php there is no block based on IP (by default may be set only 127.0.0.1).
 
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*

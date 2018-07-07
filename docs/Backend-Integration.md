@@ -1,3 +1,5 @@
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
+
 How to integrate Stripe Bundle into your application's Back-end
 ================================================================
 
@@ -97,4 +99,5 @@ As an example, let's subscribe our customer to one plan. If the plan has no tria
             StripeSubscriptionCreateEvent::CREATE, $subscriptionCreateEvent
         );
     }
- 
+
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*

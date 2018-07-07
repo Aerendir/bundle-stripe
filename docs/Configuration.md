@@ -1,3 +1,5 @@
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
+
 How to configure Serendipity HQ Stripe Bundle
 =============================================
 
@@ -60,5 +62,7 @@ Step 4: Update your database schema
 ```
 $ php app/console doctrine:schema:update --force
 ```
+
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
 
 ([Go back to index](Index.md)) | Next step: [Integrate the front-end](Frontend-Integration.md)
