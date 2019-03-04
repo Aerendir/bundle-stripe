@@ -1,5 +1,4 @@
 phpunit.xml
-bin
 build
 vendor
 composer.lock
