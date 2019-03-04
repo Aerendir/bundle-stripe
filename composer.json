@@ -17,7 +17,7 @@
     "require": {
         "php": "^7.1",
         "doctrine/orm": "^2.5",
-        "serendipity_hq/php_value_objects": "^4.0",
+        "serendipity_hq/php_value_objects": "dev-master",
         "symfony/framework-bundle": "^3.0||^4.0",
         "symfony/translation": "^3.0 || ^4.0",
         "stripe/stripe-php": "^5.2"
@@ -28,10 +28,11 @@
         "doctrine/common": "^2.8",
         "friendsofphp/php-cs-fixer": "^2.0",
         "monolog/monolog": "^1.23",
-        "phpunit/phpunit": "^6||^7",
+        "phpunit/phpunit": "^6||^7||^8",
         "symfony/form": "^3.0||^4.0",
         "symfony/yaml": "^3.0||^4.0",
-        "symfony/var-dumper": "^3.0||^4.0"
+        "symfony/var-dumper": "^3.0||^4.0",
+        "roave/security-advisories": "dev-master"
     },
     "autoload": {
         "psr-4": {
