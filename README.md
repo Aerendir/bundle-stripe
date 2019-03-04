@@ -1,6 +1,6 @@
 <p align="center">
     <a href="http://www.serendipityhq.com" target="_blank">
-        <img src="http://www.serendipityhq.com/wp-content/uploads/2018/07/Logo-Serendipity-HQ.png">
+        <img src="http://www.serendipityhq.com/assets/open-source-projects/Logo-SerendipityHQ-Icon-Text-Purple.png">
     </a>
 </p>
 
