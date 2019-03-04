@@ -171,7 +171,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     /**
      * @return StripeLocalCard|null
      */
-    public function getDefaultSource():?StripeLocalCard
+    public function getDefaultSource(): ?StripeLocalCard
     {
         return $this->defaultSource;
     }
