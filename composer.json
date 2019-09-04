@@ -20,7 +20,7 @@
         "serendipity_hq/php_value_objects": "^4.0",
         "symfony/framework-bundle": "^3.0||^4.0",
         "symfony/translation": "^3.0 || ^4.0",
-        "stripe/stripe-php": "^5.2"
+        "stripe/stripe-php": "^7.0"
     },
     "require-dev": {
         "codeclimate/php-test-reporter": "dev-master",
