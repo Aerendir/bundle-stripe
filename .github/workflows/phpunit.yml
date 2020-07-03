@@ -1,0 +1,36 @@
+name: PHPunit
+
+on: [push, pull_request]
+
+jobs:
+    serendipity_hq:
+        runs-on: ${{ matrix.os }}
+        strategy:
+            fail-fast: false
+            matrix:
+                os: [ubuntu-latest]
+                php: ['7.4']
+        env:
+            COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
+        name: PHP ${{ matrix.php }} on ${{ matrix.os }}
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php }}
+                  coverage: pcov
+                  tools: prestissimo, pecl
+                  extensions: ast, intl
+
+            - name: Install Composer deps
+              run: |
+                  composer update --no-interaction --no-suggest
+
+            - name: Run PHPunit
+              run: |
+                  vendor/bin/simple-phpunit -v --debug
+              env:
+                  SYMFONY_DEPRECATIONS_HELPER: weak_vendors
