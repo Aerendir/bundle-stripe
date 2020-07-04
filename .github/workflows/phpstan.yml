@@ -12,8 +12,6 @@ jobs:
                 php: ['7.2', '7.3', '7.4']
                 symfony: ['~4.4', '~5.0']
                 composer-flags: ['--prefer-stable --prefer-lowest', '']
-        env:
-            COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
         name: PHP ${{ matrix.php }} SF ${{ matrix.symfony }} (${{ matrix.composer-flags }}) on ${{ matrix.os }}
         steps:
             - name: Checkout

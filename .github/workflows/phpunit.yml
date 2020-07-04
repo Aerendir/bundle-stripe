@@ -10,8 +10,6 @@ jobs:
             matrix:
                 os: [ubuntu-latest]
                 php: ['7.4']
-        env:
-            COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
         name: PHP ${{ matrix.php }} on ${{ matrix.os }}
         steps:
             - name: Checkout
