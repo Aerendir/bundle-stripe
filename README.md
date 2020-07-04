@@ -7,16 +7,29 @@
 SHQ STRIPE BUNDLE
 =================
 
+[![PHP from Packagist](https://img.shields.io/packagist/php-v/serendipity_hq/stripe-bundle?color=%238892BF)](https://packagist.org/packages/serendipity_hq/stripe-bundle)
 [![Latest Stable Version](https://poser.pugx.org/serendipity_hq/stripe-bundle/v/stable.png)](https://packagist.org/packages/serendipity_hq/stripe-bundle)
-[![Build Status](https://travis-ci.org/Aerendir/stripe-bundle.svg?branch=master)](https://travis-ci.org/Aerendir/stripe-bundle)
 [![Total Downloads](https://poser.pugx.org/serendipity_hq/stripe-bundle/downloads.svg)](https://packagist.org/packages/serendipity_hq/stripe-bundle)
 [![License](https://poser.pugx.org/serendipity_hq/stripe-bundle/license.svg)](https://packagist.org/packages/serendipity_hq/stripe-bundle)
-[![Code Climate](https://codeclimate.com/github/Aerendir/stripe-bundle/badges/gpa.svg)](https://codeclimate.com/github/Aerendir/stripe-bundle)
-[![Test Coverage](https://codeclimate.com/github/Aerendir/stripe-bundle/badges/coverage.svg)](https://codeclimate.com/github/Aerendir/stripe-bundle)
-[![Issue Count](https://codeclimate.com/github/Aerendir/stripe-bundle/badges/issue_count.svg)](https://codeclimate.com/github/Aerendir/stripe-bundle)
+
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_stripe-bundle&metric=coverage)](https://sonarcloud.io/dashboard?id=Aerendir_stripe-bundle)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_stripe-bundle&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=Aerendir_stripe-bundle)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_stripe-bundle&metric=alert_status)](https://sonarcloud.io/dashboard?id=Aerendir_stripe-bundle)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_stripe-bundle&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=Aerendir_stripe-bundle)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_stripe-bundle&metric=security_rating)](https://sonarcloud.io/dashboard?id=Aerendir_stripe-bundle)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_stripe-bundle&metric=sqale_index)](https://sonarcloud.io/dashboard?id=Aerendir_stripe-bundle)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_stripe-bundle&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=Aerendir_stripe-bundle)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/d8fc2a44-436e-43f5-8205-16fc77cfc1b8/mini.png)](https://insight.sensiolabs.com/projects/d8fc2a44-436e-43f5-8205-16fc77cfc1b8)
 
-SerendipityHQ Stripe Bundle integrates your Symfony 2 app with the Stripe payment service.
+![Phan](https://github.com/Aerendir/stripe-bundle/workflows/Phan/badge.svg)
+![PHPStan](https://github.com/Aerendir/stripe-bundle/workflows/PHPStan/badge.svg)
+![PSalm](https://github.com/Aerendir/stripe-bundle/workflows/PSalm/badge.svg)
+![PHPUnit](https://github.com/Aerendir/stripe-bundle/workflows/PHPunit/badge.svg)
+![Composer](https://github.com/Aerendir/stripe-bundle/workflows/Composer/badge.svg)
+![PHP CS Fixer](https://github.com/Aerendir/stripe-bundle/workflows/PHP%20CS%20Fixer/badge.svg)
+![Rector](https://github.com/Aerendir/stripe-bundle/workflows/Rector/badge.svg)
+
+SerendipityHQ Stripe Bundle integrates your Symfony app with the Stripe payment service.
 
 SerendipityHQ Stripe Bundle gives you the ability to perform common tasks calling the Stripe's API and exposes an endpoint to which you can receive the notifications sent by Stripe via Webhooks.
 
