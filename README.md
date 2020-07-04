@@ -8,9 +8,9 @@ SHQ STRIPE BUNDLE
 =================
 
 [![PHP from Packagist](https://img.shields.io/packagist/php-v/serendipity_hq/stripe-bundle?color=%238892BF)](https://packagist.org/packages/serendipity_hq/stripe-bundle)
-[![Tested with Symfony ^3.4](https://img.shields.io/badge/Symfony-%5E3.4-333)](https://github.com/Aerendir/stripe-bundle/actions)
-[![Tested with Symfony ^4.4](https://img.shields.io/badge/Symfony-%5E4.4-333)](https://github.com/Aerendir/stripe-bundle/actions)
-[![Tested with Symfony ^5.2](https://img.shields.io/badge/Symfony-%5E5.2-333)](https://github.com/Aerendir/stripe-bundle/actions)
+[![Tested with Symfony ^3.0](https://img.shields.io/badge/Symfony-%5E3.0-333)](https://github.com/Aerendir/stripe-bundle/actions)
+[![Tested with Symfony ^4.0](https://img.shields.io/badge/Symfony-%5E4.0-333)](https://github.com/Aerendir/stripe-bundle/actions)
+[![Tested with Symfony ^5.0](https://img.shields.io/badge/Symfony-%5E5.0-333)](https://github.com/Aerendir/stripe-bundle/actions)
 
 [![Latest Stable Version](https://poser.pugx.org/serendipity_hq/stripe-bundle/v/stable.png)](https://packagist.org/packages/serendipity_hq/stripe-bundle)
 [![Total Downloads](https://poser.pugx.org/serendipity_hq/stripe-bundle/downloads.svg)](https://packagist.org/packages/serendipity_hq/stripe-bundle)
