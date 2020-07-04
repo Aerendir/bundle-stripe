@@ -19,7 +19,6 @@ SHQ STRIPE BUNDLE
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_stripe-bundle&metric=security_rating)](https://sonarcloud.io/dashboard?id=Aerendir_stripe-bundle)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_stripe-bundle&metric=sqale_index)](https://sonarcloud.io/dashboard?id=Aerendir_stripe-bundle)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_stripe-bundle&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=Aerendir_stripe-bundle)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/d8fc2a44-436e-43f5-8205-16fc77cfc1b8/mini.png)](https://insight.sensiolabs.com/projects/d8fc2a44-436e-43f5-8205-16fc77cfc1b8)
 
 ![Phan](https://github.com/Aerendir/stripe-bundle/workflows/Phan/badge.svg)
 ![PHPStan](https://github.com/Aerendir/stripe-bundle/workflows/PHPStan/badge.svg)
