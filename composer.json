@@ -23,7 +23,6 @@
         "stripe/stripe-php": "^5.2"
     },
     "require-dev": {
-        "codeclimate/php-test-reporter": "dev-master",
         "doctrine/doctrine-bundle": "^1.7",
         "doctrine/common": "^2.8",
         "friendsofphp/php-cs-fixer": "^2.0",
