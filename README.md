@@ -4,8 +4,8 @@
     </a>
 </p>
 
-STRIPE BUNDLE
-=============
+SHQ STRIPE BUNDLE
+=================
 
 [![Latest Stable Version](https://poser.pugx.org/serendipity_hq/stripe-bundle/v/stable.png)](https://packagist.org/packages/serendipity_hq/stripe-bundle)
 [![Build Status](https://travis-ci.org/Aerendir/stripe-bundle.svg?branch=master)](https://travis-ci.org/Aerendir/stripe-bundle)
@@ -25,8 +25,8 @@ SerendipityHQ Stripe Bundle gives you the ability to perform common tasks callin
 How to use the Serendipity HQ Stripe Bundle
 -------------------------------------------
 
-SerendipityHQ Stripe Bundle persists all the communications between your app and the Stripe's API so you ever have a local copy of them, without needing to communicate with the API to retrieve relevant information. This makes your app able to perform a lot of tasks also if there are issues with the 
-Stripe's API (very rare, but anyway possible). 
+SerendipityHQ Stripe Bundle persists all the communications between your app and the Stripe's API so you ever have a local copy of them, without needing to communicate with the API to retrieve relevant information. This makes your app able to perform a lot of tasks also if there are issues with the
+Stripe's API (very rare, but anyway possible).
 Maintain these information as a local copy is considered a best practice, so you should do it.
 
 SerendipityHQ Stripe Bundle fires events for each possible action, so you can hook them to make you app able to react to them.
