@@ -12,7 +12,7 @@ $finder = PhpCsFixer\Finder::create()
 $header = <<<EOF
 This file is part of the SHQStripeBundle.
 
-Copyright Adamo Aerendir Crespi 2016-2017.
+Copyright Adamo Aerendir Crespi 2016-2020.
 
 For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code.
@@ -25,6 +25,7 @@ EOF;
 return PhpCsFixer\Config::create()
     ->setFinder($finder)
     ->setUsingCache(true)
+    ->setCacheFile(__DIR__.'/var/cache/.php_cs.cache')
     ->setRiskyAllowed(true)
     ->setRules([
         'header_comment' => ['header' => $header],
@@ -48,6 +49,7 @@ return PhpCsFixer\Config::create()
         'no_multiline_whitespace_before_semicolons' => true,
         'no_null_property_initialization' => true,
         'no_short_echo_tag' => true,
+        'no_superfluous_phpdoc_tags' => false,
         'no_unreachable_default_argument_value' => true,
         'no_useless_else' => true,
         'no_useless_return' => true,
@@ -73,6 +75,7 @@ return PhpCsFixer\Config::create()
         'phpdoc_add_missing_param_annotation' => true,
         'phpdoc_order' => true,
         'phpdoc_types_order' => ['null_adjustment' => 'always_last'],
+        'phpdoc_var_without_name' => false,
         'single_line_comment_style' => ['comment_types' => ['hash']],
         'strict_comparison' => true
     ]);
