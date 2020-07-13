@@ -1,5 +1,6 @@
 build
 vendor
+/vendor-bin/**/vendor
 var
 !var/cache/.gitkeep
 composer.lock

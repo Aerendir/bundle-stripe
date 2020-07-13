@@ -24,25 +24,14 @@
         "thecodingmachine/safe": "^1.0"
     },
     "require-dev": {
+        "bamarni/composer-bin-plugin": "^1.4",
         "doctrine/common": "^2.8",
         "doctrine/doctrine-bundle": "^1.7",
-        "drenso/phan-extensions": "@stable",
-        "friendsofphp/php-cs-fixer": "^2.0",
         "monolog/monolog": "^1.23",
-        "phan/phan": "^3.0",
-        "phpstan/phpstan": "^0.12",
-        "phpstan/phpstan-doctrine": "@stable",
-        "phpstan/phpstan-phpunit": "@stable",
-        "phpstan/phpstan-symfony": "@stable",
-        "rector/rector": "^0.7",
         "roave/security-advisories": "dev-master",
         "symfony/form": "^3.0|^4.0|^5.0",
-        "symfony/phpunit-bridge": "^5.1",
         "symfony/var-dumper": "^3.0|^4.0|^5.0",
-        "symfony/yaml": "^3.0|^4.0|^5.0",
-        "thecodingmachine/phpstan-safe-rule": "@stable",
-        "vimeo/psalm": "^3.12",
-        "weirdan/doctrine-psalm-plugin": "@stable"
+        "symfony/yaml": "^3.0|^4.0|^5.0"
     },
     "autoload": {
         "psr-4": {
@@ -56,6 +45,11 @@
     },
     "config":{
         "sort-packages": true
+    },
+    "scripts": {
+        "bin": "echo 'bin not installed'",
+        "post-install-cmd": ["@composer bin all install --ansi"],
+        "post-update-cmd": ["@composer bin all update --ansi"]
     },
     "conflict": {
         "nikic/php-parser": "4.6.0"
