@@ -1,0 +1,5 @@
+{
+    "require-dev": {
+        "symfony/phpunit-bridge": "5.1.2"
+    }
+}

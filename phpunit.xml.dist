@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit colors="true" bootstrap="vendor/autoload.php">
+<phpunit
+    cacheResultFile="var/cache/"
+    colors="true"
+    bootstrap="vendor/autoload.php"
+>
     <php>
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[self]=0"/>
         <!-- Disable E_USER_DEPRECATED until 3.0 -->
