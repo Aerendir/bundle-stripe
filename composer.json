@@ -50,8 +50,5 @@
         "bin": "echo 'bin not installed'",
         "post-install-cmd": ["@composer bin all install --ansi"],
         "post-update-cmd": ["@composer bin all update --ansi"]
-    },
-    "conflict": {
-        "nikic/php-parser": "4.6.0"
     }
 }
