@@ -1,8 +1,8 @@
-build
-vendor
-/vendor-bin/**/vendor
-var
-!var/cache/.gitkeep
+.php_cs
+.phpunit.result.cache
 composer.lock
 phpunit.xml
-.phpunit.result.cache
+build
+vendor
+var
+!var/cache/.gitkeep
