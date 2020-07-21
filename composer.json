@@ -6,6 +6,7 @@
     "homepage": "https://github.com/Aerendir/bundle-stripe",
     "license": "MIT",
     "support": {
+        "docs": "https://github.com/Aerendir/bundle-stripe/tree/dev/docs",
         "issues": "https://github.com/Aerendir/bundle-stripe/issues"
     },
     "authors": [
