@@ -1,4 +1,4 @@
-*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this included!*
 
 How to integrate Stripe Bundle into your application's Back-end
 ================================================================
@@ -50,7 +50,7 @@ Remember your plan will be created into Stripe and in your entity stripe_plans.
         ->setIntervalCount(1) // each 1 month
         ->setLivemode(false)
         ->setMetadata('') // more information about the plan, a set of key/value pairs
-        ->setStatementDescriptor('COMPANY. SUBSCRIPTION OF XYZ PLAN') // An arbitrary string to be displayed on your customer’s credit card statement.  
+        ->setStatementDescriptor('COMPANY. SUBSCRIPTION OF XYZ PLAN') // An arbitrary string to be displayed on your customer’s credit card statement.
         ->setTrialPeriodDays(0); // set number of trial period days
     $planCreateEvent = new StripePlanCreateEvent($stripeLocalPlan);
     $this->getContainer()->get('event_dispatcher')->dispatch(
@@ -67,37 +67,47 @@ As an example, let's subscribe our customer to one plan. If the plan has no tria
 
 1. Stage: We have a created plan and a customer.
 2. Verify if there is some subscription link to this customer
-3. Create the subscription, define the object SerendipityHQ\\Bundle\\StripeBundle\\Model\\StripeLocalSubscription 
-4. We dispatch the event to create the subscription. 
+3. Create the subscription, define the object SerendipityHQ\\Bundle\\StripeBundle\\Model\\StripeLocalSubscription
+4. We dispatch the event to create the subscription.
 
 
     ...
     use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalSubscription;
     use SerendipityHQ\Bundle\StripeBundle\Event\StripeCustomerCreateEvent;
     use SerendipityHQ\Component\ValueObjects\Email\Email;
-    ...    
-    
+    ...
+
     // 1. Stage: We have a created plan a customer
     $plan = 'PLAN_ID';
     $email = new Email('USER@DOMAIN.TLD');
     $stripeLocalCustomer = $em->getRepository("SerendipityHQ\\Bundle\\StripeBundle\\Model\\StripeLocalCustomer")
         ->findOneBy(['email' => $email]);
-        
+
     // 2. Verify if there is some subscription link to this customer
     $stripeLocalSubscription = $em->getRepository("SerendipityHQ\\Bundle\\StripeBundle\\Model\\StripeLocalSubscription")
         ->findOneBy(['customer' => $stripeLocalCustomer]);
     if ($stripeLocalSubscription == null) {
-    
-        // 3. Create the subscription, define the object SerendipityHQ\\Bundle\\StripeBundle\\Model\\StripeLocalSubscription 
+
+        // 3. Create the subscription, define the object SerendipityHQ\\Bundle\\StripeBundle\\Model\\StripeLocalSubscription
         $stripeLocalSubscription = new StripeLocalSubscription();
         $stripeLocalSubscription->setCustomer($stripeLocalCustomer);
         $stripeLocalSubscription->setPlan($plan);
-        
-        // 4. We dispatch the event to create the subscription. 
+
+        // 4. We dispatch the event to create the subscription.
         $subscriptionCreateEvent = new StripeSubscriptionCreateEvent($stripeLocalSubscription);
         $this->eventDispatcher->dispatch(
             StripeSubscriptionCreateEvent::CREATE, $subscriptionCreateEvent
         );
     }
 
-*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
+<hr />
+<h3 align="center">
+    <b>Do you like this bundle?</b><br />
+    <b><a href="#js-repo-pjax-container">LEAVE A &#9733;</a></b>
+</h3>
+<p align="center">
+    or run<br />
+    <code>composer global require symfony/thanks && composer thanks</code><br />
+    to say thank you to all libraries you use in your current project, this included!
+</p>
+<hr />

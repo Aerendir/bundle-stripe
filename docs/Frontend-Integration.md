@@ -1,4 +1,4 @@
-*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this included!*
 
 How to integrate Stripe Bundle into your application's Front-end
 ================================================================
@@ -175,7 +175,7 @@ In this section the real "magic" happens.
 
 To get the credit card information, you have to first create the fields using the `Stripe.js` (v3) library and then submit them to the Stripe's servers.
 
-So we don't use the Symfony Form Component, but the Stripe.js script itself: this is because the script is always loaded from a secure server and the data transmitted are always tunneled through an HTTPS connection.  
+So we don't use the Symfony Form Component, but the Stripe.js script itself: this is because the script is always loaded from a secure server and the data transmitted are always tunneled through an HTTPS connection.
 
 Once sent to the Stripe's servers, Stripe processes the information and returns to your page a token that represents the data you provided.
 
@@ -183,7 +183,7 @@ The token is received via Javascript and stored in your form via Javascript, the
 
 The field that will store the token is the one we added at step 2.3: the one created adding `CreditCardStripeTokenType`.
 
-Then you use this token to create the user on the Stripe's servers and associate the payment information to the just created user. 
+Then you use this token to create the user on the Stripe's servers and associate the payment information to the just created user.
 
 So we need the Javascript code to use to submit the credit card info and get back the generated token.
 
@@ -204,7 +204,7 @@ function stripeTokenHandler(token) {
     hiddenInput.setAttribute('name', 'stripeToken');
     hiddenInput.setAttribute('value', token.id);
     form.appendChild(hiddenInput);
-    
+
     // Submit the form
     form.submit();
 }
@@ -222,13 +222,13 @@ So, the javascript code will become this:
 function stripeTokenHandler(token) {
     // Insert the token ID into the form so it gets submitted to the server
     var form = document.getElementById('payment-form');
-    
+
     // Here we select the already rendered credit card form field
     var hiddenInput = document.getElementById('form_credit_card_card_token');
-    
+
     // Here we update it with the token returned by Stripe
-    hiddenInput.setAttribute('value', token.id); 
-    
+    hiddenInput.setAttribute('value', token.id);
+
     // Submit the form
     form.submit();
 }
@@ -282,6 +282,16 @@ In the disclaimer something like:
 
     Di queste carte non abbiamo più nessun dato utile per addebitarle: conserviamo per referenza solo le ultime 4 cifre e la data di scadenza.
 
-*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
+<hr />
+<h3 align="center">
+    <b>Do you like this bundle?</b><br />
+    <b><a href="#js-repo-pjax-container">LEAVE A &#9733;</a></b>
+</h3>
+<p align="center">
+    or run<br />
+    <code>composer global require symfony/thanks && composer thanks</code><br />
+    to say thank you to all libraries you use in your current project, this included!
+</p>
+<hr />
 
 ([Go back to index](Index.md)) | Next step: [Integrate the back-end](Backend-Integration.md)

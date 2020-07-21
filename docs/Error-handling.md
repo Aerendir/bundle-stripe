@@ -1,4 +1,4 @@
-*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this included!*
 
 HOW TO MANAGE CARD ERRORS
 =========================
@@ -27,10 +27,10 @@ Well understand these differences is very important as this will help you identi
 
 For example, it required us a lot of time to spot the logic behind the different behaviors of a `card_declined` with a
  `generic_decline` reason and of a `card_declined` with a `fraudulent` reason.
- 
+
 We will better explain this difference
  very soon. For the moment put your best efforts to maintain the concentration on what we are writing!
- 
+
  So, finally, we have three things to remember:
 
 1) The payment flow (Create Customer, associate a card to it, charge the card);
@@ -172,4 +172,14 @@ _Not fully tested yet. Please, provide feedbacks [opening an issue](https://gith
 **Bundle Returned error**: The form sending is blocked by JavaScript (remember that if JS is disabled a
  `stripe.card_error.missing` error is anyway returned as it is not possible to get the card token from Stripe)
 
-*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
+<hr />
+<h3 align="center">
+    <b>Do you like this bundle?</b><br />
+    <b><a href="#js-repo-pjax-container">LEAVE A &#9733;</a></b>
+</h3>
+<p align="center">
+    or run<br />
+    <code>composer global require symfony/thanks && composer thanks</code><br />
+    to say thank you to all libraries you use in your current project, this included!
+</p>
+<hr />
