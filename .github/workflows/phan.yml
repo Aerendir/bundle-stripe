@@ -18,12 +18,12 @@ jobs:
               uses: actions/checkout@v2
 
             - name: Setup PHP
-              uses: shivammathur/setup-php@v2
+              uses: shivammathur/setup-php@2.3.2
               with:
                   php-version: ${{ matrix.php }}
                   coverage: none # disable xdebug, pcov
-                  tools: prestissimo, pecl
-                  extensions: ast, intl
+                  tools: prestissimo
+                  extensions: ast
 
             - name: Fix Symfony version
               run: |
