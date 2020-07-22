@@ -1,13 +1,33 @@
 parameters:
     php_version_features: '7.2'
+    paths:
+        - 'src'
+        - 'tests'
     autoload_paths:
         - 'vendor-bin/phpunit/vendor/autoload.php'
     sets:
         # architecture
         - 'action-injection-to-constructor-injection'
+        - 'array-str-functions-to-static-call'
         - 'constructor-injectin-to-action-injection'
         - 'code-quality'
         - 'coding-style'
+        - 'dead-classes'
+        - 'dead-code'
+        - 'early-return'
+        - 'monolog20'
+        - 'php-di-decouple'
+        - 'swiftmailer60'
+        # Doctrine
+        - 'doctrine'
+        - 'doctrine25'
+        - 'doctrine-code-quality'
+        - 'doctrine-gedmo-to-knplabs'
+        - 'doctrine-services'
+        - 'doctrine-dbal-210'
+        # Sensio
+        - 'framework-extra-bundle-30'
+        - 'framework-extra-bundle-50'
         - 'guzzle'
         - 'naming'
         - 'performance'
@@ -19,7 +39,20 @@ parameters:
         - 'php71'
         - 'php72'
         - 'phpstan'
+        # PHPUnit sets
         - 'phpunit'
+        - 'phpunit50'
+        - 'phpunit60'
+        - 'phpunit70'
+        - 'phpunit75'
+        - 'phpunit80'
+        - 'phpunit80-dms'
+        - 'phpunit-code-quality'
+        - 'phpunit-exception'
+        - 'phpunit-injector'
+        - 'phpunit-mock'
+        - 'phpunit-specific-method'
+        - 'phpunit-yield-data-provider'
         # polyfill
         - 'unwrap-compat'
         - 'privatization'
@@ -41,19 +74,34 @@ parameters:
         - 'symfony-phpunit'
         - 'safe07'
         - 'type-declaration'
+        # Twig
+        - 'twig112'
+        - 'twig127'
+        - 'twig134'
+        - 'twig140'
+        - 'twig20'
+        - 'twig240'
+        - 'twig-underscore-to-namespace'
+        - 'type-declaration'
     import_short_classes: false
     exclude_rectors:
-        # I don't like those
         - 'Rector\CodeQuality\Rector\Catch_\ThrowWithPreviousExceptionRector'
+        - 'Rector\CodeQuality\Rector\Concat\JoinStringConcatRector'
         - 'Rector\CodeQuality\Rector\Identical\SimplifyBoolIdenticalTrueRector'
+        - 'Rector\CodingStyle\Rector\Class_\AddArrayDefaultToArrayPropertyRector'
+        - 'Rector\CodingStyle\Rector\ClassMethod\NewlineBeforeNewAssignSetRector'
+        - 'Rector\CodingStyle\Rector\ClassMethod\RemoveDoubleUnderscoreInMethodNameRector'
+        - 'Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector'
         - 'Rector\CodingStyle\Rector\Identical\IdenticalFalseToBooleanNotRector'
         - 'Rector\CodingStyle\Rector\Switch_\BinarySwitchToIfElseRector'
+        - 'Rector\CodingStyle\Rector\Throw_\AnnotateThrowablesRector'
+        - 'Rector\CodingStyle\Rector\Use_\RemoveUnusedAliasRector'
+        - 'Rector\DeadCode\Rector\Class_\RemoveUnusedClassesRector'
         - 'Rector\Naming\Rector\Class_\RenamePropertyToMatchTypeRector'
-        - 'Rector\Php56\Rector\FunctionLike\AddDefaultValueForUndefinedVariableRector'
+        - 'Rector\Php56\Rector\FunctionLike\AddDefaultValueForUndefinedVariableRector' # May be good one day
         - 'Rector\Privatization\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector'
         - 'Rector\Privatization\Rector\MethodCall\PrivatizeLocalGetterToPropertyRector'
         - 'Rector\SOLID\Rector\Property\AddFalseDefaultToBoolPropertyRector'
+        - 'Rector\SOLID\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector'
         - 'Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector'
         - 'Rector\TypeDeclaration\Rector\ClassMethod\AddArrayReturnDocTypeRector'
-        # Incompatible with this lib
-        - 'Rector\DeadCode\Rector\Class_\RemoveUnusedClassesRector'
