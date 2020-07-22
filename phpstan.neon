@@ -1,4 +1,5 @@
 includes:
+    - .baseline-phpstan.neon
     - vendor-bin/phpstan/vendor/phpstan/phpstan-doctrine/extension.neon
     - vendor-bin/phpstan/vendor/phpstan/phpstan-doctrine/rules.neon
     - vendor-bin/phpstan/vendor/phpstan/phpstan-phpunit/extension.neon
