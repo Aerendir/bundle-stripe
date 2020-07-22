@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="vendor-bin/phpunit/vendor/phpunit/phpunit/phpunit.xsd"
     cacheResultFile="var/cache/"
     colors="true"
     bootstrap="vendor/autoload.php"
@@ -11,7 +13,7 @@
         <ini name="error_reporting" value="-16385"/>
     </php>
     <testsuites>
-        <testsuite name="SHQStripeBundle for the Symfony Framework">
+        <testsuite name="Serendipity HQ Stripe Bundle">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
