@@ -30,7 +30,7 @@ abstract class AbstractStripeBundleExtensionTest extends TestCase
     /**
      * {@inheritdoc}
      */
-    protected function setUp():void
+    protected function setUp(): void
     {
         $this->extension = new SHQStripeExtension();
 
