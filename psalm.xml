@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <psalm
+    phpVersion="7.2"
     cacheDirectory="./var/cache/psalm"
     allowPhpStormGenerics="true"
     checkForThrowsDocblock="true"
@@ -11,7 +12,8 @@
     totallyTyped="true"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="https://getpsalm.org/schema/config"
-    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    xsi:schemaLocation="vendor-bin/phpunit/vendor/vimeo/psalm/config.xsd"
+    errorBaseline=".baseline-psalm.xml"
 >
     <projectFiles>
         <directory name="src"/>
@@ -23,8 +25,11 @@
 
     <issueHandlers>
         <MissingThrowsDocblock errorLevel="suppress" />
+        <!-- Compatibility issue with SF 3.4: Remove when support will be dropped -->
+        <DocblockTypeContradiction errorLevel="suppress" />
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
+        <pluginClass class="Weirdan\DoctrinePsalmPlugin\Plugin"/>
     </plugins>
 </psalm>
