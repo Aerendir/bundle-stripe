@@ -20,7 +20,7 @@
         "doctrine/orm": "^2.5",
         "serendipity_hq/component-value-objects": "dev-dev",
         "stripe/stripe-php": "^5.2",
-        "symfony/framework-bundle": "^3.0||^4.0",
+        "symfony/framework-bundle": "^3.4|^4.4|5.1",
         "symfony/translation": "^3.4|^4.4|^5.1",
         "thecodingmachine/safe": "^1.0"
     },
