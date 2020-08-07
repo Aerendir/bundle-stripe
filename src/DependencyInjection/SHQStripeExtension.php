@@ -31,6 +31,7 @@ final class SHQStripeExtension extends Extension
      * @var string
      */
     private const STRIPE_CONFIG = 'stripe_config';
+
     /**
      * {@inheritdoc}
      */

@@ -44,8 +44,6 @@ use Stripe\Event;
  */
 final class EventGuesser
 {
-    /** @var bool $debug Defines if the class has to operate in debug mode or not */
-    private $debug;
     /**
      * @var string
      */
@@ -54,6 +52,8 @@ final class EventGuesser
      * @var string
      */
     private const OBJECT = 'object';
+    /** @var bool $debug Defines if the class has to operate in debug mode or not */
+    private $debug;
 
     /**
      * @param bool $debug
@@ -275,7 +275,7 @@ final class EventGuesser
         $eventType = \strtoupper($string);
 
         return [
-            'kind' => $eventKind,
+            'kind'     => $eventKind,
             self::TYPE => $eventType,
         ];
     }

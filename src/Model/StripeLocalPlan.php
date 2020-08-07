@@ -18,6 +18,10 @@ use SerendipityHQ\Component\ValueObjects\Money\Money;
  */
 final class StripeLocalPlan implements StripeLocalResourceInterface
 {
+    /**
+     * @var string
+     */
+    private const CREATE = 'create';
     /** @var string The Stripe ID of the plan */
     private $id;
 
@@ -104,10 +108,6 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
      * @see https://stripe.com/docs/api#plan_object-trial_period_days
      */
     private $trialPeriodDays;
-    /**
-     * @var string
-     */
-    private const CREATE = 'create';
 
     /**
      * Initializes collections.

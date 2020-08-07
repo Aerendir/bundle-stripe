@@ -21,6 +21,10 @@ use SerendipityHQ\Component\ValueObjects\Email\Email;
  */
 final class StripeLocalCustomer implements StripeLocalResourceInterface
 {
+    /**
+     * @var string
+     */
+    private const CREATE = 'create';
     /** @var string The Stripe ID of the StripeLocalCustomer */
     private $id;
 
@@ -65,10 +69,6 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
 
     /** @var string $newSource Used to create a new source for the customer */
     private $newSource;
-    /**
-     * @var string
-     */
-    private const CREATE = 'create';
 
     /**
      * Initializes the collections.

@@ -30,6 +30,7 @@ final class WebhookController extends Controller
      * @var string
      */
     private const OBJECT = 'object';
+
     /**
      * @param Request $request
      */

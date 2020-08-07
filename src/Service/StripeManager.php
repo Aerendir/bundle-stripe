@@ -41,42 +41,8 @@ use Stripe\Subscription;
  */
 final class StripeManager
 {
-    /**
-     * @var \SerendipityHQ\Bundle\StripeBundle\Syncer\WebhookEventSyncer
-     */
-    public $WebhookEventSyncer;
-    /** @var string $debug */
-    private $debug;
-
-    /** @var string $statementDescriptor */
-    private $statementDescriptor;
-
-    /** @var array|null $errors Saves the errors thrown by the Stripe API */
-    private $error;
-
-    /** @var LoggerInterface $logger */
-    private $logger;
-
     /** @var int $maxRetries How many retries should the manager has to do */
     private const MAX_RETRIES = 5;
-
-    /** @var int $retries The current number of retries. This has to ever be less than $maxRetries */
-    private $retries = 0;
-
-    /** @var int $wait The time in seconds the manager has to wait before retrying the request */
-    private $wait = 1;
-
-    /** @var ChargeSyncer $chargeSyncer */
-    private $chargeSyncer;
-
-    /** @var SubscriptionSyncer $subscriptionSyncer */
-    private $subscriptionSyncer;
-
-    /** @var PlanSyncer $planSyncer */
-    private $planSyncer;
-
-    /** @var CustomerSyncer $customerSyncer */
-    private $customerSyncer;
     /**
      * @var string
      */
@@ -113,6 +79,39 @@ final class StripeManager
      * @var string
      */
     private const CODE = 'code';
+    /**
+     * @var \SerendipityHQ\Bundle\StripeBundle\Syncer\WebhookEventSyncer
+     */
+    public $WebhookEventSyncer;
+    /** @var string $debug */
+    private $debug;
+
+    /** @var string $statementDescriptor */
+    private $statementDescriptor;
+
+    /** @var array|null $errors Saves the errors thrown by the Stripe API */
+    private $error;
+
+    /** @var LoggerInterface $logger */
+    private $logger;
+
+    /** @var int $retries The current number of retries. This has to ever be less than $maxRetries */
+    private $retries = 0;
+
+    /** @var int $wait The time in seconds the manager has to wait before retrying the request */
+    private $wait = 1;
+
+    /** @var ChargeSyncer $chargeSyncer */
+    private $chargeSyncer;
+
+    /** @var SubscriptionSyncer $subscriptionSyncer */
+    private $subscriptionSyncer;
+
+    /** @var PlanSyncer $planSyncer */
+    private $planSyncer;
+
+    /** @var CustomerSyncer $customerSyncer */
+    private $customerSyncer;
 
     /**
      * @param string                 $secretKey
@@ -719,12 +718,12 @@ final class StripeManager
         $err     = $body[self::ERROR];
         $message = '[' . $e->getHttpStatus() . ' - ' . $e->getJsonBody()[self::ERROR][self::TYPE] . '] ' . $e->getMessage();
         $context = [
-            'status'         => $e->getHttpStatus(),
+            'status'             => $e->getHttpStatus(),
             self::TYPE           => $err[self::TYPE] ?? '',
             self::CODE           => $err[self::CODE] ?? '',
-            'param'          => $err['param'] ?? '',
-            'request_id'     => $e->getRequestId(),
-            'stripe_version' => $e->getHttpHeaders()['Stripe-Version'],
+            'param'              => $err['param'] ?? '',
+            'request_id'         => $e->getRequestId(),
+            'stripe_version'     => $e->getHttpHeaders()['Stripe-Version'],
         ];
 
         if (null === $this->logger) {
@@ -732,15 +731,15 @@ final class StripeManager
         }
 
         // If we are in debug mode, raise the exception immediately
-        if ($this->debug !== '') {
+        if ('' !== $this->debug) {
             throw $e;
         }
 
         // Set the error so it can be retrieved
         $this->error = [
             self::ERROR   => $err,
-            'message' => $message,
-            'context' => $context,
+            'message'     => $message,
+            'context'     => $context,
         ];
 
         if (isset($concatenated)) {

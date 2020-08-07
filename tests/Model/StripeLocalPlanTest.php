@@ -25,9 +25,10 @@ final class StripeLocalPlanTest extends ModelTestCase
      * @var int[]|string[]
      */
     private const AMOUNT_EXPECTED = ['amount' => 999, 'currency' => 'eur'];
+
     public function testStripeLocalPlan(): void
     {
-        $currency = new Currency(self::AMOUNT_EXPECTED['currency']);
+        $currency  = new Currency(self::AMOUNT_EXPECTED['currency']);
         $mockMoney = $this->createMock(Money::class);
         $mockMoney->method('getBaseAmount')->willReturn(self::AMOUNT_EXPECTED['amount']);
         $mockMoney->method('getCurrency')->willReturn($currency);

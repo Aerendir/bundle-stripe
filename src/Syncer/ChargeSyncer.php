@@ -31,7 +31,7 @@ final class ChargeSyncer extends AbstractSyncer
     /**
      * {@inheritdoc}
      */
-    public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource):void
+    public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource): void
     {
         /** @var StripeLocalCharge $localResource */
         if ( ! $localResource instanceof StripeLocalCharge) {

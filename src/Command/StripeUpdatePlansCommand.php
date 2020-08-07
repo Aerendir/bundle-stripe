@@ -24,15 +24,16 @@ final class StripeUpdatePlansCommand extends DoctrineCommand
     /**
      * @var string
      */
-    protected static $defaultName = 'stripe:update:plans';
-    /**
-     * @var string
-     */
     private const ID = 'id';
     /**
      * @var string
      */
     private const CURRENCY = 'currency';
+    /**
+     * @var string
+     */
+    protected static $defaultName = 'stripe:update:plans';
+
     protected function configure(): void
     {
         $this->setDescription('Update plans to your database.')
@@ -86,6 +87,7 @@ final class StripeUpdatePlansCommand extends DoctrineCommand
             $output->writeln(\get_class($exception));
             $output->writeln($exception->getMessage());
         }
+
         return 0;
     }
 }
