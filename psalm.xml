@@ -25,6 +25,7 @@
 
     <issueHandlers>
         <MissingThrowsDocblock errorLevel="suppress" />
+        <RedundantIdentityWithTrue errorLevel="suppress" />
         <!-- Compatibility issue with SF 3.4: Remove when support will be dropped -->
         <DocblockTypeContradiction errorLevel="suppress" />
     </issueHandlers>
