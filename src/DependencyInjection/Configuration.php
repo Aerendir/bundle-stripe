@@ -19,14 +19,12 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
-class Configuration implements ConfigurationInterface
+final class Configuration implements ConfigurationInterface
 {
     /**
      * The list of supported ORM drivers.
-     *
-     * @return array
      */
-    public static function getSupportedDrivers()
+    public static function getSupportedDrivers(): array
     {
         return ['orm'];
     }
@@ -34,10 +32,10 @@ class Configuration implements ConfigurationInterface
     /**
      * {@inheritdoc}
      */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): \Symfony\Component\Config\Definition\Builder\TreeBuilder
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode    = $treeBuilder->root('shq_stripe');
+        $treeBuilder = new TreeBuilder('shq_stripe');
+        $rootNode    = $treeBuilder->getRootNode();
 
         $rootNode
             ->children()

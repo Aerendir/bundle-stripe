@@ -16,9 +16,18 @@ namespace SerendipityHQ\Bundle\StripeBundle\Event;
  *
  * @author Adamo Crespi <hello@aerendir.me>
  */
-class StripeChargeCreateEvent extends AbstractStripeChargeEvent
+final class StripeChargeCreateEvent extends AbstractStripeChargeEvent
 {
+    /**
+     * @var string
+     */
     const CREATE  = 'stripe.local.charge.create';
+    /**
+     * @var string
+     */
     const CREATED = 'stripe.local.charge.created';
+    /**
+     * @var string
+     */
     const FAILED  = 'stripe.local.charge.create_failed';
 }

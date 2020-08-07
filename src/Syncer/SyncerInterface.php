@@ -32,10 +32,8 @@ interface SyncerInterface
      *
      * @param StripeLocalResourceInterface $localResource
      * @param ApiResource                  $stripeResource
-     *
-     * @return StripeLocalResourceInterface
      */
-    public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource);
+    public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource): void;
 
     /**
      * Update a StripeLocalResourceObject given an ApiResource object.
@@ -48,8 +46,6 @@ interface SyncerInterface
      *
      * @param ApiResource                  $stripeResource
      * @param StripeLocalResourceInterface $localResource
-     *
-     * @return StripeLocalResourceInterface
      */
-    public function syncStripeFromLocal(ApiResource $stripeResource, StripeLocalResourceInterface $localResource);
+    public function syncStripeFromLocal(ApiResource $stripeResource, StripeLocalResourceInterface $localResource): void;
 }

@@ -17,15 +17,15 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalPlan;
 /**
  * {@inheritdoc}
  */
-class StripeLocalPlanRepository extends EntityRepository implements ByStripeIdInterface
+final class StripeLocalPlanRepository extends EntityRepository implements ByStripeIdInterface
 {
     /**
      * @param $id
      *
      * @return object|StripeLocalPlan|null
      */
-    public function findOneByStripeId($id)
+    public function findOneByStripeId($id): ?\SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface
     {
-        return $this->findOneBy(['id' => mb_strtolower($id)]);
+        return $this->findOneBy(['id' => \mb_strtolower($id)]);
     }
 }

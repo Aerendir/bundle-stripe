@@ -20,7 +20,7 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  *
  * @see https://stripe.com/docs/api#charge_object
  */
-class StripeLocalCharge implements StripeLocalResourceInterface
+final class StripeLocalCharge implements StripeLocalResourceInterface
 {
     /** @var string The Stripe ID of the StripeLocalCharge */
     private $id;
@@ -127,50 +127,32 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     /** @var bool $toCapture Defines if the charge has to be immediately captured or not. Use capture() or notCapture() to set this on or off. */
     private $capture = true;
 
-    /**
-     * @return int
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @return Money
-     */
-    public function getAmount()
+    public function getAmount(): \SerendipityHQ\Component\ValueObjects\Money\Money
     {
         return $this->amount;
     }
 
-    /**
-     * @return string
-     */
-    public function getBalanceTransaction()
+    public function getBalanceTransaction(): string
     {
         return $this->balanceTransaction;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getCreated()
+    public function getCreated(): \DateTime
     {
         return $this->created;
     }
 
-    /**
-     * @return StripeLocalCustomer
-     */
-    public function getCustomer()
+    public function getCustomer(): \SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer
     {
         return $this->customer;
     }
 
-    /**
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
@@ -178,7 +160,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     /**
      * @return string|null
      */
-    public function getFailureCode()
+    public function getFailureCode(): ?string
     {
         return $this->failureCode;
     }
@@ -186,31 +168,22 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     /**
      * @return string|null
      */
-    public function getFailureMessage()
+    public function getFailureMessage(): ?string
     {
         return $this->failureMessage;
     }
 
-    /**
-     * @return array
-     */
-    public function getFraudDetails()
+    public function getFraudDetails(): array
     {
         return $this->fraudDetails;
     }
 
-    /**
-     * @return array
-     */
-    public function getOutcome()
+    public function getOutcome(): array
     {
         return $this->outcome;
     }
 
-    /**
-     * @return string
-     */
-    public function getMetadata()
+    public function getMetadata(): string
     {
         return $this->metadata;
     }
@@ -218,7 +191,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     /**
      * @return bool|string
      */
-    public function getPaid()
+    public function getPaid(): bool
     {
         return $this->paid;
     }
@@ -226,7 +199,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     /**
      * @return Email|null
      */
-    public function getReceiptEmail()
+    public function getReceiptEmail(): ?\SerendipityHQ\Component\ValueObjects\Email\Email
     {
         return $this->receiptEmail;
     }
@@ -234,31 +207,22 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     /**
      * @return mixed
      */
-    public function getReceiptNumber()
+    public function getReceiptNumber(): string
     {
         return $this->receiptNumber;
     }
 
-    /**
-     * @return StripeLocalCard
-     */
-    public function getSource()
+    public function getSource(): \SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard
     {
         return $this->source;
     }
 
-    /**
-     * @return string
-     */
-    public function getStatementDescriptor()
+    public function getStatementDescriptor(): string
     {
         return $this->statementDescriptor;
     }
 
-    /**
-     * @return bool
-     */
-    public function getStatus(): bool
+    public function getStatus(): string
     {
         return $this->status;
     }
@@ -380,7 +344,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
      *
      * @see https://stripe.com/docs/api/php#create_charge-statement_descriptor
      */
-    public function setStatementDescriptor($statementDescriptor): self
+    public function setStatementDescriptor(string $statementDescriptor): self
     {
         $this->statementDescriptor = $statementDescriptor;
 
@@ -413,19 +377,19 @@ class StripeLocalCharge implements StripeLocalResourceInterface
      * As metadata can be set by the developer or by reflection during syncronization of the StripeCustomer object with
      * this local one, may happen the value is a string.
      *
-     * This lifecycle callback ensures the value ever is an array.
+     * This lifecycle callback ensures the value is always an array.
      */
-    public function metadataTransformer()
+    public function metadataTransformer(): void
     {
-        if (is_string($this->getMetadata())) {
-            $this->setMetadata(json_decode($this->getMetadata(), true));
+        if (\is_string($this->getMetadata())) {
+            $this->setMetadata(\Safe\json_decode($this->getMetadata(), true));
         }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function toStripe($action)
+    public function toStripe(string $action): array
     {
         $return = [];
 

@@ -11,9 +11,18 @@
 
 namespace SerendipityHQ\Bundle\StripeBundle\Event;
 
-class StripeSubscriptionCancelEvent extends AbstractStripeSubscriptionEvent
+final class StripeSubscriptionCancelEvent extends AbstractStripeSubscriptionEvent
 {
+    /**
+     * @var string
+     */
     const CANCEL   = 'stripe.local.subscription.cancel';
+    /**
+     * @var string
+     */
     const CANCELED = 'stripe.local.subscription.canceled';
+    /**
+     * @var string
+     */
     const FAILED   = 'stripe.local.subscription.cancel_failed';
 }

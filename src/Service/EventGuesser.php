@@ -42,8 +42,16 @@ use Stripe\Event;
  *
  * @author Adamo Crespi <hello@aerendir.me>
  */
-class EventGuesser
+final class EventGuesser
 {
+    /**
+     * @var string
+     */
+    private const TYPE = 'type';
+    /**
+     * @var string
+     */
+    private const OBJECT = 'object';
     /** @var bool $debug Defines if the class has to operate in debug mode or not */
     private $debug;
 
@@ -58,10 +66,8 @@ class EventGuesser
     /**
      * @param Event                   $stripeEvent
      * @param StripeLocalWebhookEvent $localEventEntity
-     *
-     * @return array
      */
-    public function guess(Event $stripeEvent, StripeLocalWebhookEvent $localEventEntity)
+    public function guess(Event $stripeEvent, StripeLocalWebhookEvent $localEventEntity): array
     {
         $pieces = $this->guessEventPieces($stripeEvent->type);
 
@@ -70,8 +76,8 @@ class EventGuesser
                 $disptachingEvent = new StripeWebhookAccountEventEvent($localEventEntity);
 
                 return [
-                    'type'   => constant(StripeWebhookAccountEventEvent::class . '::' . $pieces['type']),
-                    'object' => $disptachingEvent,
+                    self::TYPE   => \constant(StripeWebhookAccountEventEvent::class . '::' . $pieces[self::TYPE]),
+                    self::OBJECT => $disptachingEvent,
                 ];
                 break;
 
@@ -79,8 +85,8 @@ class EventGuesser
                 $disptachingEvent = new StripeWebhookApplicationFeeEventEvent($localEventEntity);
 
                 return [
-                    'type'   => constant(StripeWebhookApplicationFeeEventEvent::class . '::' . $pieces['type']),
-                    'object' => $disptachingEvent,
+                    self::TYPE   => \constant(StripeWebhookApplicationFeeEventEvent::class . '::' . $pieces[self::TYPE]),
+                    self::OBJECT => $disptachingEvent,
                 ];
                 break;
 
@@ -88,8 +94,8 @@ class EventGuesser
                 $disptachingEvent = new StripeWebhookBalanceEventEvent($localEventEntity);
 
                 return [
-                    'type'   => constant(StripeWebhookBalanceEventEvent::class . '::' . $pieces['type']),
-                    'object' => $disptachingEvent,
+                    self::TYPE   => \constant(StripeWebhookBalanceEventEvent::class . '::' . $pieces[self::TYPE]),
+                    self::OBJECT => $disptachingEvent,
                 ];
                 break;
 
@@ -97,8 +103,8 @@ class EventGuesser
                 $disptachingEvent = new StripeWebhookBitcoinEventEvent($localEventEntity);
 
                 return [
-                    'type'   => constant(StripeWebhookBitcoinEventEvent::class . '::' . $pieces['type']),
-                    'object' => $disptachingEvent,
+                    self::TYPE   => \constant(StripeWebhookBitcoinEventEvent::class . '::' . $pieces[self::TYPE]),
+                    self::OBJECT => $disptachingEvent,
                 ];
                 break;
 
@@ -106,8 +112,8 @@ class EventGuesser
                 $disptachingEvent = new StripeWebhookChargeEventEvent($localEventEntity);
 
                 return [
-                    'type'   => constant(StripeWebhookChargeEventEvent::class . '::' . $pieces['type']),
-                    'object' => $disptachingEvent,
+                    self::TYPE   => \constant(StripeWebhookChargeEventEvent::class . '::' . $pieces[self::TYPE]),
+                    self::OBJECT => $disptachingEvent,
                 ];
                 break;
 
@@ -115,8 +121,8 @@ class EventGuesser
                 $disptachingEvent = new StripeWebhookCouponEventEvent($localEventEntity);
 
                 return [
-                    'type'   => constant(StripeWebhookCouponEventEvent::class . '::' . $pieces['type']),
-                    'object' => $disptachingEvent,
+                    self::TYPE   => \constant(StripeWebhookCouponEventEvent::class . '::' . $pieces[self::TYPE]),
+                    self::OBJECT => $disptachingEvent,
                 ];
                 break;
 
@@ -124,8 +130,8 @@ class EventGuesser
                 $disptachingEvent = new StripeWebhookCustomerEventEvent($localEventEntity);
 
                 return [
-                    'type'   => constant(StripeWebhookCustomerEventEvent::class . '::' . $pieces['type']),
-                    'object' => $disptachingEvent,
+                    self::TYPE   => \constant(StripeWebhookCustomerEventEvent::class . '::' . $pieces[self::TYPE]),
+                    self::OBJECT => $disptachingEvent,
                 ];
                 break;
 
@@ -133,8 +139,8 @@ class EventGuesser
                 $disptachingEvent = new StripeWebhookInvoiceEventEvent($localEventEntity);
 
                 return [
-                    'type'   => constant(StripeWebhookInvoiceEventEvent::class . '::' . $pieces['type']),
-                    'object' => $disptachingEvent,
+                    self::TYPE   => \constant(StripeWebhookInvoiceEventEvent::class . '::' . $pieces[self::TYPE]),
+                    self::OBJECT => $disptachingEvent,
                 ];
                 break;
 
@@ -142,8 +148,8 @@ class EventGuesser
                 $disptachingEvent = new StripeWebhookInvoiceItemEventEvent($localEventEntity);
 
                 return [
-                    'type'   => constant(StripeWebhookInvoiceItemEventEvent::class . '::' . $pieces['type']),
-                    'object' => $disptachingEvent,
+                    self::TYPE   => \constant(StripeWebhookInvoiceItemEventEvent::class . '::' . $pieces[self::TYPE]),
+                    self::OBJECT => $disptachingEvent,
                 ];
                 break;
 
@@ -151,8 +157,8 @@ class EventGuesser
                 $disptachingEvent = new StripeWebhookOrderEventEvent($localEventEntity);
 
                 return [
-                    'type'   => constant(StripeWebhookOrderEventEvent::class . '::' . $pieces['type']),
-                    'object' => $disptachingEvent,
+                    self::TYPE   => \constant(StripeWebhookOrderEventEvent::class . '::' . $pieces[self::TYPE]),
+                    self::OBJECT => $disptachingEvent,
                 ];
                 break;
 
@@ -160,8 +166,8 @@ class EventGuesser
                 $disptachingEvent = new StripeWebhookOrderReturnEventEvent($localEventEntity);
 
                 return [
-                    'type'   => constant(StripeWebhookOrderReturnEventEvent::class . '::' . $pieces['type']),
-                    'object' => $disptachingEvent,
+                    self::TYPE   => \constant(StripeWebhookOrderReturnEventEvent::class . '::' . $pieces[self::TYPE]),
+                    self::OBJECT => $disptachingEvent,
                 ];
                 break;
 
@@ -169,8 +175,8 @@ class EventGuesser
                 $disptachingEvent = new StripeWebhookPlanEventEvent($localEventEntity);
 
                 return [
-                    'type'   => constant(StripeWebhookPlanEventEvent::class . '::' . $pieces['type']),
-                    'object' => $disptachingEvent,
+                    self::TYPE   => \constant(StripeWebhookPlanEventEvent::class . '::' . $pieces[self::TYPE]),
+                    self::OBJECT => $disptachingEvent,
                 ];
                 break;
 
@@ -178,8 +184,8 @@ class EventGuesser
                 $disptachingEvent = new StripeWebhookProductEventEvent($localEventEntity);
 
                 return [
-                    'type'   => constant(StripeWebhookProductEventEvent::class . '::' . $pieces['type']),
-                    'object' => $disptachingEvent,
+                    self::TYPE   => \constant(StripeWebhookProductEventEvent::class . '::' . $pieces[self::TYPE]),
+                    self::OBJECT => $disptachingEvent,
                 ];
                 break;
 
@@ -187,8 +193,8 @@ class EventGuesser
                 $disptachingEvent = new StripeWebhookRecipientEventEvent($localEventEntity);
 
                 return [
-                    'type'   => constant(StripeWebhookRecipientEventEvent::class . '::' . $pieces['type']),
-                    'object' => $disptachingEvent,
+                    self::TYPE   => \constant(StripeWebhookRecipientEventEvent::class . '::' . $pieces[self::TYPE]),
+                    self::OBJECT => $disptachingEvent,
                 ];
                 break;
 
@@ -196,8 +202,8 @@ class EventGuesser
                 $disptachingEvent = new StripeWebhookReviewEvent($localEventEntity);
 
                 return [
-                    'type'   => constant(StripeWebhookReviewEvent::class . '::' . $pieces['type']),
-                    'object' => $disptachingEvent,
+                    self::TYPE   => \constant(StripeWebhookReviewEvent::class . '::' . $pieces[self::TYPE]),
+                    self::OBJECT => $disptachingEvent,
                 ];
                 break;
 
@@ -205,8 +211,8 @@ class EventGuesser
                 $disptachingEvent = new StripeWebhookSkuEventEvent($localEventEntity);
 
                 return [
-                    'type'   => constant(StripeWebhookSkuEventEvent::class . '::' . $pieces['type']),
-                    'object' => $disptachingEvent,
+                    self::TYPE   => \constant(StripeWebhookSkuEventEvent::class . '::' . $pieces[self::TYPE]),
+                    self::OBJECT => $disptachingEvent,
                 ];
                 break;
 
@@ -214,8 +220,8 @@ class EventGuesser
                 $disptachingEvent = new StripeWebhookSourceEventEvent($localEventEntity);
 
                 return [
-                    'type'   => constant(StripeWebhookSourceEventEvent::class . '::' . $pieces['type']),
-                    'object' => $disptachingEvent,
+                    self::TYPE   => \constant(StripeWebhookSourceEventEvent::class . '::' . $pieces[self::TYPE]),
+                    self::OBJECT => $disptachingEvent,
                 ];
                 break;
 
@@ -223,8 +229,8 @@ class EventGuesser
                 $disptachingEvent = new StripeWebhookTransferEventEvent($localEventEntity);
 
                 return [
-                    'type'   => constant(StripeWebhookTransferEventEvent::class . '::' . $pieces['type']),
-                    'object' => $disptachingEvent,
+                    self::TYPE   => \constant(StripeWebhookTransferEventEvent::class . '::' . $pieces[self::TYPE]),
+                    self::OBJECT => $disptachingEvent,
                 ];
                 break;
 
@@ -232,8 +238,8 @@ class EventGuesser
                 $disptachingEvent = new StripeWebhookPingEventEvent($localEventEntity);
 
                 return [
-                    'type'   => constant(StripeWebhookPingEventEvent::class . '::' . $pieces['type']),
-                    'object' => $disptachingEvent,
+                    self::TYPE   => \constant(StripeWebhookPingEventEvent::class . '::' . $pieces[self::TYPE]),
+                    self::OBJECT => $disptachingEvent,
                 ];
                 break;
 
@@ -242,37 +248,35 @@ class EventGuesser
                     throw new \RuntimeException('Event type not recognized. Maybe it is a new one or is not yet supported by the bundle. Report this issue to the GitHub Issue tracker.');
                 }
 
-                return ['type' => null, 'object' => null];
+                return [self::TYPE => null, self::OBJECT => null];
         }
     }
 
     /**
      * @param $type
-     *
-     * @return array
      */
-    public function guessEventPieces($type)
+    public function guessEventPieces($type): array
     {
         /*
          * Guess the event kind.
          *
          * In an event like charge.dispute.closed, the kind is "charge".
          */
-        $dotPosition = strpos($type, '.');
-        $eventKind   = substr($type, 0, $dotPosition);
+        $dotPosition = \strpos($type, '.');
+        $eventKind   = \Safe\substr($type, 0, $dotPosition);
 
         /*
          * Guess the constant of the type.
          *
          * In an event like charge.dispute.closed, the type is "DISPUTE_CLOSED".
          */
-        $string    = str_replace($eventKind . '.', '', $type);
-        $string    = str_replace('.', '_', $string);
-        $eventType = strtoupper($string);
+        $string    = \str_replace($eventKind . '.', '', $type);
+        $string    = \str_replace('.', '_', $string);
+        $eventType = \strtoupper($string);
 
         return [
-            'kind' => $eventKind,
-            'type' => $eventType,
+            'kind'     => $eventKind,
+            self::TYPE => $eventType,
         ];
     }
 }

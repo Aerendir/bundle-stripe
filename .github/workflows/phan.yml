@@ -9,8 +9,8 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ubuntu-latest]
-                php: ['7.2', '7.3', '7.4']
-                symfony: ['~3.4', '~4.4', '~5.1']
+                php: ['7.3', '7.4']
+                symfony: ['~4.4', '~5.1']
                 composer-flags: ['--prefer-stable --prefer-lowest', '']
         name: PHP ${{ matrix.php }} SF ${{ matrix.symfony }} (${{ matrix.composer-flags }}) on ${{ matrix.os }}
         steps:
@@ -18,7 +18,7 @@ jobs:
               uses: actions/checkout@v2
 
             - name: Setup PHP
-              uses: shivammathur/setup-php@2.3.2
+              uses: shivammathur/setup-php@2.4.1
               with:
                   php-version: ${{ matrix.php }}
                   coverage: none # disable xdebug, pcov

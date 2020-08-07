@@ -20,33 +20,40 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * {@inheritdoc}
  */
-class WebhookController extends Controller
+final class WebhookController extends Controller
 {
     /**
-     * @param Request $request
-     *
-     * @return Response
+     * @var string
      */
-    public function notifyAction(Request $request)
+    private const ID = 'id';
+    /**
+     * @var string
+     */
+    private const OBJECT = 'object';
+
+    /**
+     * @param Request $request
+     */
+    public function notifyAction(Request $request): \Symfony\Component\HttpFoundation\Response
     {
         /** @var Event $content */
-        $content = json_decode($request->getContent(), true);
+        $content = \Safe\json_decode($request->getContent(), true);
 
         // Get the Event again from Stripe for security reasons
-        $stripeWebhookEvent = $this->get('stripe_bundle.manager.stripe_api')->retrieveEvent($content['id']);
+        $stripeWebhookEvent = $this->get('stripe_bundle.manager.stripe_api')->retrieveEvent($content[self::ID]);
 
         // Now check the event doesn't already exist in the database
         $localWebhookEvent = $this->get('stripe_bundle.entity_manager')->getRepository('SHQStripeBundle:StripeLocalWebhookEvent')->findOneByStripeId($stripeWebhookEvent->id);
 
-        if (false !== strpos($content['type'], 'deleted')) {
-            $objectType = ucfirst($content['data']['object']['object']);
+        if (false !== \strpos($content['type'], 'deleted')) {
+            $objectType = \ucfirst($content['data'][self::OBJECT][self::OBJECT]);
             if (null === $localWebhookEvent) {
                 $localResource = $this->get('stripe_bundle.entity_manager')
                     ->getRepository('SHQStripeBundle:StripeLocal' . $objectType)
-                    ->findOneBy(['id' => $content['data']['object']['id']]);
+                    ->findOneBy([self::ID => $content['data'][self::OBJECT][self::ID]]);
             }
             $syncer = $this->get('stripe_bundle.syncer.' . $objectType);
-            if (method_exists($syncer, 'removeLocal')) {
+            if (\method_exists($syncer, 'removeLocal')) {
                 $this->get('stripe_bundle.syncer.' . $objectType)->removeLocal($localResource, $stripeWebhookEvent);
             }
 
@@ -64,7 +71,7 @@ class WebhookController extends Controller
         // Guess the event to dispatch to the application
         $guessedDispatchingEvent = $this->get('stripe_bundle.guesser.event_guesser')->guess($stripeWebhookEvent, $localWebhookEvent);
 
-        $this->container->get('event_dispatcher')->dispatch($guessedDispatchingEvent['type'], $guessedDispatchingEvent['object']);
+        $this->container->get('event_dispatcher')->dispatch($guessedDispatchingEvent['type'], $guessedDispatchingEvent[self::OBJECT]);
 
         return new Response('ok', 200);
     }

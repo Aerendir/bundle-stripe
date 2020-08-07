@@ -16,7 +16,7 @@ jobs:
               uses: actions/checkout@v2
 
             - name: Setup PHP
-              uses: shivammathur/setup-php@2.3.2
+              uses: shivammathur/setup-php@2.4.1
               with:
                   php-version: ${{ matrix.php }}
                   coverage: pcov
@@ -33,7 +33,7 @@ jobs:
 
             - name: Change paths in clover.xml
               run: |
-                  sed -i 's+/home/runner/work/bundle-stripe/bundle-stripe+/github/workspace+g' ./build/coverage/clover.xml
+                  sed -i 's+/home/runner/work/bundle-stripe/bundle-stripe+/github/workspace+g' ./var/coverage/clover.xml
 
             - name: Sonarcloud
               uses: sonarsource/sonarcloud-github-action@master

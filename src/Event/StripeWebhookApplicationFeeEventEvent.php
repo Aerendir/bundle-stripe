@@ -16,7 +16,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\Event;
  *
  * @author Adamo Crespi <hello@aerendir.me>
  */
-class StripeWebhookApplicationFeeEventEvent extends AbstractStripeWebhookEventEvent
+final class StripeWebhookApplicationFeeEventEvent extends AbstractStripeWebhookEventEvent
 {
     /**
      * Occurs whenever an application fee is created on a charge.

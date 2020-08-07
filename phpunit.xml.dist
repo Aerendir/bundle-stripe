@@ -4,7 +4,7 @@
     xsi:noNamespaceSchemaLocation="vendor-bin/phpunit/vendor/phpunit/phpunit/phpunit.xsd"
     cacheResultFile="var/cache/"
     colors="true"
-    bootstrap="vendor/autoload.php"
+    bootstrap="tests/bootstrap.php"
 >
     <php>
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[self]=0"/>
@@ -26,7 +26,10 @@
         </whitelist>
     </filter>
     <logging>
-        <log type="coverage-html" target="./build/coverage/html" lowUpperBound="35" highLowerBound="70" />
-        <log type="coverage-clover" target="build/coverage/clover.xml"/>
+        <log type="coverage-html" target="./var/coverage/html" lowUpperBound="35" highLowerBound="70" />
+        <log type="coverage-clover" target="./var/coverage/clover.xml"/>
     </logging>
+    <listeners>
+        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
+    </listeners>
 </phpunit>

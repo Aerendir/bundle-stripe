@@ -20,15 +20,15 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard;
  *
  * {@inheritdoc}
  */
-class StripeLocalCardRepository extends EntityRepository implements ByStripeIdInterface
+final class StripeLocalCardRepository extends EntityRepository implements ByStripeIdInterface
 {
     /**
      * @param $id
      *
      * @return object|StripeLocalCard|null
      */
-    public function findOneByStripeId($id)
+    public function findOneByStripeId($id): ?\SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface
     {
-        return $this->findOneBy(['id' => mb_strtolower($id)]);
+        return $this->findOneBy(['id' => \mb_strtolower($id)]);
     }
 }

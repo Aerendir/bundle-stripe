@@ -26,12 +26,12 @@ use Stripe\StripeObject;
  *
  * @see https://stripe.com/docs/api#card_object
  */
-class ChargeSyncer extends AbstractSyncer
+final class ChargeSyncer extends AbstractSyncer
 {
     /**
      * {@inheritdoc}
      */
-    public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource)
+    public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource): void
     {
         /** @var StripeLocalCharge $localResource */
         if ( ! $localResource instanceof StripeLocalCharge) {
@@ -60,7 +60,7 @@ class ChargeSyncer extends AbstractSyncer
                     break;
 
                 case 'balanceTransaction':
-                    $reflectedProperty->setValue($localResource, $stripeResource->balance_transaction);
+                    $reflectedProperty->setValue($localResource, $stripeResource->balanceTransaction);
                     break;
 
                 case 'created':
@@ -77,18 +77,18 @@ class ChargeSyncer extends AbstractSyncer
                     break;
 
                 case 'failureCode':
-                    $reflectedProperty->setValue($localResource, $stripeResource->failure_code);
+                    $reflectedProperty->setValue($localResource, $stripeResource->failureCode);
                     break;
 
                 case 'failureMessage':
-                    $reflectedProperty->setValue($localResource, $stripeResource->failure_message);
+                    $reflectedProperty->setValue($localResource, $stripeResource->failureMessage);
                     break;
 
                 case 'fraudDetails':
-                    $fraudDetails = $stripeResource->fraud_details;
+                    $fraudDetails = $stripeResource->fraudDetails;
 
                     // If the object come from an Event is an AttachedObject
-                    if ($stripeResource->fraud_details instanceof AttachedObject || $stripeResource->fraud_details instanceof StripeObject) {
+                    if ($stripeResource->fraudDetails instanceof AttachedObject || $stripeResource->fraudDetails instanceof StripeObject) {
                         $fraudDetails = $fraudDetails->__toArray();
                     }
 
@@ -126,16 +126,16 @@ class ChargeSyncer extends AbstractSyncer
                     break;
 
                 case 'receiptEmail':
-                    $email = ('' === trim($stripeResource->receipt_email)) ? null : new Email($stripeResource->receipt_email);
+                    $email = ('' === \trim($stripeResource->receiptEmail)) ? null : new Email($stripeResource->receiptEmail);
                     $reflectedProperty->setValue($localResource, $email);
                     break;
 
                 case 'receiptNumber':
-                    $reflectedProperty->setValue($localResource, $stripeResource->receipt_number);
+                    $reflectedProperty->setValue($localResource, $stripeResource->receiptNumber);
                     break;
 
                 case 'statementDescriptor':
-                    $reflectedProperty->setValue($localResource, $stripeResource->statement_descriptor);
+                    $reflectedProperty->setValue($localResource, $stripeResource->statementDescriptor);
                     break;
 
                 case 'status':
@@ -176,7 +176,7 @@ class ChargeSyncer extends AbstractSyncer
     /**
      * {@inheritdoc}
      */
-    public function syncStripeFromLocal(ApiResource $stripeResource, StripeLocalResourceInterface $localResource)
+    public function syncStripeFromLocal(ApiResource $stripeResource, StripeLocalResourceInterface $localResource): void
     {
         /** @var Charge $stripeResource */
         if ( ! $stripeResource instanceof Charge) {
@@ -195,7 +195,7 @@ class ChargeSyncer extends AbstractSyncer
      * @param StripeLocalCharge $localCharge
      * @param array             $error
      */
-    public function handleFraudDetection(StripeLocalCharge $localCharge, array $error)
+    public function handleFraudDetection(StripeLocalCharge $localCharge, array $error): void
     {
         $reflect = new \ReflectionClass($localCharge);
 

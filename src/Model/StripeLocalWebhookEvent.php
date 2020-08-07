@@ -16,7 +16,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\Model;
  *
  * @see https://stripe.com/docs/api#event_object
  */
-class StripeLocalWebhookEvent implements StripeLocalResourceInterface
+final class StripeLocalWebhookEvent implements StripeLocalResourceInterface
 {
     /** @var string The Stripe ID of the StripeLocalWebhookEvent */
     private $id;
@@ -46,26 +46,17 @@ class StripeLocalWebhookEvent implements StripeLocalResourceInterface
     /** @var string $request Description of the event: e.g. invoice.created, charge.refunded, etc. */
     private $type;
 
-    /**
-     * @return \DateTime
-     */
-    public function getCreated()
+    public function getCreated(): \DateTime
     {
         return $this->created;
     }
 
-    /**
-     * @return string
-     */
-    public function getData()
+    public function getData(): string
     {
         return $this->data;
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
@@ -73,31 +64,22 @@ class StripeLocalWebhookEvent implements StripeLocalResourceInterface
     /**
      * @return mixed
      */
-    public function getPendingWebhooks()
+    public function getPendingWebhooks(): int
     {
         return $this->pendingWebhooks;
     }
 
-    /**
-     * @return string
-     */
-    public function getRequest()
+    public function getRequest(): string
     {
         return $this->request;
     }
 
-    /**
-     * @return string
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @return bool
-     */
-    public function isLivemode()
+    public function isLivemode(): bool
     {
         return $this->livemode;
     }
@@ -107,7 +89,7 @@ class StripeLocalWebhookEvent implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function setData($data)
+    public function setData(string $data): self
     {
         // Set data only if the property is null to avoid overwriting and preserve the immutability
         if (null === $this->data) {
@@ -120,15 +102,12 @@ class StripeLocalWebhookEvent implements StripeLocalResourceInterface
     /**
      * {@inheritdoc}
      */
-    public function toStripe($action)
+    public function toStripe(string $action): array
     {
         throw new \BadMethodCallException('You cannot create events on Stripe. This method is disabled');
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getId();
     }

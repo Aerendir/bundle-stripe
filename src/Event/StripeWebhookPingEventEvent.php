@@ -16,7 +16,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\Event;
  *
  * @author Adamo Crespi <hello@aerendir.me>
  */
-class StripeWebhookPingEventEvent extends AbstractStripeWebhookEventEvent
+final class StripeWebhookPingEventEvent extends AbstractStripeWebhookEventEvent
 {
     /**
      * May be sent by Stripe at any time to see if a provided webhook URL is working.

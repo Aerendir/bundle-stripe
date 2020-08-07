@@ -29,10 +29,7 @@ abstract class AbstractStripeCustomerEvent extends AbstractStripeEvent
         $this->localCustomer = $customer;
     }
 
-    /**
-     * @return StripeLocalCustomer
-     */
-    public function getLocalCustomer()
+    public function getLocalCustomer(): \SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer
     {
         return $this->localCustomer;
     }

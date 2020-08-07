@@ -18,9 +18,9 @@ use SerendipityHQ\Bundle\StripeBundle\Tests\ModelTestCase;
 /**
  * Tests the StripeLocalSubscription entity.
  */
-class StripeLocalSubscriptionTest extends ModelTestCase
+final class StripeLocalSubscriptionTest extends ModelTestCase
 {
-    public function testStripeLocalSubscription()
+    public function testStripeLocalSubscription(): void
     {
         $resource = new StripeLocalSubscription();
 
@@ -51,31 +51,31 @@ class StripeLocalSubscriptionTest extends ModelTestCase
             ->setQuantity($test['quantity'])
             ->setPlan($test['plan']);
 
-        $this::assertSame($test['customer'], $resource->getCustomer());
-        $this::assertSame($test['plan'], $resource->getPlan());
+        self::assertSame($test['customer'], $resource->getCustomer());
+        self::assertSame($test['plan'], $resource->getPlan());
 
         // Populate the object
         $this->populateModel($resource, $test);
 
-        $this::assertSame($test['id'], $resource->getId());
-        $this::assertSame($test['applicationFeePercent'], $resource->getApplicationFeePercent());
-        $this::assertSame($test['cancelAtPeriodEnd'], $resource->isCancelAtPeriodEnd());
-        $this::assertSame($test['canceledAt'], $resource->getCanceledAt());
-        $this::assertSame($test['created'], $resource->getCreated());
-        $this::assertSame($test['currentPeriodEnd'], $resource->getCurrentPeriodEnd());
-        $this::assertSame($test['currentPeriodStart'], $resource->getCurrentPeriodStart());
-        $this::assertSame($test['discount'], $resource->getDiscount());
-        $this::assertSame($test['endedAt'], $resource->getEndedAt());
-        $this::assertFalse($resource->isLivemode());
-        $this::assertSame($test['metadata'], $resource->getMetadata());
-        $this::assertSame($test['quantity'], $resource->getQuantity());
-        $this::assertSame($test['start'], $resource->getStart());
-        $this::assertSame($test['status'], $resource->getStatus());
-        $this::assertSame($test['trialEnd'], $resource->getTrialEnd());
-        $this::assertSame($test['trialStart'], $resource->getTrialStart());
+        self::assertSame($test['id'], $resource->getId());
+        self::assertSame($test['applicationFeePercent'], $resource->getApplicationFeePercent());
+        self::assertSame($test['cancelAtPeriodEnd'], $resource->isCancelAtPeriodEnd());
+        self::assertSame($test['canceledAt'], $resource->getCanceledAt());
+        self::assertSame($test['created'], $resource->getCreated());
+        self::assertSame($test['currentPeriodEnd'], $resource->getCurrentPeriodEnd());
+        self::assertSame($test['currentPeriodStart'], $resource->getCurrentPeriodStart());
+        self::assertSame($test['discount'], $resource->getDiscount());
+        self::assertSame($test['endedAt'], $resource->getEndedAt());
+        self::assertFalse($resource->isLivemode());
+        self::assertSame($test['metadata'], $resource->getMetadata());
+        self::assertSame($test['quantity'], $resource->getQuantity());
+        self::assertSame($test['start'], $resource->getStart());
+        self::assertSame($test['status'], $resource->getStatus());
+        self::assertSame($test['trialEnd'], $resource->getTrialEnd());
+        self::assertSame($test['trialStart'], $resource->getTrialStart());
     }
 
-    public function testToStripeCreateFullArray()
+    public function testToStripeCreateFullArray(): void
     {
         $resource = new StripeLocalSubscription();
 
@@ -112,10 +112,10 @@ class StripeLocalSubscriptionTest extends ModelTestCase
 
         $resource->setSource($test['source']);
 
-        $this::assertSame($expected, $resource->toStripe('create'));
+        self::assertSame($expected, $resource->toStripe('create'));
     }
 
-    public function testToStripeThrowsAnExceptionIfAmountIsNotSet()
+    public function testToStripeThrowsAnExceptionIfAmountIsNotSet(): void
     {
         $resource = new StripeLocalSubscription();
 

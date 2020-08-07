@@ -15,6 +15,7 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;
+use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalSubscription;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalWebhookEvent;
 use Stripe\ApiResource;
 use Stripe\Customer;
@@ -25,12 +26,12 @@ use Stripe\Event;
  *
  * @see https://stripe.com/docs/api#event_object
  */
-class WebhookEventSyncer extends AbstractSyncer
+final class WebhookEventSyncer extends AbstractSyncer
 {
     /**
      * {@inheritdoc}
      */
-    public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource)
+    public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource): void
     {
         /** @var StripeLocalCustomer $localResource */
         if ( ! $localResource instanceof StripeLocalWebhookEvent) {
@@ -68,7 +69,7 @@ class WebhookEventSyncer extends AbstractSyncer
                     break;
 
                 case 'pendingWebhooks':
-                    $reflectedProperty->setValue($localResource, $stripeResource->pending_webhooks);
+                    $reflectedProperty->setValue($localResource, $stripeResource->pendingWebhooks);
                     break;
 
                 case 'request':
@@ -151,7 +152,7 @@ class WebhookEventSyncer extends AbstractSyncer
     /**
      * {@inheritdoc}
      */
-    public function syncStripeFromLocal(ApiResource $stripeResource, StripeLocalResourceInterface $localResource)
+    public function syncStripeFromLocal(ApiResource $stripeResource, StripeLocalResourceInterface $localResource): void
     {
         throw new \BadMethodCallException('You cannot synchronize a Stripe\Event from a StripeLocalWebhookEvent.');
     }

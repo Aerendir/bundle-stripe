@@ -19,12 +19,12 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 /**
  * Manages Subscriptions on Stripe.
  */
-class StripeSubscriptionSubscriber extends AbstractStripeSubscriber
+final class StripeSubscriptionSubscriber extends AbstractStripeSubscriber
 {
     /**
      * {@inheritdoc}
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             StripeSubscriptionCreateEvent::CREATE => 'onSubscriptionCreate',
@@ -39,7 +39,7 @@ class StripeSubscriptionSubscriber extends AbstractStripeSubscriber
      * @param $eventName
      * @param ContainerAwareEventDispatcher|EventDispatcherInterface $dispatcher
      */
-    public function onSubscriptionCreate(StripeSubscriptionCreateEvent $event, $eventName, EventDispatcherInterface $dispatcher)
+    public function onSubscriptionCreate(StripeSubscriptionCreateEvent $event, $eventName, EventDispatcherInterface $dispatcher): void
     {
         $localSubscription = $event->getLocalSubscription();
 
@@ -51,13 +51,13 @@ class StripeSubscriptionSubscriber extends AbstractStripeSubscriber
             $event->setStopReason($this->getStripeManager()->getError())->stopPropagation();
 
             // Dispatch a failed event
-            $dispatcher->dispatch(StripeSubscriptionCreateEvent::FAILED, $event);
+            $dispatcher->dispatch($event, StripeSubscriptionCreateEvent::FAILED);
 
             // exit
             return;
         }
 
-        $dispatcher->dispatch(StripeSubscriptionCreateEvent::CREATED, $event);
+        $dispatcher->dispatch($event, StripeSubscriptionCreateEvent::CREATED);
     }
 
     /**
@@ -67,13 +67,13 @@ class StripeSubscriptionSubscriber extends AbstractStripeSubscriber
      * @param $eventName
      * @param ContainerAwareEventDispatcher|EventDispatcherInterface $dispatcher
      */
-    public function onSubscriptionCancel(StripeSubscriptionCancelEvent $event, $eventName, EventDispatcherInterface $dispatcher)
+    public function onSubscriptionCancel(StripeSubscriptionCancelEvent $event, $eventName, EventDispatcherInterface $dispatcher): void
     {
         $localSubscription = $event->getLocalSubscription();
 
         $localSubscription->setCancelAtPeriodEnd(true);
 
-        $result = $this->getStripeManager()->cancelSubscription($localSubscription, true);
+        $result = $this->getStripeManager()->cancelSubscription($localSubscription);
 
         // Check if something went wrong
         if (false === $result) {
@@ -81,12 +81,12 @@ class StripeSubscriptionSubscriber extends AbstractStripeSubscriber
             $event->setStopReason($this->getStripeManager()->getError())->stopPropagation();
 
             // Dispatch a failed event
-            $dispatcher->dispatch(StripeSubscriptionCancelEvent::FAILED, $event);
+            $dispatcher->dispatch($event, StripeSubscriptionCancelEvent::FAILED);
 
             // exit
             return;
         }
 
-        $dispatcher->dispatch(StripeSubscriptionCancelEvent::CANCELED, $event);
+        $dispatcher->dispatch($event, StripeSubscriptionCancelEvent::CANCELED);
     }
 }

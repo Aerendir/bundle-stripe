@@ -22,6 +22,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 abstract class AbstractStripeBundleExtensionTest extends TestCase
 {
+    /**
+     * @var \SerendipityHQ\Bundle\StripeBundle\DependencyInjection\SHQStripeExtension|null
+     */
     private $extension;
 
     /** @var ContainerBuilder */
@@ -41,21 +44,21 @@ abstract class AbstractStripeBundleExtensionTest extends TestCase
     public function testDefaultConfig()
     {
         $this->loadConfiguration($this->container, 'default_config');
-        $this->container->compile();
+        $this->container->compile(true);
 
-        $this::assertSame('orm', $this->container->getParameter('stripe_bundle.db_driver'));
-        $this::assertSame(null, $this->container->getParameter('stripe_bundle.model_manager_name'));
+        self::assertSame('orm', $this->container->getParameter('stripe_bundle.db_driver'));
+        self::assertNull($this->container->getParameter('stripe_bundle.model_manager_name'));
 
         // Test secret key
-        $this::assertSame('secret', $this->container->getParameter('stripe_bundle.secret_key'));
+        self::assertSame('secret', $this->container->getParameter('stripe_bundle.secret_key'));
 
         // Test publishable key
-        $this::assertSame('publishable', $this->container->getParameter('stripe_bundle.publishable_key'));
+        self::assertSame('publishable', $this->container->getParameter('stripe_bundle.publishable_key'));
 
         /*
          * Test endpoint configuration
          */
-        $this::assertSame('_stripe_bundle_endpoint', $this->container->getParameter('stripe_bundle.endpoint')['route_name']);
+        self::assertSame('_stripe_bundle_endpoint', $this->container->getParameter('stripe_bundle.endpoint')['route_name']);
     }
 
     /**

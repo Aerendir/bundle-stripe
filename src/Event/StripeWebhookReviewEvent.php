@@ -16,7 +16,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\Event;
  *
  * @author Adamo Crespi <hello@aerendir.me>
  */
-class StripeWebhookReviewEvent extends AbstractStripeWebhookEventEvent
+final class StripeWebhookReviewEvent extends AbstractStripeWebhookEventEvent
 {
     /**
      * Occurs whenever an review is opened.

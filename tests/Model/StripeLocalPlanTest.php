@@ -19,20 +19,20 @@ use SerendipityHQ\Component\ValueObjects\Money\Money;
 /**
  * Tests the StripeLocalPlan entity.
  */
-class StripeLocalPlanTest extends ModelTestCase
+final class StripeLocalPlanTest extends ModelTestCase
 {
-    public function testStripeLocalPlan()
+    /**
+     * @var int[]|string[]
+     */
+    private const AMOUNT_EXPECTED = ['amount' => 999, 'currency' => 'eur'];
+
+    public function testStripeLocalPlan(): void
     {
-        $amountExpected = ['amount' => 999, 'currency' => 'eur'];
-
-        $currency = new Currency($amountExpected['currency']);
-
+        $currency  = new Currency(self::AMOUNT_EXPECTED['currency']);
         $mockMoney = $this->createMock(Money::class);
-        $mockMoney->method('getBaseAmount')->willReturn($amountExpected['amount']);
+        $mockMoney->method('getBaseAmount')->willReturn(self::AMOUNT_EXPECTED['amount']);
         $mockMoney->method('getCurrency')->willReturn($currency);
-
         $resource = new StripeLocalPlan();
-
         $expected = [
             'object'                => 'plan',
             'amount'                => $mockMoney,
@@ -45,7 +45,6 @@ class StripeLocalPlanTest extends ModelTestCase
             'statement_description' => null,
             'trial_period_days'     => null,
         ];
-
         // Test setMethods
         $resource->setObject($expected['object'])
             ->setAmount($expected['amount'])
@@ -57,20 +56,18 @@ class StripeLocalPlanTest extends ModelTestCase
             ->setName($expected['name'])
             ->setStatementDescriptor($expected['statement_description'])
             ->setTrialPeriodDays($expected['trial_period_days']);
-
-        $this::assertSame($expected['amount'], $resource->getAmount());
-        $this::assertSame($expected['created'], $resource->getCreated());
-        $this::assertSame($expected['interval'], $resource->getInterval());
-        $this::assertSame($expected['interval_count'], $resource->getIntervalCount());
-        $this::assertFalse($resource->isLivemode());
-        $this::assertSame($expected['metadata'], $resource->getMetadata());
-        $this::assertSame($expected['name'], $resource->getName());
-        $this::assertSame($expected['statement_description'], $resource->getStatementDescriptor());
-        $this::assertSame($expected['trial_period_days'], $resource->getTrialPeriodDays());
-
+        self::assertSame($expected['amount'], $resource->getAmount());
+        self::assertSame($expected['created'], $resource->getCreated());
+        self::assertSame($expected['interval'], $resource->getInterval());
+        self::assertSame($expected['interval_count'], $resource->getIntervalCount());
+        self::assertFalse($resource->isLivemode());
+        self::assertSame($expected['metadata'], $resource->getMetadata());
+        self::assertSame($expected['name'], $resource->getName());
+        self::assertSame($expected['statement_description'], $resource->getStatementDescriptor());
+        self::assertSame($expected['trial_period_days'], $resource->getTrialPeriodDays());
         $expectedToStripeCreate = [
-            'amount'         => $amountExpected['amount'],
-            'currency'       => $amountExpected['currency'],
+            'amount'         => self::AMOUNT_EXPECTED['amount'],
+            'currency'       => self::AMOUNT_EXPECTED['currency'],
             'object'         => $expected['object'],
             'created'        => $expected['created'],
             'interval'       => $expected['interval'],
@@ -79,15 +76,14 @@ class StripeLocalPlanTest extends ModelTestCase
             'metadata'       => $expected['metadata'],
             'name'           => $expected['name'],
         ];
-
-        $this::assertSame($expectedToStripeCreate, $resource->toStripe('create'));
+        self::assertSame($expectedToStripeCreate, $resource->toStripe('create'));
     }
 
-    public function testToStringThrowsAnExceptionWithAnInvalidAction()
+    public function testToStringThrowsAnExceptionWithAnInvalidAction(): void
     {
         $resource = new StripeLocalPlan();
 
-        $this::expectException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
         $resource->toStripe('not_create_or_update');
     }
 }

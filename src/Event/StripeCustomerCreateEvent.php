@@ -14,9 +14,18 @@ namespace SerendipityHQ\Bundle\StripeBundle\Event;
 /**
  * Dispatched when a Customer has to be created.
  */
-class StripeCustomerCreateEvent extends AbstractStripeCustomerEvent
+final class StripeCustomerCreateEvent extends AbstractStripeCustomerEvent
 {
+    /**
+     * @var string
+     */
     const CREATE  = 'stripe.local.customer.create';
+    /**
+     * @var string
+     */
     const CREATED = 'stripe.local.customer.created';
+    /**
+     * @var string
+     */
     const FAILED  = 'stripe.local.customer.create_failed';
 }

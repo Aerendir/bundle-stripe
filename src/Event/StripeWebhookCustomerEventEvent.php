@@ -16,7 +16,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\Event;
  *
  * @author Adamo Crespi <hello@aerendir.me>
  */
-class StripeWebhookCustomerEventEvent extends AbstractStripeWebhookEventEvent
+final class StripeWebhookCustomerEventEvent extends AbstractStripeWebhookEventEvent
 {
     /**
      * Occurs whenever a customer is created.

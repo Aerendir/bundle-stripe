@@ -19,12 +19,12 @@ use Stripe\Subscription;
 /**
  * @see https://stripe.com/docs/api#subscription_object
  */
-class SubscriptionSyncer extends AbstractSyncer
+final class SubscriptionSyncer extends AbstractSyncer
 {
     /**
      * {@inheritdoc}
      */
-    public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource)
+    public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource): void
     {
         /** @var StripeLocalSubscription $localResource */
         if ( ! $localResource instanceof StripeLocalSubscription) {
@@ -49,15 +49,15 @@ class SubscriptionSyncer extends AbstractSyncer
                     break;
 
                 case 'applicationFeePercent':
-                    $reflectedProperty->setValue($localResource, $stripeResource->application_fee_percent);
+                    $reflectedProperty->setValue($localResource, $stripeResource->applicationFeePercent);
                     break;
 
                 case 'cancelAtPeriodEnd':
-                    $reflectedProperty->setValue($localResource, $stripeResource->cancel_at_period_at);
+                    $reflectedProperty->setValue($localResource, $stripeResource->cancelAtPeriodAt);
                     break;
 
                 case 'canceledAt':
-                    $reflectedProperty->setValue($localResource, $stripeResource->canceled_at);
+                    $reflectedProperty->setValue($localResource, $stripeResource->canceledAt);
                     break;
 
                 case 'created':
@@ -67,12 +67,12 @@ class SubscriptionSyncer extends AbstractSyncer
 
                 case 'currentPeriodEnd':
                     $currentPeriodEnd = new \DateTime();
-                    $reflectedProperty->setValue($localResource, $currentPeriodEnd->setTimestamp($stripeResource->current_period_end));
+                    $reflectedProperty->setValue($localResource, $currentPeriodEnd->setTimestamp($stripeResource->currentPeriodEnd));
                     break;
 
                 case 'currentPeriodStart':
                     $currentPeriodStart = new \DateTime();
-                    $reflectedProperty->setValue($localResource, $currentPeriodStart->setTimestamp($stripeResource->current_period_start));
+                    $reflectedProperty->setValue($localResource, $currentPeriodStart->setTimestamp($stripeResource->currentPeriodStart));
                     break;
 
                 case 'discount':
@@ -81,7 +81,7 @@ class SubscriptionSyncer extends AbstractSyncer
 
                 case 'endedAt':
                     $endedAt = new \DateTime();
-                    $reflectedProperty->setValue($localResource, $endedAt->setTimestamp($stripeResource->ended_at));
+                    $reflectedProperty->setValue($localResource, $endedAt->setTimestamp($stripeResource->endedAt));
                     break;
 
                 case 'livemode':
@@ -110,17 +110,17 @@ class SubscriptionSyncer extends AbstractSyncer
                     break;
 
                 case 'taxPercent':
-                    $reflectedProperty->setValue($localResource, $stripeResource->tax_percent);
+                    $reflectedProperty->setValue($localResource, $stripeResource->taxPercent);
                     break;
 
                 case 'trialEnd':
                     $trialEnd = new \DateTime();
-                    $reflectedProperty->setValue($localResource, $trialEnd->setTimestamp($stripeResource->trial_end));
+                    $reflectedProperty->setValue($localResource, $trialEnd->setTimestamp($stripeResource->trialEnd));
                     break;
 
                 case 'trialStart':
                     $trialStart = new \DateTime();
-                    $reflectedProperty->setValue($localResource, $trialStart->setTimestamp($stripeResource->trial_start));
+                    $reflectedProperty->setValue($localResource, $trialStart->setTimestamp($stripeResource->trialStart));
                     break;
             }
         }
@@ -134,7 +134,7 @@ class SubscriptionSyncer extends AbstractSyncer
     /**
      * {@inheritdoc}
      */
-    public function syncStripeFromLocal(ApiResource $stripeResource, StripeLocalResourceInterface $localResource)
+    public function syncStripeFromLocal(ApiResource $stripeResource, StripeLocalResourceInterface $localResource): void
     {
         /** @var Subscription $stripeResource */
         if ( ! $stripeResource instanceof Subscription) {
@@ -152,7 +152,7 @@ class SubscriptionSyncer extends AbstractSyncer
     /**
      * {@inheritdoc}
      */
-    public function removeLocal(StripeLocalResourceInterface $localResource)
+    public function removeLocal(StripeLocalResourceInterface $localResource): void
     {
         $this->getEntityManager()->remove($localResource);
         $this->getEntityManager()->flush();

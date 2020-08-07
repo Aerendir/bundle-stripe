@@ -18,12 +18,12 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 /**
  * Manages Charges on Stripe.
  */
-class StripeChargeSubscriber extends AbstractStripeSubscriber
+final class StripeChargeSubscriber extends AbstractStripeSubscriber
 {
     /**
      * {@inheritdoc}
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             StripeChargeCreateEvent::CREATE => 'onChargeCreate',
@@ -37,7 +37,7 @@ class StripeChargeSubscriber extends AbstractStripeSubscriber
      * @param $eventName
      * @param ContainerAwareEventDispatcher|EventDispatcherInterface $dispatcher
      */
-    public function onChargeCreate(StripeChargeCreateEvent $event, $eventName, EventDispatcherInterface $dispatcher)
+    public function onChargeCreate(StripeChargeCreateEvent $event, $eventName, EventDispatcherInterface $dispatcher): void
     {
         $localCharge = $event->getLocalCharge();
 
@@ -49,12 +49,12 @@ class StripeChargeSubscriber extends AbstractStripeSubscriber
             $event->setStopReason($this->getStripeManager()->getError())->stopPropagation();
 
             // Dispatch a failed event
-            $dispatcher->dispatch(StripeChargeCreateEvent::FAILED, $event);
+            $dispatcher->dispatch($event, StripeChargeCreateEvent::FAILED);
 
             // exit
             return;
         }
 
-        $dispatcher->dispatch(StripeChargeCreateEvent::CREATED, $event);
+        $dispatcher->dispatch($event, StripeChargeCreateEvent::CREATED);
     }
 }

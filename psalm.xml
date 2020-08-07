@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <psalm
-    phpVersion="7.2"
+    phpVersion="7.3"
     cacheDirectory="./var/cache/psalm"
     allowPhpStormGenerics="true"
     checkForThrowsDocblock="true"
@@ -25,8 +25,7 @@
 
     <issueHandlers>
         <MissingThrowsDocblock errorLevel="suppress" />
-        <!-- Compatibility issue with SF 3.4: Remove when support will be dropped -->
-        <DocblockTypeContradiction errorLevel="suppress" />
+        <RedundantIdentityWithTrue errorLevel="suppress" />
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
