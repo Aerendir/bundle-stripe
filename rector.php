@@ -18,7 +18,7 @@ use Rector\Set\ValueObject\SetList;
 return static function (ContainerConfigurator $containerConfigurator) : void {
     $parameters = $containerConfigurator->parameters();
 
-    $parameters->set(Option::PHP_VERSION_FEATURES, '7.2');
+    $parameters->set(Option::PHP_VERSION_FEATURES, '7.3');
 
     $parameters->set(Option::PATHS, [
         __DIR__ . '/src',
@@ -53,6 +53,7 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             SetList::PHP_70,
             SetList::PHP_71,
             SetList::PHP_72,
+            SetList::PHP_73,
             SetList::PHPSTAN,
             SetList::PHPUNIT_40,
             SetList::PHPUNIT_50,
