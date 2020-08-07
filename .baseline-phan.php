@@ -13,29 +13,23 @@ return [
     // PhanUnreferencedPublicClassConstant : 75+ occurrences
     // PhanUnreferencedPublicMethod : 55+ occurrences
     // PhanReadOnlyPrivateProperty : 45+ occurrences
-    // PhanTypeMismatchArgument : 40+ occurrences
-    // PhanAccessMethodInternal : 15+ occurrences
-    // PhanParamTooMany : 15+ occurrences
+    // PhanTypeMismatchArgumentReal : 25+ occurrences
     // PhanPluginUnreachableCode : 15+ occurrences
     // PhanDeprecatedFunction : 10+ occurrences
-    // PhanTypeMissingReturn : 9 occurrences
-    // PhanTypeMismatchDeclaredParam : 8 occurrences
+    // PhanParamTooMany : 10+ occurrences
+    // PhanTypeMismatchDeclaredReturn : 10+ occurrences
+    // PhanUnusedPublicFinalMethodParameter : 10+ occurrences
+    // PhanTypeMismatchDeclaredParam : 9 occurrences
     // PhanUnreferencedClass : 7 occurrences
-    // PhanUnusedPublicNoOverrideMethodParameter : 7 occurrences
     // PhanRedefinedExtendedClass : 6 occurrences
-    // PhanTypeMismatchReturn : 6 occurrences
     // PhanParamReqAfterOpt : 5 occurrences
+    // PhanTypeMismatchArgument : 5 occurrences
     // PhanTypeMismatchArgumentNullable : 5 occurrences
-    // PhanUnusedPublicMethodParameter : 5 occurrences
-    // PhanTypeArraySuspiciousNullable : 4 occurrences
     // PhanDeprecatedClass : 3 occurrences
     // PhanNoopNew : 3 occurrences
-    // PhanUndeclaredProperty : 3 occurrences
     // PhanUndeclaredStaticMethod : 3 occurrences
-    // PhanTypeInvalidUnaryOperandIncOrDec : 2 occurrences
-    // PhanTypeMismatchArgumentReal : 2 occurrences
-    // PhanUndeclaredClassMethod : 2 occurrences
-    // PhanUndeclaredClassReference : 2 occurrences
+    // PhanUndeclaredTypeReturnType : 2 occurrences
+    // PhanWriteOnlyPublicProperty : 2 occurrences
     // PhanAccessClassInternal : 1 occurrence
     // PhanCommentParamWithoutRealParam : 1 occurrence
     // PhanNonClassMethodCall : 1 occurrence
@@ -44,19 +38,19 @@ return [
     // PhanTypeInvalidLeftOperandOfAdd : 1 occurrence
     // PhanTypeMismatchArgumentInternal : 1 occurrence
     // PhanTypeMismatchDeclaredParamNullable : 1 occurrence
-    // PhanTypeMismatchDeclaredReturn : 1 occurrence
-    // PhanTypeMismatchProperty : 1 occurrence
+    // PhanUndeclaredClassMethod : 1 occurrence
     // PhanUndeclaredExtendedClass : 1 occurrence
     // PhanUndeclaredMethod : 1 occurrence
-    // PhanUndeclaredTypeReturnType : 1 occurrence
-    // PhanUnextractableAnnotation : 1 occurrence
+    // PhanUndeclaredProperty : 1 occurrence
+    // PhanUndeclaredTypeProperty : 1 occurrence
+    // PhanUnreferencedProtectedProperty : 1 occurrence
     // PhanUnusedVariableCaughtException : 1 occurrence
+    // UndeclaredTypeInInlineVar : 1 occurrence
 
     // Currently, file_suppressions and directory_suppressions are the only supported suppressions
     'file_suppressions' => [
-        'src/Command/StripeUpdatePlansCommand.php' => ['PhanAccessClassInternal', 'PhanDeprecatedFunction', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMissingReturn', 'PhanUndeclaredClassMethod'],
-        'src/Controller/WebhookController.php' => ['PhanDeprecatedClass', 'PhanTypeArraySuspiciousNullable', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
-        'src/DependencyInjection/Configuration.php' => ['PhanDeprecatedFunction'],
+        'src/Command/StripeUpdatePlansCommand.php' => ['PhanAccessClassInternal', 'PhanDeprecatedFunction', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgumentReal', 'PhanUndeclaredClassMethod', 'PhanUnreferencedProtectedProperty'],
+        'src/Controller/WebhookController.php' => ['PhanDeprecatedClass', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
         'src/Event/AbstractStripeEvent.php' => ['PhanDeprecatedClass', 'PhanUnreferencedPublicMethod'],
         'src/Event/AbstractStripePlanEvent.php' => ['PhanDeprecatedClass'],
         'src/Event/AbstractStripeSubscriptionEvent.php' => ['PhanUndeclaredMethod'],
@@ -81,46 +75,46 @@ return [
         'src/Event/StripeWebhookSkuEventEvent.php' => ['PhanUnreferencedPublicClassConstant'],
         'src/Event/StripeWebhookSourceEventEvent.php' => ['PhanUnreferencedPublicClassConstant'],
         'src/Event/StripeWebhookTransferEventEvent.php' => ['PhanUnreferencedPublicClassConstant'],
-        'src/EventListener/StripeChargeSubscriber.php' => ['PhanDeprecatedFunction', 'PhanParamTooMany', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDeclaredParam', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod', 'PhanUnusedPublicNoOverrideMethodParameter'],
-        'src/EventListener/StripeCustomerSubscriber.php' => ['PhanDeprecatedFunction', 'PhanParamTooMany', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDeclaredParam', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod', 'PhanUnusedPublicNoOverrideMethodParameter'],
-        'src/EventListener/StripePlanSubscriber.php' => ['PhanDeprecatedFunction', 'PhanParamTooMany', 'PhanTypeMismatchArgument', 'PhanTypeMismatchDeclaredParam', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod', 'PhanUnusedPublicNoOverrideMethodParameter'],
-        'src/EventListener/StripeSubscriptionSubscriber.php' => ['PhanDeprecatedFunction', 'PhanParamTooMany', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDeclaredParam', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod', 'PhanUnusedPublicNoOverrideMethodParameter'],
-        'src/Form/Type/CreditCardStripeTokenType.php' => ['PhanUnusedPublicMethodParameter'],
-        'src/Model/StripeLocalCard.php' => ['PhanReadOnlyPrivateProperty', 'PhanRedefinedClassReference', 'PhanTypeMismatchReturn', 'PhanUnreferencedPublicMethod', 'PhanUnusedPublicMethodParameter'],
-        'src/Model/StripeLocalCharge.php' => ['PhanReadOnlyPrivateProperty', 'PhanTypeMismatchReturn', 'PhanUnreferencedPublicMethod'],
-        'src/Model/StripeLocalCustomer.php' => ['PhanReadOnlyPrivateProperty', 'PhanRedefinedClassReference', 'PhanTypeMismatchProperty', 'PhanUnreferencedPublicMethod'],
-        'src/Model/StripeLocalPlan.php' => ['PhanUnextractableAnnotation', 'PhanUnreferencedPublicMethod'],
-        'src/Model/StripeLocalSubscription.php' => ['PhanReadOnlyPrivateProperty', 'PhanTypeInvalidLeftOperandOfAdd', 'PhanTypeMismatchReturn', 'PhanUndeclaredProperty', 'PhanUnreferencedPublicMethod'],
-        'src/Model/StripeLocalWebhookEvent.php' => ['PhanReadOnlyPrivateProperty', 'PhanUnusedPublicMethodParameter'],
-        'src/Repository/StripeLocalCardRepository.php' => ['PhanRedefinedExtendedClass'],
-        'src/Repository/StripeLocalChargeRepository.php' => ['PhanRedefinedExtendedClass'],
-        'src/Repository/StripeLocalCustomerRepository.php' => ['PhanRedefinedExtendedClass'],
-        'src/Repository/StripeLocalPlanRepository.php' => ['PhanRedefinedExtendedClass'],
-        'src/Repository/StripeLocalSubscriptionRepository.php' => ['PhanRedefinedExtendedClass'],
-        'src/Repository/StripeLocalWebhookEventRepository.php' => ['PhanRedefinedExtendedClass'],
-        'src/SHQStripeBundle.php' => ['PhanUndeclaredClassReference', 'PhanUnreferencedClass'],
+        'src/EventListener/StripeChargeSubscriber.php' => ['PhanDeprecatedFunction', 'PhanParamTooMany', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDeclaredParam', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod', 'PhanUnusedPublicFinalMethodParameter'],
+        'src/EventListener/StripeCustomerSubscriber.php' => ['PhanDeprecatedFunction', 'PhanParamTooMany', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDeclaredParam', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod', 'PhanUnusedPublicFinalMethodParameter'],
+        'src/EventListener/StripePlanSubscriber.php' => ['PhanDeprecatedFunction', 'PhanParamTooMany', 'PhanTypeMismatchDeclaredParam', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod', 'PhanUnusedPublicFinalMethodParameter'],
+        'src/EventListener/StripeSubscriptionSubscriber.php' => ['PhanDeprecatedFunction', 'PhanParamTooMany', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDeclaredParam', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod', 'PhanUnusedPublicFinalMethodParameter'],
+        'src/Form/Type/CreditCardStripeTokenType.php' => ['PhanUnusedPublicFinalMethodParameter'],
+        'src/Model/StripeLocalCard.php' => ['PhanReadOnlyPrivateProperty', 'PhanRedefinedClassReference', 'PhanUnreferencedPublicMethod', 'PhanUnusedPublicFinalMethodParameter'],
+        'src/Model/StripeLocalCharge.php' => ['PhanReadOnlyPrivateProperty', 'PhanTypeMismatchDeclaredReturn', 'PhanUnreferencedPublicMethod'],
+        'src/Model/StripeLocalCustomer.php' => ['PhanReadOnlyPrivateProperty', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgumentReal', 'PhanTypeMismatchDeclaredReturn', 'PhanUnreferencedPublicMethod'],
+        'src/Model/StripeLocalPlan.php' => ['PhanTypeMismatchDeclaredParam', 'PhanUndeclaredTypeProperty', 'PhanUndeclaredTypeReturnType', 'PhanUnreferencedPublicMethod', 'UndeclaredTypeInInlineVar'],
+        'src/Model/StripeLocalSubscription.php' => ['PhanReadOnlyPrivateProperty', 'PhanTypeInvalidLeftOperandOfAdd', 'PhanTypeMismatchDeclaredReturn', 'PhanUnreferencedPublicMethod', 'PhanWriteOnlyPublicProperty'],
+        'src/Model/StripeLocalWebhookEvent.php' => ['PhanReadOnlyPrivateProperty', 'PhanTypeMismatchDeclaredReturn', 'PhanUnusedPublicFinalMethodParameter'],
+        'src/Repository/StripeLocalCardRepository.php' => ['PhanRedefinedExtendedClass', 'PhanTypeMismatchDeclaredReturn'],
+        'src/Repository/StripeLocalChargeRepository.php' => ['PhanRedefinedExtendedClass', 'PhanTypeMismatchDeclaredReturn'],
+        'src/Repository/StripeLocalCustomerRepository.php' => ['PhanRedefinedExtendedClass', 'PhanTypeMismatchDeclaredReturn'],
+        'src/Repository/StripeLocalPlanRepository.php' => ['PhanRedefinedExtendedClass', 'PhanTypeMismatchDeclaredReturn'],
+        'src/Repository/StripeLocalSubscriptionRepository.php' => ['PhanRedefinedExtendedClass', 'PhanTypeMismatchDeclaredReturn'],
+        'src/Repository/StripeLocalWebhookEventRepository.php' => ['PhanRedefinedExtendedClass', 'PhanTypeMismatchDeclaredReturn'],
+        'src/SHQStripeBundle.php' => ['PhanUnreferencedClass'],
         'src/Service/EventGuesser.php' => ['PhanPluginUnreachableCode'],
-        'src/Service/StripeManager.php' => ['PhanNonClassMethodCall', 'PhanParamReqAfterOpt', 'PhanPossiblyInfiniteRecursionSameParams', 'PhanReadOnlyPrivateProperty', 'PhanRedefinedClassReference', 'PhanTypeMismatchDeclaredParam', 'PhanTypeMismatchDeclaredParamNullable', 'PhanTypeMismatchDeclaredReturn', 'PhanUndeclaredProperty', 'PhanUndeclaredTypeReturnType', 'PhanUnreferencedPublicMethod'],
+        'src/Service/StripeManager.php' => ['PhanNonClassMethodCall', 'PhanParamReqAfterOpt', 'PhanPossiblyInfiniteRecursionSameParams', 'PhanRedefinedClassReference', 'PhanTypeMismatchDeclaredParam', 'PhanTypeMismatchDeclaredParamNullable', 'PhanTypeMismatchDeclaredReturn', 'PhanUndeclaredTypeReturnType', 'PhanUnreferencedPublicMethod', 'PhanWriteOnlyPublicProperty'],
         'src/Syncer/AbstractSyncer.php' => ['PhanCommentParamWithoutRealParam', 'PhanRedefinedClassReference', 'PhanUnreferencedPublicMethod'],
-        'src/Syncer/CardSyncer.php' => ['PhanParamSignatureMismatch', 'PhanTypeMissingReturn'],
-        'src/Syncer/ChargeSyncer.php' => ['PhanRedefinedClassReference', 'PhanTypeMissingReturn'],
-        'src/Syncer/CustomerSyncer.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentInternal', 'PhanTypeMismatchReturn', 'PhanTypeMissingReturn', 'PhanUnusedVariableCaughtException'],
-        'src/Syncer/PlanSyncer.php' => ['PhanRedefinedClassReference', 'PhanTypeMissingReturn'],
-        'src/Syncer/SubscriptionSyncer.php' => ['PhanRedefinedClassReference', 'PhanTypeMissingReturn'],
-        'src/Syncer/WebhookEventSyncer.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMissingReturn', 'PhanUndeclaredClassMethod', 'PhanUnusedPublicMethodParameter'],
+        'src/Syncer/CardSyncer.php' => ['PhanParamSignatureMismatch'],
+        'src/Syncer/ChargeSyncer.php' => ['PhanRedefinedClassReference'],
+        'src/Syncer/CustomerSyncer.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentInternal', 'PhanUnusedVariableCaughtException'],
+        'src/Syncer/PlanSyncer.php' => ['PhanRedefinedClassReference'],
+        'src/Syncer/SubscriptionSyncer.php' => ['PhanRedefinedClassReference'],
+        'src/Syncer/WebhookEventSyncer.php' => ['PhanRedefinedClassReference', 'PhanUnusedPublicFinalMethodParameter'],
         'tests/DependencyInjection/AbstractStripeBundleExtensionTest.php' => ['PhanUnreferencedPublicMethod'],
-        'tests/DependencyInjection/YamlStripeBundleExtensionTest.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference'],
-        'tests/Event/AbstractStripeChargeEventTest.php' => ['PhanAccessMethodInternal', 'PhanNoopNew', 'PhanTypeInvalidUnaryOperandIncOrDec', 'PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
-        'tests/Event/AbstractStripeCustomerEventTest.php' => ['PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
-        'tests/Event/AbstractStripePlanEventTest.php' => ['PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
-        'tests/Event/AbstractStripeSubscriptionEventTest.php' => ['PhanAccessMethodInternal', 'PhanNoopNew', 'PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
-        'tests/Event/AbstractStripeWebhookEventEventTest.php' => ['PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
+        'tests/DependencyInjection/YamlStripeBundleExtensionTest.php' => ['PhanRedefinedClassReference'],
+        'tests/Event/AbstractStripeChargeEventTest.php' => ['PhanNoopNew', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
+        'tests/Event/AbstractStripeCustomerEventTest.php' => ['PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
+        'tests/Event/AbstractStripePlanEventTest.php' => ['PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
+        'tests/Event/AbstractStripeSubscriptionEventTest.php' => ['PhanNoopNew', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
+        'tests/Event/AbstractStripeWebhookEventEventTest.php' => ['PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
         'tests/Form/Type/CreditCardStripeTokenTypeTest.php' => ['PhanUndeclaredExtendedClass', 'PhanUndeclaredProperty', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
-        'tests/Model/StripeLocalCardTest.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
-        'tests/Model/StripeLocalChargeTest.php' => ['PhanAccessMethodInternal', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
-        'tests/Model/StripeLocalCustomerTest.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
-        'tests/Model/StripeLocalPlanTest.php' => ['PhanAccessMethodInternal', 'PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
-        'tests/Model/StripeLocalSubscriptionTest.php' => ['PhanAccessMethodInternal', 'PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
+        'tests/Model/StripeLocalCardTest.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
+        'tests/Model/StripeLocalChargeTest.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
+        'tests/Model/StripeLocalCustomerTest.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
+        'tests/Model/StripeLocalPlanTest.php' => ['PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
+        'tests/Model/StripeLocalSubscriptionTest.php' => ['PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
         'tests/Model/StripeLocalWebhookEventTest.php' => ['PhanUnreferencedPublicMethod'],
     ],
     // 'directory_suppressions' => ['src/directory_name' => ['PhanIssueName1', 'PhanIssueName2']] can be manually added if needed.
