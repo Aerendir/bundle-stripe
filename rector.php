@@ -3,7 +3,7 @@
 declare(strict_types = 1);
 
 /*
- * This file is part of the Serendipity HQ Stripe Bundle.
+ * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
  * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
@@ -11,26 +11,6 @@ declare(strict_types = 1);
  * file that was distributed with this source code.
  */
 
-use Rector\TypeDeclaration\Rector\ClassMethod\AddArrayReturnDocTypeRector;
-use Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector;
-use Rector\SOLID\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector;
-use Rector\SOLID\Rector\Property\AddFalseDefaultToBoolPropertyRector;
-use Rector\Privatization\Rector\MethodCall\PrivatizeLocalGetterToPropertyRector;
-use Rector\Privatization\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector;
-use Rector\Php56\Rector\FunctionLike\AddDefaultValueForUndefinedVariableRector;
-use Rector\Naming\Rector\Class_\RenamePropertyToMatchTypeRector;
-use Rector\DeadCode\Rector\Class_\RemoveUnusedClassesRector;
-use Rector\CodingStyle\Rector\Use_\RemoveUnusedAliasRector;
-use Rector\CodingStyle\Rector\Throw_\AnnotateThrowablesRector;
-use Rector\CodingStyle\Rector\Switch_\BinarySwitchToIfElseRector;
-use Rector\CodingStyle\Rector\Identical\IdenticalFalseToBooleanNotRector;
-use Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector;
-use Rector\CodingStyle\Rector\ClassMethod\RemoveDoubleUnderscoreInMethodNameRector;
-use Rector\CodingStyle\Rector\ClassMethod\NewlineBeforeNewAssignSetRector;
-use Rector\CodingStyle\Rector\Class_\AddArrayDefaultToArrayPropertyRector;
-use Rector\CodeQuality\Rector\Identical\SimplifyBoolIdenticalTrueRector;
-use Rector\CodeQuality\Rector\Concat\JoinStringConcatRector;
-use Rector\CodeQuality\Rector\Catch_\ThrowWithPreviousExceptionRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Rector\Core\Configuration\Option;
 use Rector\Set\ValueObject\SetList;
@@ -40,7 +20,10 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
 
     $parameters->set(Option::PHP_VERSION_FEATURES, '7.2');
 
-    $parameters->set(Option::PATHS, [__DIR__ . '/src', __DIR__ . '/tests']);
+    $parameters->set(Option::PATHS, [
+        __DIR__ . '/src',
+        __DIR__ . '/tests'
+    ]);
 
     $parameters->set(Option::AUTOLOAD_PATHS, [__DIR__ . '/vendor-bin/phpunit/vendor/autoload.php']);
 
@@ -52,8 +35,6 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             SetList::CONSTRUCTOR_INJECTIN_TO_ACTION_INJECTION,
             SetList::CODE_QUALITY,
             SetList::CODING_STYLE,
-            SetList::DEAD_CLASSES,
-            SetList::DEAD_CODE,
             SetList::MONOLOG_20,
             SetList::PHP_DI_DECOUPLE,
             SetList::SWIFTMAILER_60,
@@ -64,7 +45,6 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             SetList::FRAMEWORK_EXTRA_BUNDLE_40,
             SetList::FRAMEWORK_EXTRA_BUNDLE_50,
             SetList::GUZZLE_50,
-            SetList::NAMING,
             SetList::PERFORMANCE,
             SetList::PHP_52,
             SetList::PHP_53,
@@ -88,7 +68,6 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             SetList::PHPUNIT_SPECIFIC_METHOD,
             SetList::PHPUNIT_YIELD_DATA_PROVIDER,
             SetList::UNWRAP_COMPAT,
-            SetList::PRIVATIZATION,
             SetList::SOLID,
             SetList::SYMFONY_26,
             SetList::SYMFONY_28,
@@ -103,7 +82,7 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             SetList::SYMFONY_43,
             SetList::SYMFONY_44,
             SetList::SYMFONY_50,
-            SetList::SYMFONY50_TYPES,
+            SetList::SYMFONY_50_TYPES,
             SetList::SYMFONY_CODE_QUALITY,
             SetList::SYMFONY_CONSTRUCTOR_INJECTION,
             SetList::SYMFONY_PHPUNIT,
@@ -119,31 +98,29 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
         ]
     );
 
-    $parameters->set(Option::IMPORT_SHORT_CLASSES_PARAMETER, false);
-
     $parameters->set(
         Option::EXCLUDE_RECTORS,
         [
-            ThrowWithPreviousExceptionRector::class,
-            JoinStringConcatRector::class,
-            SimplifyBoolIdenticalTrueRector::class,
-            AddArrayDefaultToArrayPropertyRector::class,
-            NewlineBeforeNewAssignSetRector::class,
-            RemoveDoubleUnderscoreInMethodNameRector::class,
-            EncapsedStringsToSprintfRector::class,
-            IdenticalFalseToBooleanNotRector::class,
-            BinarySwitchToIfElseRector::class,
-            AnnotateThrowablesRector::class,
-            RemoveUnusedAliasRector::class,
-            RemoveUnusedClassesRector::class,
-            RenamePropertyToMatchTypeRector::class,
-            AddDefaultValueForUndefinedVariableRector::class, // Maybe good one day
-            PrivatizeLocalOnlyMethodRector::class,
-            PrivatizeLocalGetterToPropertyRector::class,
-            AddFalseDefaultToBoolPropertyRector::class,
-            UseInterfaceOverImplementationInConstructorRector::class,
-            AddArrayParamDocTypeRector::class,
-            AddArrayReturnDocTypeRector::class,
+            Rector\CodeQuality\Rector\Catch_\ThrowWithPreviousExceptionRector::class,
+            Rector\CodeQuality\Rector\Concat\JoinStringConcatRector::class,
+            Rector\CodeQuality\Rector\Identical\SimplifyBoolIdenticalTrueRector::class,
+            Rector\CodingStyle\Rector\Class_\AddArrayDefaultToArrayPropertyRector::class,
+            Rector\CodingStyle\Rector\ClassMethod\NewlineBeforeNewAssignSetRector::class,
+            Rector\CodingStyle\Rector\ClassMethod\RemoveDoubleUnderscoreInMethodNameRector::class,
+            Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector::class,
+            Rector\CodingStyle\Rector\Identical\IdenticalFalseToBooleanNotRector::class,
+            Rector\CodingStyle\Rector\Switch_\BinarySwitchToIfElseRector::class,
+            Rector\CodingStyle\Rector\Throw_\AnnotateThrowablesRector::class,
+            Rector\CodingStyle\Rector\Use_\RemoveUnusedAliasRector::class,
+            Rector\Php56\Rector\FunctionLike\AddDefaultValueForUndefinedVariableRector::class, // Maybe good one day
+            Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector::class,
+            Rector\PHPUnit\Rector\ClassMethod\AddDoesNotPerformAssertionToNonAssertingTestRector::class,
+            Rector\Privatization\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector::class,
+            Rector\Privatization\Rector\MethodCall\PrivatizeLocalGetterToPropertyRector::class,
+            Rector\SOLID\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector::class,
+            Rector\SOLID\Rector\Property\AddFalseDefaultToBoolPropertyRector::class,
+            Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector::class,
+            Rector\TypeDeclaration\Rector\ClassMethod\AddArrayReturnDocTypeRector::class,
         ]
     );
 };
