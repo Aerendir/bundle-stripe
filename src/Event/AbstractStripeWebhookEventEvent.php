@@ -29,10 +29,7 @@ abstract class AbstractStripeWebhookEventEvent extends AbstractStripeEvent
         $this->localWebhookEvent = $localWebhookEvent;
     }
 
-    /**
-     * @return StripeLocalWebhookEvent
-     */
-    public function getLocalWebhookEvent()
+    public function getLocalWebhookEvent(): \SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalWebhookEvent
     {
         return $this->localWebhookEvent;
     }

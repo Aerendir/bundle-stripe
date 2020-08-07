@@ -16,7 +16,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\Event;
  *
  * @author Adamo Crespi <hello@aerendir.me>
  */
-class StripeWebhookBalanceEventEvent extends AbstractStripeWebhookEventEvent
+final class StripeWebhookBalanceEventEvent extends AbstractStripeWebhookEventEvent
 {
     /**
      * Occurs whenever your Stripe balance has been updated (e.g. when a charge collected is available to be paid out).

@@ -25,5 +25,5 @@ interface ByStripeIdInterface
      *
      * @return StripeLocalResourceInterface|null
      */
-    public function findOneByStripeId($id);
+    public function findOneByStripeId($id): ?\SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;
 }

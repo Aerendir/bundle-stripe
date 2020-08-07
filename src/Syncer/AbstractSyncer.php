@@ -79,10 +79,7 @@ abstract class AbstractSyncer implements SyncerInterface
         return $this->subscriptionSyncer;
     }
 
-    /**
-     * @return PlanSyncer
-     */
-    public function getPlanSyncer()
+    public function getPlanSyncer(): \SerendipityHQ\Bundle\StripeBundle\Syncer\PlanSyncer
     {
         return $this->planSyncer;
     }

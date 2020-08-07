@@ -21,9 +21,9 @@ use SerendipityHQ\Bundle\StripeBundle\Tests\ModelTestCase;
  *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
-class StripeLocalCardTest extends ModelTestCase
+final class StripeLocalCardTest extends ModelTestCase
 {
-    public function testStripeLocalCharge()
+    public function testStripeLocalCharge(): void
     {
         $resource = new StripeLocalCard();
 
@@ -58,29 +58,29 @@ class StripeLocalCardTest extends ModelTestCase
             ->setMetadata($expected['metadata'])
             ->setName($expected['name']);
 
-        $this::assertSame($expected['addressCity'], $resource->getAddressCity());
-        $this::assertSame($expected['addressCountry'], $resource->getAddressCountry());
-        $this::assertSame($expected['addressLine1'], $resource->getAddressLine1());
-        $this::assertSame($expected['addressLine2'], $resource->getAddressLine2());
-        $this::assertSame($expected['addressState'], $resource->getAddressState());
-        $this::assertSame($expected['addressZip'], $resource->getAddressZip());
-        $this::assertSame($expected['country'], $resource->getCountry());
-        $this::assertSame($expected['customer'], $resource->getCustomer());
-        $this::assertSame($expected['expMonth'], $resource->getExpMonth());
-        $this::assertSame($expected['expYear'], $resource->getExpYear());
-        $this::assertSame($expected['metadata'], $resource->getMetadata());
-        $this::assertSame($expected['name'], $resource->getName());
+        self::assertSame($expected['addressCity'], $resource->getAddressCity());
+        self::assertSame($expected['addressCountry'], $resource->getAddressCountry());
+        self::assertSame($expected['addressLine1'], $resource->getAddressLine1());
+        self::assertSame($expected['addressLine2'], $resource->getAddressLine2());
+        self::assertSame($expected['addressState'], $resource->getAddressState());
+        self::assertSame($expected['addressZip'], $resource->getAddressZip());
+        self::assertSame($expected['country'], $resource->getCountry());
+        self::assertSame($expected['customer'], $resource->getCustomer());
+        self::assertSame($expected['expMonth'], $resource->getExpMonth());
+        self::assertSame($expected['expYear'], $resource->getExpYear());
+        self::assertSame($expected['metadata'], $resource->getMetadata());
+        self::assertSame($expected['name'], $resource->getName());
 
         $mockCharge = $this->createMock(StripeLocalCharge::class);
 
-        $this::assertSame(0, $resource->getCharges()->count());
+        self::assertSame(0, $resource->getCharges()->count());
 
         $resource->addCharge($mockCharge);
-        $this::assertSame(1, $resource->getCharges()->count());
-        $this::assertSame($mockCharge, $resource->getCharges()->first());
+        self::assertSame(1, $resource->getCharges()->count());
+        self::assertSame($mockCharge, $resource->getCharges()->first());
 
         $resource->removeCharge($mockCharge);
-        $this::assertSame(0, $resource->getCharges()->count());
+        self::assertSame(0, $resource->getCharges()->count());
 
         $expectedData = [
             'id'                 => 'card_cardidisastring',
@@ -97,19 +97,19 @@ class StripeLocalCardTest extends ModelTestCase
         // Populate the object
         $this->populateModel($resource, $expectedData);
 
-        $this::assertSame($expectedData['id'], $resource->getId());
-        $this::assertSame($expectedData['addressLine1Check'], $resource->getAddressLine1Check());
-        $this::assertSame($expectedData['addressZipCheck'], $resource->getAddressZipCheck());
-        $this::assertSame($expectedData['brand'], $resource->getBrand());
-        $this::assertSame($expectedData['cvcCheck'], $resource->getCvcCheck());
-        $this::assertSame($expectedData['dynamicLast4'], $resource->getDynamicLast4());
-        $this::assertSame($expectedData['fingerprint'], $resource->getFingerprint());
-        $this::assertSame($expectedData['funding'], $resource->getFunding());
-        $this::assertSame($expectedData['last4'], $resource->getLast4());
-        $this::assertSame($expectedData['tokenizationMethod'], $resource->getTokenizationMethod());
-        $this::assertSame($expectedData['id'], $resource->__toString());
+        self::assertSame($expectedData['id'], $resource->getId());
+        self::assertSame($expectedData['addressLine1Check'], $resource->getAddressLine1Check());
+        self::assertSame($expectedData['addressZipCheck'], $resource->getAddressZipCheck());
+        self::assertSame($expectedData['brand'], $resource->getBrand());
+        self::assertSame($expectedData['cvcCheck'], $resource->getCvcCheck());
+        self::assertSame($expectedData['dynamicLast4'], $resource->getDynamicLast4());
+        self::assertSame($expectedData['fingerprint'], $resource->getFingerprint());
+        self::assertSame($expectedData['funding'], $resource->getFunding());
+        self::assertSame($expectedData['last4'], $resource->getLast4());
+        self::assertSame($expectedData['tokenizationMethod'], $resource->getTokenizationMethod());
+        self::assertSame($expectedData['id'], $resource->__toString());
 
-        $this::expectException(\RuntimeException::class);
+        self::expectException(\RuntimeException::class);
         $resource->toStripe('create');
     }
 }

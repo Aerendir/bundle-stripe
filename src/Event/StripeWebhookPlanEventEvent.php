@@ -16,7 +16,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\Event;
  *
  * @author Adamo Crespi <hello@aerendir.me>
  */
-class StripeWebhookPlanEventEvent extends AbstractStripeWebhookEventEvent
+final class StripeWebhookPlanEventEvent extends AbstractStripeWebhookEventEvent
 {
     /**
      * Occurs whenever an plan is created.

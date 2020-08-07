@@ -30,10 +30,7 @@ abstract class AbstractStripeSubscriber implements EventSubscriberInterface
         $this->stripeManager = $stripeManager;
     }
 
-    /**
-     * @return StripeManager
-     */
-    public function getStripeManager()
+    public function getStripeManager(): \SerendipityHQ\Bundle\StripeBundle\Service\StripeManager
     {
         return $this->stripeManager;
     }

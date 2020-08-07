@@ -27,12 +27,12 @@ use Stripe\Error\Base;
  *
  * @see https://stripe.com/docs/api#card_object
  */
-class CustomerSyncer extends AbstractSyncer
+final class CustomerSyncer extends AbstractSyncer
 {
     /**
      * {@inheritdoc}
      */
-    public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource)
+    public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource): void
     {
         /** @var StripeLocalCustomer $localResource */
         if ( ! $localResource instanceof StripeLocalCustomer) {
@@ -61,7 +61,7 @@ class CustomerSyncer extends AbstractSyncer
                     break;
 
                 case 'accountBalance':
-                    $reflectedProperty->setValue($localResource, $stripeResource->account_balance);
+                    $reflectedProperty->setValue($localResource, $stripeResource->accountBalance);
                     break;
 
                 case 'created':
@@ -74,7 +74,7 @@ class CustomerSyncer extends AbstractSyncer
                     break;
 
                 case 'defaultSource':
-                    $reflectedProperty->setValue($localResource, $stripeResource->default_source);
+                    $reflectedProperty->setValue($localResource, $stripeResource->defaultSource);
                     break;
 
                 case 'delinquent':
@@ -121,8 +121,8 @@ class CustomerSyncer extends AbstractSyncer
          * The cancellation process of a card is handled differently and does not concerns this updating process.
          */
         try {
-            $stripeDefaultCard = $stripeResource->sources->retrieve($stripeResource->default_source);
-        } catch (Base $e) {
+            $stripeDefaultCard = $stripeResource->sources->retrieve($stripeResource->defaultSource);
+        } catch (Base $base) {
             // If an error occurs, simply flush the Customer object
             $this->getEntityManager()->flush();
 
@@ -158,7 +158,7 @@ class CustomerSyncer extends AbstractSyncer
     /**
      * {@inheritdoc}
      */
-    public function syncStripeFromLocal(ApiResource $stripeResource, StripeLocalResourceInterface $localResource)
+    public function syncStripeFromLocal(ApiResource $stripeResource, StripeLocalResourceInterface $localResource): void
     {
         /** @var Customer $stripeResource */
         if ( ! $stripeResource instanceof Customer) {
@@ -171,11 +171,11 @@ class CustomerSyncer extends AbstractSyncer
         }
 
         if (null !== $localResource->getAccountBalance()) {
-            $stripeResource->account_balance = $localResource->getAccountBalance();
+            $stripeResource->accountBalance = $localResource->getAccountBalance();
         }
 
         if (null !== $localResource->getBusinessVatId()) {
-            $stripeResource->business_vat_id = $localResource->getBusinessVatId();
+            $stripeResource->businessVatId = $localResource->getBusinessVatId();
         }
 
         if (null !== $localResource->getNewSource()) {
@@ -199,7 +199,7 @@ class CustomerSyncer extends AbstractSyncer
      * @param StripeLocalResourceInterface $localResource
      * @param ApiResource                  $stripeResource
      */
-    public function syncLocalSources(StripeLocalResourceInterface $localResource, ApiResource $stripeResource)
+    public function syncLocalSources(StripeLocalResourceInterface $localResource, ApiResource $stripeResource): void
     {
         /** @var StripeLocalCustomer $localResource */
         if ( ! $localResource instanceof StripeLocalCustomer) {
@@ -230,10 +230,8 @@ class CustomerSyncer extends AbstractSyncer
      *
      * @param StripeLocalCard $card
      * @param Collection      $sources
-     *
-     * @return bool
      */
-    private function sourceExists(StripeLocalCard $card, Collection $sources)
+    private function sourceExists(StripeLocalCard $card, Collection $sources): bool
     {
         /** @var Card $source */
         foreach ($sources->data as $source) {

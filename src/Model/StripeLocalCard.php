@@ -18,7 +18,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @see https://stripe.com/docs/api#card_object
  */
-class StripeLocalCard implements StripeLocalResourceInterface
+final class StripeLocalCard implements StripeLocalResourceInterface
 {
     /** @var string The Stripe ID of the card (used in conjunction with a customer or recipient ID) */
     private $id;
@@ -105,7 +105,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function addCharge(StripeLocalCharge $charge)
+    public function addCharge(StripeLocalCharge $charge): self
     {
         // If the cards is already set
         if (false === $this->charges->contains($charge)) {
@@ -116,10 +116,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
@@ -127,7 +124,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /**
      * @return string|null
      */
-    public function getAddressCity()
+    public function getAddressCity(): ?string
     {
         return $this->addressCity;
     }
@@ -135,7 +132,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /**
      * @return string|null
      */
-    public function getAddressCountry()
+    public function getAddressCountry(): ?string
     {
         return $this->addressCountry;
     }
@@ -143,7 +140,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /**
      * @return string|null
      */
-    public function getAddressLine1()
+    public function getAddressLine1(): ?string
     {
         return $this->addressLine1;
     }
@@ -151,7 +148,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /**
      * @return string|null
      */
-    public function getAddressLine1Check()
+    public function getAddressLine1Check(): ?string
     {
         return $this->addressLine1Check;
     }
@@ -159,7 +156,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /**
      * @return string|null
      */
-    public function getAddressLine2()
+    public function getAddressLine2(): ?string
     {
         return $this->addressLine2;
     }
@@ -167,7 +164,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /**
      * @return string|null
      */
-    public function getAddressState()
+    public function getAddressState(): ?string
     {
         return $this->addressState;
     }
@@ -175,7 +172,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /**
      * @return string|null
      */
-    public function getAddressZip()
+    public function getAddressZip(): ?string
     {
         return $this->addressZip;
     }
@@ -183,39 +180,27 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /**
      * @return string|null
      */
-    public function getAddressZipCheck()
+    public function getAddressZipCheck(): ?string
     {
         return $this->addressZipCheck;
     }
 
-    /**
-     * @return string
-     */
-    public function getBrand()
+    public function getBrand(): string
     {
         return $this->brand;
     }
 
-    /**
-     * @return ArrayCollection
-     */
-    public function getCharges()
+    public function getCharges(): \Doctrine\Common\Collections\ArrayCollection
     {
         return $this->charges;
     }
 
-    /**
-     * @return string
-     */
-    public function getCountry()
+    public function getCountry(): string
     {
         return $this->country;
     }
 
-    /**
-     * @return StripeLocalCustomer
-     */
-    public function getCustomer()
+    public function getCustomer(): \SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer
     {
         return $this->customer;
     }
@@ -223,7 +208,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /**
      * @return string|null
      */
-    public function getCvcCheck()
+    public function getCvcCheck(): ?string
     {
         return $this->cvcCheck;
     }
@@ -231,23 +216,17 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /**
      * @return string|null
      */
-    public function getDynamicLast4()
+    public function getDynamicLast4(): ?string
     {
         return $this->dynamicLast4;
     }
 
-    /**
-     * @return string
-     */
-    public function getExpMonth()
+    public function getExpMonth(): string
     {
         return $this->expMonth;
     }
 
-    /**
-     * @return string
-     */
-    public function getExpYear()
+    public function getExpYear(): string
     {
         return $this->expYear;
     }
@@ -255,31 +234,22 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /**
      * @return string|null
      */
-    public function getError()
+    public function getError(): ?string
     {
         return $this->error;
     }
 
-    /**
-     * @return string
-     */
-    public function getFingerprint()
+    public function getFingerprint(): string
     {
         return $this->fingerprint;
     }
 
-    /**
-     * @return string
-     */
-    public function getFunding()
+    public function getFunding(): string
     {
         return $this->funding;
     }
 
-    /**
-     * @return string
-     */
-    public function getLast4()
+    public function getLast4(): string
     {
         return $this->last4;
     }
@@ -287,7 +257,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /**
      * @return string|null
      */
-    public function getMetadata()
+    public function getMetadata(): ?string
     {
         return $this->metadata;
     }
@@ -295,7 +265,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /**
      * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -303,17 +273,15 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /**
      * @return string|null
      */
-    public function getTokenizationMethod()
+    public function getTokenizationMethod(): ?string
     {
         return $this->tokenizationMethod;
     }
 
     /**
      * @param StripeLocalCharge $charge
-     *
-     * @return bool
      */
-    public function removeCharge(StripeLocalCharge $charge)
+    public function removeCharge(StripeLocalCharge $charge): bool
     {
         return $this->charges->removeElement($charge);
     }
@@ -323,7 +291,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return StripeLocalCard
      */
-    public function setAddressCity($addressCity): self
+    public function setAddressCity(?string $addressCity): self
     {
         $this->addressCity = $addressCity;
 
@@ -335,7 +303,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return StripeLocalCard
      */
-    public function setAddressCountry($addressCountry): self
+    public function setAddressCountry(?string $addressCountry): self
     {
         $this->addressCountry = $addressCountry;
 
@@ -347,7 +315,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return StripeLocalCard
      */
-    public function setAddressLine1($addressLine1): self
+    public function setAddressLine1(?string $addressLine1): self
     {
         $this->addressLine1 = $addressLine1;
 
@@ -359,7 +327,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return StripeLocalCard
      */
-    public function setAddressLine2($addressLine2): self
+    public function setAddressLine2(?string $addressLine2): self
     {
         $this->addressLine2 = $addressLine2;
 
@@ -371,7 +339,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return StripeLocalCard
      */
-    public function setAddressState($addressState): self
+    public function setAddressState(?string $addressState): self
     {
         $this->addressState = $addressState;
 
@@ -383,7 +351,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return StripeLocalCard
      */
-    public function setAddressZip($addressZip): self
+    public function setAddressZip(?string $addressZip): self
     {
         $this->addressZip = $addressZip;
 
@@ -395,7 +363,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return StripeLocalCard
      */
-    public function setCountry($country): self
+    public function setCountry(string $country): self
     {
         $this->country = $country;
 
@@ -419,7 +387,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return StripeLocalCard
      */
-    public function setExpMonth($expMonth): self
+    public function setExpMonth(string $expMonth): self
     {
         $this->expMonth = $expMonth;
 
@@ -431,7 +399,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return StripeLocalCard
      */
-    public function setExpYear($expYear): self
+    public function setExpYear(string $expYear): self
     {
         $this->expYear = $expYear;
 
@@ -455,7 +423,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return StripeLocalCard
      */
-    public function setMetadata($metadata): self
+    public function setMetadata(?string $metadata): self
     {
         $this->metadata = $metadata;
 
@@ -467,7 +435,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
      *
      * @return StripeLocalCard
      */
-    public function setName($name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -477,7 +445,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /**
      * {@inheritdoc}
      */
-    public function toStripe($action)
+    public function toStripe(string $action): array
     {
         throw new \RuntimeException('Method not yet implemented.');
     }
@@ -487,6 +455,6 @@ class StripeLocalCard implements StripeLocalResourceInterface
      */
     public function __toString(): string
     {
-        return (string) $this->getId();
+        return $this->getId();
     }
 }

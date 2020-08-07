@@ -23,13 +23,13 @@ use SerendipityHQ\Component\ValueObjects\Email\Email;
  *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
-class StripeLocalCustomerTest extends ModelTestCase
+final class StripeLocalCustomerTest extends ModelTestCase
 {
-    public function testStripeLocalCustomer()
+    public function testStripeLocalCustomer(): void
     {
         $resource = new StripeLocalCustomer();
 
-        $mockEmail = $this::createMock(Email::class);
+        $mockEmail = $this->createMock(Email::class);
         $mockEmail->method('getEmail')->willReturn('test@example.com');
 
         $expected = [
@@ -51,32 +51,32 @@ class StripeLocalCustomerTest extends ModelTestCase
             ->setMetadata($expected['metadata'])
             ->setNewSource($expected['source']);
 
-        $this::assertSame($expected['accountBalance'], $resource->getAccountBalance());
-        $this::assertSame($expected['businessVatId'], $resource->getBusinessVatId());
-        $this::assertSame($expected['currency'], $resource->getCurrency());
-        $this::assertSame($expected['description'], $resource->getDescription());
-        $this::assertSame($expected['email'], $resource->getEmail());
-        $this::assertSame($expected['metadata'], $resource->getMetadata());
-        $this::assertSame($expected['source'], $resource->getNewSource());
+        self::assertSame($expected['accountBalance'], $resource->getAccountBalance());
+        self::assertSame($expected['businessVatId'], $resource->getBusinessVatId());
+        self::assertSame($expected['currency'], $resource->getCurrency());
+        self::assertSame($expected['description'], $resource->getDescription());
+        self::assertSame($expected['email'], $resource->getEmail());
+        self::assertSame($expected['metadata'], $resource->getMetadata());
+        self::assertSame($expected['source'], $resource->getNewSource());
 
         $mockCharge = $this->createMock(StripeLocalCharge::class);
 
-        $this::assertSame(0, $resource->getCharges()->count());
+        self::assertSame(0, $resource->getCharges()->count());
 
         $resource->addCharge($mockCharge);
-        $this::assertSame(1, $resource->getCharges()->count());
-        $this::assertSame($mockCharge, $resource->getCharges()->first());
+        self::assertSame(1, $resource->getCharges()->count());
+        self::assertSame($mockCharge, $resource->getCharges()->first());
 
         $resource->removeCharge($mockCharge);
-        $this::assertSame(0, $resource->getCharges()->count());
+        self::assertSame(0, $resource->getCharges()->count());
 
-        $mockCard  = $this::createMock(StripeLocalCard::class);
-        $mockCards = $this::createMock(ArrayCollection::class);
+        $mockCard  = $this->createMock(StripeLocalCard::class);
+        $mockCards = $this->createMock(ArrayCollection::class);
 
         $expectedData = [
             'id'            => 'cus_customeridisastring',
             'cards'         => $mockCards,
-            'created'       => $this::createMock(\DateTime::class),
+            'created'       => $this->createMock(\DateTime::class),
             'defaultSource' => $mockCard,
             'delinquent'    => false,
             'livemode'      => false,
@@ -85,13 +85,13 @@ class StripeLocalCustomerTest extends ModelTestCase
         // Populate the object
         $this->populateModel($resource, $expectedData);
 
-        $this::assertSame($expectedData['id'], $resource->getId());
-        $this::assertSame($expectedData['id'], $resource->__toString());
-        $this::assertSame($expectedData['cards'], $resource->getCards());
-        $this::assertSame($expectedData['created'], $resource->getCreated());
-        $this::assertSame($expectedData['defaultSource'], $resource->getDefaultSource());
-        $this::assertFalse($resource->isDelinquent());
-        $this::assertFalse($resource->isLivemode());
+        self::assertSame($expectedData['id'], $resource->getId());
+        self::assertSame($expectedData['id'], $resource->__toString());
+        self::assertSame($expectedData['cards'], $resource->getCards());
+        self::assertSame($expectedData['created'], $resource->getCreated());
+        self::assertSame($expectedData['defaultSource'], $resource->getDefaultSource());
+        self::assertFalse($resource->isDelinquent());
+        self::assertFalse($resource->isLivemode());
 
         $expectedToStripeCreate = [
             'account_balance' => $expected['accountBalance'],
@@ -101,22 +101,22 @@ class StripeLocalCustomerTest extends ModelTestCase
             'metadata'        => $expected['metadata'],
             'source'          => $expected['source'],
         ];
-        $this::assertSame($expectedToStripeCreate, $resource->toStripe('create'));
+        self::assertSame($expectedToStripeCreate, $resource->toStripe('create'));
     }
 
-    public function testSetNewSourceThrowsAnExceptionWithAnInvalidTokenString()
+    public function testSetNewSourceThrowsAnExceptionWithAnInvalidTokenString(): void
     {
         $resource = new StripeLocalCustomer();
 
-        $this::expectException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
         $resource->setNewSource('notok_sourceid');
     }
 
-    public function testToStringThrowsAnExceptionWithAnInvalidAction()
+    public function testToStringThrowsAnExceptionWithAnInvalidAction(): void
     {
         $resource = new StripeLocalCustomer();
 
-        $this::expectException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
         $resource->toStripe('not_create_or_update');
     }
 }

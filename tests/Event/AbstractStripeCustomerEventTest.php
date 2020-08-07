@@ -9,24 +9,19 @@
  * file that was distributed with this source code.
  */
 
-namespace SerendipityHQ\Bundle\StripeBundle\Tests\Model;
+namespace SerendipityHQ\Bundle\StripeBundle\Tests\Event;
 
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeCustomerCreateEvent;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
 
-/**
- * Tests the AbstractStripeCustomerEvent.
- *
- * @author Adamo Aerendir Crespi <hello@aerendir.me>
- */
-class AbstractStripeCustomerEventTest extends TestCase
+final class AbstractStripeCustomerEventTest extends TestCase
 {
-    public function testAbstractStripeCustomerEvent()
+    public function testAbstractStripeCustomerEvent(): void
     {
         $mockCustomer = $this->createMock(StripeLocalCustomer::class);
         $resource     = new StripeCustomerCreateEvent($mockCustomer);
 
-        $this::assertSame($mockCustomer, $resource->getLocalCustomer());
+        self::assertSame($mockCustomer, $resource->getLocalCustomer());
     }
 }

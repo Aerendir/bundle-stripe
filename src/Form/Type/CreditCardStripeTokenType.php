@@ -18,12 +18,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 /**
  * An hidden field passed alogn with the main form containing the card token created by the stripe.js API call.
  */
-class CreditCardStripeTokenType extends AbstractType
+final class CreditCardStripeTokenType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('card_token', HiddenType::class);
     }

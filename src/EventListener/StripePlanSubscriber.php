@@ -19,12 +19,12 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 /**
  * Manages Plan on Stripe.
  */
-class StripePlanSubscriber extends AbstractStripeSubscriber
+final class StripePlanSubscriber extends AbstractStripeSubscriber
 {
     /**
      * {@inheritdoc}
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             StripePlanCreateEvent::CREATE => 'onPlanCreate',
@@ -37,7 +37,7 @@ class StripePlanSubscriber extends AbstractStripeSubscriber
      * @param $eventName
      * @param ContainerAwareEventDispatcher|EventDispatcherInterface $dispatcher
      */
-    public function onPlanCreate(StripePlanCreateEvent $event, $eventName, EventDispatcherInterface $dispatcher)
+    public function onPlanCreate(StripePlanCreateEvent $event, $eventName, EventDispatcherInterface $dispatcher): void
     {
         $localPlan = $event->getLocalPlan();
 
@@ -49,13 +49,13 @@ class StripePlanSubscriber extends AbstractStripeSubscriber
             $event->stopPropagation();
 
             // Dispatch a failed event
-            $dispatcher->dispatch(StripePlanCreateEvent::FAILED, $event);
+            $dispatcher->dispatch($event, StripePlanCreateEvent::FAILED);
 
             // exit
             return;
         }
 
-        $dispatcher->dispatch(StripePlanCreateEvent::CREATED, $event);
+        $dispatcher->dispatch($event, StripePlanCreateEvent::CREATED);
     }
 
     /**
@@ -63,7 +63,7 @@ class StripePlanSubscriber extends AbstractStripeSubscriber
      * @param $eventName
      * @param ContainerAwareEventDispatcher|EventDispatcherInterface $dispatcher
      */
-    public function onPlanUpdate(StripePlanUpdateEvent $event, $eventName, EventDispatcherInterface $dispatcher)
+    public function onPlanUpdate(StripePlanUpdateEvent $event, $eventName, EventDispatcherInterface $dispatcher): void
     {
         $localPlan = $event->getLocalPlan();
 
@@ -75,12 +75,12 @@ class StripePlanSubscriber extends AbstractStripeSubscriber
             $event->stopPropagation();
 
             // Dispatch a failed event
-            $dispatcher->dispatch(StripePlanUpdateEvent::FAILED, $event);
+            $dispatcher->dispatch($event, StripePlanUpdateEvent::FAILED);
 
             // exit
             return;
         }
 
-        $dispatcher->dispatch(StripePlanUpdateEvent::UPDATED, $event);
+        $dispatcher->dispatch($event, StripePlanUpdateEvent::UPDATED);
     }
 }

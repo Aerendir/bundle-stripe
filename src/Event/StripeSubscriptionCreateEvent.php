@@ -11,9 +11,18 @@
 
 namespace SerendipityHQ\Bundle\StripeBundle\Event;
 
-class StripeSubscriptionCreateEvent extends AbstractStripeSubscriptionEvent
+final class StripeSubscriptionCreateEvent extends AbstractStripeSubscriptionEvent
 {
+    /**
+     * @var string
+     */
     const CREATE  = 'stripe.local.subscription.create';
+    /**
+     * @var string
+     */
     const CREATED = 'stripe.local.subscription.created';
+    /**
+     * @var string
+     */
     const FAILED  = 'stripe.local.subscription.create_failed';
 }

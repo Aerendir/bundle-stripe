@@ -20,12 +20,12 @@ use Stripe\Plan;
 /**
  * @see https://stripe.com/docs/api#plan_object
  */
-class PlanSyncer extends AbstractSyncer
+final class PlanSyncer extends AbstractSyncer
 {
     /**
      * {@inheritdoc}
      */
-    public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource)
+    public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource): void
     {
         /** @var StripeLocalPlan $localResource */
         if ( ! $localResource instanceof StripeLocalPlan) {
@@ -67,7 +67,7 @@ class PlanSyncer extends AbstractSyncer
                     break;
 
                 case 'intervalCount':
-                    $reflectedProperty->setValue($localResource, $stripeResource->interval_count);
+                    $reflectedProperty->setValue($localResource, $stripeResource->intervalCount);
                     break;
 
                 case 'livemode':
@@ -83,11 +83,11 @@ class PlanSyncer extends AbstractSyncer
                     break;
 
                 case 'statementDescriptor':
-                    $reflectedProperty->setValue($localResource, $stripeResource->statement_descriptor);
+                    $reflectedProperty->setValue($localResource, $stripeResource->statementDescriptor);
                     break;
 
                 case 'trialPeriodDays':
-                    $reflectedProperty->setValue($localResource, $stripeResource->trial_period_days);
+                    $reflectedProperty->setValue($localResource, $stripeResource->trialPeriodDays);
                     break;
             }
         }
@@ -101,7 +101,7 @@ class PlanSyncer extends AbstractSyncer
     /**
      * {@inheritdoc}
      */
-    public function syncStripeFromLocal(ApiResource $stripeResource, StripeLocalResourceInterface $localResource)
+    public function syncStripeFromLocal(ApiResource $stripeResource, StripeLocalResourceInterface $localResource): void
     {
         /** @var Plan $stripeResource */
         if ( ! $stripeResource instanceof Plan) {
@@ -121,7 +121,7 @@ class PlanSyncer extends AbstractSyncer
      * @param StripeLocalResourceInterface $localResource
      * @param ApiResource                  $stripeResource
      */
-    public function syncLocalSources(StripeLocalResourceInterface $localResource, ApiResource $stripeResource)
+    public function syncLocalSources(StripeLocalResourceInterface $localResource, ApiResource $stripeResource): void
     {
         /** @var StripeLocalPlan $localResource */
         if ( ! $localResource instanceof StripeLocalPlan) {

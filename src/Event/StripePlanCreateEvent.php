@@ -14,9 +14,18 @@ namespace SerendipityHQ\Bundle\StripeBundle\Event;
 /**
  * Dispatched when a Plan has to be created.
  */
-class StripePlanCreateEvent extends AbstractStripePlanEvent
+final class StripePlanCreateEvent extends AbstractStripePlanEvent
 {
+    /**
+     * @var string
+     */
     const CREATE  = 'stripe.local.plan.create';
+    /**
+     * @var string
+     */
     const CREATED = 'stripe.local.plan.created';
+    /**
+     * @var string
+     */
     const FAILED  = 'stripe.local.plan.create_failed';
 }

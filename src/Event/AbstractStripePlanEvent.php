@@ -11,7 +11,7 @@
 
 namespace SerendipityHQ\Bundle\StripeBundle\Event;
 
-use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalPLan;
+use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalPlan;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
@@ -19,7 +19,7 @@ use Symfony\Component\EventDispatcher\Event;
  */
 abstract class AbstractStripePlanEvent extends Event
 {
-    /** @var StripeLocalPlan $localPlan */
+    /** @var \SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalPLan $localPlan */
     private $localPlan;
 
     /**
@@ -33,7 +33,7 @@ abstract class AbstractStripePlanEvent extends Event
     /**
      * @return StripeLocalPlan
      */
-    public function getLocalPlan()
+    public function getLocalPlan(): \SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalPlan
     {
         return $this->localPlan;
     }

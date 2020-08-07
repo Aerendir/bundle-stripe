@@ -14,8 +14,12 @@ namespace SerendipityHQ\Bundle\StripeBundle\Model;
 /**
  * @see https://stripe.com/docs/api#subscription_object
  */
-class StripeLocalSubscription implements StripeLocalResourceInterface
+final class StripeLocalSubscription implements StripeLocalResourceInterface
 {
+    /**
+     * @var string
+     */
+    public $source;
     /** @var string The Stripe ID of the StripeLocalSubscription */
     private $id;
 
@@ -184,58 +188,37 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
      */
     private $trialStart;
 
-    /**
-     * @return int
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @return float
-     */
-    public function getApplicationFeePercent()
+    public function getApplicationFeePercent(): float
     {
         return $this->applicationFeePercent;
     }
 
-    /**
-     * @return bool
-     */
-    public function getCanceledAt()
+    public function getCanceledAt(): \DateTime
     {
         return $this->canceledAt;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getCreated()
+    public function getCreated(): \DateTime
     {
         return $this->created;
     }
 
-    /**
-     * @return StripeLocalCustomer
-     */
-    public function getCustomer()
+    public function getCustomer(): \SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer
     {
         return $this->customer;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getCurrentPeriodEnd()
+    public function getCurrentPeriodEnd(): \DateTime
     {
         return $this->currentPeriodEnd;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getCurrentPeriodStart()
+    public function getCurrentPeriodStart(): \DateTime
     {
         return $this->currentPeriodStart;
     }
@@ -243,87 +226,57 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
     /**
      * @return string|null
      */
-    public function getDiscount()
+    public function getDiscount(): string
     {
         return $this->discount;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getEndedAt()
+    public function getEndedAt(): \DateTime
     {
         return $this->endedAt;
     }
 
-    /**
-     * @return string
-     */
-    public function getMetadata()
+    public function getMetadata(): string
     {
         return $this->metadata;
     }
 
-    /**
-     * @return string
-     */
-    public function getPlan()
+    public function getPlan(): string
     {
         return $this->plan;
     }
 
-    /**
-     * @return int
-     */
-    public function getQuantity()
+    public function getQuantity(): int
     {
         return $this->quantity;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getStart()
+    public function getStart(): \DateTime
     {
         return $this->start;
     }
 
-    /**
-     * @return string
-     */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->status;
     }
 
-    /**
-     * @return float
-     */
-    public function getTaxPercent()
+    public function getTaxPercent(): float
     {
         return $this->taxPercent;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getTrialEnd()
+    public function getTrialEnd(): \DateTime
     {
         return $this->trialEnd;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getTrialStart()
+    public function getTrialStart(): \DateTime
     {
         return $this->trialStart;
     }
 
-    /**
-     * @return bool
-     */
-    public function isCancelAtPeriodEnd()
+    public function isCancelAtPeriodEnd(): bool
     {
         return $this->cancelAtPeriodEnd;
     }
@@ -333,17 +286,14 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function setCancelAtPeriodEnd($cancelAtPeriodEnd)
+    public function setCancelAtPeriodEnd(bool $cancelAtPeriodEnd): self
     {
         $this->cancelAtPeriodEnd = $cancelAtPeriodEnd;
 
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function isLivemode()
+    public function isLivemode(): bool
     {
         return $this->livemode;
     }
@@ -353,7 +303,7 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function setCustomer(StripeLocalCustomer $customer)
+    public function setCustomer(StripeLocalCustomer $customer): self
     {
         $this->customer = $customer;
 
@@ -365,7 +315,7 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function setApplicationFeePercent($applicationFeePercent)
+    public function setApplicationFeePercent(float $applicationFeePercent): self
     {
         $this->applicationFeePercent = $applicationFeePercent;
 
@@ -377,7 +327,7 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function setQuantity($quantity)
+    public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
 
@@ -389,7 +339,7 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function setPlan($plan)
+    public function setPlan(string $plan): self
     {
         $this->plan = $plan;
 
@@ -401,7 +351,7 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function setSource($source)
+    public function setSource(string $source): self
     {
         $this->source = $source;
 
@@ -411,7 +361,7 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
     /**
      * @param array|string $metadata
      */
-    public function setMetadata($metadata)
+    public function setMetadata($metadata): void
     {
         $this->metadata = $metadata;
     }
@@ -424,17 +374,17 @@ class StripeLocalSubscription implements StripeLocalResourceInterface
      *
      * This lifecycle callback ensures the value ever is an array.
      */
-    public function metadataTransformer()
+    public function metadataTransformer(): void
     {
-        if (is_string($this->getMetadata())) {
-            $this->setMetadata(json_decode($this->getMetadata(), true));
+        if (\is_string($this->getMetadata())) {
+            $this->setMetadata(\Safe\json_decode($this->getMetadata(), true));
         }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function toStripe($action)
+    public function toStripe(string $action): array
     {
         $return = [];
 

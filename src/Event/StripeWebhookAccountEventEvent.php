@@ -16,7 +16,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\Event;
  *
  * @author Adamo Crespi <hello@aerendir.me>
  */
-class StripeWebhookAccountEventEvent extends AbstractStripeWebhookEventEvent
+final class StripeWebhookAccountEventEvent extends AbstractStripeWebhookEventEvent
 {
     /**
      * Occurs whenever an account status or property has changed.

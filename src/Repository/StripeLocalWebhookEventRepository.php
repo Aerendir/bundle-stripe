@@ -20,15 +20,15 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalWebhookEvent;
  *
  * {@inheritdoc}
  */
-class StripeLocalWebhookEventRepository extends EntityRepository implements ByStripeIdInterface
+final class StripeLocalWebhookEventRepository extends EntityRepository implements ByStripeIdInterface
 {
     /**
      * @param $id
      *
      * @return object|StripeLocalWebhookEvent|null
      */
-    public function findOneByStripeId($id)
+    public function findOneByStripeId($id): ?\SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface
     {
-        return $this->findOneBy(['id' => mb_strtolower($id)]);
+        return $this->findOneBy(['id' => \mb_strtolower($id)]);
     }
 }

@@ -19,12 +19,12 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 /**
  * Manages Customers on Stripe.
  */
-class StripeCustomerSubscriber extends AbstractStripeSubscriber
+final class StripeCustomerSubscriber extends AbstractStripeSubscriber
 {
     /**
      * {@inheritdoc}
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             StripeCustomerCreateEvent::CREATE => 'onCustomerCreate',
@@ -37,7 +37,7 @@ class StripeCustomerSubscriber extends AbstractStripeSubscriber
      * @param $eventName
      * @param ContainerAwareEventDispatcher|EventDispatcherInterface $dispatcher
      */
-    public function onCustomerCreate(StripeCustomerCreateEvent $event, $eventName, EventDispatcherInterface $dispatcher)
+    public function onCustomerCreate(StripeCustomerCreateEvent $event, $eventName, EventDispatcherInterface $dispatcher): void
     {
         $localCustomer = $event->getLocalCustomer();
 
@@ -54,7 +54,7 @@ class StripeCustomerSubscriber extends AbstractStripeSubscriber
             $event->setStopReason($this->getStripeManager()->getError())->stopPropagation();
 
             // Dispatch a failed event
-            $dispatcher->dispatch(StripeCustomerCreateEvent::FAILED, $event);
+            $dispatcher->dispatch($event, StripeCustomerCreateEvent::FAILED);
 
             // exit
             return;
@@ -66,7 +66,7 @@ class StripeCustomerSubscriber extends AbstractStripeSubscriber
             $localCustomer->setCurrency($currency);
         }
 
-        $dispatcher->dispatch(StripeCustomerCreateEvent::CREATED, $event);
+        $dispatcher->dispatch($event, StripeCustomerCreateEvent::CREATED);
     }
 
     /**
@@ -74,7 +74,7 @@ class StripeCustomerSubscriber extends AbstractStripeSubscriber
      * @param $eventName
      * @param ContainerAwareEventDispatcher|EventDispatcherInterface $dispatcher
      */
-    public function onCustomerUpdate(StripeCustomerUpdateEvent $event, $eventName, EventDispatcherInterface $dispatcher)
+    public function onCustomerUpdate(StripeCustomerUpdateEvent $event, $eventName, EventDispatcherInterface $dispatcher): void
     {
         $localCustomer = $event->getLocalCustomer();
 
@@ -86,12 +86,12 @@ class StripeCustomerSubscriber extends AbstractStripeSubscriber
             $event->setStopReason($this->getStripeManager()->getError())->stopPropagation();
 
             // Dispatch a failed event
-            $dispatcher->dispatch(StripeCustomerUpdateEvent::FAILED, $event);
+            $dispatcher->dispatch($event, StripeCustomerUpdateEvent::FAILED);
 
             // exit
             return;
         }
 
-        $dispatcher->dispatch(StripeCustomerUpdateEvent::UPDATED, $event);
+        $dispatcher->dispatch($event, StripeCustomerUpdateEvent::UPDATED);
     }
 }

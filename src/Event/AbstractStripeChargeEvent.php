@@ -31,10 +31,7 @@ abstract class AbstractStripeChargeEvent extends AbstractStripeEvent
         $this->localCharge = $charge;
     }
 
-    /**
-     * @return StripeLocalCharge
-     */
-    public function getLocalCharge()
+    public function getLocalCharge(): \SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge
     {
         return $this->localCharge;
     }

@@ -9,19 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace SerendipityHQ\Bundle\StripeBundle\Tests\Model;
+namespace SerendipityHQ\Bundle\StripeBundle\Tests\Event;
 
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeSubscriptionCreateEvent;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalSubscription;
 
-/**
- * Tests the AbstractStripeSubscriptionEvent.
- */
-class AbstractStripeSubscriptionEventTest extends TestCase
+final class AbstractStripeSubscriptionEventTest extends TestCase
 {
-    public function testAbstractStripeSubscriptionEvent()
+    public function testAbstractStripeSubscriptionEvent(): void
     {
         $mockCustomer     = $this->createMock(StripeLocalCustomer::class);
         $mockSubscription = $this->createMock(StripeLocalSubscription::class);
@@ -29,16 +26,16 @@ class AbstractStripeSubscriptionEventTest extends TestCase
         $mockSubscription->method('getCustomer')->willReturn($mockCustomer);
         $resource = new StripeSubscriptionCreateEvent($mockSubscription);
 
-        $this::assertSame($mockSubscription, $resource->getLocalSubscription());
+        self::assertSame($mockSubscription, $resource->getLocalSubscription());
     }
 
-    public function testAbstractStripeSubscriptionEventRequiresAnAmount()
+    public function testAbstractStripeSubscriptionEventRequiresAnAmount(): void
     {
         $mockCustomer     = $this->createMock(StripeLocalCustomer::class);
         $mockSubscription = $this->createMock(StripeLocalSubscription::class);
         $mockSubscription->method('getCustomer')->willReturn($mockCustomer);
 
-        $this::expectException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
         new StripeSubscriptionCreateEvent($mockSubscription);
     }
 }

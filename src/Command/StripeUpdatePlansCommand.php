@@ -19,17 +19,27 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class StripeUpdatePlansCommand extends DoctrineCommand
+final class StripeUpdatePlansCommand extends DoctrineCommand
 {
-    protected function configure()
+    /**
+     * @var string
+     */
+    protected static $defaultName = 'stripe:update:plans';
+    /**
+     * @var string
+     */
+    private const ID = 'id';
+    /**
+     * @var string
+     */
+    private const CURRENCY = 'currency';
+    protected function configure(): void
     {
-        $this
-            ->setName('stripe:update:plans')
-            ->setDescription('Update plans to your database.')
+        $this->setDescription('Update plans to your database.')
             ->addOption('em', null, InputOption::VALUE_REQUIRED, 'The entity manager to use for this command.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var $doctrine \Doctrine\Common\Persistence\ManagerRegistry */
         $doctrine = $this->getContainer()->get('doctrine');
@@ -43,15 +53,15 @@ class StripeUpdatePlansCommand extends DoctrineCommand
             $aPlan = $plan->__toArray();
 
             $stripeLocalPlan = $em
-                ->getRepository('SerendipityHQ\\Bundle\\StripeBundle\\Model\\StripeLocalPlan')
-                ->findOneBy(['id' => $aPlan['id']]);
+                ->getRepository(\SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalPlan::class)
+                ->findOneBy([self::ID => $aPlan[self::ID]]);
             if (null === $stripeLocalPlan) {
                 $stripeLocalPlan = new StripeLocalPlan();
-                $stripeLocalPlan->setId($aPlan['id']);
+                $stripeLocalPlan->setId($aPlan[self::ID]);
                 $stripeLocalPlan->setCreated(new \DateTime());
             }
-            $amount   = new \SerendipityHQ\Component\ValueObjects\Money\Money(['amount' => $aPlan['amount'], 'currency' => $aPlan['currency']]);
-            $currency = new Currency($aPlan['currency']);
+            $amount   = new \SerendipityHQ\Component\ValueObjects\Money\Money(['amount' => $aPlan['amount'], self::CURRENCY => $aPlan[self::CURRENCY]]);
+            $currency = new Currency($aPlan[self::CURRENCY]);
             $stripeLocalPlan->setObject('plan')
                 ->setAmount($amount)
                 ->setCurrency($currency)
@@ -71,10 +81,11 @@ class StripeUpdatePlansCommand extends DoctrineCommand
             $em->getConnection()->commit();
 
             $output->writeln('Updated Plans.');
-        } catch (\Exception $e) {
+        } catch (\Exception $exception) {
             $em->getConnection()->rollBack();
-            $output->writeln(get_class($e));
-            $output->writeln($e->getMessage());
+            $output->writeln(\get_class($exception));
+            $output->writeln($exception->getMessage());
         }
+        return 0;
     }
 }

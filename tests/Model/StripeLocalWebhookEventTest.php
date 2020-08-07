@@ -20,9 +20,9 @@ use SerendipityHQ\Bundle\StripeBundle\Tests\ModelTestCase;
  *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
-class StripeLocalWebhookEventTest extends ModelTestCase
+final class StripeLocalWebhookEventTest extends ModelTestCase
 {
-    public function testStripeLocalWebhookEvent()
+    public function testStripeLocalWebhookEvent(): void
     {
         $resource = new StripeLocalWebhookEvent();
 
@@ -33,10 +33,10 @@ class StripeLocalWebhookEventTest extends ModelTestCase
         // Test setMethods
         $resource->setData($expected['data']);
 
-        $this::assertSame($expected['data'], $resource->getData());
+        self::assertSame($expected['data'], $resource->getData());
 
         $expectedData = [
-            'created'         => $this::createMock(\DateTime::class),
+            'created'         => $this->createMock(\DateTime::class),
             'id'              => 'cus_customeridisastring',
             'pendingWebhooks' => 2,
             'request'         => 'unknown',
@@ -47,31 +47,31 @@ class StripeLocalWebhookEventTest extends ModelTestCase
         // Populate the object
         $this->populateModel($resource, $expectedData);
 
-        $this::assertSame($expectedData['created'], $resource->getCreated());
-        $this::assertSame($expectedData['id'], $resource->getId());
-        $this::assertSame($expectedData['id'], $resource->__toString());
-        $this::assertSame($expectedData['pendingWebhooks'], $resource->getPendingWebhooks());
-        $this::assertSame($expectedData['request'], $resource->getRequest());
-        $this::assertSame($expectedData['type'], $resource->getType());
-        $this::assertFalse($resource->isLivemode());
+        self::assertSame($expectedData['created'], $resource->getCreated());
+        self::assertSame($expectedData['id'], $resource->getId());
+        self::assertSame($expectedData['id'], $resource->__toString());
+        self::assertSame($expectedData['pendingWebhooks'], $resource->getPendingWebhooks());
+        self::assertSame($expectedData['request'], $resource->getRequest());
+        self::assertSame($expectedData['type'], $resource->getType());
+        self::assertFalse($resource->isLivemode());
 
-        $this::expectException(\BadMethodCallException::class);
+        self::expectException(\BadMethodCallException::class);
         $resource->toStripe('');
     }
 
-    public function testSetNewSourceThrowsAnExceptionWithAnInvalidTokenString()
+    public function testSetNewSourceThrowsAnExceptionWithAnInvalidTokenString(): void
     {
         $resource = new StripeLocalCustomer();
 
-        $this::expectException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
         $resource->setNewSource('notok_sourceid');
     }
 
-    public function testToStringThrowsAnExceptionWithAnInvalidAction()
+    public function testToStringThrowsAnExceptionWithAnInvalidAction(): void
     {
         $resource = new StripeLocalCustomer();
 
-        $this::expectException(\InvalidArgumentException::class);
+        self::expectException(\InvalidArgumentException::class);
         $resource->toStripe('not_create_or_update');
     }
 }

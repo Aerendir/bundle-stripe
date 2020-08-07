@@ -16,7 +16,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\Event;
  *
  * @author Adamo Crespi <hello@aerendir.me>
  */
-class StripeWebhookChargeEventEvent extends AbstractStripeWebhookEventEvent
+final class StripeWebhookChargeEventEvent extends AbstractStripeWebhookEventEvent
 {
     /**
      * Occurs whenever a previously uncaptured charge is captured.

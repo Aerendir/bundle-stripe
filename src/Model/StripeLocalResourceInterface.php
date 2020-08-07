@@ -22,8 +22,6 @@ interface StripeLocalResourceInterface
      * Transforms the LocalStripeResource into an array ready to be used with an ApiResource object.
      *
      * @param string $action The action to perform: create or update
-     *
-     * @return array
      */
-    public function toStripe($action);
+    public function toStripe(string $action): array;
 }

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace SerendipityHQ\Bundle\StripeBundle\Tests\Model;
+namespace SerendipityHQ\Bundle\StripeBundle\Tests\Form\Type;
 
 use SerendipityHQ\Bundle\StripeBundle\Form\Type\CreditCardStripeTokenType;
 use Symfony\Component\Form\Test\TypeTestCase;
@@ -19,9 +19,9 @@ use Symfony\Component\Form\Test\TypeTestCase;
  *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
-class CreditCardStripeTokenTypeTest extends TypeTestCase
+final class CreditCardStripeTokenTypeTest extends TypeTestCase
 {
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $formData = [
             'card_token' => 'tok_tokenid',
@@ -31,14 +31,14 @@ class CreditCardStripeTokenTypeTest extends TypeTestCase
 
         $form->submit($formData);
 
-        $this::assertTrue($form->isSynchronized());
-        $this::assertTrue($form->isSubmitted());
+        self::assertTrue($form->isSynchronized());
+        self::assertTrue($form->isSubmitted());
 
         $view     = $form->createView();
         $children = $view->children;
 
-        foreach (array_keys($formData) as $key) {
-            $this::assertArrayHasKey($key, $children);
+        foreach (\array_keys($formData) as $key) {
+            self::assertArrayHasKey($key, $children);
         }
     }
 }

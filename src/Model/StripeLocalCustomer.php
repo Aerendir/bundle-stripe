@@ -19,7 +19,7 @@ use SerendipityHQ\Component\ValueObjects\Email\Email;
  *
  * @see https://stripe.com/docs/api#customer_object
  */
-class StripeLocalCustomer implements StripeLocalResourceInterface
+final class StripeLocalCustomer implements StripeLocalResourceInterface
 {
     /** @var string The Stripe ID of the StripeLocalCustomer */
     private $id;
@@ -65,6 +65,10 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
 
     /** @var string $newSource Used to create a new source for the customer */
     private $newSource;
+    /**
+     * @var string
+     */
+    private const CREATE = 'create';
 
     /**
      * Initializes the collections.
@@ -81,7 +85,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function addCharge(StripeLocalCharge $charge)
+    public function addCharge(StripeLocalCharge $charge): self
     {
         // If the cards is already set
         if (false === $this->charges->contains($charge)) {
@@ -97,7 +101,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function addSubscription(StripeLocalSubscription $subscription)
+    public function addSubscription(StripeLocalSubscription $subscription): self
     {
         // If the subscription is already set
         if (false === $this->subscriptions->contains($subscription)) {
@@ -108,58 +112,37 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getAccountBalance()
+    public function getAccountBalance(): int
     {
         return $this->accountBalance;
     }
 
-    /**
-     * @return string
-     */
-    public function getBusinessVatId()
+    public function getBusinessVatId(): string
     {
         return $this->businessVatId;
     }
 
-    /**
-     * @return ArrayCollection
-     */
-    public function getCards()
+    public function getCards(): \Doctrine\Common\Collections\ArrayCollection
     {
         return $this->cards;
     }
 
-    /**
-     * @return ArrayCollection
-     */
-    public function getCharges()
+    public function getCharges(): \Doctrine\Common\Collections\ArrayCollection
     {
         return $this->charges;
     }
 
-    /**
-     * @return ArrayCollection
-     */
-    public function getSubscriptions()
+    public function getSubscriptions(): \Doctrine\Common\Collections\ArrayCollection
     {
         return $this->subscriptions;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getCreated()
+    public function getCreated(): \DateTime
     {
         return $this->created;
     }
 
-    /**
-     * @return string
-     */
-    public function getCurrency()
+    public function getCurrency(): string
     {
         return $this->currency;
     }
@@ -172,26 +155,17 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this->defaultSource;
     }
 
-    /**
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * @return Email
-     */
-    public function getEmail()
+    public function getEmail(): \SerendipityHQ\Component\ValueObjects\Email\Email
     {
         return $this->email;
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
@@ -199,51 +173,38 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     /**
      * @return mixed
      */
-    public function getMetadata()
+    public function getMetadata(): array
     {
         return $this->metadata;
     }
 
-    /**
-     * @return string
-     */
-    public function getNewSource()
+    public function getNewSource(): string
     {
         return $this->newSource;
     }
 
-    /**
-     * @return bool
-     */
-    public function isDelinquent()
+    public function isDelinquent(): bool
     {
         return $this->delinquent;
     }
 
-    /**
-     * @return bool
-     */
-    public function isLivemode()
+    public function isLivemode(): bool
     {
         return $this->livemode;
     }
 
     /**
      * @param StripeLocalCharge $charge
-     *
-     * @return bool
      */
-    public function removeCharge(StripeLocalCharge $charge)
+    public function removeCharge(StripeLocalCharge $charge): bool
     {
         return $this->charges->removeElement($charge);
     }
 
     /**
      * @param StripeLocalSubscription $subscription
-     *
-     * @return bool
      */
-    public function removeSubscription(StripeLocalSubscription $subscription)
+    public function removeSubscription(StripeLocalSubscription $subscription): bool
     {
         return $this->subscriptions->removeElement($subscription);
     }
@@ -253,7 +214,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function setAccountBalance($balance)
+    public function setAccountBalance(int $balance): self
     {
         $this->accountBalance = $balance;
 
@@ -265,7 +226,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function setBusinessVatId($vat)
+    public function setBusinessVatId(string $vat): self
     {
         $this->businessVatId = $vat;
 
@@ -277,7 +238,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function setCurrency($currency)
+    public function setCurrency(string $currency): self
     {
         $this->currency = $currency;
 
@@ -289,7 +250,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function setDescription($description)
+    public function setDescription(string $description): self
     {
         $this->description = $description;
 
@@ -301,7 +262,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function setEmail(Email $email)
+    public function setEmail(Email $email): self
     {
         $this->email = $email;
 
@@ -313,7 +274,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function setMetadata($metadata)
+    public function setMetadata(array $metadata): self
     {
         $this->metadata = $metadata;
 
@@ -325,10 +286,10 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function setNewSource($source)
+    public function setNewSource(string $source): self
     {
-        if (0 < strpos($source, 'tok_')) {
-            throw new \InvalidArgumentException(sprintf('The token you passed seems not to be a card token: %s', $source));
+        if (0 < \strpos($source, 'tok_')) {
+            throw new \InvalidArgumentException(\Safe\sprintf('The token you passed seems not to be a card token: %s', $source));
         }
 
         $this->newSource = $source;
@@ -339,35 +300,35 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     /**
      * {@inheritdoc}
      */
-    public function toStripe($action)
+    public function toStripe(string $action): array
     {
-        if ('create' !== $action && 'update' !== $action) {
+        if (self::CREATE !== $action && 'update' !== $action) {
             throw new \InvalidArgumentException('StripeLocalCustomer::__toArray() accepts only "create" or "update" as parameter.');
         }
 
         $return = [];
 
-        if (null !== $this->getAccountBalance() && 'create' === $action) {
+        if (null !== $this->getAccountBalance() && self::CREATE === $action) {
             $return['account_balance'] = $this->getAccountBalance();
         }
 
-        if (null !== $this->getBusinessVatId() && 'create' === $action) {
+        if (null !== $this->getBusinessVatId() && self::CREATE === $action) {
             $return['business_vat_id'] = $this->getBusinessVatId();
         }
 
-        if (null !== $this->getDescription() && 'create' === $action) {
+        if (null !== $this->getDescription() && self::CREATE === $action) {
             $return['description'] = $this->getDescription();
         }
 
-        if (null !== $this->getEmail() && 'create' === $action) {
+        if (null !== $this->getEmail() && self::CREATE === $action) {
             $return['email'] = $this->getEmail()->getEmail();
         }
 
-        if (null !== $this->getMetadata() && 'create' === $action) {
+        if (null !== $this->getMetadata() && self::CREATE === $action) {
             $return['metadata'] = $this->getMetadata();
         }
 
-        if (null !== $this->getNewSource() && 'create' === $action) {
+        if (null !== $this->getNewSource() && self::CREATE === $action) {
             $return['source'] = $this->getNewSource();
         }
 
@@ -382,17 +343,14 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
      *
      * This lifecycle callback ensures the value ever is an array.
      */
-    public function metadataTransformer()
+    public function metadataTransformer(): void
     {
-        if (is_string($this->getMetadata())) {
-            $this->setMetadata(json_decode($this->getMetadata(), true));
+        if (\is_string($this->getMetadata())) {
+            $this->setMetadata(\Safe\json_decode($this->getMetadata(), true));
         }
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getId();
     }

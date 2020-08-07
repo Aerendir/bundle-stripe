@@ -16,7 +16,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\Event;
  *
  * @author Adamo Crespi <hello@aerendir.me>
  */
-class StripeWebhookTransferEventEvent extends AbstractStripeWebhookEventEvent
+final class StripeWebhookTransferEventEvent extends AbstractStripeWebhookEventEvent
 {
     /**
      * Occurs whenever a new transfer is created.

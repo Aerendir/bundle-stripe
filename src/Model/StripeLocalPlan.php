@@ -16,12 +16,12 @@ use SerendipityHQ\Component\ValueObjects\Money\Money;
 /**
  * @see https://stripe.com/docs/api#plan_object
  */
-class StripeLocalPlan implements StripeLocalResourceInterface
+final class StripeLocalPlan implements StripeLocalResourceInterface
 {
     /** @var string The Stripe ID of the plan */
     private $id;
 
-    /** @var "plan"|string $object */
+    /** @var plan|string $object */
     private $object;
 
     /**
@@ -104,6 +104,10 @@ class StripeLocalPlan implements StripeLocalResourceInterface
      * @see https://stripe.com/docs/api#plan_object-trial_period_days
      */
     private $trialPeriodDays;
+    /**
+     * @var string
+     */
+    private const CREATE = 'create';
 
     /**
      * Initializes collections.
@@ -113,44 +117,33 @@ class StripeLocalPlan implements StripeLocalResourceInterface
         $this->object = 'plan';
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
     /**
      * @param mixed $id
-     *
-     * @return string
      */
-    public function setId($id)
+    public function setId(string $id): string
     {
         return $this->id = $id;
     }
 
     /**
-     * @return 'plan'|string
+     * @return plan|string
      */
     public function getObject()
     {
         return $this->object;
     }
 
-    /**
-     * @return Money
-     */
-    public function getAmount()
+    public function getAmount(): \SerendipityHQ\Component\ValueObjects\Money\Money
     {
         return $this->amount;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getCreated()
+    public function getCreated(): \DateTime
     {
         return $this->created;
     }
@@ -158,7 +151,7 @@ class StripeLocalPlan implements StripeLocalResourceInterface
     /**
      * @return string|null
      */
-    public function getCurrency()
+    public function getCurrency(): ?string
     {
         return $this->currency;
     }
@@ -166,31 +159,22 @@ class StripeLocalPlan implements StripeLocalResourceInterface
     /**
      * @return string|null
      */
-    public function getInterval()
+    public function getInterval(): ?string
     {
         return $this->interval;
     }
 
-    /**
-     * @return int
-     */
-    public function getIntervalCount()
+    public function getIntervalCount(): int
     {
         return $this->intervalCount;
     }
 
-    /**
-     * @return bool
-     */
-    public function isLivemode()
+    public function isLivemode(): bool
     {
         return $this->livemode;
     }
 
-    /**
-     * @return string
-     */
-    public function getMetadata()
+    public function getMetadata(): string
     {
         return $this->metadata;
     }
@@ -198,7 +182,7 @@ class StripeLocalPlan implements StripeLocalResourceInterface
     /**
      * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -206,15 +190,12 @@ class StripeLocalPlan implements StripeLocalResourceInterface
     /**
      * @return string|null
      */
-    public function getStatementDescriptor()
+    public function getStatementDescriptor(): ?string
     {
         return $this->statementDescriptor;
     }
 
-    /**
-     * @return int
-     */
-    public function getTrialPeriodDays()
+    public function getTrialPeriodDays(): int
     {
         return $this->trialPeriodDays;
     }
@@ -224,7 +205,7 @@ class StripeLocalPlan implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function setObject($object)
+    public function setObject(string $object): self
     {
         $this->object = $object;
 
@@ -236,7 +217,7 @@ class StripeLocalPlan implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function setAmount($amount)
+    public function setAmount(\SerendipityHQ\Component\ValueObjects\Money\Money $amount): self
     {
         if (null === $this->amount) {
             $this->amount = $amount;
@@ -250,7 +231,7 @@ class StripeLocalPlan implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function setCreated($created)
+    public function setCreated(\DateTime $created): self
     {
         $this->created = $created;
 
@@ -262,7 +243,7 @@ class StripeLocalPlan implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function setCurrency($currency)
+    public function setCurrency(string $currency): self
     {
         $this->currency = $currency;
 
@@ -274,7 +255,7 @@ class StripeLocalPlan implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function setInterval($interval)
+    public function setInterval(string $interval): self
     {
         $this->interval = $interval;
 
@@ -286,7 +267,7 @@ class StripeLocalPlan implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function setIntervalCount($intervalCount)
+    public function setIntervalCount(int $intervalCount): self
     {
         $this->intervalCount = $intervalCount;
 
@@ -298,7 +279,7 @@ class StripeLocalPlan implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function setLivemode($livemode)
+    public function setLivemode(bool $livemode): self
     {
         $this->livemode = $livemode;
 
@@ -310,7 +291,7 @@ class StripeLocalPlan implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function setMetadata($metadata)
+    public function setMetadata(string $metadata): self
     {
         $this->metadata = $metadata;
 
@@ -322,7 +303,7 @@ class StripeLocalPlan implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function setName($name)
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -334,7 +315,7 @@ class StripeLocalPlan implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function setStatementDescriptor($statementDescriptor)
+    public function setStatementDescriptor(string $statementDescriptor): self
     {
         $this->statementDescriptor = $statementDescriptor;
 
@@ -346,7 +327,7 @@ class StripeLocalPlan implements StripeLocalResourceInterface
      *
      * @return $this
      */
-    public function setTrialPeriodDays($trialPeriodDays)
+    public function setTrialPeriodDays(int $trialPeriodDays): self
     {
         $this->trialPeriodDays = $trialPeriodDays;
 
@@ -356,9 +337,9 @@ class StripeLocalPlan implements StripeLocalResourceInterface
     /**
      * {@inheritdoc}
      */
-    public function toStripe($action)
+    public function toStripe(string $action): array
     {
-        if ('create' !== $action && 'update' !== $action) {
+        if (self::CREATE !== $action && 'update' !== $action) {
             throw new \InvalidArgumentException('StripeLocalPlan::__toArray() accepts only "create" or "update" as parameter.');
         }
 
@@ -367,61 +348,58 @@ class StripeLocalPlan implements StripeLocalResourceInterface
         if (null === $this->getAmount()) {
             throw new \InvalidArgumentException('To create a Plan you need to set an Amount.');
         }
-        if (null !== $this->getAmount() && 'create' === $action) {
+        if (null !== $this->getAmount() && self::CREATE === $action) {
             $return = [
                 'amount'   => $this->getAmount()->getBaseAmount(),
                 'currency' => $this->getAmount()->getCurrency()->getCode(),
             ];
         }
 
-        if (null !== $this->getId() && 'create' === $action) {
+        if (null !== $this->getId() && self::CREATE === $action) {
             $return['id'] = $this->getId();
         }
 
-        if (null !== $this->getObject() && 'create' === $action) {
+        if (null !== $this->getObject() && self::CREATE === $action) {
             $return['object'] = $this->getObject();
         }
 
-        if (null !== $this->getCreated() && 'create' === $action) {
+        if (null !== $this->getCreated() && self::CREATE === $action) {
             $return['created'] = $this->getCreated();
         }
 
-        if (null !== $this->getInterval() && 'create' === $action) {
+        if (null !== $this->getInterval() && self::CREATE === $action) {
             $return['interval'] = $this->getInterval();
         }
 
-        if (null !== $this->getIntervalCount() && 'create' === $action) {
+        if (null !== $this->getIntervalCount() && self::CREATE === $action) {
             $return['interval_count'] = $this->getIntervalCount();
         }
 
-        if (null !== $this->isLivemode() && 'create' === $action) {
+        if (null !== $this->isLivemode() && self::CREATE === $action) {
             $return['livemode'] = $this->isLivemode();
         }
 
-        if (null !== $this->getMetadata() && 'create' === $action) {
+        if (null !== $this->getMetadata() && self::CREATE === $action) {
             $return['metadata'] = $this->getMetadata();
         }
 
-        if (null !== $this->getName() && 'create' === $action) {
+        if (null !== $this->getName() && self::CREATE === $action) {
             $return['name'] = $this->getName();
         }
 
-        if (null !== $this->getStatementDescriptor() && 'create' === $action) {
+        if (null !== $this->getStatementDescriptor() && self::CREATE === $action) {
             $return['statement_descriptor'] = $this->getStatementDescriptor();
         }
 
-        if (null !== $this->getTrialPeriodDays() && 'create' === $action) {
+        if (null !== $this->getTrialPeriodDays() && self::CREATE === $action) {
             $return['trial_period_days'] = $this->getTrialPeriodDays();
         }
 
         return $return;
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
-        return (string) $this->getId();
+        return $this->getId();
     }
 }

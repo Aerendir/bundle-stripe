@@ -14,19 +14,25 @@ namespace SerendipityHQ\Bundle\StripeBundle\Event;
 /**
  * Dispatched when a Cusrtomer has to be updated.
  */
-class StripePlanUpdateEvent extends AbstractStripePlanEvent
+final class StripePlanUpdateEvent extends AbstractStripePlanEvent
 {
+    /**
+     * @var string
+     */
     const UPDATE  = 'stripe.local.plan.update';
+    /**
+     * @var string
+     */
     const UPDATED = 'stripe.local.plan.updated';
+    /**
+     * @var string
+     */
     const FAILED  = 'stripe.local.plan.update_failed';
 
     /** @var bool */
     private $syncSources = true;
 
-    /**
-     * @return bool
-     */
-    public function hasToSyncSources()
+    public function hasToSyncSources(): bool
     {
         return $this->syncSources;
     }
@@ -34,7 +40,7 @@ class StripePlanUpdateEvent extends AbstractStripePlanEvent
     /**
      * Delete the sources that don't exist anymore on the remote Stripe Account.
      */
-    public function syncSources()
+    public function syncSources(): void
     {
         $this->syncSources = true;
     }
@@ -42,7 +48,7 @@ class StripePlanUpdateEvent extends AbstractStripePlanEvent
     /**
      * Don't delete the sources that don't exists anymore on the remote Stripe Account.
      */
-    public function notSyncSources()
+    public function notSyncSources(): void
     {
         $this->syncSources = false;
     }

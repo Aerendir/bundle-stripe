@@ -24,16 +24,16 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  *
  * Loads the Yaml configuration
  */
-class YamlStripeBundleExtensionTest extends AbstractStripeBundleExtensionTest
+final class YamlStripeBundleExtensionTest extends AbstractStripeBundleExtensionTest
 {
     /**
      * {@inheritdoc}
      */
-    protected function loadConfiguration(ContainerBuilder $container, $resource)
+    protected function loadConfiguration(ContainerBuilder $container, $resource): void
     {
         // Mock the Doctrine service
-        $mockEntityManager    = $this->getMockBuilder(EntityManagerInterface::class)->disableOriginalConstructor()->getMock();
-        $mockDoctrineRegistry = $this->getMockBuilder(RegistryInterface::class)->disableOriginalConstructor()->getMock();
+        $mockEntityManager    = $this->createMock(EntityManagerInterface::class);
+        $mockDoctrineRegistry = $this->createMock(RegistryInterface::class);
         $mockDoctrineRegistry->method('getManager')->willReturn($mockEntityManager);
         $container->set('doctrine', $mockDoctrineRegistry);
 
