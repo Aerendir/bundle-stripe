@@ -10,7 +10,7 @@ jobs:
             matrix:
                 os: [ubuntu-latest]
                 php: ['7.3', '7.4']
-                symfony: ['~3.4', '~4.4', '~5.1']
+                symfony: ['~4.4', '~5.1']
                 composer-flags: ['--prefer-stable --prefer-lowest', '']
         name: PHP ${{ matrix.php }} SF ${{ matrix.symfony }} (${{ matrix.composer-flags }}) on ${{ matrix.os }}
         steps:
