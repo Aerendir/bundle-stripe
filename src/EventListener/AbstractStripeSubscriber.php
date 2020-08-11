@@ -12,7 +12,7 @@
 namespace SerendipityHQ\Bundle\StripeBundle\EventListener;
 
 use SerendipityHQ\Bundle\StripeBundle\Service\StripeManager;
-use Symfony\Contracts\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Manages Charges on Stripe.
