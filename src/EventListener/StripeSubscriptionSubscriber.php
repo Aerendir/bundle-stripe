@@ -14,7 +14,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\EventListener;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeSubscriptionCancelEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeSubscriptionCreateEvent;
 use Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Components\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Manages Subscriptions on Stripe.
