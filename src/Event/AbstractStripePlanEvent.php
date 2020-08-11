@@ -12,7 +12,7 @@
 namespace SerendipityHQ\Bundle\StripeBundle\Event;
 
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalPlan;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * Abstract class to manage Plans.

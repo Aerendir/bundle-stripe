@@ -11,7 +11,7 @@
 
 namespace SerendipityHQ\Bundle\StripeBundle\Event;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * Abstract class to manage Stripe Events.

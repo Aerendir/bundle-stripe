@@ -14,7 +14,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\EventListener;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripePlanCreateEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripePlanUpdateEvent;
 use Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Manages Plan on Stripe.

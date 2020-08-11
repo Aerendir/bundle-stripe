@@ -13,7 +13,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\EventListener;
 
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeChargeCreateEvent;
 use Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Manages Charges on Stripe.
