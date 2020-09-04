@@ -22,9 +22,6 @@ abstract class AbstractStripeSubscriber implements EventSubscriberInterface
     /** @var StripeManager $stripeManager */
     private $stripeManager;
 
-    /**
-     * @param StripeManager $stripeManager
-     */
     public function __construct(StripeManager $stripeManager)
     {
         $this->stripeManager = $stripeManager;

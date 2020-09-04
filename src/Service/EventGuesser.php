@@ -44,29 +44,18 @@ use Stripe\Event;
  */
 final class EventGuesser
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private const TYPE = 'type';
-    /**
-     * @var string
-     */
+    /** @var string */
     private const OBJECT = 'object';
     /** @var bool $debug Defines if the class has to operate in debug mode or not */
     private $debug;
 
-    /**
-     * @param bool $debug
-     */
     public function __construct(bool $debug)
     {
         $this->debug = $debug;
     }
 
-    /**
-     * @param Event                   $stripeEvent
-     * @param StripeLocalWebhookEvent $localEventEntity
-     */
     public function guess(Event $stripeEvent, StripeLocalWebhookEvent $localEventEntity): array
     {
         $pieces = $this->guessEventPieces($stripeEvent->type);

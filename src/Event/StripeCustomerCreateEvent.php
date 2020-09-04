@@ -16,16 +16,10 @@ namespace SerendipityHQ\Bundle\StripeBundle\Event;
  */
 final class StripeCustomerCreateEvent extends AbstractStripeCustomerEvent
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     const CREATE  = 'stripe.local.customer.create';
-    /**
-     * @var string
-     */
+    /** @var string */
     const CREATED = 'stripe.local.customer.created';
-    /**
-     * @var string
-     */
+    /** @var string */
     const FAILED  = 'stripe.local.customer.create_failed';
 }

@@ -21,17 +21,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class StripeUpdatePlansCommand extends DoctrineCommand
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private const ID = 'id';
-    /**
-     * @var string
-     */
+    /** @var string */
     private const CURRENCY = 'currency';
-    /**
-     * @var string
-     */
+    /** @var string */
     protected static $defaultName = 'stripe:update:plans';
 
     protected function configure(): void

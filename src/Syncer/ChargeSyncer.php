@@ -191,10 +191,6 @@ final class ChargeSyncer extends AbstractSyncer
         throw new \RuntimeException('Method not yet implemented');
     }
 
-    /**
-     * @param StripeLocalCharge $localCharge
-     * @param array             $error
-     */
     public function handleFraudDetection(StripeLocalCharge $localCharge, array $error): void
     {
         $reflect = new \ReflectionClass($localCharge);

@@ -22,18 +22,11 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class WebhookController extends AbstractController
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private const ID = 'id';
-    /**
-     * @var string
-     */
+    /** @var string */
     private const OBJECT = 'object';
 
-    /**
-     * @param Request $request
-     */
     public function notifyAction(Request $request): \Symfony\Component\HttpFoundation\Response
     {
         /** @var Event $content */

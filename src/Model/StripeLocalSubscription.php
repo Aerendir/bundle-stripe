@@ -16,9 +16,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\Model;
  */
 final class StripeLocalSubscription implements StripeLocalResourceInterface
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public $source;
     /** @var string The Stripe ID of the StripeLocalSubscription */
     private $id;
@@ -282,8 +280,6 @@ final class StripeLocalSubscription implements StripeLocalResourceInterface
     }
 
     /**
-     * @param bool $cancelAtPeriodEnd
-     *
      * @return $this
      */
     public function setCancelAtPeriodEnd(bool $cancelAtPeriodEnd): self
@@ -299,8 +295,6 @@ final class StripeLocalSubscription implements StripeLocalResourceInterface
     }
 
     /**
-     * @param StripeLocalCustomer $customer
-     *
      * @return $this
      */
     public function setCustomer(StripeLocalCustomer $customer): self
@@ -311,8 +305,6 @@ final class StripeLocalSubscription implements StripeLocalResourceInterface
     }
 
     /**
-     * @param float $applicationFeePercent
-     *
      * @return $this
      */
     public function setApplicationFeePercent(float $applicationFeePercent): self
@@ -323,8 +315,6 @@ final class StripeLocalSubscription implements StripeLocalResourceInterface
     }
 
     /**
-     * @param int $quantity
-     *
      * @return $this
      */
     public function setQuantity(int $quantity): self
@@ -335,8 +325,6 @@ final class StripeLocalSubscription implements StripeLocalResourceInterface
     }
 
     /**
-     * @param string $plan
-     *
      * @return $this
      */
     public function setPlan(string $plan): self
@@ -347,8 +335,6 @@ final class StripeLocalSubscription implements StripeLocalResourceInterface
     }
 
     /**
-     * @param string $source
-     *
      * @return $this
      */
     public function setSource(string $source): self

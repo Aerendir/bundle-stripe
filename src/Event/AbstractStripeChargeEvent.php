@@ -21,9 +21,6 @@ abstract class AbstractStripeChargeEvent extends AbstractStripeEvent
     /** @var StripeLocalCharge $localCharge */
     private $localCharge;
 
-    /**
-     * @param StripeLocalCharge $charge
-     */
     public function __construct(StripeLocalCharge $charge)
     {
         $this->validate($charge);
@@ -36,9 +33,6 @@ abstract class AbstractStripeChargeEvent extends AbstractStripeEvent
         return $this->localCharge;
     }
 
-    /**
-     * @param StripeLocalCharge $charge
-     */
     private function validate(StripeLocalCharge $charge)
     {
         if (null === $charge->getAmount()) {

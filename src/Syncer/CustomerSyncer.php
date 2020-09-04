@@ -195,10 +195,6 @@ final class CustomerSyncer extends AbstractSyncer
         }
     }
 
-    /**
-     * @param StripeLocalResourceInterface $localResource
-     * @param ApiResource                  $stripeResource
-     */
     public function syncLocalSources(StripeLocalResourceInterface $localResource, ApiResource $stripeResource): void
     {
         /** @var StripeLocalCustomer $localResource */
@@ -227,9 +223,6 @@ final class CustomerSyncer extends AbstractSyncer
      * Checks if the given card is set source in the StripeCustomer object.
      *
      * Perfrom this check guarantees that the local database is ever in sync with the Stripe Account.
-     *
-     * @param StripeLocalCard $card
-     * @param Collection      $sources
      */
     private function sourceExists(StripeLocalCard $card, Collection $sources): bool
     {

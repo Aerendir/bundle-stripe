@@ -21,17 +21,12 @@ abstract class AbstractStripeEvent extends Event
     /** @var array $stopReason */
     private $stopReason;
 
-    /**
-     * @return array
-     */
     public function getStopReason(): array
     {
         return $this->stopReason;
     }
 
     /**
-     * @param array $stopReason
-     *
      * @return AbstractStripeEvent
      */
     public function setStopReason(array $stopReason): self

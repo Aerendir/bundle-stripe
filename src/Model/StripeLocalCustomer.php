@@ -21,9 +21,7 @@ use SerendipityHQ\Component\ValueObjects\Email\Email;
  */
 final class StripeLocalCustomer implements StripeLocalResourceInterface
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private const CREATE = 'create';
     /** @var string The Stripe ID of the StripeLocalCustomer */
     private $id;
@@ -81,8 +79,6 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
     }
 
     /**
-     * @param StripeLocalCharge $charge
-     *
      * @return $this
      */
     public function addCharge(StripeLocalCharge $charge): self
@@ -97,8 +93,6 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
     }
 
     /**
-     * @param StripeLocalSubscription $subscription
-     *
      * @return $this
      */
     public function addSubscription(StripeLocalSubscription $subscription): self
@@ -147,9 +141,6 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this->currency;
     }
 
-    /**
-     * @return StripeLocalCard|null
-     */
     public function getDefaultSource(): ?StripeLocalCard
     {
         return $this->defaultSource;
@@ -193,25 +184,17 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this->livemode;
     }
 
-    /**
-     * @param StripeLocalCharge $charge
-     */
     public function removeCharge(StripeLocalCharge $charge): bool
     {
         return $this->charges->removeElement($charge);
     }
 
-    /**
-     * @param StripeLocalSubscription $subscription
-     */
     public function removeSubscription(StripeLocalSubscription $subscription): bool
     {
         return $this->subscriptions->removeElement($subscription);
     }
 
     /**
-     * @param int $balance
-     *
      * @return $this
      */
     public function setAccountBalance(int $balance): self
@@ -234,8 +217,6 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
     }
 
     /**
-     * @param string $currency
-     *
      * @return $this
      */
     public function setCurrency(string $currency): self
@@ -246,8 +227,6 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
     }
 
     /**
-     * @param string $description
-     *
      * @return $this
      */
     public function setDescription(string $description): self
@@ -258,8 +237,6 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
     }
 
     /**
-     * @param Email $email
-     *
      * @return $this
      */
     public function setEmail(Email $email): self
@@ -282,8 +259,6 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
     }
 
     /**
-     * @param string $source
-     *
      * @return $this
      */
     public function setNewSource(string $source): self

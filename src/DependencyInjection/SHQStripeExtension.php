@@ -23,13 +23,9 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  */
 final class SHQStripeExtension extends Extension
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private const DB_DRIVER = 'db_driver';
-    /**
-     * @var string
-     */
+    /** @var string */
     private const STRIPE_CONFIG = 'stripe_config';
 
     /**

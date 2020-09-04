@@ -85,8 +85,6 @@ final class StripeLocalWebhookEvent implements StripeLocalResourceInterface
     }
 
     /**
-     * @param string $data
-     *
      * @return $this
      */
     public function setData(string $data): self

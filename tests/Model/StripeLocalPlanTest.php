@@ -21,9 +21,7 @@ use SerendipityHQ\Component\ValueObjects\Money\Money;
  */
 final class StripeLocalPlanTest extends ModelTestCase
 {
-    /**
-     * @var int[]|string[]
-     */
+    /** @var int[]|string[] */
     private const AMOUNT_EXPECTED = ['amount' => 999, 'currency' => 'eur'];
 
     public function testStripeLocalPlan(): void

@@ -157,17 +157,11 @@ final class StripeLocalCharge implements StripeLocalResourceInterface
         return $this->description;
     }
 
-    /**
-     * @return string|null
-     */
     public function getFailureCode(): ?string
     {
         return $this->failureCode;
     }
 
-    /**
-     * @return string|null
-     */
     public function getFailureMessage(): ?string
     {
         return $this->failureMessage;
@@ -196,9 +190,6 @@ final class StripeLocalCharge implements StripeLocalResourceInterface
         return $this->paid;
     }
 
-    /**
-     * @return Email|null
-     */
     public function getReceiptEmail(): ?\SerendipityHQ\Component\ValueObjects\Email\Email
     {
         return $this->receiptEmail;
@@ -227,17 +218,11 @@ final class StripeLocalCharge implements StripeLocalResourceInterface
         return $this->status;
     }
 
-    /**
-     * @return bool
-     */
     public function isCaptured(): bool
     {
         return $this->captured;
     }
 
-    /**
-     * @return bool
-     */
     public function isLivemode(): bool
     {
         return $this->livemode;
@@ -264,8 +249,6 @@ final class StripeLocalCharge implements StripeLocalResourceInterface
     }
 
     /**
-     * @param StripeLocalCustomer $customer
-     *
      * @return StripeLocalCharge
      */
     public function setCustomer(StripeLocalCustomer $customer): self
@@ -276,8 +259,6 @@ final class StripeLocalCharge implements StripeLocalResourceInterface
     }
 
     /**
-     * @param string $description
-     *
      * @return StripeLocalCharge
      */
     public function setDescription(string $description): self
@@ -300,8 +281,6 @@ final class StripeLocalCharge implements StripeLocalResourceInterface
     }
 
     /**
-     * @param Email $email
-     *
      * @return StripeLocalCharge
      */
     public function setReceiptEmail(Email $email): self

@@ -39,41 +39,26 @@ abstract class AbstractSyncer implements SyncerInterface
     /** @var CustomerSyncer $customerSyncer */
     private $customerSyncer;
 
-    /**
-     * @param EntityManager $entityManager
-     */
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
     }
 
-    /**
-     * @return EntityManager
-     */
     public function getEntityManager(): EntityManager
     {
         return $this->entityManager;
     }
 
-    /**
-     * @return CardSyncer
-     */
     public function getCardSyncer(): CardSyncer
     {
         return $this->cardSyncer;
     }
 
-    /**
-     * @return ChargeSyncer
-     */
     public function getChargeSyncer(): ChargeSyncer
     {
         return $this->chargeSyncer;
     }
 
-    /**
-     * @return SubscriptionSyncer
-     */
     public function getSubscriptionSyncer(): SubscriptionSyncer
     {
         return $this->subscriptionSyncer;
@@ -84,49 +69,31 @@ abstract class AbstractSyncer implements SyncerInterface
         return $this->planSyncer;
     }
 
-    /**
-     * @return CustomerSyncer
-     */
     public function getCustomerSyncer(): CustomerSyncer
     {
         return $this->customerSyncer;
     }
 
-    /**
-     * @param CardSyncer $cardSyncer
-     */
     public function setCardSyncer(CardSyncer $cardSyncer)
     {
         $this->cardSyncer = $cardSyncer;
     }
 
-    /**
-     * @param ChargeSyncer $chargeSyncer
-     */
     public function setChargeSyncer(ChargeSyncer $chargeSyncer)
     {
         $this->chargeSyncer = $chargeSyncer;
     }
 
-    /**
-     * @param SubscriptionSyncer $subscriptionSyncer
-     */
     public function setSubscriptionSyncer(SubscriptionSyncer $subscriptionSyncer)
     {
         $this->subscriptionSyncer = $subscriptionSyncer;
     }
 
-    /**
-     * @param PlanSyncer $PlanSyncer
-     */
     public function setPlanSyncer(PlanSyncer $planSyncer)
     {
         $this->planSyncer = $planSyncer;
     }
 
-    /**
-     * @param CustomerSyncer $customerSyncer
-     */
     public function setCustomerSyncer(CustomerSyncer $customerSyncer)
     {
         $this->customerSyncer = $customerSyncer;

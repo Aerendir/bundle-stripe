@@ -33,7 +33,6 @@ final class StripeCustomerSubscriber extends AbstractStripeSubscriber
     }
 
     /**
-     * @param StripeCustomerCreateEvent $event
      * @param $eventName
      * @param ContainerAwareEventDispatcher|EventDispatcherInterface $dispatcher
      */
@@ -70,7 +69,6 @@ final class StripeCustomerSubscriber extends AbstractStripeSubscriber
     }
 
     /**
-     * @param StripeCustomerUpdateEvent $event
      * @param $eventName
      * @param ContainerAwareEventDispatcher|EventDispatcherInterface $dispatcher
      */

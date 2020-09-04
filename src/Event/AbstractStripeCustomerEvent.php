@@ -21,9 +21,6 @@ abstract class AbstractStripeCustomerEvent extends AbstractStripeEvent
     /** @var StripeLocalCustomer $localCustomer */
     private $localCustomer;
 
-    /**
-     * @param StripeLocalCustomer $customer
-     */
     public function __construct(StripeLocalCustomer $customer)
     {
         $this->localCustomer = $customer;

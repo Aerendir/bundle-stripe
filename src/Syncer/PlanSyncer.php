@@ -117,10 +117,6 @@ final class PlanSyncer extends AbstractSyncer
         $this->getEntityManager()->flush();
     }
 
-    /**
-     * @param StripeLocalResourceInterface $localResource
-     * @param ApiResource                  $stripeResource
-     */
     public function syncLocalSources(StripeLocalResourceInterface $localResource, ApiResource $stripeResource): void
     {
         /** @var StripeLocalPlan $localResource */

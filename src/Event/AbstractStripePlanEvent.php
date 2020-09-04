@@ -22,17 +22,11 @@ abstract class AbstractStripePlanEvent extends Event
     /** @var \SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalPLan $localPlan */
     private $localPlan;
 
-    /**
-     * @param StripeLocalPlan $plan
-     */
     public function __construct(StripeLocalPlan $plan)
     {
         $this->localPlan = $plan;
     }
 
-    /**
-     * @return StripeLocalPlan
-     */
     public function getLocalPlan(): \SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalPlan
     {
         return $this->localPlan;

@@ -21,9 +21,6 @@ abstract class AbstractStripeSubscriptionEvent extends AbstractStripeEvent
     /** @var StripeLocalSubscription $localSubscription */
     private $localSubscription;
 
-    /**
-     * @param StripeLocalSubscription $subscription
-     */
     public function __construct(StripeLocalSubscription $subscription)
     {
         $this->validate($subscription);
@@ -36,9 +33,6 @@ abstract class AbstractStripeSubscriptionEvent extends AbstractStripeEvent
         return $this->localSubscription;
     }
 
-    /**
-     * @param StripeLocalSubscription $subscription
-     */
     private function validate(StripeLocalSubscription $subscription)
     {
         if (null === $subscription->getPlan()) {

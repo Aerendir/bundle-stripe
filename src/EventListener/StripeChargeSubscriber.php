@@ -33,7 +33,6 @@ final class StripeChargeSubscriber extends AbstractStripeSubscriber
     /**
      * {@inheritdoc}
      *
-     * @param StripeChargeCreateEvent $event
      * @param $eventName
      * @param ContainerAwareEventDispatcher|EventDispatcherInterface $dispatcher
      */

@@ -16,17 +16,11 @@ namespace SerendipityHQ\Bundle\StripeBundle\Event;
  */
 final class StripePlanUpdateEvent extends AbstractStripePlanEvent
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     const UPDATE  = 'stripe.local.plan.update';
-    /**
-     * @var string
-     */
+    /** @var string */
     const UPDATED = 'stripe.local.plan.updated';
-    /**
-     * @var string
-     */
+    /** @var string */
     const FAILED  = 'stripe.local.plan.update_failed';
 
     /** @var bool */

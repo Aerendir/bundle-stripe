@@ -22,9 +22,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 abstract class AbstractStripeBundleExtensionTest extends TestCase
 {
-    /**
-     * @var \SerendipityHQ\Bundle\StripeBundle\DependencyInjection\SHQStripeExtension|null
-     */
+    /** @var \SerendipityHQ\Bundle\StripeBundle\DependencyInjection\SHQStripeExtension|null */
     private $extension;
 
     /** @var ContainerBuilder */
@@ -62,7 +60,6 @@ abstract class AbstractStripeBundleExtensionTest extends TestCase
     }
 
     /**
-     * @param ContainerBuilder $container
      * @param $resource
      */
     abstract protected function loadConfiguration(ContainerBuilder $container, $resource);

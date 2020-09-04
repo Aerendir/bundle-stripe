@@ -22,7 +22,6 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;
 abstract class ModelTestCase extends TestCase
 {
     /**
-     * @param StripeLocalResourceInterface $resource
      * @param $data
      */
     public function populateModel(StripeLocalResourceInterface $resource, $data)

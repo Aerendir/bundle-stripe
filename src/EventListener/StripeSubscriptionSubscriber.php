@@ -35,7 +35,6 @@ final class StripeSubscriptionSubscriber extends AbstractStripeSubscriber
     /**
      * {@inheritdoc}
      *
-     * @param StripeSubscriptionCreateEvent $event
      * @param $eventName
      * @param ContainerAwareEventDispatcher|EventDispatcherInterface $dispatcher
      */
@@ -63,7 +62,6 @@ final class StripeSubscriptionSubscriber extends AbstractStripeSubscriber
     /**
      * {@inheritdoc}
      *
-     * @param StripeSubscriptionCancelEvent $event
      * @param $eventName
      * @param ContainerAwareEventDispatcher|EventDispatcherInterface $dispatcher
      */

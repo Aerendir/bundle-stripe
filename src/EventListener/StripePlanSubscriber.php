@@ -33,7 +33,6 @@ final class StripePlanSubscriber extends AbstractStripeSubscriber
     }
 
     /**
-     * @param StripePlanCreateEvent $event
      * @param $eventName
      * @param ContainerAwareEventDispatcher|EventDispatcherInterface $dispatcher
      */
@@ -59,7 +58,6 @@ final class StripePlanSubscriber extends AbstractStripeSubscriber
     }
 
     /**
-     * @param StripePlanUpdateEvent $event
      * @param $eventName
      * @param ContainerAwareEventDispatcher|EventDispatcherInterface $dispatcher
      */

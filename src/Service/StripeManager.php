@@ -43,45 +43,25 @@ final class StripeManager
 {
     /** @var int $maxRetries How many retries should the manager has to do */
     private const MAX_RETRIES = 5;
-    /**
-     * @var string
-     */
+    /** @var string */
     private const OPTIONS = 'options';
-    /**
-     * @var string
-     */
+    /** @var string */
     private const ID = 'id';
-    /**
-     * @var string
-     */
+    /** @var string */
     private const PARAMS = 'params';
-    /**
-     * @var string
-     */
+    /** @var string */
     private const RETRY = 'retry';
-    /**
-     * @var string
-     */
+    /** @var string */
     private const CREATE = 'create';
-    /**
-     * @var string
-     */
+    /** @var string */
     private const ERROR = 'error';
-    /**
-     * @var string
-     */
+    /** @var string */
     private const TYPE = 'type';
-    /**
-     * @var string
-     */
+    /** @var string */
     private const RETRIEVE = 'retrieve';
-    /**
-     * @var string
-     */
+    /** @var string */
     private const CODE = 'code';
-    /**
-     * @var \SerendipityHQ\Bundle\StripeBundle\Syncer\WebhookEventSyncer
-     */
+    /** @var \SerendipityHQ\Bundle\StripeBundle\Syncer\WebhookEventSyncer */
     public $WebhookEventSyncer;
     /** @var string $debug */
     private $debug;
@@ -114,15 +94,7 @@ final class StripeManager
     private $customerSyncer;
 
     /**
-     * @param string                 $secretKey
-     * @param string                 $debug
-     * @param string                 $statementDescriptor
      * @param Logger|LoggerInterface $logger
-     * @param ChargeSyncer           $chargeSyncer
-     * @param SubscriptionSyncer     $subscriptionSyncer
-     * @param PlanSyncer             $planSyncer
-     * @param CustomerSyncer         $customerSyncer
-     * @param WebhookEventSyncer     $webhookEventSyncer
      */
     public function __construct(string $secretKey, string $debug, string $statementDescriptor, LoggerInterface $logger = null, ChargeSyncer $chargeSyncer, SubscriptionSyncer $subscriptionSyncer, PlanSyncer $planSyncer, CustomerSyncer $customerSyncer, WebhookEventSyncer $webhookEventSyncer)
     {
@@ -194,10 +166,6 @@ final class StripeManager
      *         'options' => [...] // Or an empty array
      *     ];
      *     $this->callStripe(Customer::class, 'save', $arguments)
-     *
-     * @param string $endpoint
-     * @param string $action
-     * @param array  $arguments
      *
      * @return ApiResource|bool
      */
@@ -302,10 +270,6 @@ final class StripeManager
      * You can give the key a name for clarity, but in the callStripeObject method it is anyway referenced to as
      * $arguments[0], so is irrelevant you give a key or not.
      *
-     * @param ApiResource $object
-     * @param string      $method
-     * @param array       $arguments
-     *
      * @return ApiResource|bool
      */
     public function callStripeObject(ApiResource $object, string $method, array $arguments = [])
@@ -355,17 +319,11 @@ final class StripeManager
         return $this->error;
     }
 
-    /**
-     * @return bool
-     */
     public function hasErrors(): bool
     {
         return empty($this->error);
     }
 
-    /**
-     * @param StripeLocalCharge $localCharge
-     */
     public function createCharge(StripeLocalCharge $localCharge): bool
     {
         // Get the object as an array
@@ -402,9 +360,6 @@ final class StripeManager
         return true;
     }
 
-    /**
-     * @param StripeLocalSubscription $localSubscription
-     */
     public function createSubscription(StripeLocalSubscription $localSubscription): bool
     {
         // Get the object as an array
@@ -429,9 +384,6 @@ final class StripeManager
         return true;
     }
 
-    /**
-     * @param StripeLocalSubscription $localSubscription
-     */
     public function cancelSubscription(StripeLocalSubscription $localSubscription): bool
     {
         // Get the stripe object
@@ -448,9 +400,6 @@ final class StripeManager
         return false !== $stripeSubscription;
     }
 
-    /**
-     * @param StripeLocalCustomer $localCustomer
-     */
     public function createCustomer(StripeLocalCustomer $localCustomer): bool
     {
         // Get the object as an array
@@ -477,8 +426,6 @@ final class StripeManager
     }
 
     /**
-     * @param StripeLocalCustomer $localCustomer
-     *
      * @throws InvalidRequest
      *
      * @return ApiResource|bool|Customer
@@ -499,9 +446,6 @@ final class StripeManager
         return $this->callStripeApi(Customer::class, self::RETRIEVE, $arguments);
     }
 
-    /**
-     * @param StripeLocalPlan $localPlan
-     */
     public function createPlan(StripeLocalPlan $localPlan): bool
     {
         // Get the object as an array
@@ -523,8 +467,6 @@ final class StripeManager
     }
 
     /**
-     * @param StripeLocalPlan $localPlan
-     *
      * @throws InvalidRequest
      *
      * @return ApiResource|bool|Plan
@@ -557,8 +499,6 @@ final class StripeManager
     }
 
     /**
-     * @param string $eventStripeId
-     *
      * @throws InvalidRequest
      *
      * @return ApiResource|bool|Event
@@ -575,8 +515,6 @@ final class StripeManager
     }
 
     /**
-     * @param StripeLocalSubscription $localSubscription
-     *
      * @throws InvalidRequest
      *
      * @return ApiResource|bool|Subscription
@@ -597,12 +535,6 @@ final class StripeManager
         return $this->callStripeApi(Subscription::class, self::RETRIEVE, $arguments);
     }
 
-    /**
-     * @param StripeLocalCustomer $localCustomer
-     * @param bool                $syncSources
-     *
-     * @return bool
-     */
     public function updateCustomer(StripeLocalCustomer $localCustomer, bool $syncSources): bool
     {
         // Get the stripe object
@@ -634,10 +566,6 @@ final class StripeManager
         return true;
     }
 
-    /**
-     * @param StripeLocalPlan $localPlan
-     * @param bool            $syncSources
-     */
     public function updatePlan(StripeLocalPlan $localPlan, bool $syncSources): bool
     {
         // Get the stripe object

@@ -16,16 +16,10 @@ namespace SerendipityHQ\Bundle\StripeBundle\Event;
  */
 final class StripePlanCreateEvent extends AbstractStripePlanEvent
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     const CREATE  = 'stripe.local.plan.create';
-    /**
-     * @var string
-     */
+    /** @var string */
     const CREATED = 'stripe.local.plan.created';
-    /**
-     * @var string
-     */
+    /** @var string */
     const FAILED  = 'stripe.local.plan.create_failed';
 }

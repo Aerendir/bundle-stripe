@@ -101,8 +101,6 @@ final class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @param StripeLocalCharge $charge
-     *
      * @return $this
      */
     public function addCharge(StripeLocalCharge $charge): self
@@ -121,65 +119,41 @@ final class StripeLocalCard implements StripeLocalResourceInterface
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAddressCity(): ?string
     {
         return $this->addressCity;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAddressCountry(): ?string
     {
         return $this->addressCountry;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAddressLine1(): ?string
     {
         return $this->addressLine1;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAddressLine1Check(): ?string
     {
         return $this->addressLine1Check;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAddressLine2(): ?string
     {
         return $this->addressLine2;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAddressState(): ?string
     {
         return $this->addressState;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAddressZip(): ?string
     {
         return $this->addressZip;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAddressZipCheck(): ?string
     {
         return $this->addressZipCheck;
@@ -205,17 +179,11 @@ final class StripeLocalCard implements StripeLocalResourceInterface
         return $this->customer;
     }
 
-    /**
-     * @return string|null
-     */
     public function getCvcCheck(): ?string
     {
         return $this->cvcCheck;
     }
 
-    /**
-     * @return string|null
-     */
     public function getDynamicLast4(): ?string
     {
         return $this->dynamicLast4;
@@ -231,9 +199,6 @@ final class StripeLocalCard implements StripeLocalResourceInterface
         return $this->expYear;
     }
 
-    /**
-     * @return string|null
-     */
     public function getError(): ?string
     {
         return $this->error;
@@ -254,33 +219,21 @@ final class StripeLocalCard implements StripeLocalResourceInterface
         return $this->last4;
     }
 
-    /**
-     * @return string|null
-     */
     public function getMetadata(): ?string
     {
         return $this->metadata;
     }
 
-    /**
-     * @return string|null
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @return string|null
-     */
     public function getTokenizationMethod(): ?string
     {
         return $this->tokenizationMethod;
     }
 
-    /**
-     * @param StripeLocalCharge $charge
-     */
     public function removeCharge(StripeLocalCharge $charge): bool
     {
         return $this->charges->removeElement($charge);
@@ -371,8 +324,6 @@ final class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @param StripeLocalCustomer $customer
-     *
      * @return StripeLocalCard
      */
     public function setCustomer(StripeLocalCustomer $customer): self
@@ -407,8 +358,6 @@ final class StripeLocalCard implements StripeLocalResourceInterface
     }
 
     /**
-     * @param string $error
-     *
      * @return StripeLocalCard
      */
     public function setError(string $error): self
@@ -450,9 +399,6 @@ final class StripeLocalCard implements StripeLocalResourceInterface
         throw new \RuntimeException('Method not yet implemented.');
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return $this->getId();

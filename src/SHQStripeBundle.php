@@ -49,9 +49,6 @@ final class SHQStripeBundle extends Bundle
         ]);
     }
 
-    /**
-     * @param array $mappings
-     */
     private function getXmlMappingDriver(array $mappings): \Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass
     {
         return DoctrineOrmMappingsPass::createXmlMappingDriver(

@@ -18,9 +18,7 @@ use SerendipityHQ\Component\ValueObjects\Money\Money;
  */
 final class StripeLocalPlan implements StripeLocalResourceInterface
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private const CREATE = 'create';
     /** @var string The Stripe ID of the plan */
     private $id;
@@ -148,17 +146,11 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
         return $this->created;
     }
 
-    /**
-     * @return string|null
-     */
     public function getCurrency(): ?string
     {
         return $this->currency;
     }
 
-    /**
-     * @return string|null
-     */
     public function getInterval(): ?string
     {
         return $this->interval;
@@ -179,17 +171,11 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
         return $this->metadata;
     }
 
-    /**
-     * @return string|null
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @return string|null
-     */
     public function getStatementDescriptor(): ?string
     {
         return $this->statementDescriptor;
@@ -201,8 +187,6 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
     }
 
     /**
-     * @param string $object
-     *
      * @return $this
      */
     public function setObject(string $object): self
@@ -213,8 +197,6 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
     }
 
     /**
-     * @param Money $amount
-     *
      * @return $this
      */
     public function setAmount(\SerendipityHQ\Component\ValueObjects\Money\Money $amount): self
@@ -227,8 +209,6 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
     }
 
     /**
-     * @param \DateTime $created
-     *
      * @return $this
      */
     public function setCreated(\DateTime $created): self
@@ -239,8 +219,6 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
     }
 
     /**
-     * @param string $currency
-     *
      * @return $this
      */
     public function setCurrency(string $currency): self
@@ -251,8 +229,6 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
     }
 
     /**
-     * @param string $interval
-     *
      * @return $this
      */
     public function setInterval(string $interval): self
@@ -263,8 +239,6 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
     }
 
     /**
-     * @param int $intervalCount
-     *
      * @return $this
      */
     public function setIntervalCount(int $intervalCount): self
@@ -275,8 +249,6 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
     }
 
     /**
-     * @param bool $livemode
-     *
      * @return $this
      */
     public function setLivemode(bool $livemode): self
@@ -287,8 +259,6 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
     }
 
     /**
-     * @param string $metadata
-     *
      * @return $this
      */
     public function setMetadata(string $metadata): self
@@ -299,8 +269,6 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
     }
 
     /**
-     * @param string $name
-     *
      * @return $this
      */
     public function setName(string $name): self
@@ -311,8 +279,6 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
     }
 
     /**
-     * @param string $statementDescriptor
-     *
      * @return $this
      */
     public function setStatementDescriptor(string $statementDescriptor): self
@@ -323,8 +289,6 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
     }
 
     /**
-     * @param int $trialPeriodDays
-     *
      * @return $this
      */
     public function setTrialPeriodDays(int $trialPeriodDays): self
