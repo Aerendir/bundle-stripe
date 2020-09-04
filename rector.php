@@ -32,7 +32,6 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
         [
             SetList::ACTION_INJECTION_TO_CONSTRUCTOR_INJECTION,
             SetList::ARRAY_STR_FUNCTIONS_TO_STATIC_CALL,
-            SetList::CONSTRUCTOR_INJECTIN_TO_ACTION_INJECTION,
             SetList::CODE_QUALITY,
             SetList::CODING_STYLE,
             SetList::MONOLOG_20,
@@ -44,7 +43,6 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             SetList::DOCTRINE_DBAL_210,
             SetList::FRAMEWORK_EXTRA_BUNDLE_40,
             SetList::FRAMEWORK_EXTRA_BUNDLE_50,
-            SetList::GUZZLE_50,
             SetList::PERFORMANCE,
             SetList::PHP_52,
             SetList::PHP_53,
@@ -106,25 +104,28 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             Rector\CodeQuality\Rector\Concat\JoinStringConcatRector::class,
             Rector\CodeQuality\Rector\Identical\SimplifyBoolIdenticalTrueRector::class,
             Rector\CodingStyle\Rector\Class_\AddArrayDefaultToArrayPropertyRector::class,
+            Rector\CodingStyle\Rector\ClassConst\VarConstantCommentRector::class,
             Rector\CodingStyle\Rector\ClassMethod\NewlineBeforeNewAssignSetRector::class,
             Rector\CodingStyle\Rector\ClassMethod\RemoveDoubleUnderscoreInMethodNameRector::class,
             Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector::class,
-            Rector\CodingStyle\Rector\Identical\IdenticalFalseToBooleanNotRector::class,
             Rector\CodingStyle\Rector\Switch_\BinarySwitchToIfElseRector::class,
             Rector\CodingStyle\Rector\Throw_\AnnotateThrowablesRector::class,
             Rector\CodingStyle\Rector\Use_\RemoveUnusedAliasRector::class,
+            Rector\MagicDisclosure\Rector\MethodCall\FluentChainMethodCallToNormalMethodCallRector::class,
             Rector\Php56\Rector\FunctionLike\AddDefaultValueForUndefinedVariableRector::class, // Maybe good one day
             Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector::class,
             Rector\PHPUnit\Rector\ClassMethod\AddDoesNotPerformAssertionToNonAssertingTestRector::class,
             Rector\Privatization\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector::class,
             Rector\Privatization\Rector\MethodCall\PrivatizeLocalGetterToPropertyRector::class,
+            Rector\SOLID\Rector\Class_\MakeUnusedClassesWithChildrenAbstractRector::class,
             Rector\SOLID\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector::class,
             Rector\SOLID\Rector\Property\AddFalseDefaultToBoolPropertyRector::class,
             Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector::class,
             Rector\TypeDeclaration\Rector\ClassMethod\AddArrayReturnDocTypeRector::class,
 
             // Temporarily disabled
-            Rector\SOLID\Rector\ClassMethod\ChangeReadOnlyVariableWithDefaultValueToConstantRector::class,
+            Rector\SOLID\Rector\Class_\ChangeReadOnlyVariableWithDefaultValueToConstantRector::class,
+            Rector\SOLID\Rector\Property\ChangeReadOnlyPropertyWithDefaultValueToConstantRector::class,
         ]
     );
 };
