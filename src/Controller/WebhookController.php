@@ -13,14 +13,14 @@ namespace SerendipityHQ\Bundle\StripeBundle\Controller;
 
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalWebhookEvent;
 use Stripe\Event;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * {@inheritdoc}
  */
-final class WebhookController extends Controller
+final class WebhookController extends AbstractController
 {
     /**
      * @var string
