@@ -38,7 +38,7 @@ final class StripeLocalCustomerTest extends ModelTestCase
             'currency'       => 'EUR',
             'description'    => 'dummy description',
             'email'          => $mockEmail,
-            'metadata'       => 'metadata',
+            'metadata'       => ['metadata'],
             'source'         => 'tok_isastring',
         ];
 

@@ -18,6 +18,7 @@ final class StripeLocalSubscription implements StripeLocalResourceInterface
 {
     /** @var string */
     public $source;
+
     /** @var string The Stripe ID of the StripeLocalSubscription */
     private $id;
 
@@ -117,8 +118,7 @@ final class StripeLocalSubscription implements StripeLocalResourceInterface
     private $metadata;
 
     /**
-     * @var string
-     *             Hash describing the plan the customer is subscribed to
+     * @var string Hash describing the plan the customer is subscribed to
      *
      * @see https://stripe.com/docs/api#subscription_object-plan
      */
@@ -279,9 +279,6 @@ final class StripeLocalSubscription implements StripeLocalResourceInterface
         return $this->cancelAtPeriodEnd;
     }
 
-    /**
-     * @return $this
-     */
     public function setCancelAtPeriodEnd(bool $cancelAtPeriodEnd): self
     {
         $this->cancelAtPeriodEnd = $cancelAtPeriodEnd;
@@ -294,9 +291,6 @@ final class StripeLocalSubscription implements StripeLocalResourceInterface
         return $this->livemode;
     }
 
-    /**
-     * @return $this
-     */
     public function setCustomer(StripeLocalCustomer $customer): self
     {
         $this->customer = $customer;
@@ -304,9 +298,6 @@ final class StripeLocalSubscription implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function setApplicationFeePercent(float $applicationFeePercent): self
     {
         $this->applicationFeePercent = $applicationFeePercent;
@@ -314,9 +305,6 @@ final class StripeLocalSubscription implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
@@ -324,9 +312,6 @@ final class StripeLocalSubscription implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function setPlan(string $plan): self
     {
         $this->plan = $plan;
@@ -334,9 +319,6 @@ final class StripeLocalSubscription implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function setSource(string $source): self
     {
         $this->source = $source;
@@ -379,14 +361,14 @@ final class StripeLocalSubscription implements StripeLocalResourceInterface
             /*
              * This checks a plan is set.
              */
-            if (null === $this->getPlan()) {
+            if (null === $this->plan) {
                 throw new \InvalidArgumentException('To create a Charge you need to set a Plan.');
             }
 
             /*
              * This checks a customer.
              */
-            if (null === $this->getCustomer()) {
+            if (null === $this->customer) {
                 throw new \InvalidArgumentException('To create a Charge you need to set an Customer.');
             }
 

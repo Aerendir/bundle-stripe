@@ -30,24 +30,4 @@ final class AbstractStripeChargeEventTest extends TestCase
 
         self::assertSame($mockCharge, $resource->getLocalCharge());
     }
-
-    public function testAbstractStripeChargeEventRequiresAnAmount(): void
-    {
-        $mockCustomer = $this->createMock(StripeLocalCustomer::class);
-        $mockCharge   = $this->createMock(StripeLocalCharge::class);
-        $mockCharge->method('getCustomer')->willReturn($mockCustomer);
-
-        self::expectException(\InvalidArgumentException::class);
-        new StripeChargeCreateEvent($mockCharge);
-    }
-
-    public function testAbstractStripeChargeEventRequiresACustomerOrACard(): void
-    {
-        $mockAmount = $this->createMock(Money::class);
-        $mockCharge = $this->createMock(StripeLocalCharge::class);
-        $mockCharge->method('getAmount')->willReturn($mockAmount);
-
-        self::expectException(\InvalidArgumentException::class);
-        new StripeChargeCreateEvent($mockCharge);
-    }
 }

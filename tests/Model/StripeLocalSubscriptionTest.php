@@ -27,7 +27,7 @@ final class StripeLocalSubscriptionTest extends ModelTestCase
         $test = [
             'id'                    => 'this_is_the_id',
             'customer'              => $this->createMock(StripeLocalCustomer::class),
-            'applicationFeePercent' => 0,
+            'applicationFeePercent' => 0.0,
             'cancelAtPeriodEnd'     => true,
             'canceledAt'            => new \DateTime(),
             'created'               => new \DateTime(),
@@ -41,7 +41,7 @@ final class StripeLocalSubscriptionTest extends ModelTestCase
             'quantity'              => 1,
             'start'                 => new \DateTime(),
             'status'                => 'status',
-            'taxPercent'            => 0,
+            'taxPercent'            => 0.0,
             'trialEnd'              => new \DateTime(),
             'trialStart'            => new \DateTime(),
         ];
@@ -83,11 +83,11 @@ final class StripeLocalSubscriptionTest extends ModelTestCase
 
         $expected = [
             'customer'                => 'cus_idofcustomerisastring',
-            'application_fee_percent' => 0,
+            'application_fee_percent' => 0.0,
             'metadata'                => 'metadata',
             'plan'                    => 'plan',
             'quantity'                => 1,
-            'tax_percent'             => 0,
+            'tax_percent'             => 0.0,
             'trial_end'               => $now->add(new \DateInterval('P1D')),
             'trial_period_days'       => 1,
         ];

@@ -20,10 +20,10 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
 {
     /** @var string */
     private const CREATE = 'create';
-    /** @var string The Stripe ID of the plan */
+    /** @var string|null The Stripe ID of the plan */
     private $id;
 
-    /** @var plan|string $object */
+    /** @var string */
     private $object;
 
     /**
@@ -98,7 +98,7 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
     private $statementDescriptor;
 
     /**
-     * @var int
+     * @var int|null
      *
      * Number of trial period days granted when subscribing a customer to this plan. Null if the plan has no trial
      * period.
@@ -115,7 +115,7 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
         $this->object = 'plan';
     }
 
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -131,7 +131,7 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
     /**
      * @return plan|string
      */
-    public function getObject()
+    public function getObject(): string
     {
         return $this->object;
     }
@@ -181,14 +181,11 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
         return $this->statementDescriptor;
     }
 
-    public function getTrialPeriodDays(): int
+    public function getTrialPeriodDays(): ?int
     {
         return $this->trialPeriodDays;
     }
 
-    /**
-     * @return $this
-     */
     public function setObject(string $object): self
     {
         $this->object = $object;
@@ -196,9 +193,6 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function setAmount(\SerendipityHQ\Component\ValueObjects\Money\Money $amount): self
     {
         if (null === $this->amount) {
@@ -208,9 +202,6 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function setCreated(\DateTime $created): self
     {
         $this->created = $created;
@@ -218,9 +209,6 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function setCurrency(string $currency): self
     {
         $this->currency = $currency;
@@ -228,9 +216,6 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function setInterval(string $interval): self
     {
         $this->interval = $interval;
@@ -238,9 +223,6 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function setIntervalCount(int $intervalCount): self
     {
         $this->intervalCount = $intervalCount;
@@ -248,9 +230,6 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function setLivemode(bool $livemode): self
     {
         $this->livemode = $livemode;
@@ -258,9 +237,6 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function setMetadata(string $metadata): self
     {
         $this->metadata = $metadata;
@@ -268,9 +244,6 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -278,20 +251,14 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * @return $this
-     */
-    public function setStatementDescriptor(string $statementDescriptor): self
+    public function setStatementDescriptor(?string $statementDescriptor): self
     {
         $this->statementDescriptor = $statementDescriptor;
 
         return $this;
     }
 
-    /**
-     * @return $this
-     */
-    public function setTrialPeriodDays(int $trialPeriodDays): self
+    public function setTrialPeriodDays(?int $trialPeriodDays): self
     {
         $this->trialPeriodDays = $trialPeriodDays;
 

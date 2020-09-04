@@ -12,9 +12,9 @@
 namespace SerendipityHQ\Bundle\StripeBundle\Command;
 
 use Doctrine\Bundle\DoctrineBundle\Command\DoctrineCommand;
+use Money\Currency;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripePlanUpdateEvent;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalPlan;
-use SerendipityHQ\Component\ValueObjects\Currency\Currency;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;

@@ -22,7 +22,7 @@ use SerendipityHQ\Component\ValueObjects\Money\Money;
 final class StripeLocalPlanTest extends ModelTestCase
 {
     /** @var int[]|string[] */
-    private const AMOUNT_EXPECTED = ['amount' => 999, 'currency' => 'eur'];
+    private const AMOUNT_EXPECTED = ['amount' => '999', 'currency' => 'eur'];
 
     public function testStripeLocalPlan(): void
     {
@@ -34,11 +34,11 @@ final class StripeLocalPlanTest extends ModelTestCase
         $expected = [
             'object'                => 'plan',
             'amount'                => $mockMoney,
-            'created'               => 1483095706,
+            'created'               => new \DateTime('@1483095706'),
             'interval'              => 'month',
             'interval_count'        => 1,
             'livemode'              => false,
-            'metadata'              => [],
+            'metadata'              => 'metadata',
             'name'                  => 'plan',
             'statement_description' => null,
             'trial_period_days'     => null,

@@ -84,9 +84,6 @@ final class StripeLocalWebhookEvent implements StripeLocalResourceInterface
         return $this->livemode;
     }
 
-    /**
-     * @return $this
-     */
     public function setData(string $data): self
     {
         // Set data only if the property is null to avoid overwriting and preserve the immutability

@@ -12,7 +12,7 @@
 namespace SerendipityHQ\Bundle\StripeBundle\Tests\DependencyInjection;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -33,7 +33,7 @@ final class YamlStripeBundleExtensionTest extends AbstractStripeBundleExtensionT
     {
         // Mock the Doctrine service
         $mockEntityManager    = $this->createMock(EntityManagerInterface::class);
-        $mockDoctrineRegistry = $this->createMock(RegistryInterface::class);
+        $mockDoctrineRegistry = $this->createMock(ManagerRegistry::class);
         $mockDoctrineRegistry->method('getManager')->willReturn($mockEntityManager);
         $container->set('doctrine', $mockDoctrineRegistry);
 

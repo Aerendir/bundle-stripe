@@ -42,14 +42,14 @@ final class StripeLocalChargeTest extends ModelTestCase
             'description'         => 'the description',
             'failureCode'         => '123',
             'failureMessage'      => 'there ever is a reason',
-            'fraudDetails'        => 'details about fraud',
+            'fraudDetails'        => ['details about fraud'],
             'metadata'            => 'metadata',
             'paid'                => true,
             'receiptEmail'        => $this->createMock(Email::class),
             'receiptNumber'       => 'xxxxxxx',
             'source'              => $mockCard,
             'statementDescriptor' => 'descriptor',
-            'status'              => true,
+            'status'              => 'pending',
             'captured'            => true,
             'livemode'            => false,
         ];
@@ -92,7 +92,7 @@ final class StripeLocalChargeTest extends ModelTestCase
         $resource = new StripeLocalCharge();
 
         $expected = [
-            'amount'               => 1000,
+            'amount'               => '1000',
             'currency'             => 'EUR',
             'capture'              => true,
             'description'          => 'the description',

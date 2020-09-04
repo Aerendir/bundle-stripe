@@ -28,14 +28,4 @@ final class AbstractStripeSubscriptionEventTest extends TestCase
 
         self::assertSame($mockSubscription, $resource->getLocalSubscription());
     }
-
-    public function testAbstractStripeSubscriptionEventRequiresAnAmount(): void
-    {
-        $mockCustomer     = $this->createMock(StripeLocalCustomer::class);
-        $mockSubscription = $this->createMock(StripeLocalSubscription::class);
-        $mockSubscription->method('getCustomer')->willReturn($mockCustomer);
-
-        self::expectException(\InvalidArgumentException::class);
-        new StripeSubscriptionCreateEvent($mockSubscription);
-    }
 }

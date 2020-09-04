@@ -100,9 +100,6 @@ final class StripeLocalCard implements StripeLocalResourceInterface
         $this->charges = new ArrayCollection();
     }
 
-    /**
-     * @return $this
-     */
     public function addCharge(StripeLocalCharge $charge): self
     {
         // If the cards is already set

@@ -78,9 +78,6 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
         $this->cards         = new ArrayCollection();
     }
 
-    /**
-     * @return $this
-     */
     public function addCharge(StripeLocalCharge $charge): self
     {
         // If the cards is already set
@@ -92,9 +89,6 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function addSubscription(StripeLocalSubscription $subscription): self
     {
         // If the subscription is already set
@@ -194,9 +188,6 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this->subscriptions->removeElement($subscription);
     }
 
-    /**
-     * @return $this
-     */
     public function setAccountBalance(int $balance): self
     {
         $this->accountBalance = $balance;
@@ -206,8 +197,6 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
 
     /**
      * @param $vat
-     *
-     * @return $this
      */
     public function setBusinessVatId(string $vat): self
     {
@@ -216,9 +205,6 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function setCurrency(string $currency): self
     {
         $this->currency = $currency;
@@ -226,9 +212,6 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function setDescription(string $description): self
     {
         $this->description = $description;
@@ -236,9 +219,6 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function setEmail(Email $email): self
     {
         $this->email = $email;
@@ -248,8 +228,6 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
 
     /**
      * @param $metadata
-     *
-     * @return $this
      */
     public function setMetadata(array $metadata): self
     {
@@ -258,9 +236,6 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function setNewSource(string $source): self
     {
         if (0 < \strpos($source, 'tok_')) {

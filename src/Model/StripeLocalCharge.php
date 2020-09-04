@@ -110,9 +110,9 @@ final class StripeLocalCharge implements StripeLocalResourceInterface
     private $receiptNumber;
 
     /**
-     * @var StripeLocalCard For most Stripe users, the source of every charge is a credit or debit card.
-     *                      This hash is then the card object describing that card. There are some checks to
-     *                      create a charge
+     * @var string|StripeLocalCard For most Stripe users, the source of every charge is a credit or debit card.
+     *                             This hash is then the card object describing that card. There are some checks to
+     *                             create a charge
      *
      * @see toStripeArray()
      */
@@ -203,7 +203,7 @@ final class StripeLocalCharge implements StripeLocalResourceInterface
         return $this->receiptNumber;
     }
 
-    public function getSource(): \SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard
+    public function getSource()
     {
         return $this->source;
     }
@@ -379,7 +379,7 @@ final class StripeLocalCharge implements StripeLocalResourceInterface
              *
              * As the amount is a Money object, if it exists, also a Currency exists.
              */
-            if (null === $this->getAmount()) {
+            if (null === $this->amount) {
                 throw new \InvalidArgumentException('To create a Charge you need to set an Amount.');
             }
 
