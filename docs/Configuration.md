@@ -59,7 +59,7 @@ stripe:
 Step 4: Update your database schema
 -----------------------------------
 
-```
+```console
 $ php app/console doctrine:schema:update --force
 ```
 

@@ -43,7 +43,7 @@ processings.
 So, the first thing we have to do is include this script in all pages of our app (without minifying nor combining it
 with other javascripts!):
 
-```
+```twig
 {# app/base.html.twig #}
 <!DOCTYPE html>
 <html lang="{{ locale }}">
@@ -146,7 +146,7 @@ This will make we able to render the hidden field that will contain our card tok
 
 And now it's time to render our form on the frontend:
 
-```
+```twig
 {# ATTENTION 1: NOTE WE GIVE THE FORM AN ID #}
 {{ form_start(form, {'attr': {'id': subscription_form_id, 'autocomplete': 'on'}}) }}
 
