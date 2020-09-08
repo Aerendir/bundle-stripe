@@ -18,7 +18,7 @@
     "require": {
         "php": "^7.3",
         "doctrine/orm": "^2.5",
-        "serendipity_hq/component-value-objects": "dev-dev",
+        "serendipity_hq/component-value-objects": "^7.0",
         "stripe/stripe-php": "^7.0",
         "symfony/event-dispatcher": "^4.4|^5.1",
         "symfony/framework-bundle": "^4.4|^5.1",
