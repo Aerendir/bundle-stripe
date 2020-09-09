@@ -17,6 +17,7 @@
     ],
     "require": {
         "php": "^7.3",
+        "ext-json": "*",
         "doctrine/orm": "^2.5",
         "serendipity_hq/component-value-objects": "^7.0",
         "stripe/stripe-php": "^7.0",
