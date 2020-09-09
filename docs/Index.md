@@ -13,7 +13,8 @@ These are the steps required to get up and running with the bundle:
 2. [Configure the bundle](Configuration.md)
 3. [Integrate the front-end](Frontend-Integration.md)
 4. [Integrate the back-end](Backend-Integration.md)
-5. [Configuring webhooks](WebHoonks.md)
+5. [Configuring webhooks](WebHooks.md)
+6. [How to manage card errors](Error-handling.md)
 
 <hr />
 <h3 align="center">
