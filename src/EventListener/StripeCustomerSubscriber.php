@@ -13,8 +13,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\EventListener;
 
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeCustomerCreateEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeCustomerUpdateEvent;
-use Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher;
-use Symfony\Components\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Manages Customers on Stripe.
@@ -34,7 +33,6 @@ final class StripeCustomerSubscriber extends AbstractStripeSubscriber
 
     /**
      * @param $eventName
-     * @param ContainerAwareEventDispatcher|EventDispatcherInterface $dispatcher
      */
     public function onCustomerCreate(StripeCustomerCreateEvent $event, $eventName, EventDispatcherInterface $dispatcher): void
     {

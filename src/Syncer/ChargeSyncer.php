@@ -17,7 +17,6 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;
 use SerendipityHQ\Component\ValueObjects\Email\Email;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use Stripe\ApiResource;
-use Stripe\AttachedObject;
 use Stripe\Charge;
 use Stripe\StripeObject;
 
@@ -87,9 +86,9 @@ final class ChargeSyncer extends AbstractSyncer
                 case 'fraudDetails':
                     $fraudDetails = $stripeResource->fraudDetails;
 
-                    // If the object come from an Event is an AttachedObject
-                    if ($stripeResource->fraudDetails instanceof AttachedObject || $stripeResource->fraudDetails instanceof StripeObject) {
-                        $fraudDetails = $fraudDetails->__toArray();
+                    // If the object come from an Event is a StripeObject
+                    if ($stripeResource->fraudDetails instanceof StripeObject) {
+                        $fraudDetails = $fraudDetails->toArray();
                     }
 
                     $reflectedProperty->setValue($localResource, $fraudDetails);
@@ -102,9 +101,9 @@ final class ChargeSyncer extends AbstractSyncer
                 case 'metadata':
                     $metadata = $stripeResource->metadata;
 
-                    // If the object come from an Event is an AttachedObject
-                    if ($stripeResource->metadata instanceof AttachedObject) {
-                        $metadata = $metadata->__toArray();
+                    // If the object come from an Event is a StripeObject
+                    if ($stripeResource->metadata instanceof StripeObject) {
+                        $metadata = $metadata->toArray();
                     }
 
                     $reflectedProperty->setValue($localResource, $metadata);
@@ -113,9 +112,9 @@ final class ChargeSyncer extends AbstractSyncer
                 case 'outcome':
                     $outcome = $stripeResource->outcome;
 
-                    // If the object come from an Event is an AttachedObject
+                    // If the object come from an Event is a StripeObject
                     if ($stripeResource->outcome instanceof StripeObject) {
-                        $outcome = $outcome->__toArray();
+                        $outcome = $outcome->toArray();
                     }
 
                     $reflectedProperty->setValue($localResource, $outcome);

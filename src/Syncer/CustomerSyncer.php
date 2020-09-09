@@ -11,7 +11,7 @@
 
 namespace SerendipityHQ\Bundle\StripeBundle\Syncer;
 
-use Doctrine\Common\Persistence\Proxy;
+use Doctrine\Common\Proxy\Proxy;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;
@@ -20,7 +20,7 @@ use Stripe\ApiResource;
 use Stripe\Card;
 use Stripe\Collection;
 use Stripe\Customer;
-use Stripe\Error\Base;
+use Stripe\Exception\ExceptionInterface;
 
 /**
  * @author Adamo Crespi <hello@aerendir.me>
@@ -97,7 +97,7 @@ final class CustomerSyncer extends AbstractSyncer
                     break;
 
                 case 'metadata':
-                    $reflectedProperty->setValue($localResource, $stripeResource->metadata->__toArray());
+                    $reflectedProperty->setValue($localResource, $stripeResource->metadata->toArray());
                     break;
             }
         }
@@ -122,7 +122,7 @@ final class CustomerSyncer extends AbstractSyncer
          */
         try {
             $stripeDefaultCard = $stripeResource->sources->retrieve($stripeResource->defaultSource);
-        } catch (Base $base) {
+        } catch (ExceptionInterface $exceptionInterface) {
             // If an error occurs, simply flush the Customer object
             $this->getEntityManager()->flush();
 

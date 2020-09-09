@@ -11,6 +11,7 @@
 
 namespace SerendipityHQ\Bundle\StripeBundle\Service;
 
+use Doctrine\Common\Collections\Collection;
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
@@ -25,13 +26,10 @@ use SerendipityHQ\Bundle\StripeBundle\Syncer\WebhookEventSyncer;
 use Stripe\ApiResource;
 use Stripe\Charge;
 use Stripe\Customer;
-use Stripe\Error\ApiConnection;
-use Stripe\Error\Authentication;
-use Stripe\Error\Base;
-use Stripe\Error\Card;
-use Stripe\Error\InvalidRequest;
-use Stripe\Error\RateLimit;
 use Stripe\Event;
+use Stripe\Exception\CardException;
+use Stripe\Exception\ExceptionInterface;
+use Stripe\Exception\RateLimitException;
 use Stripe\Plan;
 use Stripe\Stripe;
 use Stripe\Subscription;
@@ -93,9 +91,6 @@ final class StripeManager
     /** @var CustomerSyncer $customerSyncer */
     private $customerSyncer;
 
-    /**
-     * @param Logger|LoggerInterface $logger
-     */
     public function __construct(string $secretKey, string $debug, string $statementDescriptor, LoggerInterface $logger = null, ChargeSyncer $chargeSyncer, SubscriptionSyncer $subscriptionSyncer, PlanSyncer $planSyncer, CustomerSyncer $customerSyncer, WebhookEventSyncer $webhookEventSyncer)
     {
         Stripe::setApiKey($secretKey);
@@ -204,8 +199,8 @@ final class StripeManager
                 default:
                     throw new \RuntimeException("The arguments passed don't correspond to the allowed number. Please, review them.");
             }
-        } catch (Base $base) {
-            $return = $this->handleException($base);
+        } catch (ExceptionInterface $exceptionInterface) {
+            $return = $this->handleException($exceptionInterface);
 
             if (self::RETRY === $return) {
                 $return = $this->callStripeApi($endpoint, $action, $arguments);
@@ -295,8 +290,8 @@ final class StripeManager
                 default:
                     throw new \RuntimeException("The arguments passed don't correspond to the allowed number. Please, review them.");
             }
-        } catch (Base $base) {
-            $return = $this->handleException($base);
+        } catch (ExceptionInterface $exceptionInterface) {
+            $return = $this->handleException($exceptionInterface);
 
             if (self::RETRY === $return) {
                 $return = $this->callStripeObject($object, $method);
@@ -426,8 +421,6 @@ final class StripeManager
     }
 
     /**
-     * @throws InvalidRequest
-     *
      * @return ApiResource|bool|Customer
      */
     public function retrieveCustomer(StripeLocalCustomer $localCustomer)
@@ -467,8 +460,6 @@ final class StripeManager
     }
 
     /**
-     * @throws InvalidRequest
-     *
      * @return ApiResource|bool|Plan
      */
     public function retrievePlan(StripeLocalPlan $localPlan)
@@ -488,8 +479,6 @@ final class StripeManager
     }
 
     /**
-     * @throws InvalidRequest
-     *
      * @return ApiResource|bool|Collection
      */
     public function retrievePlans()
@@ -499,8 +488,6 @@ final class StripeManager
     }
 
     /**
-     * @throws InvalidRequest
-     *
      * @return ApiResource|bool|Event
      */
     public function retrieveEvent(string $eventStripeId)
@@ -515,8 +502,6 @@ final class StripeManager
     }
 
     /**
-     * @throws InvalidRequest
-     *
      * @return ApiResource|bool|Subscription
      */
     public function retrieveSubscription(StripeLocalSubscription $localSubscription)
@@ -598,21 +583,13 @@ final class StripeManager
     }
 
     /**
-     * @param \Exception $e
-     *
-     * @throws ApiConnection  Only in dev and test environments
-     * @throws Authentication Only in dev and test environments
-     * @throws Card           Only in dev and test environments
-     * @throws InvalidRequest Only in dev and test environments
-     * @throws RateLimit      Only in dev and test environments
-     *
      * @return bool|string Returns false in "production" if something goes wrong.
      *                     May return "retry" if rate limit is reached
      */
-    private function handleException(Base $e)
+    private function handleException(ExceptionInterface $e)
     {
         switch (\get_class($e)) {
-            case RateLimit::class:
+            case RateLimitException::class:
                 // We have to retry with an exponential backoff if is not reached the maximum number of retries
                 if ($this->retries <= self::MAX_RETRIES) {
                     // First, put the script on sleep
@@ -627,7 +604,7 @@ final class StripeManager
                     return self::RETRY;
                 }
                 break;
-            case Card::class:
+            case CardException::class:
                 $concatenated = 'stripe';
                 if (isset($e->getJsonBody()[self::ERROR][self::TYPE])) {
                     $concatenated .= '.' . $e->getJsonBody()[self::ERROR][self::TYPE];

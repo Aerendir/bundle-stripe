@@ -146,28 +146,8 @@ parameters:
 			path: src/EventListener/StripeCustomerSubscriber.php
 
 		-
-			message: "#^PHPDoc tag @param for parameter \\$dispatcher with type Symfony\\\\Component\\\\EventDispatcher\\\\ContainerAwareEventDispatcher\\|Symfony\\\\Components\\\\EventDispatcher\\\\EventDispatcherInterface is not subtype of native type Symfony\\\\Components\\\\EventDispatcher\\\\EventDispatcherInterface\\.$#"
-			count: 2
-			path: src/EventListener/StripeCustomerSubscriber.php
-
-		-
 			message: "#^PHPDoc tag @param has invalid value \\(\\$eventName\\)\\: Unexpected token \"\\$eventName\", expected type at offset 18$#"
 			count: 2
-			path: src/EventListener/StripeCustomerSubscriber.php
-
-		-
-			message: "#^Parameter \\$dispatcher of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\EventListener\\\\StripeCustomerSubscriber\\:\\:onCustomerCreate\\(\\) has invalid typehint type Symfony\\\\Component\\\\EventDispatcher\\\\ContainerAwareEventDispatcher\\.$#"
-			count: 1
-			path: src/EventListener/StripeCustomerSubscriber.php
-
-		-
-			message: "#^Parameter \\$dispatcher of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\EventListener\\\\StripeCustomerSubscriber\\:\\:onCustomerCreate\\(\\) has invalid typehint type Symfony\\\\Components\\\\EventDispatcher\\\\EventDispatcherInterface\\.$#"
-			count: 2
-			path: src/EventListener/StripeCustomerSubscriber.php
-
-		-
-			message: "#^Call to method dispatch\\(\\) on an unknown class Symfony\\\\Components\\\\EventDispatcher\\\\EventDispatcherInterface\\.$#"
-			count: 4
 			path: src/EventListener/StripeCustomerSubscriber.php
 
 		-
@@ -176,13 +156,13 @@ parameters:
 			path: src/EventListener/StripeCustomerSubscriber.php
 
 		-
-			message: "#^Parameter \\$dispatcher of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\EventListener\\\\StripeCustomerSubscriber\\:\\:onCustomerUpdate\\(\\) has invalid typehint type Symfony\\\\Component\\\\EventDispatcher\\\\ContainerAwareEventDispatcher\\.$#"
+			message: "#^PHPDoc tag @param for parameter \\$dispatcher with type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\EventListener\\\\ContainerAwareEventDispatcher\\|Symfony\\\\Component\\\\EventDispatcher\\\\EventDispatcherInterface is not subtype of native type Symfony\\\\Component\\\\EventDispatcher\\\\EventDispatcherInterface\\.$#"
 			count: 1
 			path: src/EventListener/StripeCustomerSubscriber.php
 
 		-
-			message: "#^Parameter \\$dispatcher of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\EventListener\\\\StripeCustomerSubscriber\\:\\:onCustomerUpdate\\(\\) has invalid typehint type Symfony\\\\Components\\\\EventDispatcher\\\\EventDispatcherInterface\\.$#"
-			count: 2
+			message: "#^Parameter \\$dispatcher of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\EventListener\\\\StripeCustomerSubscriber\\:\\:onCustomerUpdate\\(\\) has invalid typehint type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\EventListener\\\\ContainerAwareEventDispatcher\\.$#"
+			count: 1
 			path: src/EventListener/StripeCustomerSubscriber.php
 
 		-
@@ -741,11 +721,6 @@ parameters:
 			path: src/Service/StripeManager.php
 
 		-
-			message: "#^Caught class Stripe\\\\Error\\\\Base not found\\.$#"
-			count: 2
-			path: src/Service/StripeManager.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Service\\\\StripeManager\\:\\:callStripeObject\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Service/StripeManager.php
@@ -786,11 +761,6 @@ parameters:
 			path: src/Service/StripeManager.php
 
 		-
-			message: "#^PHPDoc tag @throws with type Stripe\\\\Error\\\\InvalidRequest is not subtype of Throwable$#"
-			count: 5
-			path: src/Service/StripeManager.php
-
-		-
 			message: "#^Strict comparison using \\=\\=\\= between null and string will always evaluate to false\\.$#"
 			count: 2
 			path: src/Service/StripeManager.php
@@ -801,7 +771,7 @@ parameters:
 			path: src/Service/StripeManager.php
 
 		-
-			message: "#^Return typehint of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Service\\\\StripeManager\\:\\:retrievePlans\\(\\) has invalid type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Service\\\\Collection\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Service\\\\StripeManager\\:\\:retrievePlans\\(\\) return type with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
 			count: 1
 			path: src/Service/StripeManager.php
 
@@ -836,62 +806,27 @@ parameters:
 			path: src/Service/StripeManager.php
 
 		-
-			message: "#^PHPDoc tag @param for parameter \\$e with type Exception is not subtype of native type Stripe\\\\Error\\\\Base\\.$#"
-			count: 1
+			message: "#^Offset 'error' does not exist on array\\<string, mixed\\>\\|null\\.$#"
+			count: 3
 			path: src/Service/StripeManager.php
 
 		-
-			message: "#^PHPDoc tag @throws with type Stripe\\\\Error\\\\ApiConnection\\|Stripe\\\\Error\\\\Authentication\\|Stripe\\\\Error\\\\Card\\|Stripe\\\\Error\\\\InvalidRequest\\|Stripe\\\\Error\\\\RateLimit is not subtype of Throwable$#"
-			count: 1
-			path: src/Service/StripeManager.php
-
-		-
-			message: "#^Parameter \\$e of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Service\\\\StripeManager\\:\\:handleException\\(\\) has invalid typehint type Stripe\\\\Error\\\\Base\\.$#"
-			count: 1
-			path: src/Service/StripeManager.php
-
-		-
-			message: "#^Class Stripe\\\\Error\\\\RateLimit not found\\.$#"
-			count: 1
-			path: src/Service/StripeManager.php
-
-		-
-			message: "#^Class Stripe\\\\Error\\\\Card not found\\.$#"
-			count: 1
-			path: src/Service/StripeManager.php
-
-		-
-			message: "#^Call to method getJsonBody\\(\\) on an unknown class Stripe\\\\Error\\\\Base\\.$#"
-			count: 8
-			path: src/Service/StripeManager.php
-
-		-
-			message: "#^Call to method getJsonBody\\(\\) on an unknown class Stripe\\\\Error\\\\Card\\.$#"
-			count: 6
-			path: src/Service/StripeManager.php
-
-		-
-			message: "#^Call to method getHttpStatus\\(\\) on an unknown class Stripe\\\\Error\\\\Base\\.$#"
+			message: "#^Call to an undefined method Stripe\\\\Exception\\\\ExceptionInterface\\:\\:getJsonBody\\(\\)\\.$#"
 			count: 2
 			path: src/Service/StripeManager.php
 
 		-
-			message: "#^Call to method getMessage\\(\\) on an unknown class Stripe\\\\Error\\\\Base\\.$#"
+			message: "#^Call to an undefined method Stripe\\\\Exception\\\\ExceptionInterface\\:\\:getHttpStatus\\(\\)\\.$#"
+			count: 2
+			path: src/Service/StripeManager.php
+
+		-
+			message: "#^Call to an undefined method Stripe\\\\Exception\\\\ExceptionInterface\\:\\:getRequestId\\(\\)\\.$#"
 			count: 1
 			path: src/Service/StripeManager.php
 
 		-
-			message: "#^Call to method getRequestId\\(\\) on an unknown class Stripe\\\\Error\\\\Base\\.$#"
-			count: 1
-			path: src/Service/StripeManager.php
-
-		-
-			message: "#^Call to method getHttpHeaders\\(\\) on an unknown class Stripe\\\\Error\\\\Base\\.$#"
-			count: 1
-			path: src/Service/StripeManager.php
-
-		-
-			message: "#^Throwing object of an unknown class Stripe\\\\Error\\\\Base\\.$#"
+			message: "#^Call to an undefined method Stripe\\\\Exception\\\\ExceptionInterface\\:\\:getHttpHeaders\\(\\)\\.$#"
 			count: 1
 			path: src/Service/StripeManager.php
 
@@ -1006,11 +941,6 @@ parameters:
 			path: src/Syncer/CardSyncer.php
 
 		-
-			message: "#^Call to an undefined method Stripe\\\\StripeObject\\:\\:__toArray\\(\\)\\.$#"
-			count: 1
-			path: src/Syncer/CardSyncer.php
-
-		-
 			message: "#^Access to an undefined property Stripe\\\\Card\\:\\:\\$tokenizationMethod\\.$#"
 			count: 1
 			path: src/Syncer/CardSyncer.php
@@ -1041,17 +971,7 @@ parameters:
 			path: src/Syncer/ChargeSyncer.php
 
 		-
-			message: "#^Class Stripe\\\\AttachedObject not found\\.$#"
-			count: 2
-			path: src/Syncer/ChargeSyncer.php
-
-		-
-			message: "#^Call to an undefined method Stripe\\\\StripeObject\\:\\:__toArray\\(\\)\\.$#"
-			count: 1
-			path: src/Syncer/ChargeSyncer.php
-
-		-
-			message: "#^Cannot call method __toArray\\(\\) on Stripe\\\\StripeObject\\|null\\.$#"
+			message: "#^Cannot call method toArray\\(\\) on Stripe\\\\StripeObject\\|null\\.$#"
 			count: 1
 			path: src/Syncer/ChargeSyncer.php
 
@@ -1101,12 +1021,7 @@ parameters:
 			path: src/Syncer/ChargeSyncer.php
 
 		-
-			message: "#^Class Doctrine\\\\Common\\\\Persistence\\\\Proxy not found\\.$#"
-			count: 1
-			path: src/Syncer/CustomerSyncer.php
-
-		-
-			message: "#^Cannot call method getProperties\\(\\) on ReflectionClass\\|false\\.$#"
+			message: "#^Instanceof between SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer and Doctrine\\\\Common\\\\Proxy\\\\Proxy will always evaluate to false\\.$#"
 			count: 1
 			path: src/Syncer/CustomerSyncer.php
 
@@ -1126,27 +1041,12 @@ parameters:
 			path: src/Syncer/CustomerSyncer.php
 
 		-
-			message: "#^Call to an undefined method Stripe\\\\StripeObject\\:\\:__toArray\\(\\)\\.$#"
-			count: 1
-			path: src/Syncer/CustomerSyncer.php
-
-		-
-			message: "#^Caught class Stripe\\\\Error\\\\Base not found\\.$#"
-			count: 1
-			path: src/Syncer/CustomerSyncer.php
-
-		-
 			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\<SHQStripeBundle\\:StripeLocalCard\\>\\:\\:findOneByStripeId\\(\\)\\.$#"
 			count: 1
 			path: src/Syncer/CustomerSyncer.php
 
 		-
 			message: "#^Parameter \\#1 \\$entityName of method Doctrine\\\\ORM\\\\EntityManager\\:\\:getRepository\\(\\) expects class\\-string\\<SHQStripeBundle\\:StripeLocalCard\\>, string given\\.$#"
-			count: 1
-			path: src/Syncer/CustomerSyncer.php
-
-		-
-			message: "#^Cannot call method getProperty\\(\\) on ReflectionClass\\|false\\.$#"
 			count: 1
 			path: src/Syncer/CustomerSyncer.php
 

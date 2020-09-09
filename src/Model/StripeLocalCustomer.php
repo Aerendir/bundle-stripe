@@ -26,7 +26,7 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
     /** @var string The Stripe ID of the StripeLocalCustomer */
     private $id;
 
-    /** @var int $accountBalance Current balance, if any, being stored on the customer’s account. If negative, the customer has credit to apply to the next invoice. If positive, the customer has an amount owed that will be added to the next invoice. The balance does not refer to any unpaid invoices; it solely takes into account amounts that have yet to be successfully applied to any invoice. This balance is only taken into account for recurring billing purposes (i.e., subscriptions, invoices, invoice items). */
+    /** @var int|null $accountBalance Current balance, if any, being stored on the customer’s account. If negative, the customer has credit to apply to the next invoice. If positive, the customer has an amount owed that will be added to the next invoice. The balance does not refer to any unpaid invoices; it solely takes into account amounts that have yet to be successfully applied to any invoice. This balance is only taken into account for recurring billing purposes (i.e., subscriptions, invoices, invoice items). */
     private $accountBalance;
 
     /** @var string $businessVatId The customer’s VAT identification number. */
@@ -56,7 +56,7 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
     /** @var string $description */
     private $description;
 
-    /** @var Email $email */
+    /** @var Email|null $email */
     private $email;
 
     /** @var bool $livemode */
@@ -100,7 +100,7 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this;
     }
 
-    public function getAccountBalance(): int
+    public function getAccountBalance(): ?int
     {
         return $this->accountBalance;
     }
@@ -145,7 +145,7 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this->description;
     }
 
-    public function getEmail(): \SerendipityHQ\Component\ValueObjects\Email\Email
+    public function getEmail(): ?\SerendipityHQ\Component\ValueObjects\Email\Email
     {
         return $this->email;
     }

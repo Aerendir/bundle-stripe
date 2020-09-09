@@ -132,7 +132,7 @@ final class CardSyncer extends AbstractSyncer
                     break;
 
                 case 'metadata':
-                    $reflectedProperty->setValue($localResource, $stripeResource->metadata->__toArray());
+                    $reflectedProperty->setValue($localResource, $stripeResource->metadata->toArray());
                     break;
 
                 case 'name':
