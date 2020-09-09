@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace SerendipityHQ\Bundle\StripeBundle\Service;
+namespace SerendipityHQ\Bundle\StripeBundle\Manager;
 
 use Doctrine\Common\Collections\Collection;
 use Monolog\Logger;

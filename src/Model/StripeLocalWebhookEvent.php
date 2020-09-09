@@ -16,7 +16,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\Model;
  *
  * @see https://stripe.com/docs/api#event_object
  */
-final class StripeLocalWebhookEvent implements StripeLocalResourceInterface
+class StripeLocalWebhookEvent implements StripeLocalResourceInterface
 {
     /** @var string The Stripe ID of the StripeLocalWebhookEvent */
     private $id;
@@ -94,9 +94,6 @@ final class StripeLocalWebhookEvent implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function toStripe(string $action): array
     {
         throw new \BadMethodCallException('You cannot create events on Stripe. This method is disabled');

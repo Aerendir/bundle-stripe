@@ -11,6 +11,7 @@
 
 namespace SerendipityHQ\Bundle\StripeBundle\Syncer;
 
+use Doctrine\ORM\EntityManagerInterface;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;
@@ -27,9 +28,17 @@ use Stripe\StripeObject;
  */
 final class ChargeSyncer extends AbstractSyncer
 {
-    /**
-     * {@inheritdoc}
-     */
+    /** @var CardSyncer $cardSyncer */
+    private $cardSyncer;
+
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        CardSyncer $cardSyncer
+    ) {
+        parent::__construct($entityManager);
+        $this->cardSyncer = $cardSyncer;
+    }
+
     public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource): void
     {
         /** @var StripeLocalCharge $localResource */
@@ -147,7 +156,7 @@ final class ChargeSyncer extends AbstractSyncer
         $this->getEntityManager()->persist($localResource);
 
         // Out of the foreach, process the source to associate to the charge.
-        $localCard = $this->getEntityManager()->getRepository('SHQStripeBundle:StripeLocalCard')->findOneByStripeId($stripeResource->source->id);
+        $localCard = $this->getEntityManager()->getRepository(StripeLocalCard::class)->findOneByStripeId($stripeResource->source->id);
 
         // Chek if the card exists
         if (null === $localCard) {
@@ -156,7 +165,7 @@ final class ChargeSyncer extends AbstractSyncer
         }
 
         // Sync the local card with the remote object
-        $this->getCardSyncer()->syncLocalFromStripe($localCard, $stripeResource->source);
+        $this->cardSyncer->syncLocalFromStripe($localCard, $stripeResource->source);
 
         /*
          * Persist the card again: if it is a newly created card, we have to persist it, but, as the id of a local card
@@ -172,9 +181,6 @@ final class ChargeSyncer extends AbstractSyncer
         $this->getEntityManager()->flush();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function syncStripeFromLocal(ApiResource $stripeResource, StripeLocalResourceInterface $localResource): void
     {
         /** @var Charge $stripeResource */

@@ -22,9 +22,6 @@ use Stripe\Plan;
  */
 final class PlanSyncer extends AbstractSyncer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource): void
     {
         /** @var StripeLocalPlan $localResource */
@@ -98,9 +95,6 @@ final class PlanSyncer extends AbstractSyncer
         $this->getEntityManager()->flush();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function syncStripeFromLocal(ApiResource $stripeResource, StripeLocalResourceInterface $localResource): void
     {
         /** @var Plan $stripeResource */

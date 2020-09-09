@@ -11,6 +11,7 @@
 
 namespace SerendipityHQ\Bundle\StripeBundle\Syncer;
 
+use Doctrine\ORM\EntityManagerInterface;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
@@ -28,9 +29,32 @@ use Stripe\Event;
  */
 final class WebhookEventSyncer extends AbstractSyncer
 {
-    /**
-     * {@inheritdoc}
-     */
+    /** @var CardSyncer $cardSyncer */
+    private $cardSyncer;
+
+    /** @var ChargeSyncer $chargeSyncer */
+    private $chargeSyncer;
+
+    /** @var CustomerSyncer $customerSyncer */
+    private $customerSyncer;
+
+    /** @var SubscriptionSyncer $subscriptionSyncer */
+    private $subscriptionSyncer;
+
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        CardSyncer $cardSyncer,
+        ChargeSyncer $chargeSyncer,
+        CustomerSyncer $customerSyncer,
+        SubscriptionSyncer $subscriptionSyncer
+    ) {
+        parent::__construct($entityManager);
+        $this->cardSyncer         = $cardSyncer;
+        $this->chargeSyncer       = $chargeSyncer;
+        $this->customerSyncer     = $customerSyncer;
+        $this->subscriptionSyncer = $subscriptionSyncer;
+    }
+
     public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource): void
     {
         /** @var StripeLocalCustomer $localResource */
@@ -91,7 +115,7 @@ final class WebhookEventSyncer extends AbstractSyncer
         switch ($stripeObjectData->object) {
             case 'charge':
                 // Get the Charge from the database
-                $localCharge = $this->getEntityManager()->getRepository('SHQStripeBundle:StripeLocalCharge')->findOneByStripeId($stripeObjectData->id);
+                $localCharge = $this->getEntityManager()->getRepository(StripeLocalCharge::class)->findOneByStripeId($stripeObjectData->id);
 
                 // Create the new Local object if it doesn't exist
                 if (null === $localCharge) {
@@ -99,12 +123,12 @@ final class WebhookEventSyncer extends AbstractSyncer
                 }
 
                 // Sync the local object with the remote one
-                $this->getChargeSyncer()->syncLocalFromStripe($localCharge, $stripeObjectData);
+                $this->chargeSyncer->syncLocalFromStripe($localCharge, $stripeObjectData);
                 break;
 
             case 'customer':
                 // Get the Charge from the database
-                $localCustomer = $this->getEntityManager()->getRepository('SHQStripeBundle:StripeLocalCustomer')->findOneByStripeId($stripeObjectData->id);
+                $localCustomer = $this->getEntityManager()->getRepository(StripeLocalCustomer::class)->findOneByStripeId($stripeObjectData->id);
 
                 // Create the new Local object if it doesn't exist
                 if (null === $localCustomer) {
@@ -112,12 +136,12 @@ final class WebhookEventSyncer extends AbstractSyncer
                 }
 
                 // Sync the local object with the remote one
-                $this->getCustomerSyncer()->syncLocalFromStripe($localCustomer, $stripeResource->data->object);
+                $this->customerSyncer->syncLocalFromStripe($localCustomer, $stripeResource->data->object);
                 break;
 
             case 'subscription':
                 // Get the Subscription from the database
-                $localSubscription = $this->getEntityManager()->getRepository('SHQStripeBundle:StripeLocalSubscription')->findOneByStripeId($stripeObjectData->id);
+                $localSubscription = $this->getEntityManager()->getRepository(StripeLocalSubscription::class)->findOneByStripeId($stripeObjectData->id);
 
                 // Create the new Local object if it doesn't exist
                 if (null === $localSubscription) {
@@ -125,14 +149,14 @@ final class WebhookEventSyncer extends AbstractSyncer
                 }
 
                 // Sync the local object with the remote one
-                $this->getSubscriptionSyncer()->syncLocalFromStripe($localSubscription, $stripeResource->data->object);
+                $this->subscriptionSyncer->syncLocalFromStripe($localSubscription, $stripeResource->data->object);
                 break;
 
             case 'source':
                 // If the source is a card, process it (maybe it is a bitcoin source that is not supported)
                 if ('card' === $stripeObjectData->source->object) {
                     // Get the loca l object
-                    $localCard = $this->getEntityManager()->getRepository('SHQStripeBundle:StripeLocalCard')->findOneByStripeId($stripeObjectData->source->id);
+                    $localCard = $this->getEntityManager()->getRepository(StripeLocalCard::class)->findOneByStripeId($stripeObjectData->source->id);
 
                     // Chek if the card exists
                     if (null === $localCard) {
@@ -141,7 +165,7 @@ final class WebhookEventSyncer extends AbstractSyncer
                     }
 
                     // Sync the local card with the remote object
-                    $this->getCardSyncer()->syncLocalFromStripe($localCard, $stripeObjectData->source);
+                    $this->cardSyncer->syncLocalFromStripe($localCard, $stripeObjectData->source);
                 }
                 break;
         }
@@ -149,9 +173,6 @@ final class WebhookEventSyncer extends AbstractSyncer
         $this->getEntityManager()->flush();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function syncStripeFromLocal(ApiResource $stripeResource, StripeLocalResourceInterface $localResource): void
     {
         throw new \BadMethodCallException('You cannot synchronize a Stripe\Event from a StripeLocalWebhookEvent.');

@@ -19,7 +19,7 @@ use SerendipityHQ\Component\ValueObjects\Email\Email;
  *
  * @see https://stripe.com/docs/api#customer_object
  */
-final class StripeLocalCustomer implements StripeLocalResourceInterface
+class StripeLocalCustomer implements StripeLocalResourceInterface
 {
     /** @var string */
     private const CREATE = 'create';
@@ -110,17 +110,17 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this->businessVatId;
     }
 
-    public function getCards(): \Doctrine\Common\Collections\ArrayCollection
+    public function getCards(): ArrayCollection
     {
         return $this->cards;
     }
 
-    public function getCharges(): \Doctrine\Common\Collections\ArrayCollection
+    public function getCharges(): ArrayCollection
     {
         return $this->charges;
     }
 
-    public function getSubscriptions(): \Doctrine\Common\Collections\ArrayCollection
+    public function getSubscriptions(): ArrayCollection
     {
         return $this->subscriptions;
     }
@@ -145,7 +145,7 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this->description;
     }
 
-    public function getEmail(): ?\SerendipityHQ\Component\ValueObjects\Email\Email
+    public function getEmail(): ?Email
     {
         return $this->email;
     }
@@ -247,9 +247,6 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function toStripe(string $action): array
     {
         if (self::CREATE !== $action && 'update' !== $action) {

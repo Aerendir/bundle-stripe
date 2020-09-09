@@ -117,6 +117,7 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             Rector\PHPUnit\Rector\ClassMethod\AddDoesNotPerformAssertionToNonAssertingTestRector::class,
             Rector\Privatization\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector::class,
             Rector\Privatization\Rector\MethodCall\PrivatizeLocalGetterToPropertyRector::class,
+            Rector\SOLID\Rector\Class_\FinalizeClassesWithoutChildrenRector::class,
             Rector\SOLID\Rector\Class_\MakeUnusedClassesWithChildrenAbstractRector::class,
             Rector\SOLID\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector::class,
             Rector\SOLID\Rector\Property\AddFalseDefaultToBoolPropertyRector::class,

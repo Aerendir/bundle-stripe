@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace SerendipityHQ\Bundle\StripeBundle\EventListener;
+namespace SerendipityHQ\Bundle\StripeBundle\Subscriber;
 
 use SerendipityHQ\Bundle\StripeBundle\Event\StripePlanCreateEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripePlanUpdateEvent;
@@ -21,9 +21,6 @@ use Symfony\Components\EventDispatcher\EventDispatcherInterface;
  */
 final class StripePlanSubscriber extends AbstractStripeSubscriber
 {
-    /**
-     * {@inheritdoc}
-     */
     public static function getSubscribedEvents(): array
     {
         return [

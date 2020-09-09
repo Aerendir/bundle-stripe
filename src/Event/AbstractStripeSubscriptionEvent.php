@@ -28,7 +28,7 @@ abstract class AbstractStripeSubscriptionEvent extends AbstractStripeEvent
         $this->localSubscription = $subscription;
     }
 
-    public function getLocalSubscription(): \SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalSubscription
+    public function getLocalSubscription(): StripeLocalSubscription
     {
         return $this->localSubscription;
     }

@@ -17,15 +17,11 @@ use Stripe\ApiResource;
 use Stripe\Card;
 
 /**
- * @author Adamo Crespi <hello@aerendir.me>
- *
  * @see https://stripe.com/docs/api#card_object
  */
 final class CardSyncer extends AbstractSyncer
 {
     /**
-     * {@inheritdoc}
-     *
      * @param Card $stripeResource
      */
     public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource): void
@@ -146,9 +142,6 @@ final class CardSyncer extends AbstractSyncer
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function syncStripeFromLocal(ApiResource $stripeResource, StripeLocalResourceInterface $localResource): void
     {
         /** @var Card $stripeResource */

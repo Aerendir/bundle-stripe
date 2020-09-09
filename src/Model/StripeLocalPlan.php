@@ -16,7 +16,7 @@ use SerendipityHQ\Component\ValueObjects\Money\Money;
 /**
  * @see https://stripe.com/docs/api#plan_object
  */
-final class StripeLocalPlan implements StripeLocalResourceInterface
+class StripeLocalPlan implements StripeLocalResourceInterface
 {
     /** @var string */
     private const CREATE = 'create';
@@ -136,7 +136,7 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
         return $this->object;
     }
 
-    public function getAmount(): \SerendipityHQ\Component\ValueObjects\Money\Money
+    public function getAmount(): Money
     {
         return $this->amount;
     }
@@ -193,7 +193,7 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
         return $this;
     }
 
-    public function setAmount(\SerendipityHQ\Component\ValueObjects\Money\Money $amount): self
+    public function setAmount(Money $amount): self
     {
         if (null === $this->amount) {
             $this->amount = $amount;
@@ -265,9 +265,6 @@ final class StripeLocalPlan implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function toStripe(string $action): array
     {
         if (self::CREATE !== $action && 'update' !== $action) {

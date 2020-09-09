@@ -14,7 +14,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\Model;
 /**
  * @see https://stripe.com/docs/api#subscription_object
  */
-final class StripeLocalSubscription implements StripeLocalResourceInterface
+class StripeLocalSubscription implements StripeLocalResourceInterface
 {
     /** @var string */
     public $source;
@@ -206,7 +206,7 @@ final class StripeLocalSubscription implements StripeLocalResourceInterface
         return $this->created;
     }
 
-    public function getCustomer(): \SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer
+    public function getCustomer(): StripeLocalCustomer
     {
         return $this->customer;
     }
@@ -349,9 +349,6 @@ final class StripeLocalSubscription implements StripeLocalResourceInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function toStripe(string $action): array
     {
         $return = [];

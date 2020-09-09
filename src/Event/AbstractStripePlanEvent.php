@@ -27,7 +27,7 @@ abstract class AbstractStripePlanEvent extends Event
         $this->localPlan = $plan;
     }
 
-    public function getLocalPlan(): \SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalPlan
+    public function getLocalPlan(): StripeLocalPlan
     {
         return $this->localPlan;
     }

@@ -1,0 +1,26 @@
+services:
+    # Also if not perfectly adherent to best practices,
+    # we can be almost secure these dependenies exist in the implementing app.
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            $debug: '%stripe_bundle.debug%'
+            $secretKey: '%stripe_bundle.secret_key%'
+            $statementDescriptor: '%stripe_bundle.statement_descriptor%'
+
+    SerendipityHQ\Bundle\StripeBundle\Command\:
+        resource: '../../Command'
+        tags: [ 'console.command' ]
+    SerendipityHQ\Bundle\StripeBundle\Controller\:
+        resource: '../../Controller'
+        tags: ['controller.service_arguments']
+    SerendipityHQ\Bundle\StripeBundle\Manager\:
+        resource: '../../Manager'
+    SerendipityHQ\Bundle\StripeBundle\Syncer\:
+        resource: '../../Syncer'
+    SerendipityHQ\Bundle\StripeBundle\Subscriber\:
+        resource: '../../Subscriber'
+        tags: ['kernel.event_subscriber']
+    SerendipityHQ\Bundle\StripeBundle\Util\:
+        resource: '../../Util'

@@ -14,9 +14,6 @@ namespace SerendipityHQ\Bundle\StripeBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalSubscription;
 
-/**
- * {@inheritdoc}
- */
 final class StripeLocalSubscriptionRepository extends EntityRepository implements ByStripeIdInterface
 {
     /**

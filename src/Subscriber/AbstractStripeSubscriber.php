@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace SerendipityHQ\Bundle\StripeBundle\EventListener;
+namespace SerendipityHQ\Bundle\StripeBundle\Subscriber;
 
-use SerendipityHQ\Bundle\StripeBundle\Service\StripeManager;
+use SerendipityHQ\Bundle\StripeBundle\Manager\StripeManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -27,7 +27,7 @@ abstract class AbstractStripeSubscriber implements EventSubscriberInterface
         $this->stripeManager = $stripeManager;
     }
 
-    public function getStripeManager(): \SerendipityHQ\Bundle\StripeBundle\Service\StripeManager
+    public function getStripeManager(): StripeManager
     {
         return $this->stripeManager;
     }

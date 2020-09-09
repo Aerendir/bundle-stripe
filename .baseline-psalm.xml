@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="3.15@de6e7f324f44dde540ebe7ebd4eb481b97c86f30">
+  <file src="src/Command/ApiCheckCommand.php">
+    <InternalClass occurrences="1">
+      <code>DoctrineCommand</code>
+    </InternalClass>
+  </file>
   <file src="src/Command/StripeUpdatePlansCommand.php">
     <ImplicitToStringCast occurrences="1">
       <code>$currency</code>
@@ -79,45 +84,39 @@
     </UndefinedMethod>
   </file>
   <file src="src/Controller/WebhookController.php">
-    <MixedArgument occurrences="2">
+    <ArgumentTypeCoercion occurrences="2">
+      <code>\Safe\sprintf('SerendipityHQ\Bundle\StripeBundle\Model\StripeLocal%s', $objectType)</code>
+      <code>$localResource</code>
+    </ArgumentTypeCoercion>
+    <MixedArgument occurrences="6">
+      <code>$content[self::ID]</code>
       <code>$content['type']</code>
       <code>$content['data'][self::OBJECT][self::OBJECT]</code>
-    </MixedArgument>
-    <MixedArrayAccess occurrences="4">
-      <code>$content['data'][self::OBJECT]</code>
-      <code>$content['data'][self::OBJECT]</code>
+      <code>$localWebhookEvent</code>
       <code>$guessedDispatchingEvent['type']</code>
       <code>$guessedDispatchingEvent[self::OBJECT]</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="2">
+      <code>$content['data'][self::OBJECT]</code>
+      <code>$content['data'][self::OBJECT]</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="4">
-      <code>$stripeWebhookEvent</code>
+    <MixedAssignment occurrences="1">
       <code>$localWebhookEvent</code>
-      <code>$localResource</code>
-      <code>$guessedDispatchingEvent</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="9">
-      <code>retrieveEvent</code>
-      <code>getRepository</code>
-      <code>findOneByStripeId</code>
-      <code>getRepository</code>
-      <code>findOneBy</code>
-      <code>removeLocal</code>
-      <code>syncLocalFromStripe</code>
-      <code>guess</code>
-      <code>dispatch</code>
-    </MixedMethodCall>
-    <MixedPropertyFetch occurrences="1">
-      <code>$stripeWebhookEvent-&gt;id</code>
-    </MixedPropertyFetch>
-    <PossiblyInvalidArgument occurrences="1">
+    <PossiblyInvalidArgument occurrences="3">
       <code>$request-&gt;getContent()</code>
+      <code>$stripeWebhookEvent</code>
+      <code>$stripeWebhookEvent</code>
     </PossiblyInvalidArgument>
-    <PossiblyUndefinedVariable occurrences="1">
-      <code>$localResource</code>
-    </PossiblyUndefinedVariable>
+    <PossiblyInvalidMethodCall occurrences="1">
+      <code>id</code>
+    </PossiblyInvalidMethodCall>
+    <PossiblyInvalidPropertyFetch occurrences="1">
+      <code>$stripeWebhookEvent-&gt;id</code>
+    </PossiblyInvalidPropertyFetch>
   </file>
   <file src="src/DependencyInjection/Configuration.php">
-    <MixedMethodCall occurrences="37">
+    <MixedMethodCall occurrences="34">
       <code>booleanNode</code>
       <code>end</code>
       <code>scalarNode</code>
@@ -128,9 +127,6 @@
       <code>cannotBeOverwritten</code>
       <code>defaultValue</code>
       <code>cannotBeEmpty</code>
-      <code>end</code>
-      <code>scalarNode</code>
-      <code>defaultNull</code>
       <code>end</code>
       <code>arrayNode</code>
       <code>isRequired</code>
@@ -193,58 +189,103 @@
       <code>getSource</code>
     </UndefinedMethod>
   </file>
-  <file src="src/EventListener/StripeChargeSubscriber.php">
-    <MismatchingDocblockParamType occurrences="1">
-      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
-    </MismatchingDocblockParamType>
-    <UndefinedClass occurrences="1">
-      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
-    </UndefinedClass>
-    <UndefinedDocblockClass occurrences="1">
-      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
-    </UndefinedDocblockClass>
-  </file>
-  <file src="src/EventListener/StripeCustomerSubscriber.php">
-    <MismatchingDocblockParamType occurrences="2">
-      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
-      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
-    </MismatchingDocblockParamType>
-    <UndefinedClass occurrences="2">
-      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
-      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
-    </UndefinedClass>
-    <UndefinedDocblockClass occurrences="2">
-      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
-      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
-    </UndefinedDocblockClass>
-  </file>
-  <file src="src/EventListener/StripePlanSubscriber.php">
-    <MismatchingDocblockParamType occurrences="2">
-      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
-      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
-    </MismatchingDocblockParamType>
-    <UndefinedClass occurrences="2">
-      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
-      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
-    </UndefinedClass>
-    <UndefinedDocblockClass occurrences="2">
-      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
-      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
-    </UndefinedDocblockClass>
-  </file>
-  <file src="src/EventListener/StripeSubscriptionSubscriber.php">
-    <MismatchingDocblockParamType occurrences="2">
-      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
-      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
-    </MismatchingDocblockParamType>
-    <UndefinedClass occurrences="2">
-      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
-      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
-    </UndefinedClass>
-    <UndefinedDocblockClass occurrences="2">
-      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
-      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
-    </UndefinedDocblockClass>
+  <file src="src/Manager/StripeManager.php">
+    <DocblockTypeContradiction occurrences="4">
+      <code>\is_null($this-&gt;statementDescriptor)</code>
+      <code>false === $stripeCustomer</code>
+      <code>false === $stripePlan</code>
+      <code>null === $this-&gt;logger</code>
+    </DocblockTypeContradiction>
+    <InvalidStringClass occurrences="4">
+      <code>$endpoint::$action($options)</code>
+      <code>$endpoint::$action($arguments[self::ID], $options)</code>
+      <code>$endpoint::$action($params, $options)</code>
+      <code>$endpoint::$action($arguments[self::ID], $params, $options)</code>
+    </InvalidStringClass>
+    <MismatchingDocblockReturnType occurrences="1">
+      <code>array|null</code>
+    </MismatchingDocblockReturnType>
+    <MixedArrayAccess occurrences="5">
+      <code>$e-&gt;getJsonBody()[self::ERROR][self::TYPE]</code>
+      <code>$e-&gt;getJsonBody()[self::ERROR][self::CODE]</code>
+      <code>$e-&gt;getJsonBody()[self::ERROR]['decline_code']</code>
+      <code>$body[self::ERROR]</code>
+      <code>$e-&gt;getJsonBody()[self::ERROR][self::TYPE]</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="17">
+      <code>$options</code>
+      <code>$return</code>
+      <code>$options</code>
+      <code>$return</code>
+      <code>$params</code>
+      <code>$options</code>
+      <code>$return</code>
+      <code>$params</code>
+      <code>$options</code>
+      <code>$return</code>
+      <code>$return</code>
+      <code>$return</code>
+      <code>$params</code>
+      <code>$options</code>
+      <code>$return</code>
+      <code>$body</code>
+      <code>$err</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="4">
+      <code>ApiResource|bool</code>
+      <code>ApiResource|bool</code>
+      <code>array|null</code>
+      <code>bool|string</code>
+    </MixedInferredReturnType>
+    <MixedOperand occurrences="4">
+      <code>$e-&gt;getJsonBody()[self::ERROR][self::TYPE]</code>
+      <code>$e-&gt;getJsonBody()[self::ERROR][self::CODE]</code>
+      <code>$e-&gt;getJsonBody()[self::ERROR]['decline_code']</code>
+      <code>$e-&gt;getJsonBody()[self::ERROR][self::TYPE]</code>
+    </MixedOperand>
+    <MixedReturnStatement occurrences="2">
+      <code>$return</code>
+      <code>$return</code>
+    </MixedReturnStatement>
+    <NullReference occurrences="1">
+      <code>error</code>
+    </NullReference>
+    <PossiblyInvalidArgument occurrences="11">
+      <code>$stripeCharge</code>
+      <code>$stripeSubscription</code>
+      <code>$stripeSubscription</code>
+      <code>$stripeCustomer</code>
+      <code>$stripeCustomer</code>
+      <code>$stripeCustomer</code>
+      <code>$stripeCustomer</code>
+      <code>$stripePlan</code>
+      <code>$stripePlan</code>
+      <code>$stripePlan</code>
+      <code>$stripePlan</code>
+    </PossiblyInvalidArgument>
+    <PossiblyNullArrayAccess occurrences="3">
+      <code>$e-&gt;getJsonBody()[self::ERROR]</code>
+      <code>$e-&gt;getJsonBody()[self::ERROR]</code>
+      <code>$e-&gt;getJsonBody()[self::ERROR]</code>
+    </PossiblyNullArrayAccess>
+    <PossiblyNullPropertyAssignmentValue occurrences="1">
+      <code>$logger instanceof Logger ? $logger-&gt;withName('SHQStripeBundle') : $logger</code>
+    </PossiblyNullPropertyAssignmentValue>
+    <PossiblyUndefinedMethod occurrences="6">
+      <code>getJsonBody</code>
+      <code>getHttpStatus</code>
+      <code>getJsonBody</code>
+      <code>getHttpStatus</code>
+      <code>getRequestId</code>
+      <code>getHttpHeaders</code>
+    </PossiblyUndefinedMethod>
+    <RedundantConditionGivenDocblockType occurrences="1">
+      <code>false === isset($params['statement_descriptor']) &amp;&amp; false === \is_null($this-&gt;statementDescriptor)</code>
+    </RedundantConditionGivenDocblockType>
+    <TypeDoesNotContainNull occurrences="2">
+      <code>null === $localCustomer-&gt;getId()</code>
+      <code>null === $localSubscription-&gt;getId()</code>
+    </TypeDoesNotContainNull>
   </file>
   <file src="src/Model/StripeLocalCard.php">
     <PropertyNotSetInConstructor occurrences="9">
@@ -286,6 +327,9 @@
     <PossiblyInvalidPropertyAssignmentValue occurrences="1">
       <code>$metadata</code>
     </PossiblyInvalidPropertyAssignmentValue>
+    <PossiblyNullReference occurrences="1">
+      <code>getEmail</code>
+    </PossiblyNullReference>
     <PropertyTypeCoercion occurrences="1">
       <code>$amount</code>
     </PropertyTypeCoercion>
@@ -301,30 +345,30 @@
     <MismatchingDocblockReturnType occurrences="1">
       <code>mixed</code>
     </MismatchingDocblockReturnType>
-    <MixedArgument occurrences="1">
+    <MixedArgument occurrences="2">
+      <code>$this-&gt;getMetadata()</code>
       <code>\Safe\json_decode($this-&gt;getMetadata(), true)</code>
     </MixedArgument>
     <MixedAssignment occurrences="1">
       <code>$return['metadata']</code>
     </MixedAssignment>
-    <PropertyNotSetInConstructor occurrences="11">
+    <PossiblyNullReference occurrences="1">
+      <code>getEmail</code>
+    </PossiblyNullReference>
+    <PropertyNotSetInConstructor occurrences="9">
       <code>$id</code>
-      <code>$accountBalance</code>
       <code>$businessVatId</code>
       <code>$created</code>
       <code>$currency</code>
       <code>$delinquent</code>
       <code>$description</code>
-      <code>$email</code>
       <code>$livemode</code>
       <code>$metadata</code>
       <code>$newSource</code>
     </PropertyNotSetInConstructor>
-    <RedundantCondition occurrences="5">
-      <code>null !== $this-&gt;getAccountBalance()</code>
+    <RedundantCondition occurrences="3">
       <code>null !== $this-&gt;getBusinessVatId()</code>
       <code>null !== $this-&gt;getDescription()</code>
-      <code>null !== $this-&gt;getEmail()</code>
       <code>null !== $this-&gt;getNewSource()</code>
     </RedundantCondition>
   </file>
@@ -492,121 +536,63 @@
       <code>object|StripeLocalWebhookEvent|null</code>
     </MixedInferredReturnType>
   </file>
-  <file src="src/Service/EventGuesser.php">
-    <MissingParamType occurrences="1">
-      <code>$type</code>
-    </MissingParamType>
-    <MixedArgument occurrences="2">
-      <code>$type</code>
-      <code>$type</code>
-    </MixedArgument>
-    <MixedOperand occurrences="19">
-      <code>$pieces[self::TYPE]</code>
-      <code>$pieces[self::TYPE]</code>
-      <code>$pieces[self::TYPE]</code>
-      <code>$pieces[self::TYPE]</code>
-      <code>$pieces[self::TYPE]</code>
-      <code>$pieces[self::TYPE]</code>
-      <code>$pieces[self::TYPE]</code>
-      <code>$pieces[self::TYPE]</code>
-      <code>$pieces[self::TYPE]</code>
-      <code>$pieces[self::TYPE]</code>
-      <code>$pieces[self::TYPE]</code>
-      <code>$pieces[self::TYPE]</code>
-      <code>$pieces[self::TYPE]</code>
-      <code>$pieces[self::TYPE]</code>
-      <code>$pieces[self::TYPE]</code>
-      <code>$pieces[self::TYPE]</code>
-      <code>$pieces[self::TYPE]</code>
-      <code>$pieces[self::TYPE]</code>
-      <code>$pieces[self::TYPE]</code>
-    </MixedOperand>
-    <PossiblyFalseArgument occurrences="1">
-      <code>$dotPosition</code>
-    </PossiblyFalseArgument>
-  </file>
-  <file src="src/Service/StripeManager.php">
-    <DocblockTypeContradiction occurrences="3">
-      <code>\is_null($this-&gt;statementDescriptor)</code>
-      <code>false === $stripeCustomer</code>
-      <code>false === $stripePlan</code>
-    </DocblockTypeContradiction>
-    <InvalidStringClass occurrences="4">
-      <code>$endpoint::$action($options)</code>
-      <code>$endpoint::$action($arguments[self::ID], $options)</code>
-      <code>$endpoint::$action($params, $options)</code>
-      <code>$endpoint::$action($arguments[self::ID], $params, $options)</code>
-    </InvalidStringClass>
+  <file src="src/Subscriber/StripeChargeSubscriber.php">
     <MismatchingDocblockParamType occurrences="1">
-      <code>\Exception</code>
+      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
     </MismatchingDocblockParamType>
-    <MismatchingDocblockReturnType occurrences="1">
-      <code>array|null</code>
-    </MismatchingDocblockReturnType>
-    <MixedAssignment occurrences="15">
-      <code>$options</code>
-      <code>$return</code>
-      <code>$options</code>
-      <code>$return</code>
-      <code>$params</code>
-      <code>$options</code>
-      <code>$return</code>
-      <code>$params</code>
-      <code>$options</code>
-      <code>$return</code>
-      <code>$return</code>
-      <code>$return</code>
-      <code>$params</code>
-      <code>$options</code>
-      <code>$return</code>
-    </MixedAssignment>
-    <MixedInferredReturnType occurrences="4">
-      <code>ApiResource|bool</code>
-      <code>ApiResource|bool</code>
-      <code>array|null</code>
-      <code>bool|string</code>
-    </MixedInferredReturnType>
-    <PossiblyInvalidArgument occurrences="11">
-      <code>$stripeCharge</code>
-      <code>$stripeSubscription</code>
-      <code>$stripeSubscription</code>
-      <code>$stripeCustomer</code>
-      <code>$stripeCustomer</code>
-      <code>$stripeCustomer</code>
-      <code>$stripeCustomer</code>
-      <code>$stripePlan</code>
-      <code>$stripePlan</code>
-      <code>$stripePlan</code>
-      <code>$stripePlan</code>
-    </PossiblyInvalidArgument>
-    <PossiblyNullPropertyAssignmentValue occurrences="1">
-      <code>$logger instanceof Logger ? $logger-&gt;withName('SHQStripeBundle') : $logger</code>
-    </PossiblyNullPropertyAssignmentValue>
-    <RedundantConditionGivenDocblockType occurrences="1">
-      <code>false === isset($params['statement_descriptor']) &amp;&amp; false === \is_null($this-&gt;statementDescriptor)</code>
-    </RedundantConditionGivenDocblockType>
-    <TypeDoesNotContainNull occurrences="2">
-      <code>null === $localCustomer-&gt;getId()</code>
-      <code>null === $localSubscription-&gt;getId()</code>
-    </TypeDoesNotContainNull>
-    <UndefinedClass occurrences="3">
-      <code>Base</code>
-      <code>Base</code>
-      <code>\Exception</code>
+    <UndefinedClass occurrences="1">
+      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
     </UndefinedClass>
-    <UndefinedDocblockClass occurrences="6">
-      <code>InvalidRequest</code>
-      <code>InvalidRequest</code>
-      <code>ApiResource|bool|Collection</code>
-      <code>InvalidRequest</code>
-      <code>InvalidRequest</code>
-      <code>InvalidRequest</code>
+    <UndefinedDocblockClass occurrences="1">
+      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="src/Subscriber/StripeCustomerSubscriber.php">
+    <MismatchingDocblockParamType occurrences="1">
+      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
+    </MismatchingDocblockParamType>
+    <MissingParamType occurrences="1">
+      <code>$eventName</code>
+    </MissingParamType>
+    <PossiblyNullArgument occurrences="1">
+      <code>$this-&gt;getStripeManager()-&gt;getError()</code>
+    </PossiblyNullArgument>
+    <RedundantCondition occurrences="1">
+      <code>null !== $currency</code>
+    </RedundantCondition>
+    <UndefinedDocblockClass occurrences="1">
+      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="src/Subscriber/StripePlanSubscriber.php">
+    <MismatchingDocblockParamType occurrences="2">
+      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
+      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
+    </MismatchingDocblockParamType>
+    <UndefinedClass occurrences="2">
+      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
+      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
+    </UndefinedClass>
+    <UndefinedDocblockClass occurrences="2">
+      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
+      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="src/Subscriber/StripeSubscriptionSubscriber.php">
+    <MismatchingDocblockParamType occurrences="2">
+      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
+      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
+    </MismatchingDocblockParamType>
+    <UndefinedClass occurrences="2">
+      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
+      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
+    </UndefinedClass>
+    <UndefinedDocblockClass occurrences="2">
+      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
+      <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
     </UndefinedDocblockClass>
   </file>
   <file src="src/Syncer/AbstractSyncer.php">
-    <ArgumentTypeCoercion occurrences="1">
-      <code>'SHQStripeBundle:StripeLocalCustomer'</code>
-    </ArgumentTypeCoercion>
     <LessSpecificReturnStatement occurrences="1">
       <code>$this-&gt;getEntityManager()-&gt;getUnitOfWork()-&gt;tryGetById($stripeCustomerId, StripeLocalCustomer::class)</code>
     </LessSpecificReturnStatement>
@@ -622,16 +608,6 @@
     <MixedReturnStatement occurrences="1">
       <code>$localCustomer</code>
     </MixedReturnStatement>
-    <PropertyNotSetInConstructor occurrences="5">
-      <code>$cardSyncer</code>
-      <code>$chargeSyncer</code>
-      <code>$subscriptionSyncer</code>
-      <code>$planSyncer</code>
-      <code>$customerSyncer</code>
-    </PropertyNotSetInConstructor>
-    <UndefinedClass occurrences="1">
-      <code>'SHQStripeBundle:StripeLocalCustomer'</code>
-    </UndefinedClass>
   </file>
   <file src="src/Syncer/CardSyncer.php">
     <DocblockTypeContradiction occurrences="4">
@@ -658,19 +634,14 @@
       <code>$stripeResource-&gt;expYear</code>
       <code>$stripeResource-&gt;tokenizationMethod</code>
     </UndefinedMagicPropertyFetch>
-    <UndefinedMethod occurrences="1">
-      <code>__toArray</code>
-    </UndefinedMethod>
   </file>
   <file src="src/Syncer/ChargeSyncer.php">
-    <ArgumentTypeCoercion occurrences="2">
-      <code>'SHQStripeBundle:StripeLocalCard'</code>
+    <ArgumentTypeCoercion occurrences="1">
       <code>$stripeResource-&gt;source</code>
     </ArgumentTypeCoercion>
-    <DocblockTypeContradiction occurrences="5">
+    <DocblockTypeContradiction occurrences="4">
       <code>$localResource instanceof StripeLocalCharge</code>
       <code>$stripeResource instanceof Charge</code>
-      <code>$stripeResource-&gt;metadata instanceof AttachedObject</code>
       <code>$stripeResource instanceof Charge</code>
       <code>$localResource instanceof StripeLocalCharge</code>
     </DocblockTypeContradiction>
@@ -683,15 +654,13 @@
     <MixedArrayAccess occurrences="1">
       <code>$error['error']['charge']</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="5">
+    <MixedAssignment occurrences="3">
       <code>$fraudDetails</code>
       <code>$fraudDetails</code>
-      <code>$metadata</code>
-      <code>$outcome</code>
       <code>$localCard</code>
     </MixedAssignment>
     <MixedMethodCall occurrences="1">
-      <code>__toArray</code>
+      <code>toArray</code>
     </MixedMethodCall>
     <PossiblyNullArgument occurrences="1">
       <code>$stripeResource-&gt;source</code>
@@ -700,14 +669,12 @@
       <code>$stripeResource-&gt;source-&gt;id</code>
     </PossiblyNullPropertyFetch>
     <PossiblyNullReference occurrences="2">
-      <code>__toArray</code>
+      <code>toArray</code>
       <code>setError</code>
     </PossiblyNullReference>
-    <UndefinedClass occurrences="3">
-      <code>AttachedObject</code>
-      <code>AttachedObject</code>
-      <code>'SHQStripeBundle:StripeLocalCard'</code>
-    </UndefinedClass>
+    <RedundantConditionGivenDocblockType occurrences="1">
+      <code>$stripeResource-&gt;metadata instanceof StripeObject</code>
+    </RedundantConditionGivenDocblockType>
     <UndefinedMagicPropertyFetch occurrences="7">
       <code>$stripeResource-&gt;balanceTransaction</code>
       <code>$stripeResource-&gt;failureCode</code>
@@ -717,10 +684,6 @@
       <code>$stripeResource-&gt;receiptNumber</code>
       <code>$stripeResource-&gt;statementDescriptor</code>
     </UndefinedMagicPropertyFetch>
-    <UndefinedMethod occurrences="2">
-      <code>__toArray</code>
-      <code>__toArray</code>
-    </UndefinedMethod>
   </file>
   <file src="src/Syncer/CustomerSyncer.php">
     <DocblockTypeContradiction occurrences="6">
@@ -734,27 +697,34 @@
     <ImplicitToStringCast occurrences="1">
       <code>$localResource-&gt;getEmail()</code>
     </ImplicitToStringCast>
-    <MixedArgument occurrences="1">
+    <MixedArgument occurrences="3">
+      <code>$localCard</code>
+      <code>$stripeDefaultCard</code>
       <code>$card</code>
     </MixedArgument>
-    <MixedAssignment occurrences="1">
+    <MixedAssignment occurrences="3">
+      <code>$stripeDefaultCard</code>
+      <code>$localCard</code>
       <code>$card</code>
     </MixedAssignment>
-    <RedundantCondition occurrences="5">
-      <code>null !== $localResource-&gt;getAccountBalance()</code>
+    <MixedPropertyFetch occurrences="1">
+      <code>$stripeDefaultCard-&gt;id</code>
+    </MixedPropertyFetch>
+    <RedundantCondition occurrences="3">
       <code>null !== $localResource-&gt;getBusinessVatId()</code>
       <code>null !== $localResource-&gt;getNewSource()</code>
       <code>null !== $localResource-&gt;getDescription()</code>
-      <code>null !== $localResource-&gt;getEmail()</code>
     </RedundantCondition>
-    <UndefinedClass occurrences="1">
-      <code>Proxy</code>
-    </UndefinedClass>
     <UndefinedMagicPropertyAssignment occurrences="3">
       <code>$stripeResource-&gt;accountBalance</code>
       <code>$stripeResource-&gt;businessVatId</code>
       <code>$stripeResource-&gt;source</code>
     </UndefinedMagicPropertyAssignment>
+    <UndefinedMagicPropertyFetch occurrences="3">
+      <code>$stripeResource-&gt;accountBalance</code>
+      <code>$stripeResource-&gt;defaultSource</code>
+      <code>$stripeResource-&gt;defaultSource</code>
+    </UndefinedMagicPropertyFetch>
   </file>
   <file src="src/Syncer/PlanSyncer.php">
     <DocblockTypeContradiction occurrences="6">
@@ -803,12 +773,6 @@
     </UndefinedMagicPropertyFetch>
   </file>
   <file src="src/Syncer/WebhookEventSyncer.php">
-    <ArgumentTypeCoercion occurrences="4">
-      <code>'SHQStripeBundle:StripeLocalCharge'</code>
-      <code>'SHQStripeBundle:StripeLocalCustomer'</code>
-      <code>'SHQStripeBundle:StripeLocalSubscription'</code>
-      <code>'SHQStripeBundle:StripeLocalCard'</code>
-    </ArgumentTypeCoercion>
     <MixedArgument occurrences="8">
       <code>$localCharge</code>
       <code>$stripeObjectData</code>
@@ -838,15 +802,42 @@
       <code>$localResource instanceof StripeLocalWebhookEvent</code>
       <code>$stripeResource instanceof Event</code>
     </RedundantConditionGivenDocblockType>
-    <UndefinedClass occurrences="4">
-      <code>'SHQStripeBundle:StripeLocalCharge'</code>
-      <code>'SHQStripeBundle:StripeLocalCustomer'</code>
-      <code>'SHQStripeBundle:StripeLocalSubscription'</code>
-      <code>'SHQStripeBundle:StripeLocalCard'</code>
-    </UndefinedClass>
     <UndefinedMagicPropertyFetch occurrences="1">
       <code>$stripeResource-&gt;pendingWebhooks</code>
     </UndefinedMagicPropertyFetch>
+  </file>
+  <file src="src/Util/EventGuesser.php">
+    <MissingParamType occurrences="1">
+      <code>$type</code>
+    </MissingParamType>
+    <MixedArgument occurrences="2">
+      <code>$type</code>
+      <code>$type</code>
+    </MixedArgument>
+    <MixedOperand occurrences="19">
+      <code>$pieces[self::TYPE]</code>
+      <code>$pieces[self::TYPE]</code>
+      <code>$pieces[self::TYPE]</code>
+      <code>$pieces[self::TYPE]</code>
+      <code>$pieces[self::TYPE]</code>
+      <code>$pieces[self::TYPE]</code>
+      <code>$pieces[self::TYPE]</code>
+      <code>$pieces[self::TYPE]</code>
+      <code>$pieces[self::TYPE]</code>
+      <code>$pieces[self::TYPE]</code>
+      <code>$pieces[self::TYPE]</code>
+      <code>$pieces[self::TYPE]</code>
+      <code>$pieces[self::TYPE]</code>
+      <code>$pieces[self::TYPE]</code>
+      <code>$pieces[self::TYPE]</code>
+      <code>$pieces[self::TYPE]</code>
+      <code>$pieces[self::TYPE]</code>
+      <code>$pieces[self::TYPE]</code>
+      <code>$pieces[self::TYPE]</code>
+    </MixedOperand>
+    <PossiblyFalseArgument occurrences="1">
+      <code>$dotPosition</code>
+    </PossiblyFalseArgument>
   </file>
   <file src="tests/DependencyInjection/AbstractStripeBundleExtensionTest.php">
     <MissingParamType occurrences="1">

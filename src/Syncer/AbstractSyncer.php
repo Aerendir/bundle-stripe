@@ -11,7 +11,7 @@
 
 namespace SerendipityHQ\Bundle\StripeBundle\Syncer;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
 
 /**
@@ -21,82 +21,17 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
  */
 abstract class AbstractSyncer implements SyncerInterface
 {
-    /** @var EntityManager $entityManager */
+    /** @var EntityManagerInterface $entityManager */
     private $entityManager;
 
-    /** @var CardSyncer $cardSyncer */
-    private $cardSyncer;
-
-    /** @var ChargeSyncer $chargeSyncer */
-    private $chargeSyncer;
-
-    /** @var SubscriptionSyncer $subscriptionSyncer */
-    private $subscriptionSyncer;
-
-    /** @var PlanSyncer $planSyncer */
-    private $planSyncer;
-
-    /** @var CustomerSyncer $customerSyncer */
-    private $customerSyncer;
-
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }
 
-    public function getEntityManager(): EntityManager
+    public function getEntityManager(): EntityManagerInterface
     {
         return $this->entityManager;
-    }
-
-    public function getCardSyncer(): CardSyncer
-    {
-        return $this->cardSyncer;
-    }
-
-    public function getChargeSyncer(): ChargeSyncer
-    {
-        return $this->chargeSyncer;
-    }
-
-    public function getSubscriptionSyncer(): SubscriptionSyncer
-    {
-        return $this->subscriptionSyncer;
-    }
-
-    public function getPlanSyncer(): \SerendipityHQ\Bundle\StripeBundle\Syncer\PlanSyncer
-    {
-        return $this->planSyncer;
-    }
-
-    public function getCustomerSyncer(): CustomerSyncer
-    {
-        return $this->customerSyncer;
-    }
-
-    public function setCardSyncer(CardSyncer $cardSyncer)
-    {
-        $this->cardSyncer = $cardSyncer;
-    }
-
-    public function setChargeSyncer(ChargeSyncer $chargeSyncer)
-    {
-        $this->chargeSyncer = $chargeSyncer;
-    }
-
-    public function setSubscriptionSyncer(SubscriptionSyncer $subscriptionSyncer)
-    {
-        $this->subscriptionSyncer = $subscriptionSyncer;
-    }
-
-    public function setPlanSyncer(PlanSyncer $planSyncer)
-    {
-        $this->planSyncer = $planSyncer;
-    }
-
-    public function setCustomerSyncer(CustomerSyncer $customerSyncer)
-    {
-        $this->customerSyncer = $customerSyncer;
     }
 
     /**
@@ -110,7 +45,7 @@ abstract class AbstractSyncer implements SyncerInterface
     protected function getLocalCustomer($stripeCustomerId)
     {
         // First try to get the customer from the database
-        $localCustomer = $this->getEntityManager()->getRepository('SHQStripeBundle:StripeLocalCustomer')->findOneByStripeId($stripeCustomerId);
+        $localCustomer = $this->getEntityManager()->getRepository(StripeLocalCustomer::class)->findOneByStripeId($stripeCustomerId);
 
         // If we found it, return it
         if (null !== $localCustomer) {

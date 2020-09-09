@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace SerendipityHQ\Bundle\StripeBundle\EventListener;
+namespace SerendipityHQ\Bundle\StripeBundle\Subscriber;
 
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeSubscriptionCancelEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeSubscriptionCreateEvent;
@@ -21,9 +21,6 @@ use Symfony\Components\EventDispatcher\EventDispatcherInterface;
  */
 final class StripeSubscriptionSubscriber extends AbstractStripeSubscriber
 {
-    /**
-     * {@inheritdoc}
-     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -33,8 +30,6 @@ final class StripeSubscriptionSubscriber extends AbstractStripeSubscriber
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @param $eventName
      * @param ContainerAwareEventDispatcher|EventDispatcherInterface $dispatcher
      */
@@ -60,8 +55,6 @@ final class StripeSubscriptionSubscriber extends AbstractStripeSubscriber
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @param $eventName
      * @param ContainerAwareEventDispatcher|EventDispatcherInterface $dispatcher
      */

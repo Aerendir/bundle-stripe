@@ -21,9 +21,6 @@ use Stripe\Subscription;
  */
 final class SubscriptionSyncer extends AbstractSyncer
 {
-    /**
-     * {@inheritdoc}
-     */
     public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource): void
     {
         /** @var StripeLocalSubscription $localResource */
@@ -131,9 +128,6 @@ final class SubscriptionSyncer extends AbstractSyncer
         $this->getEntityManager()->flush();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function syncStripeFromLocal(ApiResource $stripeResource, StripeLocalResourceInterface $localResource): void
     {
         /** @var Subscription $stripeResource */
@@ -149,9 +143,6 @@ final class SubscriptionSyncer extends AbstractSyncer
         throw new \RuntimeException('Method not yet implemented');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function removeLocal(StripeLocalResourceInterface $localResource): void
     {
         $this->getEntityManager()->remove($localResource);

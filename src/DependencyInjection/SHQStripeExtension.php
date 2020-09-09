@@ -17,8 +17,6 @@ use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
- * {@inheritdoc}
- *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
 final class SHQStripeExtension extends Extension
@@ -28,9 +26,6 @@ final class SHQStripeExtension extends Extension
     /** @var string */
     private const STRIPE_CONFIG = 'stripe_config';
 
-    /**
-     * {@inheritdoc}
-     */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
@@ -46,19 +41,19 @@ final class SHQStripeExtension extends Extension
         // Set parameters in the container
         $container->setParameter('stripe_bundle.db_driver', $config[self::DB_DRIVER]);
         $container->setParameter(\Safe\sprintf('stripe_bundle.backend_%s', $config[self::DB_DRIVER]), true);
-        $container->setParameter('stripe_bundle.model_manager_name', $config['model_manager_name']);
         $container->setParameter('stripe_bundle.secret_key', $config[self::STRIPE_CONFIG]['secret_key']);
         $container->setParameter('stripe_bundle.publishable_key', $config[self::STRIPE_CONFIG]['publishable_key']);
         $container->setParameter('stripe_bundle.debug', $debug);
         $container->setParameter('stripe_bundle.statement_descriptor', $config[self::STRIPE_CONFIG]['statement_descriptor']);
         $container->setParameter('stripe_bundle.endpoint', $config['endpoint']);
 
-        $filelocator = new FileLocator(__DIR__ . '/../Resources/config');
-        $xmlLoader   = new Loader\XmlFileLoader($container, $filelocator);
-        $xmlLoader->load('listeners.xml');
-        $xmlLoader->load('services.xml');
+        $fileLocator      = new FileLocator(__DIR__ . '/../Resources/config');
+        $yamlFileLoader   = new Loader\YamlFileLoader($container, $fileLocator);
+        $yamlFileLoader->load('services.yaml');
+
+        $xmlFileLoader   = new Loader\XmlFileLoader($container, $fileLocator);
 
         // load db_driver container configuration
-        $xmlLoader->load(\Safe\sprintf('%s.xml', $config[self::DB_DRIVER]));
+        $xmlFileLoader->load(\Safe\sprintf('%s.xml', $config[self::DB_DRIVER]));
     }
 }

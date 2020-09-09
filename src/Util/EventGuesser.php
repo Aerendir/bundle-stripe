@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace SerendipityHQ\Bundle\StripeBundle\Service;
+namespace SerendipityHQ\Bundle\StripeBundle\Util;
 
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookAccountEventEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookApplicationFeeEventEvent;
