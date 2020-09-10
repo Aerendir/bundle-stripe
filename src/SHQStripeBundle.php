@@ -19,6 +19,8 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 final class SHQStripeBundle extends Bundle
 {
+    public const SUPPORTED_STRIPE_API = '2017-08-15';
+
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);

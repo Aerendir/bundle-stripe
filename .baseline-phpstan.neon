@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\ApiOutdatedCommand\\:\\:scrapeApiVersions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Command/ApiOutdatedCommand.php
+
+		-
 			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\StripeUpdatePlansCommand\\:\\:getContainer\\(\\)\\.$#"
 			count: 3
 			path: src/Command/StripeUpdatePlansCommand.php
