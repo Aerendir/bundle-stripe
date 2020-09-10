@@ -1,10 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="3.15@de6e7f324f44dde540ebe7ebd4eb481b97c86f30">
   <file src="src/Command/ApiOutdatedCommand.php">
+    <ArgumentTypeCoercion occurrences="2">
+      <code>$class</code>
+      <code>$namespace</code>
+    </ArgumentTypeCoercion>
+    <MixedArgument occurrences="6">
+      <code>$match[0]</code>
+      <code>$localModelClass</code>
+      <code>$sdkModelClasses[$localModelName]</code>
+      <code>$fileName</code>
+      <code>$localModelClass::IGNORE</code>
+      <code>$localModelClass::IGNORE_MODEL</code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="1">
+      <code>$localModelName</code>
+    </MixedArgumentTypeCoercion>
+    <MixedAssignment occurrences="3">
+      <code>$localModelClass</code>
+      <code>$file</code>
+      <code>$fileName</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="1">
+      <code>array&lt;array-key, ReflectionProperty&gt;</code>
+    </MixedInferredReturnType>
+    <MixedMethodCall occurrences="2">
+      <code>getFilename</code>
+      <code>getExtension</code>
+    </MixedMethodCall>
+    <MixedOperand occurrences="1">
+      <code>$file-&gt;getExtension()</code>
+    </MixedOperand>
     <MixedReturnTypeCoercion occurrences="2">
       <code>\array_values($apiVersions)</code>
       <code>array&lt;array-key,string&gt;</code>
     </MixedReturnTypeCoercion>
+    <UndefinedDocblockClass occurrences="1">
+      <code>array&lt;array-key, ReflectionProperty&gt;</code>
+    </UndefinedDocblockClass>
   </file>
   <file src="src/Controller/WebhookController.php">
     <ArgumentTypeCoercion occurrences="2">
@@ -553,5 +586,24 @@
     <MixedArrayAccess occurrences="1">
       <code>$this-&gt;container-&gt;getParameter('stripe_bundle.endpoint')['route_name']</code>
     </MixedArrayAccess>
+  </file>
+  <file src="tests/ModelTestCase.php">
+    <MixedArrayOffset occurrences="2">
+      <code>$data[$reflectedProperty-&gt;getName()]</code>
+      <code>$data[$reflectedProperty-&gt;getName()]</code>
+    </MixedArrayOffset>
+    <MixedAssignment occurrences="2">
+      <code>$resourceProperties</code>
+      <code>$reflectedProperty</code>
+    </MixedAssignment>
+    <MixedMethodCall occurrences="4">
+      <code>getName</code>
+      <code>setAccessible</code>
+      <code>setValue</code>
+      <code>getName</code>
+    </MixedMethodCall>
+    <UndefinedMethod occurrences="1">
+      <code>getLocalModelProperties</code>
+    </UndefinedMethod>
   </file>
 </files>

@@ -21,13 +21,79 @@ use SerendipityHQ\Component\ValueObjects\Email\Email;
  */
 class StripeLocalCustomer implements StripeLocalResourceInterface
 {
+    /** @var array<array-key, string> Properties to ignore when populating the Model */
+    public const IGNORE = [
+        // This is required by Doctrine to create the relation between Card and Charges
+        'cards',
+
+        // This is required by Doctrine to create the relation between Card and Charges
+        'charges',
+
+        // This is used by the bundle to manage the creation of a new source for the Customer
+        'newSource',
+    ];
+
+    /** @var array<array-key, string> Properties of the SDK model classes to ignore when populating the local Model */
+    public const IGNORE_MODEL = [
+        // We already know the type of resource.
+        // String representing the object’s type. Objects of the same type share the same value.
+        // https://stripe.com/docs/api/customers/object#card_object-object
+        'object',
+
+        // @implement This is not currently implemented
+        // "Describes the current discount active on the customer, if there is one."
+        // https://stripe.com/docs/api/customers/object#customer_object-discount
+        'discount',
+
+        // This is not relevant as Invoices are not supported.
+        // "The prefix for the customer used to generate unique invoice numbers."
+        // https://stripe.com/docs/api/customers/object#customer_object-invoice_prefix
+        'invoicePrefix',
+
+        // This is not relevant as Invoices are not supported.
+        // "The customer’s default invoice settings."
+        // https://stripe.com/docs/api/customers/object#customer_object-invoice_settings
+        'invoiceSettings',
+
+        // This is not relevant as Invoices are not supported.
+        // "The suffix of the customer’s next invoice number, e.g., 0001."
+        // https://stripe.com/docs/api/customers/object#customer_object-next_invoice_sequence
+        'nextInvoiceSequence',
+
+        // Not relevant.
+        // The customer’s preferred locales (languages), ordered by preference.
+        // https://stripe.com/docs/api/customers/object#customer_object-preferred_locales
+        'preferredLocales',
+
+        // This is not relevant as Invoices are not supported.
+        // "Mailing and shipping address for the customer. Appears on invoices emailed to this customer."
+        // https://stripe.com/docs/api/customers/object#customer_object-shipping
+        'shipping',
+
+        // This is not relevant as Subscriptions are not supported.
+        // ""The customer’s current subscriptions, if any. [...]"
+        // https://stripe.com/docs/api/customers/object#customer_object-subscriptions
+        'subscriptions',
+
+        // Not relevant as Invoices are not supported.
+        // "Describes the customer’s tax exemption status. One of none, exempt, or reverse. When set to reverse, invoice and receipt PDFs include the text “Reverse charge”."
+        // https://stripe.com/docs/api/customers/object#customer_object-tax_exempt
+        'taxExempt',
+
+        // Not relevant as Invoices are not supported.
+        // "The customer’s tax IDs. [...]
+        // https://stripe.com/docs/api/customers/object#customer_object-tax_ids
+        'taxIds',
+    ];
+
     /** @var string */
-    private const CREATE = 'create';
+    private const ACTION_CREATE = 'create';
+
     /** @var string The Stripe ID of the StripeLocalCustomer */
     private $id;
 
-    /** @var int|null $accountBalance Current balance, if any, being stored on the customer’s account. If negative, the customer has credit to apply to the next invoice. If positive, the customer has an amount owed that will be added to the next invoice. The balance does not refer to any unpaid invoices; it solely takes into account amounts that have yet to be successfully applied to any invoice. This balance is only taken into account for recurring billing purposes (i.e., subscriptions, invoices, invoice items). */
-    private $accountBalance;
+    /** @var int|null $balance Current balance, if any, being stored on the customer’s account. If negative, the customer has credit to apply to the next invoice. If positive, the customer has an amount owed that will be added to the next invoice. The balance does not refer to any unpaid invoices; it solely takes into account amounts that have yet to be successfully applied to any invoice. This balance is only taken into account for recurring billing purposes (i.e., subscriptions, invoices, invoice items). */
+    private $balance;
 
     /** @var string $businessVatId The customer’s VAT identification number. */
     private $businessVatId;
@@ -85,9 +151,9 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this;
     }
 
-    public function getAccountBalance(): ?int
+    public function getBalance(): ?int
     {
-        return $this->accountBalance;
+        return $this->balance;
     }
 
     public function getBusinessVatId(): string
@@ -163,9 +229,9 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this->charges->removeElement($charge);
     }
 
-    public function setAccountBalance(int $balance): self
+    public function setBalance(int $balance): self
     {
-        $this->accountBalance = $balance;
+        $this->balance = $balance;
 
         return $this;
     }
@@ -224,33 +290,33 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
 
     public function toStripe(string $action): array
     {
-        if (self::CREATE !== $action && 'update' !== $action) {
+        if (self::ACTION_CREATE !== $action && 'update' !== $action) {
             throw new \InvalidArgumentException('StripeLocalCustomer::__toArray() accepts only "create" or "update" as parameter.');
         }
 
         $return = [];
 
-        if (null !== $this->getAccountBalance() && self::CREATE === $action) {
-            $return['account_balance'] = $this->getAccountBalance();
+        if (null !== $this->getBalance() && self::ACTION_CREATE === $action) {
+            $return['account_balance'] = $this->getBalance();
         }
 
-        if (null !== $this->getBusinessVatId() && self::CREATE === $action) {
+        if (null !== $this->getBusinessVatId() && self::ACTION_CREATE === $action) {
             $return['business_vat_id'] = $this->getBusinessVatId();
         }
 
-        if (null !== $this->getDescription() && self::CREATE === $action) {
+        if (null !== $this->getDescription() && self::ACTION_CREATE === $action) {
             $return['description'] = $this->getDescription();
         }
 
-        if (null !== $this->getEmail() && self::CREATE === $action) {
+        if (null !== $this->getEmail() && self::ACTION_CREATE === $action) {
             $return['email'] = $this->getEmail()->getEmail();
         }
 
-        if (null !== $this->getMetadata() && self::CREATE === $action) {
+        if (null !== $this->getMetadata() && self::ACTION_CREATE === $action) {
             $return['metadata'] = $this->getMetadata();
         }
 
-        if (null !== $this->getNewSource() && self::CREATE === $action) {
+        if (null !== $this->getNewSource() && self::ACTION_CREATE === $action) {
             $return['source'] = $this->getNewSource();
         }
 

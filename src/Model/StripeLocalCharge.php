@@ -22,6 +22,17 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 class StripeLocalCharge implements StripeLocalResourceInterface
 {
+    /** @var array<array-key, string> Properties to ignore when populating the Model */
+    public const IGNORE = [];
+
+    /** @var array<array-key, string> Properties of the SDK model classes to ignore when populating the local Model */
+    public const IGNORE_MODEL = [
+        // We already know the type of resource.
+        // String representing the object’s type. Objects of the same type share the same value.
+        // https://stripe.com/docs/api/charges/object#card_object-object
+        'object',
+    ];
+
     /** @var string The Stripe ID of the StripeLocalCharge */
     private $id;
 

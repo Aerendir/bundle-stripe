@@ -43,7 +43,7 @@ final class StripeLocalCustomerTest extends ModelTestCase
         ];
 
         // Test setMethods
-        $resource->setAccountBalance($expected['accountBalance'])
+        $resource->setBalance($expected['accountBalance'])
             ->setBusinessVatId($expected['businessVatId'])
             ->setCurrency($expected['currency'])
             ->setDescription($expected['description'])
@@ -51,7 +51,7 @@ final class StripeLocalCustomerTest extends ModelTestCase
             ->setMetadata($expected['metadata'])
             ->setNewSource($expected['source']);
 
-        self::assertSame($expected['accountBalance'], $resource->getAccountBalance());
+        self::assertSame($expected['accountBalance'], $resource->getBalance());
         self::assertSame($expected['businessVatId'], $resource->getBusinessVatId());
         self::assertSame($expected['currency'], $resource->getCurrency());
         self::assertSame($expected['description'], $resource->getDescription());

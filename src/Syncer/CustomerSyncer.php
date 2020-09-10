@@ -69,7 +69,7 @@ final class CustomerSyncer extends AbstractSyncer
                     $reflectedProperty->setValue($localResource, $stripeResource->id);
                     break;
 
-                case 'accountBalance':
+                case 'balance':
                     $reflectedProperty->setValue($localResource, $stripeResource->accountBalance);
                     break;
 
@@ -176,8 +176,8 @@ final class CustomerSyncer extends AbstractSyncer
             throw new \InvalidArgumentException('CustomerSyncer::syncStripeFromLocal() accepts only StripeLocalCustoer objects as second parameter.');
         }
 
-        if (null !== $localResource->getAccountBalance()) {
-            $stripeResource->accountBalance = $localResource->getAccountBalance();
+        if (null !== $localResource->getBalance()) {
+            $stripeResource->accountBalance = $localResource->getBalance();
         }
 
         if (null !== $localResource->getBusinessVatId()) {
@@ -196,7 +196,7 @@ final class CustomerSyncer extends AbstractSyncer
             $stripeResource->email = $localResource->getEmail();
         }
 
-        if (null !== $localResource->getAccountBalance()) {
+        if (null !== $localResource->getBalance()) {
             $stripeResource->metadata = $localResource->getMetadata();
         }
     }

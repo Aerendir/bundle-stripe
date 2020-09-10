@@ -20,6 +20,49 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class StripeLocalCard implements StripeLocalResourceInterface
 {
+    /** @var array<array-key, string> Properties to ignore when populating the Model */
+    public const IGNORE = [
+        // This is used internally to save the error returned by the API when calling it
+        'error',
+
+        // This is required by Doctrine to create the relation between Card and Charges
+        'charges',
+    ];
+
+    /** @var array<array-key, string> Properties of the SDK model classes to ignore when populating the local Model */
+    public const IGNORE_MODEL = [
+        // We already know the type of resource.
+        // String representing the object’s type. Objects of the same type share the same value.
+        // https://stripe.com/docs/api/cards/object#card_object-object
+        'object',
+
+        // We don't have an account.
+        // "The account this card belongs to. This attribute will not be in the card object if the card belongs to a customer or recipient instead."
+        // https://stripe.com/docs/api/cards/object#card_object-account
+        'account',
+
+        // Not relevant as Payouts are not implemented.
+        // "A set of available payout methods for this card. Only values from this set should be passed as the `method` when creating a payout."
+        // https://stripe.com/docs/api/cards/object#card_object-available_payout_methods
+        'availablePayoutMethods',
+
+        // Not relevant as Payouts are not implemented.
+        // "[CUSTOM CONNECT ONLY] Three-letter ISO code for currency. Only applicable on accounts (not customers or recipients). The card can be used as a transfer destination for funds in this currency."
+        // https://stripe.com/docs/api/cards/object#card_object-currency
+        'currency',
+
+        // Not relevant as cards are created on the frontend through Stripe.js.
+        // More, it is applicable only on accounts and not on customers or recipients.
+        // "Applicable only on accounts (not customers or recipients). If you set this to true (or if this is the first external account being added in this currency), this card will become the default external account for its currency."
+        // https://stripe.com/docs/api/external_account_cards/create#account_create_card-external_account-default_for_currency
+        'defaultForCurrency',
+
+        // Not relevant as it is not applicable to Customers (that are the only models this bundle manages).
+        // "The recipient that this card belongs to. This attribute will not be in the card object if the card belongs to a customer or account instead."
+        // https://stripe.com/docs/api/cards/object#card_object-recipient
+        'recipient',
+    ];
+
     /** @var string The Stripe ID of the card (used in conjunction with a customer or recipient ID) */
     private $id;
 

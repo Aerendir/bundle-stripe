@@ -26,9 +26,9 @@ abstract class ModelTestCase extends TestCase
      */
     public function populateModel(StripeLocalResourceInterface $resource, array $data): void
     {
-        $reflect = new \ReflectionClass($resource);
+        $resourceProperties = $this->getLocalModelProperties(\get_class($resource));
 
-        foreach ($reflect->getProperties() as $reflectedProperty) {
+        foreach ($resourceProperties as $reflectedProperty) {
             if (isset($data[$reflectedProperty->getName()])) {
                 // Set the property as accessible
                 $reflectedProperty->setAccessible(true);
