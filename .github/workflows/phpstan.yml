@@ -27,7 +27,7 @@ jobs:
 
             - name: Fix Symfony version
               run: |
-                  composer req symfony/flex
+                  composer req symfony/flex --no-scripts
                   composer config extra.symfony.require "${{ matrix.symfony }}"
 
             - name: Install Composer deps
