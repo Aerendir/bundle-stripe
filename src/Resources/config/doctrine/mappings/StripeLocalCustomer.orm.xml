@@ -19,7 +19,6 @@
         </one-to-one>
         <one-to-many target-entity="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard" mapped-by="customer" field="cards" />
         <one-to-many target-entity="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge" mapped-by="customer" field="charges" />
-        <one-to-many target-entity="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalSubscription" mapped-by="customer" field="subscriptions" />
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="metadataTransformer"/>
             <lifecycle-callback type="postLoad" method="metadataTransformer"/>

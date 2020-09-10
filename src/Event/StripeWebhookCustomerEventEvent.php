@@ -98,41 +98,4 @@ final class StripeWebhookCustomerEventEvent extends AbstractStripeWebhookEventEv
      * @see https://stripe.com/docs/api#event_types-customer.source.udated
      */
     const SOURCE_UPDATED = 'stripe.webhook.customer.source.udated';
-
-    /**
-     * Occurs whenever a customer with no subscription is signed up for a plan.
-     *
-     * @var string
-     *
-     * @see https://stripe.com/docs/api#event_types-customer.subscription.created
-     */
-    const SUBSCRIPTION_CREATED = 'stripe.webhook.customer.subscription.created';
-
-    /**
-     * Occurs whenever a customer ends their subscription.
-     *
-     * @var string
-     *
-     * @see https://stripe.com/docs/api#event_types-customer.subscription.deleted
-     */
-    const SUBSCRIPTION_DELETED = 'stripe.webhook.customer.subscription.deleted';
-
-    /**
-     * Occurs three days before the trial period of a subscription is scheduled to end.
-     *
-     * @var string
-     *
-     * @see https://stripe.com/docs/api#event_types-customer.subscription.trial_will_end
-     */
-    const SUBSCRIPTION_TRIAL_WILL_END = 'stripe.webhook.customer.subscription.trial_will_end';
-
-    /**
-     * Occurs whenever a subscription changes. Examples would include switching from one plan to another, or switching
-     * status from trial to active.
-     *
-     * @var string
-     *
-     * @see https://stripe.com/docs/api#event_types-customer.subscription.udated
-     */
-    const SUBSCRIPTION_UPDATED = 'stripe.webhook.customer.subscription.udated';
 }

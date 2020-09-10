@@ -11,17 +11,12 @@
 
 namespace SerendipityHQ\Bundle\StripeBundle\Manager;
 
-use Doctrine\Common\Collections\Collection;
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
-use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalPlan;
-use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalSubscription;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\ChargeSyncer;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\CustomerSyncer;
-use SerendipityHQ\Bundle\StripeBundle\Syncer\PlanSyncer;
-use SerendipityHQ\Bundle\StripeBundle\Syncer\SubscriptionSyncer;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\WebhookEventSyncer;
 use Stripe\ApiResource;
 use Stripe\Charge;
@@ -30,9 +25,7 @@ use Stripe\Event;
 use Stripe\Exception\CardException;
 use Stripe\Exception\ExceptionInterface;
 use Stripe\Exception\RateLimitException;
-use Stripe\Plan;
 use Stripe\Stripe;
-use Stripe\Subscription;
 
 /**
  * Manages the Stripe's API calls.
@@ -59,7 +52,7 @@ final class StripeManager
     private const RETRIEVE = 'retrieve';
     /** @var string */
     private const CODE = 'code';
-    /** @var \SerendipityHQ\Bundle\StripeBundle\Syncer\WebhookEventSyncer */
+    /** @var WebhookEventSyncer */
     public $WebhookEventSyncer;
     /** @var string $debug */
     private $debug;
@@ -82,24 +75,16 @@ final class StripeManager
     /** @var ChargeSyncer $chargeSyncer */
     private $chargeSyncer;
 
-    /** @var SubscriptionSyncer $subscriptionSyncer */
-    private $subscriptionSyncer;
-
-    /** @var PlanSyncer $planSyncer */
-    private $planSyncer;
-
     /** @var CustomerSyncer $customerSyncer */
     private $customerSyncer;
 
-    public function __construct(string $secretKey, string $debug, string $statementDescriptor, LoggerInterface $logger = null, ChargeSyncer $chargeSyncer, SubscriptionSyncer $subscriptionSyncer, PlanSyncer $planSyncer, CustomerSyncer $customerSyncer, WebhookEventSyncer $webhookEventSyncer)
+    public function __construct(string $secretKey, string $debug, string $statementDescriptor, ChargeSyncer $chargeSyncer, CustomerSyncer $customerSyncer, WebhookEventSyncer $webhookEventSyncer, LoggerInterface $logger = null)
     {
         Stripe::setApiKey($secretKey);
         $this->debug               = $debug;
         $this->statementDescriptor = $statementDescriptor;
         $this->logger              = $logger instanceof Logger ? $logger->withName('SHQStripeBundle') : $logger;
         $this->chargeSyncer        = $chargeSyncer;
-        $this->subscriptionSyncer  = $subscriptionSyncer;
-        $this->planSyncer          = $planSyncer;
         $this->customerSyncer      = $customerSyncer;
         $this->WebhookEventSyncer  = $webhookEventSyncer;
     }
@@ -355,46 +340,6 @@ final class StripeManager
         return true;
     }
 
-    public function createSubscription(StripeLocalSubscription $localSubscription): bool
-    {
-        // Get the object as an array
-        $params = $localSubscription->toStripe(self::CREATE);
-
-        $arguments = [
-            self::PARAMS  => $params,
-            self::OPTIONS => [],
-        ];
-
-        $stripeSubscription = $this->callStripeApi(Subscription::class, self::CREATE, $arguments);
-
-        // If the creation failed, return false
-        if (false === $stripeSubscription) {
-            return false;
-        }
-
-        // Set the data returned by Stripe in the LocalSubscription object
-        $this->subscriptionSyncer->syncLocalFromStripe($localSubscription, $stripeSubscription);
-
-        // The creation was successful: return true
-        return true;
-    }
-
-    public function cancelSubscription(StripeLocalSubscription $localSubscription): bool
-    {
-        // Get the stripe object
-        $stripeSubscription = $this->retrieveSubscription($localSubscription);
-
-        // The retrieving failed: return false
-        if (false === $stripeSubscription) {
-            return false;
-        }
-
-        // Save the subscription object
-        $stripeSubscription = $this->callStripeObject($stripeSubscription, 'cancel');
-        // If the update failed, return false
-        return false !== $stripeSubscription;
-    }
-
     public function createCustomer(StripeLocalCustomer $localCustomer): bool
     {
         // Get the object as an array
@@ -439,54 +384,6 @@ final class StripeManager
         return $this->callStripeApi(Customer::class, self::RETRIEVE, $arguments);
     }
 
-    public function createPlan(StripeLocalPlan $localPlan): bool
-    {
-        // Get the object as an array
-        $details = $localPlan->toStripe(self::CREATE);
-
-        /** @var Plan $stripePlan */
-        $stripePlan = $this->callStripeApi(Plan::class, self::CREATE, $details);
-
-        // If the creation failed, return false
-        if (false === $stripePlan) {
-            return false;
-        }
-
-        // Set the data returned by Stripe in the LocalPlan object
-        $this->planSyncer->syncLocalFromStripe($localPlan, $stripePlan);
-
-        // The creation was successful: return true
-        return true;
-    }
-
-    /**
-     * @return ApiResource|bool|Plan
-     */
-    public function retrievePlan(StripeLocalPlan $localPlan)
-    {
-        // If no ID is set, return false
-        if (null === $localPlan->getId()) {
-            return false;
-        }
-
-        $arguments = [
-            self::ID      => $localPlan->getId(),
-            self::OPTIONS => [],
-        ];
-
-        // Return the stripe object that can be "false" or "Plan"
-        return $this->callStripeApi(Plan::class, self::RETRIEVE, $arguments);
-    }
-
-    /**
-     * @return ApiResource|bool|Collection
-     */
-    public function retrievePlans()
-    {
-        // Return the all plans
-        return $this->callStripeApi(Plan::class, 'all', ['limit' => 100]);
-    }
-
     /**
      * @return ApiResource|bool|Event
      */
@@ -499,25 +396,6 @@ final class StripeManager
 
         // Return the stripe object that can be "false" or "Customer"
         return $this->callStripeApi(Event::class, self::RETRIEVE, $arguments);
-    }
-
-    /**
-     * @return ApiResource|bool|Subscription
-     */
-    public function retrieveSubscription(StripeLocalSubscription $localSubscription)
-    {
-        // If no ID is set, return false
-        if (null === $localSubscription->getId()) {
-            return false;
-        }
-
-        $arguments = [
-            self::ID      => $localSubscription->getId(),
-            self::OPTIONS => [],
-        ];
-
-        // Return the stripe object that can be "false" or "Subscription"
-        return $this->callStripeApi(Subscription::class, self::RETRIEVE, $arguments);
     }
 
     public function updateCustomer(StripeLocalCustomer $localCustomer, bool $syncSources): bool
@@ -546,37 +424,6 @@ final class StripeManager
 
         if (true === $syncSources) {
             $this->customerSyncer->syncLocalSources($localCustomer, $stripeCustomer);
-        }
-
-        return true;
-    }
-
-    public function updatePlan(StripeLocalPlan $localPlan, bool $syncSources): bool
-    {
-        // Get the stripe object
-        $stripePlan = $this->retrievePlan($localPlan);
-
-        // The retrieving failed: return false
-        if (false === $stripePlan) {
-            return false;
-        }
-
-        // Update the stripe object with info set in the local object
-        $this->planSyncer->syncStripeFromLocal($stripePlan, $localPlan);
-
-        // Save the plan object
-        $stripePlan = $this->callStripeObject($stripePlan, 'save');
-
-        // If the update failed, return false
-        if (false === $stripePlan) {
-            return false;
-        }
-
-        // Set the data returned by Stripe in the LocalPlan object
-        $this->planSyncer->syncLocalFromStripe($localPlan, $stripePlan);
-
-        if (true === $syncSources) {
-            $this->planSyncer->syncLocalSources($localPlan, $stripePlan);
         }
 
         return true;

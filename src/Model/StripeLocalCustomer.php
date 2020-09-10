@@ -38,9 +38,6 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     /** @var ArrayCollection $charges The charges of the customer */
     private $charges;
 
-    /** @var ArrayCollection $subscriptions The subscriptions of the customer */
-    private $subscriptions;
-
     /** @var \DateTime $created */
     private $created;
 
@@ -74,7 +71,6 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     public function __construct()
     {
         $this->charges       = new ArrayCollection();
-        $this->subscriptions = new ArrayCollection();
         $this->cards         = new ArrayCollection();
     }
 
@@ -84,17 +80,6 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
         if (false === $this->charges->contains($charge)) {
             // Add the card to the collection
             $this->charges->add($charge);
-        }
-
-        return $this;
-    }
-
-    public function addSubscription(StripeLocalSubscription $subscription): self
-    {
-        // If the subscription is already set
-        if (false === $this->subscriptions->contains($subscription)) {
-            // Add the subscription to the collection
-            $this->subscriptions->add($subscription);
         }
 
         return $this;
@@ -118,11 +103,6 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     public function getCharges(): ArrayCollection
     {
         return $this->charges;
-    }
-
-    public function getSubscriptions(): ArrayCollection
-    {
-        return $this->subscriptions;
     }
 
     public function getCreated(): \DateTime
@@ -181,11 +161,6 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     public function removeCharge(StripeLocalCharge $charge): bool
     {
         return $this->charges->removeElement($charge);
-    }
-
-    public function removeSubscription(StripeLocalSubscription $subscription): bool
-    {
-        return $this->subscriptions->removeElement($subscription);
     }
 
     public function setAccountBalance(int $balance): self

@@ -12,13 +12,14 @@
 namespace SerendipityHQ\Bundle\StripeBundle\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
+use SerendipityHQ\Bundle\StripeBundle\Manager\StripeManager;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalWebhookEvent;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\CardSyncer;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\ChargeSyncer;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\CustomerSyncer;
-use SerendipityHQ\Bundle\StripeBundle\Syncer\PlanSyncer;
-use SerendipityHQ\Bundle\StripeBundle\Syncer\SubscriptionSyncer;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\SyncerInterface;
+use SerendipityHQ\Bundle\StripeBundle\Syncer\WebhookEventSyncer;
+use SerendipityHQ\Bundle\StripeBundle\Util\EventGuesser;
 use Stripe\Event;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,14 +37,12 @@ final class WebhookController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         EventDispatcherInterface $eventDispatcher,
-        \SerendipityHQ\Bundle\StripeBundle\Manager\StripeManager $stripeManager,
-        \SerendipityHQ\Bundle\StripeBundle\Util\EventGuesser $eventGuesser,
+        StripeManager $stripeManager,
+        EventGuesser $eventGuesser,
         CardSyncer $cardSyncer,
         ChargeSyncer $chargeSyncer,
         CustomerSyncer $customerSyncer,
-        PlanSyncer $planSyncer,
-        SubscriptionSyncer $subscriptionSyncer,
-        \SerendipityHQ\Bundle\StripeBundle\Syncer\WebhookEventSyncer $webhookEventSyncer
+        WebhookEventSyncer $webhookEventSyncer
     ): Response {
         /** @var Event $content */
         $content = \Safe\json_decode($request->getContent(), true);
@@ -75,12 +74,6 @@ final class WebhookController extends AbstractController
                         break;
                     case 'customer':
                         $syncer = $customerSyncer;
-                        break;
-                    case 'plan':
-                        $syncer = $planSyncer;
-                        break;
-                    case 'subscription':
-                        $syncer = $subscriptionSyncer;
                         break;
                 }
 

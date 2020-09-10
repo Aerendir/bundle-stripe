@@ -16,7 +16,6 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;
-use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalSubscription;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalWebhookEvent;
 use Stripe\ApiResource;
 use Stripe\Customer;
@@ -38,21 +37,16 @@ final class WebhookEventSyncer extends AbstractSyncer
     /** @var CustomerSyncer $customerSyncer */
     private $customerSyncer;
 
-    /** @var SubscriptionSyncer $subscriptionSyncer */
-    private $subscriptionSyncer;
-
     public function __construct(
         EntityManagerInterface $entityManager,
         CardSyncer $cardSyncer,
         ChargeSyncer $chargeSyncer,
-        CustomerSyncer $customerSyncer,
-        SubscriptionSyncer $subscriptionSyncer
+        CustomerSyncer $customerSyncer
     ) {
         parent::__construct($entityManager);
         $this->cardSyncer         = $cardSyncer;
         $this->chargeSyncer       = $chargeSyncer;
         $this->customerSyncer     = $customerSyncer;
-        $this->subscriptionSyncer = $subscriptionSyncer;
     }
 
     public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource): void
@@ -137,19 +131,6 @@ final class WebhookEventSyncer extends AbstractSyncer
 
                 // Sync the local object with the remote one
                 $this->customerSyncer->syncLocalFromStripe($localCustomer, $stripeResource->data->object);
-                break;
-
-            case 'subscription':
-                // Get the Subscription from the database
-                $localSubscription = $this->getEntityManager()->getRepository(StripeLocalSubscription::class)->findOneByStripeId($stripeObjectData->id);
-
-                // Create the new Local object if it doesn't exist
-                if (null === $localSubscription) {
-                    $localSubscription = new StripeLocalSubscription();
-                }
-
-                // Sync the local object with the remote one
-                $this->subscriptionSyncer->syncLocalFromStripe($localSubscription, $stripeResource->data->object);
                 break;
 
             case 'source':

@@ -6,21 +6,6 @@ parameters:
 			path: src/Command/ApiOutdatedCommand.php
 
 		-
-			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\StripeUpdatePlansCommand\\:\\:getContainer\\(\\)\\.$#"
-			count: 3
-			path: src/Command/StripeUpdatePlansCommand.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(\\$doctrine \\\\Doctrine\\\\Common\\\\Persistence\\\\ManagerRegistry\\)\\: Unexpected token \"\\$doctrine\", expected type at offset 9$#"
-			count: 1
-			path: src/Command/StripeUpdatePlansCommand.php
-
-		-
-			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 1
-			path: src/Command/StripeUpdatePlansCommand.php
-
-		-
 			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\<SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalWebhookEvent\\>\\:\\:findOneByStripeId\\(\\)\\.$#"
 			count: 1
 			path: src/Controller/WebhookController.php
@@ -86,36 +71,6 @@ parameters:
 			path: src/Event/AbstractStripeEvent.php
 
 		-
-			message: "#^Class SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalPlan referenced with incorrect case\\: SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalPLan\\.$#"
-			count: 1
-			path: src/Event/AbstractStripePlanEvent.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Event\\\\AbstractStripeSubscriptionEvent\\:\\:validate\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Event/AbstractStripeSubscriptionEvent.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between null and string will always evaluate to false\\.$#"
-			count: 1
-			path: src/Event/AbstractStripeSubscriptionEvent.php
-
-		-
-			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalSubscription\\:\\:getSource\\(\\)\\.$#"
-			count: 1
-			path: src/Event/AbstractStripeSubscriptionEvent.php
-
-		-
-			message: "#^Result of && is always false\\.$#"
-			count: 1
-			path: src/Event/AbstractStripeSubscriptionEvent.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between null and SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer will always evaluate to false\\.$#"
-			count: 1
-			path: src/Event/AbstractStripeSubscriptionEvent.php
-
-		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Manager\\\\StripeManager\\:\\:\\$error has no typehint specified\\.$#"
 			count: 1
 			path: src/Manager/StripeManager.php
@@ -156,37 +111,22 @@ parameters:
 			path: src/Manager/StripeManager.php
 
 		-
-			message: "#^Parameter \\#2 \\$stripeResource of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\SubscriptionSyncer\\:\\:syncLocalFromStripe\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\ApiResource\\|true given\\.$#"
-			count: 1
-			path: src/Manager/StripeManager.php
-
-		-
-			message: "#^Parameter \\#1 \\$object of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Manager\\\\StripeManager\\:\\:callStripeObject\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\ApiResource\\|true given\\.$#"
-			count: 3
-			path: src/Manager/StripeManager.php
-
-		-
 			message: "#^Strict comparison using \\=\\=\\= between false and Stripe\\\\Customer will always evaluate to false\\.$#"
 			count: 1
 			path: src/Manager/StripeManager.php
 
 		-
 			message: "#^Strict comparison using \\=\\=\\= between null and string will always evaluate to false\\.$#"
-			count: 2
-			path: src/Manager/StripeManager.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between false and Stripe\\\\Plan will always evaluate to false\\.$#"
-			count: 1
-			path: src/Manager/StripeManager.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Manager\\\\StripeManager\\:\\:retrievePlans\\(\\) return type with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
 			count: 1
 			path: src/Manager/StripeManager.php
 
 		-
 			message: "#^Parameter \\#1 \\$stripeResource of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\CustomerSyncer\\:\\:syncStripeFromLocal\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\ApiResource\\|true given\\.$#"
+			count: 1
+			path: src/Manager/StripeManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$object of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Manager\\\\StripeManager\\:\\:callStripeObject\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\ApiResource\\|true given\\.$#"
 			count: 1
 			path: src/Manager/StripeManager.php
 
@@ -197,21 +137,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$stripeResource of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\CustomerSyncer\\:\\:syncLocalSources\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\ApiResource\\|true given\\.$#"
-			count: 1
-			path: src/Manager/StripeManager.php
-
-		-
-			message: "#^Parameter \\#1 \\$stripeResource of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\PlanSyncer\\:\\:syncStripeFromLocal\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\ApiResource\\|true given\\.$#"
-			count: 1
-			path: src/Manager/StripeManager.php
-
-		-
-			message: "#^Parameter \\#2 \\$stripeResource of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\PlanSyncer\\:\\:syncLocalFromStripe\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\ApiResource\\|true given\\.$#"
-			count: 1
-			path: src/Manager/StripeManager.php
-
-		-
-			message: "#^Parameter \\#2 \\$stripeResource of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\PlanSyncer\\:\\:syncLocalSources\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\ApiResource\\|true given\\.$#"
 			count: 1
 			path: src/Manager/StripeManager.php
 
@@ -386,11 +311,6 @@ parameters:
 			path: src/Model/StripeLocalCustomer.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:\\$subscriptions with generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection does not specify its types\\: TKey, T$#"
-			count: 1
-			path: src/Model/StripeLocalCustomer.php
-
-		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:\\$metadata type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCustomer.php
@@ -402,11 +322,6 @@ parameters:
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:getCharges\\(\\) return type with generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection does not specify its types\\: TKey, T$#"
-			count: 1
-			path: src/Model/StripeLocalCustomer.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:getSubscriptions\\(\\) return type with generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection does not specify its types\\: TKey, T$#"
 			count: 1
 			path: src/Model/StripeLocalCustomer.php
 
@@ -446,64 +361,9 @@ parameters:
 			path: src/Model/StripeLocalCustomer.php
 
 		-
-			message: "#^PHPDoc tag @param for parameter \\$id with type mixed is not subtype of native type string\\.$#"
-			count: 1
-			path: src/Model/StripeLocalPlan.php
-
-		-
-			message: "#^PHPDoc tag @return with type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\plan\\|string is not subtype of native type string\\.$#"
-			count: 1
-			path: src/Model/StripeLocalPlan.php
-
-		-
-			message: "#^Return typehint of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalPlan\\:\\:getObject\\(\\) has invalid type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\plan\\.$#"
-			count: 1
-			path: src/Model/StripeLocalPlan.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalPlan\\:\\:toStripe\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Model/StripeLocalPlan.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between null and SerendipityHQ\\\\Component\\\\ValueObjects\\\\Money\\\\Money will always evaluate to false\\.$#"
-			count: 1
-			path: src/Model/StripeLocalPlan.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalPlan\\:\\:__toString\\(\\) should return string but returns string\\|null\\.$#"
-			count: 1
-			path: src/Model/StripeLocalPlan.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalResourceInterface\\:\\:toStripe\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/StripeLocalResourceInterface.php
-
-		-
-			message: "#^PHPDoc tag @return with type string\\|null is not subtype of native type string\\.$#"
-			count: 1
-			path: src/Model/StripeLocalSubscription.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalSubscription\\:\\:setMetadata\\(\\) has parameter \\$metadata with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Model/StripeLocalSubscription.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalSubscription\\:\\:\\$metadata \\(string\\) does not accept array\\|string\\.$#"
-			count: 1
-			path: src/Model/StripeLocalSubscription.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalSubscription\\:\\:toStripe\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Model/StripeLocalSubscription.php
-
-		-
-			message: "#^Binary operation \"\\+\" between string and 1 results in an error\\.$#"
-			count: 1
-			path: src/Model/StripeLocalSubscription.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalWebhookEvent\\:\\:\\$type has no typehint specified\\.$#"
@@ -591,46 +451,6 @@ parameters:
 			path: src/Repository/StripeLocalCustomerRepository.php
 
 		-
-			message: "#^Class SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalPlanRepository extends generic class Doctrine\\\\ORM\\\\EntityRepository but does not specify its types\\: TEntityClass$#"
-			count: 1
-			path: src/Repository/StripeLocalPlanRepository.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalPlanRepository\\:\\:findOneByStripeId\\(\\) has parameter \\$id with no typehint specified\\.$#"
-			count: 1
-			path: src/Repository/StripeLocalPlanRepository.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected type at offset 18$#"
-			count: 1
-			path: src/Repository/StripeLocalPlanRepository.php
-
-		-
-			message: "#^PHPDoc tag @return with type object\\|null is not subtype of native type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalResourceInterface\\|null\\.$#"
-			count: 1
-			path: src/Repository/StripeLocalPlanRepository.php
-
-		-
-			message: "#^Class SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalSubscriptionRepository extends generic class Doctrine\\\\ORM\\\\EntityRepository but does not specify its types\\: TEntityClass$#"
-			count: 1
-			path: src/Repository/StripeLocalSubscriptionRepository.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalSubscriptionRepository\\:\\:findOneByStripeId\\(\\) has parameter \\$id with no typehint specified\\.$#"
-			count: 1
-			path: src/Repository/StripeLocalSubscriptionRepository.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected type at offset 18$#"
-			count: 1
-			path: src/Repository/StripeLocalSubscriptionRepository.php
-
-		-
-			message: "#^PHPDoc tag @return with type object\\|null is not subtype of native type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalResourceInterface\\|null\\.$#"
-			count: 1
-			path: src/Repository/StripeLocalSubscriptionRepository.php
-
-		-
 			message: "#^Class SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalWebhookEventRepository extends generic class Doctrine\\\\ORM\\\\EntityRepository but does not specify its types\\: TEntityClass$#"
 			count: 1
 			path: src/Repository/StripeLocalWebhookEventRepository.php
@@ -709,96 +529,6 @@ parameters:
 			message: "#^Parameter \\$dispatcher of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Subscriber\\\\StripeCustomerSubscriber\\:\\:onCustomerUpdate\\(\\) has invalid typehint type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Subscriber\\\\ContainerAwareEventDispatcher\\.$#"
 			count: 1
 			path: src/Subscriber/StripeCustomerSubscriber.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Subscriber\\\\StripePlanSubscriber\\:\\:onPlanCreate\\(\\) has parameter \\$eventName with no typehint specified\\.$#"
-			count: 1
-			path: src/Subscriber/StripePlanSubscriber.php
-
-		-
-			message: "#^PHPDoc tag @param for parameter \\$dispatcher with type Symfony\\\\Component\\\\EventDispatcher\\\\ContainerAwareEventDispatcher\\|Symfony\\\\Components\\\\EventDispatcher\\\\EventDispatcherInterface is not subtype of native type Symfony\\\\Components\\\\EventDispatcher\\\\EventDispatcherInterface\\.$#"
-			count: 2
-			path: src/Subscriber/StripePlanSubscriber.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$eventName\\)\\: Unexpected token \"\\$eventName\", expected type at offset 18$#"
-			count: 2
-			path: src/Subscriber/StripePlanSubscriber.php
-
-		-
-			message: "#^Parameter \\$dispatcher of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Subscriber\\\\StripePlanSubscriber\\:\\:onPlanCreate\\(\\) has invalid typehint type Symfony\\\\Component\\\\EventDispatcher\\\\ContainerAwareEventDispatcher\\.$#"
-			count: 1
-			path: src/Subscriber/StripePlanSubscriber.php
-
-		-
-			message: "#^Parameter \\$dispatcher of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Subscriber\\\\StripePlanSubscriber\\:\\:onPlanCreate\\(\\) has invalid typehint type Symfony\\\\Components\\\\EventDispatcher\\\\EventDispatcherInterface\\.$#"
-			count: 2
-			path: src/Subscriber/StripePlanSubscriber.php
-
-		-
-			message: "#^Call to method dispatch\\(\\) on an unknown class Symfony\\\\Components\\\\EventDispatcher\\\\EventDispatcherInterface\\.$#"
-			count: 4
-			path: src/Subscriber/StripePlanSubscriber.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Subscriber\\\\StripePlanSubscriber\\:\\:onPlanUpdate\\(\\) has parameter \\$eventName with no typehint specified\\.$#"
-			count: 1
-			path: src/Subscriber/StripePlanSubscriber.php
-
-		-
-			message: "#^Parameter \\$dispatcher of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Subscriber\\\\StripePlanSubscriber\\:\\:onPlanUpdate\\(\\) has invalid typehint type Symfony\\\\Component\\\\EventDispatcher\\\\ContainerAwareEventDispatcher\\.$#"
-			count: 1
-			path: src/Subscriber/StripePlanSubscriber.php
-
-		-
-			message: "#^Parameter \\$dispatcher of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Subscriber\\\\StripePlanSubscriber\\:\\:onPlanUpdate\\(\\) has invalid typehint type Symfony\\\\Components\\\\EventDispatcher\\\\EventDispatcherInterface\\.$#"
-			count: 2
-			path: src/Subscriber/StripePlanSubscriber.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Subscriber\\\\StripeSubscriptionSubscriber\\:\\:onSubscriptionCreate\\(\\) has parameter \\$eventName with no typehint specified\\.$#"
-			count: 1
-			path: src/Subscriber/StripeSubscriptionSubscriber.php
-
-		-
-			message: "#^PHPDoc tag @param for parameter \\$dispatcher with type Symfony\\\\Component\\\\EventDispatcher\\\\ContainerAwareEventDispatcher\\|Symfony\\\\Components\\\\EventDispatcher\\\\EventDispatcherInterface is not subtype of native type Symfony\\\\Components\\\\EventDispatcher\\\\EventDispatcherInterface\\.$#"
-			count: 2
-			path: src/Subscriber/StripeSubscriptionSubscriber.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$eventName\\)\\: Unexpected token \"\\$eventName\", expected type at offset 18$#"
-			count: 2
-			path: src/Subscriber/StripeSubscriptionSubscriber.php
-
-		-
-			message: "#^Parameter \\$dispatcher of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Subscriber\\\\StripeSubscriptionSubscriber\\:\\:onSubscriptionCreate\\(\\) has invalid typehint type Symfony\\\\Component\\\\EventDispatcher\\\\ContainerAwareEventDispatcher\\.$#"
-			count: 1
-			path: src/Subscriber/StripeSubscriptionSubscriber.php
-
-		-
-			message: "#^Parameter \\$dispatcher of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Subscriber\\\\StripeSubscriptionSubscriber\\:\\:onSubscriptionCreate\\(\\) has invalid typehint type Symfony\\\\Components\\\\EventDispatcher\\\\EventDispatcherInterface\\.$#"
-			count: 2
-			path: src/Subscriber/StripeSubscriptionSubscriber.php
-
-		-
-			message: "#^Call to method dispatch\\(\\) on an unknown class Symfony\\\\Components\\\\EventDispatcher\\\\EventDispatcherInterface\\.$#"
-			count: 4
-			path: src/Subscriber/StripeSubscriptionSubscriber.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Subscriber\\\\StripeSubscriptionSubscriber\\:\\:onSubscriptionCancel\\(\\) has parameter \\$eventName with no typehint specified\\.$#"
-			count: 1
-			path: src/Subscriber/StripeSubscriptionSubscriber.php
-
-		-
-			message: "#^Parameter \\$dispatcher of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Subscriber\\\\StripeSubscriptionSubscriber\\:\\:onSubscriptionCancel\\(\\) has invalid typehint type Symfony\\\\Component\\\\EventDispatcher\\\\ContainerAwareEventDispatcher\\.$#"
-			count: 1
-			path: src/Subscriber/StripeSubscriptionSubscriber.php
-
-		-
-			message: "#^Parameter \\$dispatcher of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Subscriber\\\\StripeSubscriptionSubscriber\\:\\:onSubscriptionCancel\\(\\) has invalid typehint type Symfony\\\\Components\\\\EventDispatcher\\\\EventDispatcherInterface\\.$#"
-			count: 2
-			path: src/Subscriber/StripeSubscriptionSubscriber.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\AbstractSyncer\\:\\:getLocalCustomer\\(\\) has parameter \\$stripeCustomerId with no typehint specified\\.$#"
@@ -1006,96 +736,6 @@ parameters:
 			path: src/Syncer/CustomerSyncer.php
 
 		-
-			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 1
-			path: src/Syncer/PlanSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Plan\\:\\:\\$intervalCount\\.$#"
-			count: 1
-			path: src/Syncer/PlanSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Plan\\:\\:\\$name\\.$#"
-			count: 1
-			path: src/Syncer/PlanSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Plan\\:\\:\\$statementDescriptor\\.$#"
-			count: 1
-			path: src/Syncer/PlanSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Plan\\:\\:\\$trialPeriodDays\\.$#"
-			count: 1
-			path: src/Syncer/PlanSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Subscription\\:\\:\\$applicationFeePercent\\.$#"
-			count: 1
-			path: src/Syncer/SubscriptionSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Subscription\\:\\:\\$cancelAtPeriodAt\\.$#"
-			count: 1
-			path: src/Syncer/SubscriptionSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Subscription\\:\\:\\$canceledAt\\.$#"
-			count: 1
-			path: src/Syncer/SubscriptionSyncer.php
-
-		-
-			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 7
-			path: src/Syncer/SubscriptionSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Subscription\\:\\:\\$currentPeriodEnd\\.$#"
-			count: 1
-			path: src/Syncer/SubscriptionSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Subscription\\:\\:\\$currentPeriodStart\\.$#"
-			count: 1
-			path: src/Syncer/SubscriptionSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Subscription\\:\\:\\$endedAt\\.$#"
-			count: 1
-			path: src/Syncer/SubscriptionSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Subscription\\:\\:\\$plan\\.$#"
-			count: 1
-			path: src/Syncer/SubscriptionSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Subscription\\:\\:\\$quantity\\.$#"
-			count: 1
-			path: src/Syncer/SubscriptionSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Subscription\\:\\:\\$start\\.$#"
-			count: 1
-			path: src/Syncer/SubscriptionSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Subscription\\:\\:\\$taxPercent\\.$#"
-			count: 1
-			path: src/Syncer/SubscriptionSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Subscription\\:\\:\\$trialEnd\\.$#"
-			count: 1
-			path: src/Syncer/SubscriptionSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Subscription\\:\\:\\$trialStart\\.$#"
-			count: 1
-			path: src/Syncer/SubscriptionSyncer.php
-
-		-
 			message: "#^Instanceof between SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer and SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalWebhookEvent will always evaluate to false\\.$#"
 			count: 1
 			path: src/Syncer/WebhookEventSyncer.php
@@ -1108,11 +748,6 @@ parameters:
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Util\\\\EventGuesser\\:\\:guess\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: src/Util/EventGuesser.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 19
 			path: src/Util/EventGuesser.php
 
 		-
@@ -1179,26 +814,6 @@ parameters:
 			message: "#^You should use assertCount\\(\\$expectedCount, \\$variable\\) instead of assertSame\\(\\$expectedCount, \\$variable\\-\\>count\\(\\)\\)\\.$#"
 			count: 3
 			path: tests/Model/StripeLocalCustomerTest.php
-
-		-
-			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 1
-			path: tests/Model/StripeLocalPlanTest.php
-
-		-
-			message: "#^You should use assertNull\\(\\) instead of assertSame\\(null, \\$actual\\)\\.$#"
-			count: 2
-			path: tests/Model/StripeLocalPlanTest.php
-
-		-
-			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 9
-			path: tests/Model/StripeLocalSubscriptionTest.php
-
-		-
-			message: "#^You should use assertTrue\\(\\) instead of assertSame\\(\\) when expecting \"true\"$#"
-			count: 1
-			path: tests/Model/StripeLocalSubscriptionTest.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Tests\\\\ModelTestCase\\:\\:populateModel\\(\\) has no return typehint specified\\.$#"
