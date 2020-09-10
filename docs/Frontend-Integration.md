@@ -65,9 +65,9 @@ Step 2: Integrate the credit card form on your payment page
 
 To make your customer able to send you his credit card information, you need to provide him with a credit card form.
 
-In the [Stripe's documentation](https://stripe.com/docs/custom-form) you can find some basic information about how to do this.
+In the [Stripe's documentation](https://stripe.com/docs/stripe-js#setup) you can find some basic information about how to do this.
 
-Stripe Bundle ships a form type for this.
+Stripe Bundle ships a form type for this and creates some Twig global variables useful to initialize Stripe.js.
 
 The form type is really simple: it is composed of only one field: [`card_token`](https://github.com/Aerendir/stripe-bundle/blob/master/Form/Type/CreditCardStripeTokenType.php).
 
@@ -121,6 +121,7 @@ We have created a method that serves the form:
 ```php
 public function getPlansForm(Store $store)
     {
+        // First: Create your form as you like
         $form = $this->formFactory->createBuilder(FormType::class, [
             'action' => $this->router->generate('store_subscription', ['id' => $store->getId()]),
             'method' => 'POST',
@@ -131,7 +132,7 @@ public function getPlansForm(Store $store)
             ]);
 
         if (null === $store->getBranchOf()->getStripeCustomer() || 0 === $store->getBranchOf()->getStripeCustomer()->getCards()->count())
-            // This will add an HIDDENTYPE input field
+            // Then add the CreditCardStripeTokenType that will save the token returned by the Stripe API
             $form->add('credit_card', CreditCardStripeTokenType::class);
 
         return $form->getForm();
@@ -154,20 +155,32 @@ And now it's time to render our form on the frontend:
 {{ form_widget(form.plan.seo) }}
 {{ form_widget(form.plan.social) }}
 
-{# ATTENTION 4: NOTE WE RENDER THE FIELD WE ADDED AT STEP 2.3 #}
+{# ATTENTION 2: NOTE WE RENDER THE HIDDEN FIELD WE ADDED AT STEP 2.3 #}
 {{ form_widget(form.credit_card.card_token) }}
 
-{# ATTENTION 5: WE ADD THE CLASS `charge` to disable the button once clicked #}
-<div class="form-group"><input type="submit" value="{% trans %}subscription.update{% endtrans %}" class="btn btn-success pull-right charge" /></div>
+{# ATTENTION 3: WE ADD THE CLASS `charge` to disable the button once clicked #}
+<div class="form-group">
+    <input type="submit" value="{% trans %}subscription.update{% endtrans %}" class="btn btn-success pull-right charge" />
+</div>
 {{ form_end(form) }}
+
+{# ATTENTION 4: We initialize Stripe.js #}
+<script type="text/javascript">
+    // Specifying the publishable key and the api version we want to use
+    const stripe = Stripe('{{ stripe_publishable_key }}', {'apiVersion': '{{ stripe_api_version }}' });
+</script>
 ```
 
 KEEP ATTENTION NOW: note these things:
 
 1. We gave the form an `id`;
-2. We render the field `card_token` we added at step 2.3;
-3. We add a class `charge` to the button to submit the form so we will abe to disable it once the form is submitted.
-4. The credit card input field is a `HiddenType` input field: it is only a container and is not meant to be filled by the User (more on this later).
+2. We render the HIDDEN field `card_token` we added at step 2.3: it is only a container and is not meant to be filled by the User (more on this later), so we don't show it on the page;
+3. We add a class `charge` to the button to submit the form so we will be able to disable it once the form is submitted;
+4. We initialize `Stripe.js` passing `stripe_publishable_key` and `stripe_api_version`.
+Both are made available in Twig by `SHQStripeBundle` that automatically configures them as global Twig variables.
+`stripe_publishable_key` has the value you configured in the env variable `STRIPE_PUB_KEY`;
+`stripe_api_version` has the value of `SerendipityHQ\Bundle\StripeBundle\SHQStripeBundle::SUPPORTED_STRIPE_API`: this is the version of the Stripe API that this bundle currently supports.
+This way you can upgrade the API used by your account without taking care of this bundle being broke or become incompatible.
 
 ### Step 2.5: Create the Stripe JS script
 
@@ -195,9 +208,9 @@ To do this you have to modify the code just a little bit.
 This is the code in the [`Submit the token and the rest of your form to your server`](https://stripe.com/docs/stripe-js/elements/quickstart#submit-token)
 section of the Quick Start Stripe's documentation there is this code:
 
-```
+```javascript
+// Orignal code provided by Stripe (MUST BE ADAPTED)
 function stripeTokenHandler(token) {
-    // Insert the token ID into the form so it gets submitted to the server
     var form = document.getElementById('payment-form');
     var hiddenInput = document.createElement('input');
     hiddenInput.setAttribute('type', 'hidden');
@@ -218,15 +231,16 @@ Your code MUSt be a bit different:
 
 So, the javascript code will become this:
 
-```
+```javascript
+// An example of code you SHOULD use in your app
 function stripeTokenHandler(token) {
-    // Insert the token ID into the form so it gets submitted to the server
+    // Select the form: the id is equal to the value you provided with the twig variable `{'attr': {'id': subscription_form_id ...`
     var form = document.getElementById('payment-form');
 
-    // Here we select the already rendered credit card form field
+    // Now select the already rendered (as an hidden field!) credit card token form field
     var hiddenInput = document.getElementById('form_credit_card_card_token');
 
-    // Here we update it with the token returned by Stripe
+    // Here we update the hidden token field with the token returned by Stripe
     hiddenInput.setAttribute('value', token.id);
 
     // Submit the form
@@ -234,7 +248,7 @@ function stripeTokenHandler(token) {
 }
 ```
 
-Now load yur page and all should work well: the credit card form should be created and once submitted it should return back the token.
+Now load your page and all should work well: the credit card form should be created and once submitted it should return back the token.
 
 Try to fill the form with some [test cards](https://stripe.com/docs/testing#cards) and submit it: what does it happen?
 
@@ -242,7 +256,9 @@ Try to fill the form with some [test cards](https://stripe.com/docs/testing#card
 
 When you hit the the submit button, you should expect a really short delay before the form is submitted.
 
-This delay is caused by the communication between you app and the Stripe's server. This communication happens via the `Stripe.js` library that is included automatically by the Stripe Bundle.
+This delay is caused by the communication between you app and the Stripe's server.
+
+This communication happens via the `Stripe.js` library [that we included in step 1](#step-1-import-stripejs-in-all-your-pages).
 
 When you hit the submit button, the submit event is intercepted by JavaScript.
 

@@ -11,20 +11,36 @@
 
 namespace SerendipityHQ\Bundle\StripeBundle\DependencyInjection;
 
+use SerendipityHQ\Bundle\StripeBundle\SHQStripeBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
-final class SHQStripeExtension extends Extension
+final class SHQStripeExtension extends Extension implements PrependExtensionInterface
 {
     /** @var string */
     private const DB_DRIVER = 'db_driver';
     /** @var string */
     private const STRIPE_CONFIG = 'stripe_config';
+
+    public function prepend(ContainerBuilder $containerBuilder): void
+    {
+        if (false === $containerBuilder->hasExtension('twig')) {
+            return;
+        }
+
+        $containerBuilder->prependExtensionConfig('twig', [
+            'globals' => [
+                'stripe_publishable_key' => '%env(STRIPE_PUB_KEY)%',
+                'stripe_api_version' => SHQStripeBundle::SUPPORTED_STRIPE_API,
+            ]
+        ]);
+    }
 
     public function load(array $configs, ContainerBuilder $container): void
     {
@@ -50,6 +66,7 @@ final class SHQStripeExtension extends Extension
         $fileLocator      = new FileLocator(__DIR__ . '/../Resources/config');
         $yamlFileLoader   = new Loader\YamlFileLoader($container, $fileLocator);
         $yamlFileLoader->load('services.yaml');
+        //$yamlFileLoader->load('twig.yaml');
 
         $xmlFileLoader   = new Loader\XmlFileLoader($container, $fileLocator);
 

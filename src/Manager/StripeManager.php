@@ -15,6 +15,7 @@ use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
+use SerendipityHQ\Bundle\StripeBundle\SHQStripeBundle;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\ChargeSyncer;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\CustomerSyncer;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\WebhookEventSyncer;
@@ -81,6 +82,7 @@ final class StripeManager
     public function __construct(string $secretKey, string $debug, string $statementDescriptor, ChargeSyncer $chargeSyncer, CustomerSyncer $customerSyncer, WebhookEventSyncer $webhookEventSyncer, LoggerInterface $logger = null)
     {
         Stripe::setApiKey($secretKey);
+        Stripe::setApiVersion(SHQStripeBundle::SUPPORTED_STRIPE_API);
         $this->debug               = $debug;
         $this->statementDescriptor = $statementDescriptor;
         $this->logger              = $logger instanceof Logger ? $logger->withName('SHQStripeBundle') : $logger;
