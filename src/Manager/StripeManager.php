@@ -33,28 +33,21 @@ use Stripe\Stripe;
  */
 final class StripeManager
 {
-    /** @var int $maxRetries How many retries should the manager has to do */
-    private const MAX_RETRIES = 5;
-    /** @var string */
-    private const OPTIONS = 'options';
-    /** @var string */
-    private const ID = 'id';
-    /** @var string */
-    private const PARAMS = 'params';
-    /** @var string */
-    private const RETRY = 'retry';
-    /** @var string */
-    private const CREATE = 'create';
-    /** @var string */
-    private const ERROR = 'error';
-    /** @var string */
-    private const TYPE = 'type';
-    /** @var string */
-    private const RETRIEVE = 'retrieve';
-    /** @var string */
-    private const CODE = 'code';
+    /** @var int How many retries should the manager has to do */
+    private const MAX_RETRIES     = 5;
+    private const ACTION_CREATE   = 'create';
+    private const ACTION_RETRIEVE = 'retrieve';
+    private const OPTIONS         = 'options';
+    private const ID              = 'id';
+    private const PARAMS          = 'params';
+    private const RETRY           = 'retry';
+    private const ERROR           = 'error';
+    private const TYPE            = 'type';
+    private const CODE            = 'code';
+
     /** @var WebhookEventSyncer */
     public $WebhookEventSyncer;
+
     /** @var string $debug */
     private $debug;
 
@@ -89,6 +82,140 @@ final class StripeManager
         $this->chargeSyncer        = $chargeSyncer;
         $this->customerSyncer      = $customerSyncer;
         $this->WebhookEventSyncer  = $webhookEventSyncer;
+    }
+
+    public function createCharge(StripeLocalCharge $localCharge): bool
+    {
+        // Get the object as an array
+        $params = $localCharge->toStripe(self::ACTION_CREATE);
+
+        // If the statement descriptor is not set and the default one is not null...
+        if (false === isset($params['statement_descriptor']) && false === \is_null($this->statementDescriptor)) {
+            // Set it
+            $params['statement_descriptor'] = $this->statementDescriptor;
+        }
+
+        $arguments = [
+            self::PARAMS  => $params,
+            self::OPTIONS => [],
+        ];
+
+        $stripeCharge = $this->callStripeApi(Charge::class, self::ACTION_CREATE, $arguments);
+
+        // If the creation failed...
+        if (false === $stripeCharge) {
+            // ... Check if it was due to a fraudulent detection
+            if (isset($this->error[self::ERROR][self::TYPE])) {
+                $this->chargeSyncer->handleFraudDetection($localCharge, $this->error);
+            }
+
+            // ... return false as the payment anyway failed
+            return false;
+        }
+
+        // Set the data returned by Stripe in the LocalCustomer object
+        $this->chargeSyncer->syncLocalFromStripe($localCharge, $stripeCharge);
+
+        // The creation was successful: return true
+        return true;
+    }
+
+    public function createCustomer(StripeLocalCustomer $localCustomer): bool
+    {
+        // Get the object as an array
+        $params = $localCustomer->toStripe(self::ACTION_CREATE);
+
+        $arguments = [
+            self::PARAMS  => $params,
+            self::OPTIONS => [],
+        ];
+
+        /** @var Customer $stripeCustomer */
+        $stripeCustomer = $this->callStripeApi(Customer::class, self::ACTION_CREATE, $arguments);
+
+        // If the creation failed, return false
+        if (false === $stripeCustomer) {
+            return false;
+        }
+
+        // Set the data returned by Stripe in the LocalCustomer object
+        $this->customerSyncer->syncLocalFromStripe($localCustomer, $stripeCustomer);
+
+        // The creation was successful: return true
+        return true;
+    }
+
+    /**
+     * @return Customer
+     */
+    public function retrieveCustomer(StripeLocalCustomer $localCustomer): ?Customer
+    {
+        // If no ID is set, return false
+        if (null === $localCustomer->getId()) {
+            return null;
+        }
+
+        $arguments = [
+            self::ID      => $localCustomer->getId(),
+            self::OPTIONS => [],
+        ];
+
+        $customer = $this->callStripeApi(Customer::class, self::ACTION_RETRIEVE, $arguments);
+
+        if ( ! $customer instanceof Customer) {
+            throw new \InvalidArgumentException(\Safe\sprintf('The response is not of the expected type %s.', Customer::class));
+        }
+
+        // Return the stripe object that can be "false" or "Customer"
+        return $customer;
+    }
+
+    public function retrieveEvent(string $eventStripeId): Event
+    {
+        $arguments = [
+            self::ID      => $eventStripeId,
+            self::OPTIONS => [],
+        ];
+
+        $event = $this->callStripeApi(Event::class, self::ACTION_RETRIEVE, $arguments);
+
+        if ( ! $event instanceof Event) {
+            throw new \InvalidArgumentException(\Safe\sprintf('The response is not of the expected type %s.', Event::class));
+        }
+
+        // Return the stripe object that can be "false" or "Customer"
+        return $event;
+    }
+
+    public function updateCustomer(StripeLocalCustomer $localCustomer, bool $syncSources): bool
+    {
+        // Get the stripe object
+        $stripeCustomer = $this->retrieveCustomer($localCustomer);
+
+        // The retrieving failed: return false
+        if (false === $stripeCustomer) {
+            return false;
+        }
+
+        // Update the stripe object with info set in the local object
+        $this->customerSyncer->syncStripeFromLocal($stripeCustomer, $localCustomer);
+
+        // Save the customer object
+        $stripeCustomer = $this->callStripeObject($stripeCustomer, 'save');
+
+        // If the update failed, return false
+        if (false === $stripeCustomer) {
+            return false;
+        }
+
+        // Set the data returned by Stripe in the LocalCustomer object
+        $this->customerSyncer->syncLocalFromStripe($localCustomer, $stripeCustomer);
+
+        if (true === $syncSources) {
+            $this->customerSyncer->syncLocalSources($localCustomer, $stripeCustomer);
+        }
+
+        return true;
     }
 
     /**
@@ -153,6 +280,7 @@ final class StripeManager
      */
     public function callStripeApi(string $endpoint, string $action, array $arguments)
     {
+        $return = null;
         try {
             switch (\count($arguments)) {
                 // Method with 1 argument only accept "options"
@@ -187,15 +315,19 @@ final class StripeManager
                     throw new \RuntimeException("The arguments passed don't correspond to the allowed number. Please, review them.");
             }
         } catch (ExceptionInterface $exceptionInterface) {
-            $return = $this->handleException($exceptionInterface);
+            $retry = $this->handleException($exceptionInterface);
 
-            if (self::RETRY === $return) {
-                $return = $this->callStripeApi($endpoint, $action, $arguments);
+            if ($retry) {
+                return $this->callStripeApi($endpoint, $action, $arguments);
             }
         }
 
         // Reset the number of retries
         $this->retries = 0;
+
+        if (null === $return) {
+            throw new \RuntimeException('No value is available after the call to the API. This should never happen, but happened.');
+        }
 
         return $return;
     }
@@ -306,136 +438,13 @@ final class StripeManager
         return empty($this->error);
     }
 
-    public function createCharge(StripeLocalCharge $localCharge): bool
-    {
-        // Get the object as an array
-        $params = $localCharge->toStripe(self::CREATE);
-
-        // If the statement descriptor is not set and the default one is not null...
-        if (false === isset($params['statement_descriptor']) && false === \is_null($this->statementDescriptor)) {
-            // Set it
-            $params['statement_descriptor'] = $this->statementDescriptor;
-        }
-
-        $arguments = [
-            self::PARAMS  => $params,
-            self::OPTIONS => [],
-        ];
-
-        $stripeCharge = $this->callStripeApi(Charge::class, self::CREATE, $arguments);
-
-        // If the creation failed...
-        if (false === $stripeCharge) {
-            // ... Check if it was due to a fraudulent detection
-            if (isset($this->error[self::ERROR][self::TYPE])) {
-                $this->chargeSyncer->handleFraudDetection($localCharge, $this->error);
-            }
-
-            // ... return false as the payment anyway failed
-            return false;
-        }
-
-        // Set the data returned by Stripe in the LocalCustomer object
-        $this->chargeSyncer->syncLocalFromStripe($localCharge, $stripeCharge);
-
-        // The creation was successful: return true
-        return true;
-    }
-
-    public function createCustomer(StripeLocalCustomer $localCustomer): bool
-    {
-        // Get the object as an array
-        $params = $localCustomer->toStripe(self::CREATE);
-
-        $arguments = [
-            self::PARAMS  => $params,
-            self::OPTIONS => [],
-        ];
-
-        /** @var Customer $stripeCustomer */
-        $stripeCustomer = $this->callStripeApi(Customer::class, self::CREATE, $arguments);
-
-        // If the creation failed, return false
-        if (false === $stripeCustomer) {
-            return false;
-        }
-
-        // Set the data returned by Stripe in the LocalCustomer object
-        $this->customerSyncer->syncLocalFromStripe($localCustomer, $stripeCustomer);
-
-        // The creation was successful: return true
-        return true;
-    }
-
     /**
-     * @return ApiResource|bool|Customer
+     * In dev mode, throws the catched exception while in production doesn't.
+     *
+     * @return bool Returns true if the call has to be retried, false instead.
+     *              The call may need to be retried due to the reaching of the API rate limit.
      */
-    public function retrieveCustomer(StripeLocalCustomer $localCustomer)
-    {
-        // If no ID is set, return false
-        if (null === $localCustomer->getId()) {
-            return false;
-        }
-
-        $arguments = [
-            self::ID      => $localCustomer->getId(),
-            self::OPTIONS => [],
-        ];
-
-        // Return the stripe object that can be "false" or "Customer"
-        return $this->callStripeApi(Customer::class, self::RETRIEVE, $arguments);
-    }
-
-    /**
-     * @return ApiResource|bool|Event
-     */
-    public function retrieveEvent(string $eventStripeId)
-    {
-        $arguments = [
-            self::ID      => $eventStripeId,
-            self::OPTIONS => [],
-        ];
-
-        // Return the stripe object that can be "false" or "Customer"
-        return $this->callStripeApi(Event::class, self::RETRIEVE, $arguments);
-    }
-
-    public function updateCustomer(StripeLocalCustomer $localCustomer, bool $syncSources): bool
-    {
-        // Get the stripe object
-        $stripeCustomer = $this->retrieveCustomer($localCustomer);
-
-        // The retrieving failed: return false
-        if (false === $stripeCustomer) {
-            return false;
-        }
-
-        // Update the stripe object with info set in the local object
-        $this->customerSyncer->syncStripeFromLocal($stripeCustomer, $localCustomer);
-
-        // Save the customer object
-        $stripeCustomer = $this->callStripeObject($stripeCustomer, 'save');
-
-        // If the update failed, return false
-        if (false === $stripeCustomer) {
-            return false;
-        }
-
-        // Set the data returned by Stripe in the LocalCustomer object
-        $this->customerSyncer->syncLocalFromStripe($localCustomer, $stripeCustomer);
-
-        if (true === $syncSources) {
-            $this->customerSyncer->syncLocalSources($localCustomer, $stripeCustomer);
-        }
-
-        return true;
-    }
-
-    /**
-     * @return bool|string Returns false in "production" if something goes wrong.
-     *                     May return "retry" if rate limit is reached
-     */
-    private function handleException(ExceptionInterface $e)
+    private function handleException(ExceptionInterface $e): bool
     {
         switch (\get_class($e)) {
             case RateLimitException::class:
@@ -450,7 +459,7 @@ final class StripeManager
                     // Increment by 1 the number of retries
                     ++$this->retries;
 
-                    return self::RETRY;
+                    return true;
                 }
                 break;
             case CardException::class:

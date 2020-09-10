@@ -1,27 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Cannot access property \\$id on bool\\|Stripe\\\\ApiResource\\.$#"
-			count: 1
-			path: src/Controller/WebhookController.php
-
-		-
 			message: "#^Parameter \\#1 \\$className of method Doctrine\\\\Persistence\\\\ObjectManager\\:\\:getRepository\\(\\) expects class\\-string\\<mixed\\>, string given\\.$#"
 			count: 1
 			path: src/Controller/WebhookController.php
 
 		-
 			message: "#^Unable to resolve the template type T in call to method Doctrine\\\\Persistence\\\\ObjectManager\\:\\:getRepository\\(\\)$#"
-			count: 1
-			path: src/Controller/WebhookController.php
-
-		-
-			message: "#^Parameter \\#2 \\$stripeResource of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\WebhookEventSyncer\\:\\:syncLocalFromStripe\\(\\) expects Stripe\\\\ApiResource, bool\\|Stripe\\\\ApiResource given\\.$#"
-			count: 1
-			path: src/Controller/WebhookController.php
-
-		-
-			message: "#^Parameter \\#1 \\$stripeEvent of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Util\\\\EventGuesser\\:\\:guess\\(\\) expects Stripe\\\\Event, bool\\|Stripe\\\\ApiResource given\\.$#"
 			count: 1
 			path: src/Controller/WebhookController.php
 
@@ -76,26 +61,6 @@ parameters:
 			path: src/Manager/StripeManager.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Manager\\\\StripeManager\\:\\:callStripeApi\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Manager/StripeManager.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Manager\\\\StripeManager\\:\\:callStripeObject\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Manager/StripeManager.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Manager\\\\StripeManager\\:\\:getError\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Manager/StripeManager.php
-
-		-
-			message: "#^PHPDoc tag @return with type array\\|null is not subtype of native type array\\.$#"
-			count: 1
-			path: src/Manager/StripeManager.php
-
-		-
 			message: "#^Call to function is_null\\(\\) with string will always evaluate to false\\.$#"
 			count: 1
 			path: src/Manager/StripeManager.php
@@ -116,12 +81,17 @@ parameters:
 			path: src/Manager/StripeManager.php
 
 		-
-			message: "#^Parameter \\#1 \\$stripeResource of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\CustomerSyncer\\:\\:syncStripeFromLocal\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\ApiResource\\|true given\\.$#"
+			message: "#^Strict comparison using \\=\\=\\= between false and Stripe\\\\Customer\\|null will always evaluate to false\\.$#"
 			count: 1
 			path: src/Manager/StripeManager.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Manager\\\\StripeManager\\:\\:callStripeObject\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\ApiResource\\|true given\\.$#"
+			message: "#^Parameter \\#1 \\$stripeResource of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\CustomerSyncer\\:\\:syncStripeFromLocal\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\Customer\\|null given\\.$#"
+			count: 1
+			path: src/Manager/StripeManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$object of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Manager\\\\StripeManager\\:\\:callStripeObject\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\Customer\\|null given\\.$#"
 			count: 1
 			path: src/Manager/StripeManager.php
 
@@ -132,6 +102,31 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$stripeResource of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\CustomerSyncer\\:\\:syncLocalSources\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\ApiResource\\|true given\\.$#"
+			count: 1
+			path: src/Manager/StripeManager.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Manager\\\\StripeManager\\:\\:callStripeApi\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Manager/StripeManager.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Manager\\\\StripeManager\\:\\:callStripeObject\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Manager/StripeManager.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between 'retry' and bool will always evaluate to false\\.$#"
+			count: 1
+			path: src/Manager/StripeManager.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Manager\\\\StripeManager\\:\\:getError\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Manager/StripeManager.php
+
+		-
+			message: "#^PHPDoc tag @return with type array\\|null is not subtype of native type array\\.$#"
 			count: 1
 			path: src/Manager/StripeManager.php
 

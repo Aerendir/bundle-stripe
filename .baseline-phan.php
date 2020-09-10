@@ -30,6 +30,8 @@ return [
     // PhanParamSignatureMismatch : 1 occurrence
     // PhanPossiblyInfiniteRecursionSameParams : 1 occurrence
     // PhanReadOnlyProtectedProperty : 1 occurrence
+    // PhanTypeMismatchDeclaredReturnNullable : 1 occurrence
+    // PhanTypeMismatchReturnProbablyReal : 1 occurrence
     // PhanUndeclaredExtendedClass : 1 occurrence
     // PhanUndeclaredMethod : 1 occurrence
     // PhanUndeclaredProperty : 1 occurrence
@@ -63,7 +65,7 @@ return [
         'src/Event/StripeWebhookSourceEventEvent.php' => ['PhanUnreferencedPublicClassConstant'],
         'src/Event/StripeWebhookTransferEventEvent.php' => ['PhanUnreferencedPublicClassConstant'],
         'src/Form/Type/CreditCardStripeTokenType.php' => ['PhanUnusedPublicFinalMethodParameter'],
-        'src/Manager/StripeManager.php' => ['PhanNonClassMethodCall', 'PhanPossiblyInfiniteRecursionSameParams', 'PhanRedefinedClassReference', 'PhanTypeArraySuspiciousNullable', 'PhanTypeMismatchDeclaredReturn', 'PhanUnreferencedPublicMethod', 'PhanWriteOnlyPublicProperty'],
+        'src/Manager/StripeManager.php' => ['PhanNonClassMethodCall', 'PhanPossiblyInfiniteRecursionSameParams', 'PhanRedefinedClassReference', 'PhanTypeArraySuspiciousNullable', 'PhanTypeMismatchDeclaredReturn', 'PhanTypeMismatchDeclaredReturnNullable', 'PhanTypeMismatchReturnProbablyReal', 'PhanUnreferencedPublicMethod', 'PhanWriteOnlyPublicProperty'],
         'src/Model/StripeLocalCard.php' => ['PhanReadOnlyPrivateProperty', 'PhanRedefinedClassReference', 'PhanUnreferencedPublicMethod', 'PhanUnusedPublicMethodParameter'],
         'src/Model/StripeLocalCharge.php' => ['PhanReadOnlyPrivateProperty', 'PhanTypeMismatchDeclaredReturn', 'PhanUnreferencedPublicMethod'],
         'src/Model/StripeLocalCustomer.php' => ['PhanReadOnlyPrivateProperty', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgumentReal', 'PhanTypeMismatchDeclaredReturn', 'PhanUnreferencedPublicMethod'],

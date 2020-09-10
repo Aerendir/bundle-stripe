@@ -22,17 +22,9 @@
       <code>$content['data'][self::OBJECT]</code>
       <code>$content['data'][self::OBJECT]</code>
     </MixedArrayAccess>
-    <PossiblyInvalidArgument occurrences="3">
+    <PossiblyInvalidArgument occurrences="1">
       <code>$request-&gt;getContent()</code>
-      <code>$stripeWebhookEvent</code>
-      <code>$stripeWebhookEvent</code>
     </PossiblyInvalidArgument>
-    <PossiblyInvalidMethodCall occurrences="1">
-      <code>id</code>
-    </PossiblyInvalidMethodCall>
-    <PossiblyInvalidPropertyFetch occurrences="1">
-      <code>$stripeWebhookEvent-&gt;id</code>
-    </PossiblyInvalidPropertyFetch>
   </file>
   <file src="src/DependencyInjection/Configuration.php">
     <MixedMethodCall occurrences="34">
@@ -139,7 +131,7 @@
       <code>ApiResource|bool</code>
       <code>ApiResource|bool</code>
       <code>array|null</code>
-      <code>bool|string</code>
+      <code>bool</code>
     </MixedInferredReturnType>
     <MixedOperand occurrences="4">
       <code>$e-&gt;getJsonBody()[self::ERROR][self::TYPE]</code>
@@ -154,13 +146,14 @@
     <NullReference occurrences="1">
       <code>error</code>
     </NullReference>
-    <PossiblyInvalidArgument occurrences="5">
+    <PossiblyInvalidArgument occurrences="3">
       <code>$stripeCharge</code>
       <code>$stripeCustomer</code>
       <code>$stripeCustomer</code>
-      <code>$stripeCustomer</code>
-      <code>$stripeCustomer</code>
     </PossiblyInvalidArgument>
+    <PossiblyNullArgument occurrences="1">
+      <code>$stripeCustomer</code>
+    </PossiblyNullArgument>
     <PossiblyNullArrayAccess occurrences="3">
       <code>$e-&gt;getJsonBody()[self::ERROR]</code>
       <code>$e-&gt;getJsonBody()[self::ERROR]</code>
@@ -183,6 +176,9 @@
     <TypeDoesNotContainNull occurrences="1">
       <code>null === $localCustomer-&gt;getId()</code>
     </TypeDoesNotContainNull>
+    <TypeDoesNotContainType occurrences="1">
+      <code>false === $stripeCustomer</code>
+    </TypeDoesNotContainType>
   </file>
   <file src="src/Model/StripeLocalCard.php">
     <PropertyNotSetInConstructor occurrences="9">
