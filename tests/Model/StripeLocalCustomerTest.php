@@ -61,14 +61,14 @@ final class StripeLocalCustomerTest extends ModelTestCase
 
         $mockCharge = $this->createMock(StripeLocalCharge::class);
 
-        self::assertSame(0, $resource->getCharges()->count());
+        self::assertCount(0, $resource->getCharges());
 
         $resource->addCharge($mockCharge);
-        self::assertSame(1, $resource->getCharges()->count());
+        self::assertCount(1, $resource->getCharges());
         self::assertSame($mockCharge, $resource->getCharges()->first());
 
         $resource->removeCharge($mockCharge);
-        self::assertSame(0, $resource->getCharges()->count());
+        self::assertCount(0, $resource->getCharges());
 
         $mockCard  = $this->createMock(StripeLocalCard::class);
         $mockCards = $this->createMock(ArrayCollection::class);

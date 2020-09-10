@@ -39,7 +39,7 @@ abstract class AbstractStripeBundleExtensionTest extends TestCase
         $this->container->registerExtension($this->extension);
     }
 
-    public function testDefaultConfig()
+    public function testDefaultConfig(): void
     {
         $this->loadConfiguration($this->container, 'default_config');
         $this->container->compile(true);
@@ -58,8 +58,5 @@ abstract class AbstractStripeBundleExtensionTest extends TestCase
         self::assertSame('_stripe_bundle_endpoint', $this->container->getParameter('stripe_bundle.endpoint')['route_name']);
     }
 
-    /**
-     * @param $resource
-     */
-    abstract protected function loadConfiguration(ContainerBuilder $container, $resource);
+    abstract protected function loadConfiguration(ContainerBuilder $container, string $resource): void;
 }

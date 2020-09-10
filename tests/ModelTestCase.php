@@ -22,9 +22,9 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;
 abstract class ModelTestCase extends TestCase
 {
     /**
-     * @param $data
+     * @param array<string, mixed> $data
      */
-    public function populateModel(StripeLocalResourceInterface $resource, $data)
+    public function populateModel(StripeLocalResourceInterface $resource, array $data): void
     {
         $reflect = new \ReflectionClass($resource);
 

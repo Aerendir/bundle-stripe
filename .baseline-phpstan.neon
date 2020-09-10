@@ -1,16 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\ApiOutdatedCommand\\:\\:scrapeApiVersions\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Command/ApiOutdatedCommand.php
-
-		-
-			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\<SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalWebhookEvent\\>\\:\\:findOneByStripeId\\(\\)\\.$#"
-			count: 1
-			path: src/Controller/WebhookController.php
-
-		-
 			message: "#^Cannot access property \\$id on bool\\|Stripe\\\\ApiResource\\.$#"
 			count: 1
 			path: src/Controller/WebhookController.php
@@ -32,6 +22,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$stripeEvent of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Util\\\\EventGuesser\\:\\:guess\\(\\) expects Stripe\\\\Event, bool\\|Stripe\\\\ApiResource given\\.$#"
+			count: 1
+			path: src/Controller/WebhookController.php
+
+		-
+			message: "#^Parameter \\#2 \\$localEventEntity of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Util\\\\EventGuesser\\:\\:guess\\(\\) expects SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalWebhookEvent, SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalResourceInterface given\\.$#"
 			count: 1
 			path: src/Controller/WebhookController.php
 
@@ -774,59 +769,4 @@ parameters:
 			message: "#^Parameter \\#1 \\$str of function strtoupper expects string, array\\|string given\\.$#"
 			count: 1
 			path: src/Util/EventGuesser.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Tests\\\\DependencyInjection\\\\AbstractStripeBundleExtensionTest\\:\\:testDefaultConfig\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/DependencyInjection/AbstractStripeBundleExtensionTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Tests\\\\DependencyInjection\\\\AbstractStripeBundleExtensionTest\\:\\:loadConfiguration\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/DependencyInjection/AbstractStripeBundleExtensionTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Tests\\\\DependencyInjection\\\\AbstractStripeBundleExtensionTest\\:\\:loadConfiguration\\(\\) has parameter \\$resource with no typehint specified\\.$#"
-			count: 1
-			path: tests/DependencyInjection/AbstractStripeBundleExtensionTest.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$resource\\)\\: Unexpected token \"\\$resource\", expected type at offset 18$#"
-			count: 1
-			path: tests/DependencyInjection/AbstractStripeBundleExtensionTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Tests\\\\DependencyInjection\\\\YamlStripeBundleExtensionTest\\:\\:loadConfiguration\\(\\) has parameter \\$resource with no typehint specified\\.$#"
-			count: 1
-			path: tests/DependencyInjection/YamlStripeBundleExtensionTest.php
-
-		-
-			message: "#^You should use assertCount\\(\\$expectedCount, \\$variable\\) instead of assertSame\\(\\$expectedCount, \\$variable\\-\\>count\\(\\)\\)\\.$#"
-			count: 3
-			path: tests/Model/StripeLocalCardTest.php
-
-		-
-			message: "#^You should use assertTrue\\(\\) instead of assertSame\\(\\) when expecting \"true\"$#"
-			count: 1
-			path: tests/Model/StripeLocalChargeTest.php
-
-		-
-			message: "#^You should use assertCount\\(\\$expectedCount, \\$variable\\) instead of assertSame\\(\\$expectedCount, \\$variable\\-\\>count\\(\\)\\)\\.$#"
-			count: 3
-			path: tests/Model/StripeLocalCustomerTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Tests\\\\ModelTestCase\\:\\:populateModel\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/ModelTestCase.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Tests\\\\ModelTestCase\\:\\:populateModel\\(\\) has parameter \\$data with no typehint specified\\.$#"
-			count: 1
-			path: tests/ModelTestCase.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$data\\)\\: Unexpected token \"\\$data\", expected type at offset 18$#"
-			count: 1
-			path: tests/ModelTestCase.php
 

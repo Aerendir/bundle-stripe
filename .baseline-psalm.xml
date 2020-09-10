@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="3.15@de6e7f324f44dde540ebe7ebd4eb481b97c86f30">
+  <file src="src/Command/ApiOutdatedCommand.php">
+    <MixedReturnTypeCoercion occurrences="2">
+      <code>\array_values($apiVersions)</code>
+      <code>array&lt;array-key,string&gt;</code>
+    </MixedReturnTypeCoercion>
+  </file>
   <file src="src/Controller/WebhookController.php">
-    <ArgumentTypeCoercion occurrences="1">
+    <ArgumentTypeCoercion occurrences="2">
       <code>\Safe\sprintf('SerendipityHQ\Bundle\StripeBundle\Model\StripeLocal%s', $objectType)</code>
+      <code>$localWebhookEvent</code>
     </ArgumentTypeCoercion>
-    <MixedArgument occurrences="6">
+    <MixedArgument occurrences="5">
       <code>$content[self::ID]</code>
       <code>$content['type']</code>
       <code>$content['data'][self::OBJECT][self::OBJECT]</code>
-      <code>$localWebhookEvent</code>
       <code>$guessedDispatchingEvent['type']</code>
       <code>$guessedDispatchingEvent[self::OBJECT]</code>
     </MixedArgument>
@@ -16,9 +22,6 @@
       <code>$content['data'][self::OBJECT]</code>
       <code>$content['data'][self::OBJECT]</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="1">
-      <code>$localWebhookEvent</code>
-    </MixedAssignment>
     <PossiblyInvalidArgument occurrences="3">
       <code>$request-&gt;getContent()</code>
       <code>$stripeWebhookEvent</code>
@@ -551,30 +554,8 @@
     </PossiblyFalseArgument>
   </file>
   <file src="tests/DependencyInjection/AbstractStripeBundleExtensionTest.php">
-    <MissingParamType occurrences="1">
-      <code>$resource</code>
-    </MissingParamType>
-    <MissingReturnType occurrences="1">
-      <code>loadConfiguration</code>
-    </MissingReturnType>
     <MixedArrayAccess occurrences="1">
       <code>$this-&gt;container-&gt;getParameter('stripe_bundle.endpoint')['route_name']</code>
-    </MixedArrayAccess>
-  </file>
-  <file src="tests/DependencyInjection/YamlStripeBundleExtensionTest.php">
-    <MissingParamType occurrences="1">
-      <code>$resource</code>
-    </MissingParamType>
-    <MixedOperand occurrences="1">
-      <code>$resource</code>
-    </MixedOperand>
-  </file>
-  <file src="tests/ModelTestCase.php">
-    <MissingParamType occurrences="1">
-      <code>$data</code>
-    </MissingParamType>
-    <MixedArrayAccess occurrences="1">
-      <code>$data[$reflectedProperty-&gt;getName()]</code>
     </MixedArrayAccess>
   </file>
 </files>
