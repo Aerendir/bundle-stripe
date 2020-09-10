@@ -37,8 +37,8 @@ final class SHQStripeExtension extends Extension implements PrependExtensionInte
         $containerBuilder->prependExtensionConfig('twig', [
             'globals' => [
                 'stripe_publishable_key' => '%env(STRIPE_PUB_KEY)%',
-                'stripe_api_version' => SHQStripeBundle::SUPPORTED_STRIPE_API,
-            ]
+                'stripe_api_version'     => SHQStripeBundle::SUPPORTED_STRIPE_API,
+            ],
         ]);
     }
 

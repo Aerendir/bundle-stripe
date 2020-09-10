@@ -9,7 +9,7 @@
  */
 return [
     // # Issue statistics:
-    // PhanRedefinedClassReference : 100+ occurrences
+    // PhanRedefinedClassReference : 95+ occurrences
     // PhanUnreferencedPublicClassConstant : 65+ occurrences
     // PhanReadOnlyPrivateProperty : 30+ occurrences
     // PhanUnreferencedPublicMethod : 25+ occurrences
@@ -34,12 +34,13 @@ return [
     // PhanUndeclaredMethod : 1 occurrence
     // PhanUndeclaredProperty : 1 occurrence
     // PhanUndeclaredTypeParameter : 1 occurrence
+    // PhanUnextractableAnnotationSuffix : 1 occurrence
     // PhanUnusedVariableCaughtException : 1 occurrence
     // PhanWriteOnlyPublicProperty : 1 occurrence
 
     // Currently, file_suppressions and directory_suppressions are the only supported suppressions
     'file_suppressions' => [
-        'src/Command/ApiOutdatedCommand.php' => ['PhanReadOnlyProtectedProperty', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass'],
+        'src/Command/ApiOutdatedCommand.php' => ['PhanReadOnlyProtectedProperty', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanUnextractableAnnotationSuffix'],
         'src/Controller/WebhookController.php' => ['PhanRedefinedClassReference', 'PhanUndeclaredMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
         'src/Event/AbstractStripeEvent.php' => ['PhanUnreferencedPublicMethod'],
         'src/Event/StripeCustomerUpdateEvent.php' => ['PhanUnreferencedPublicMethod'],

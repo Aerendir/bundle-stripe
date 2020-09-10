@@ -78,7 +78,7 @@ final class StripeLocalChargeTest extends ModelTestCase
         self::assertSame($test['failureMessage'], $resource->getFailureMessage());
         self::assertSame($test['fraudDetails'], $resource->getFraudDetails());
         self::assertSame($test['metadata'], $resource->getMetadata());
-        self::assertSame($test['paid'], $resource->getPaid());
+        self::assertTrue($resource->getPaid());
         self::assertSame($test['receiptNumber'], $resource->getReceiptNumber());
         self::assertSame($test['status'], $resource->getStatus());
         self::assertTrue($resource->isCaptured());

@@ -26,10 +26,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  */
 final class YamlStripeBundleExtensionTest extends AbstractStripeBundleExtensionTest
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function loadConfiguration(ContainerBuilder $container, $resource): void
+    protected function loadConfiguration(ContainerBuilder $container, string $resource): void
     {
         // Mock the Doctrine service
         $mockEntityManager    = $this->createMock(EntityManagerInterface::class);

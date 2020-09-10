@@ -70,6 +70,9 @@ Run "composer req symfony/domcrawler" to install it.'));
         return self::SUCCESS;
     }
 
+    /**
+     * @return array<array-key,string>
+     */
     private function scrapeApiVersions(SymfonyStyle $ioWriter): array
     {
         $client = HttpClient::create();

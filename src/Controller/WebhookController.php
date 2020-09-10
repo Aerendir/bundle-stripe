@@ -14,6 +14,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\Controller;
 use Doctrine\ORM\EntityManagerInterface;
 use SerendipityHQ\Bundle\StripeBundle\Manager\StripeManager;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalWebhookEvent;
+use SerendipityHQ\Bundle\StripeBundle\Repository\StripeLocalWebhookEventRepository;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\CardSyncer;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\ChargeSyncer;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\CustomerSyncer;
@@ -50,8 +51,11 @@ final class WebhookController extends AbstractController
         // Get the Event again from Stripe for security reasons
         $stripeWebhookEvent = $stripeManager->retrieveEvent($content[self::ID]);
 
+        /** @var StripeLocalWebhookEventRepository $repo */
+        $repo = $entityManager->getRepository(StripeLocalWebhookEvent::class);
+
         // Now check the event doesn't already exist in the database
-        $localWebhookEvent = $entityManager->getRepository(StripeLocalWebhookEvent::class)->findOneByStripeId($stripeWebhookEvent->id);
+        $localWebhookEvent = $repo->findOneByStripeId($stripeWebhookEvent->id);
 
         if (false !== \strpos($content['type'], 'deleted')) {
             $objectType    = \ucfirst($content['data'][self::OBJECT][self::OBJECT]);
