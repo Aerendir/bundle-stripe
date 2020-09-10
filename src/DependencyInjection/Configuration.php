@@ -15,8 +15,6 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
- * {@inheritdoc}
- *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
 final class Configuration implements ConfigurationInterface
@@ -29,10 +27,7 @@ final class Configuration implements ConfigurationInterface
         return ['orm'];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getConfigTreeBuilder(): \Symfony\Component\Config\Definition\Builder\TreeBuilder
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('shq_stripe');
         $rootNode    = $treeBuilder->getRootNode();
@@ -49,7 +44,6 @@ final class Configuration implements ConfigurationInterface
                     ->defaultValue('orm')
                     ->cannotBeEmpty()
                 ->end()
-                ->scalarNode('model_manager_name')->defaultNull()->end()
                 ->arrayNode('stripe_config')
                     ->isRequired()
                     ->children()

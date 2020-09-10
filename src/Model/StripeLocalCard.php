@@ -18,7 +18,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @see https://stripe.com/docs/api#card_object
  */
-final class StripeLocalCard implements StripeLocalResourceInterface
+class StripeLocalCard implements StripeLocalResourceInterface
 {
     /** @var string The Stripe ID of the card (used in conjunction with a customer or recipient ID) */
     private $id;
@@ -161,7 +161,7 @@ final class StripeLocalCard implements StripeLocalResourceInterface
         return $this->brand;
     }
 
-    public function getCharges(): \Doctrine\Common\Collections\ArrayCollection
+    public function getCharges(): ArrayCollection
     {
         return $this->charges;
     }
@@ -171,7 +171,7 @@ final class StripeLocalCard implements StripeLocalResourceInterface
         return $this->country;
     }
 
-    public function getCustomer(): \SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer
+    public function getCustomer(): StripeLocalCustomer
     {
         return $this->customer;
     }
@@ -388,9 +388,6 @@ final class StripeLocalCard implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function toStripe(string $action): array
     {
         throw new \RuntimeException('Method not yet implemented.');

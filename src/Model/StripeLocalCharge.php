@@ -20,7 +20,7 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  *
  * @see https://stripe.com/docs/api#charge_object
  */
-final class StripeLocalCharge implements StripeLocalResourceInterface
+class StripeLocalCharge implements StripeLocalResourceInterface
 {
     /** @var string The Stripe ID of the StripeLocalCharge */
     private $id;
@@ -132,7 +132,7 @@ final class StripeLocalCharge implements StripeLocalResourceInterface
         return $this->id;
     }
 
-    public function getAmount(): \SerendipityHQ\Component\ValueObjects\Money\Money
+    public function getAmount(): Money
     {
         return $this->amount;
     }
@@ -147,7 +147,7 @@ final class StripeLocalCharge implements StripeLocalResourceInterface
         return $this->created;
     }
 
-    public function getCustomer(): \SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer
+    public function getCustomer(): StripeLocalCustomer
     {
         return $this->customer;
     }
@@ -190,7 +190,7 @@ final class StripeLocalCharge implements StripeLocalResourceInterface
         return $this->paid;
     }
 
-    public function getReceiptEmail(): ?\SerendipityHQ\Component\ValueObjects\Email\Email
+    public function getReceiptEmail(): ?Email
     {
         return $this->receiptEmail;
     }
@@ -365,9 +365,6 @@ final class StripeLocalCharge implements StripeLocalResourceInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function toStripe(string $action): array
     {
         $return = [];

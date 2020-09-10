@@ -17,8 +17,6 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalWebhookEvent;
 /**
  * @author Audrius Karabanovas <audrius@karabanovas.net>
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
- *
- * {@inheritdoc}
  */
 final class StripeLocalWebhookEventRepository extends EntityRepository implements ByStripeIdInterface
 {

@@ -38,6 +38,6 @@ final class YamlStripeBundleExtensionTest extends AbstractStripeBundleExtensionT
         $container->set('doctrine', $mockDoctrineRegistry);
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/Fixtures'));
-        $loader->load($resource . '.yml');
+        $loader->load($resource . '.yaml');
     }
 }

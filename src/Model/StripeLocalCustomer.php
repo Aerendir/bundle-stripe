@@ -19,7 +19,7 @@ use SerendipityHQ\Component\ValueObjects\Email\Email;
  *
  * @see https://stripe.com/docs/api#customer_object
  */
-final class StripeLocalCustomer implements StripeLocalResourceInterface
+class StripeLocalCustomer implements StripeLocalResourceInterface
 {
     /** @var string */
     private const CREATE = 'create';
@@ -37,9 +37,6 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
 
     /** @var ArrayCollection $charges The charges of the customer */
     private $charges;
-
-    /** @var ArrayCollection $subscriptions The subscriptions of the customer */
-    private $subscriptions;
 
     /** @var \DateTime $created */
     private $created;
@@ -74,7 +71,6 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
     public function __construct()
     {
         $this->charges       = new ArrayCollection();
-        $this->subscriptions = new ArrayCollection();
         $this->cards         = new ArrayCollection();
     }
 
@@ -84,17 +80,6 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
         if (false === $this->charges->contains($charge)) {
             // Add the card to the collection
             $this->charges->add($charge);
-        }
-
-        return $this;
-    }
-
-    public function addSubscription(StripeLocalSubscription $subscription): self
-    {
-        // If the subscription is already set
-        if (false === $this->subscriptions->contains($subscription)) {
-            // Add the subscription to the collection
-            $this->subscriptions->add($subscription);
         }
 
         return $this;
@@ -110,19 +95,14 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this->businessVatId;
     }
 
-    public function getCards(): \Doctrine\Common\Collections\ArrayCollection
+    public function getCards(): ArrayCollection
     {
         return $this->cards;
     }
 
-    public function getCharges(): \Doctrine\Common\Collections\ArrayCollection
+    public function getCharges(): ArrayCollection
     {
         return $this->charges;
-    }
-
-    public function getSubscriptions(): \Doctrine\Common\Collections\ArrayCollection
-    {
-        return $this->subscriptions;
     }
 
     public function getCreated(): \DateTime
@@ -145,7 +125,7 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this->description;
     }
 
-    public function getEmail(): ?\SerendipityHQ\Component\ValueObjects\Email\Email
+    public function getEmail(): ?Email
     {
         return $this->email;
     }
@@ -181,11 +161,6 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
     public function removeCharge(StripeLocalCharge $charge): bool
     {
         return $this->charges->removeElement($charge);
-    }
-
-    public function removeSubscription(StripeLocalSubscription $subscription): bool
-    {
-        return $this->subscriptions->removeElement($subscription);
     }
 
     public function setAccountBalance(int $balance): self
@@ -247,9 +222,6 @@ final class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function toStripe(string $action): array
     {
         if (self::CREATE !== $action && 'update' !== $action) {

@@ -22,7 +22,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 abstract class AbstractStripeBundleExtensionTest extends TestCase
 {
-    /** @var \SerendipityHQ\Bundle\StripeBundle\DependencyInjection\SHQStripeExtension|null */
+    /** @var SHQStripeExtension|null */
     private $extension;
 
     /** @var ContainerBuilder */
@@ -45,7 +45,6 @@ abstract class AbstractStripeBundleExtensionTest extends TestCase
         $this->container->compile(true);
 
         self::assertSame('orm', $this->container->getParameter('stripe_bundle.db_driver'));
-        self::assertNull($this->container->getParameter('stripe_bundle.model_manager_name'));
 
         // Test secret key
         self::assertSame('secret', $this->container->getParameter('stripe_bundle.secret_key'));

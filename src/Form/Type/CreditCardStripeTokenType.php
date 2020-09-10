@@ -20,9 +20,6 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 final class CreditCardStripeTokenType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('card_token', HiddenType::class);

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace SerendipityHQ\Bundle\StripeBundle\Service;
+namespace SerendipityHQ\Bundle\StripeBundle\Util;
 
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookAccountEventEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookApplicationFeeEventEvent;
@@ -23,7 +23,6 @@ use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookInvoiceItemEventEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookOrderEventEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookOrderReturnEventEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookPingEventEvent;
-use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookPlanEventEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookProductEventEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookRecipientEventEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookReviewEvent;
@@ -62,175 +61,148 @@ final class EventGuesser
 
         switch ($pieces['kind']) {
             case 'account':
-                $disptachingEvent = new StripeWebhookAccountEventEvent($localEventEntity);
+                $dispatchingEvent = new StripeWebhookAccountEventEvent($localEventEntity);
 
                 return [
                     self::TYPE   => \constant(StripeWebhookAccountEventEvent::class . '::' . $pieces[self::TYPE]),
-                    self::OBJECT => $disptachingEvent,
+                    self::OBJECT => $dispatchingEvent,
                 ];
-                break;
 
             case 'application_fee':
-                $disptachingEvent = new StripeWebhookApplicationFeeEventEvent($localEventEntity);
+                $dispatchingEvent = new StripeWebhookApplicationFeeEventEvent($localEventEntity);
 
                 return [
                     self::TYPE   => \constant(StripeWebhookApplicationFeeEventEvent::class . '::' . $pieces[self::TYPE]),
-                    self::OBJECT => $disptachingEvent,
+                    self::OBJECT => $dispatchingEvent,
                 ];
-                break;
 
             case 'balance':
-                $disptachingEvent = new StripeWebhookBalanceEventEvent($localEventEntity);
+                $dispatchingEvent = new StripeWebhookBalanceEventEvent($localEventEntity);
 
                 return [
                     self::TYPE   => \constant(StripeWebhookBalanceEventEvent::class . '::' . $pieces[self::TYPE]),
-                    self::OBJECT => $disptachingEvent,
+                    self::OBJECT => $dispatchingEvent,
                 ];
-                break;
 
             case 'bitcoin':
-                $disptachingEvent = new StripeWebhookBitcoinEventEvent($localEventEntity);
+                $dispatchingEvent = new StripeWebhookBitcoinEventEvent($localEventEntity);
 
                 return [
                     self::TYPE   => \constant(StripeWebhookBitcoinEventEvent::class . '::' . $pieces[self::TYPE]),
-                    self::OBJECT => $disptachingEvent,
+                    self::OBJECT => $dispatchingEvent,
                 ];
-                break;
 
             case 'charge':
-                $disptachingEvent = new StripeWebhookChargeEventEvent($localEventEntity);
+                $dispatchingEvent = new StripeWebhookChargeEventEvent($localEventEntity);
 
                 return [
                     self::TYPE   => \constant(StripeWebhookChargeEventEvent::class . '::' . $pieces[self::TYPE]),
-                    self::OBJECT => $disptachingEvent,
+                    self::OBJECT => $dispatchingEvent,
                 ];
-                break;
 
             case 'coupon':
-                $disptachingEvent = new StripeWebhookCouponEventEvent($localEventEntity);
+                $dispatchingEvent = new StripeWebhookCouponEventEvent($localEventEntity);
 
                 return [
                     self::TYPE   => \constant(StripeWebhookCouponEventEvent::class . '::' . $pieces[self::TYPE]),
-                    self::OBJECT => $disptachingEvent,
+                    self::OBJECT => $dispatchingEvent,
                 ];
-                break;
 
             case 'customer':
-                $disptachingEvent = new StripeWebhookCustomerEventEvent($localEventEntity);
+                $dispatchingEvent = new StripeWebhookCustomerEventEvent($localEventEntity);
 
                 return [
                     self::TYPE   => \constant(StripeWebhookCustomerEventEvent::class . '::' . $pieces[self::TYPE]),
-                    self::OBJECT => $disptachingEvent,
+                    self::OBJECT => $dispatchingEvent,
                 ];
-                break;
 
             case 'invoice':
-                $disptachingEvent = new StripeWebhookInvoiceEventEvent($localEventEntity);
+                $dispatchingEvent = new StripeWebhookInvoiceEventEvent($localEventEntity);
 
                 return [
                     self::TYPE   => \constant(StripeWebhookInvoiceEventEvent::class . '::' . $pieces[self::TYPE]),
-                    self::OBJECT => $disptachingEvent,
+                    self::OBJECT => $dispatchingEvent,
                 ];
-                break;
 
             case 'invpiceitem':
-                $disptachingEvent = new StripeWebhookInvoiceItemEventEvent($localEventEntity);
+                $dispatchingEvent = new StripeWebhookInvoiceItemEventEvent($localEventEntity);
 
                 return [
                     self::TYPE   => \constant(StripeWebhookInvoiceItemEventEvent::class . '::' . $pieces[self::TYPE]),
-                    self::OBJECT => $disptachingEvent,
+                    self::OBJECT => $dispatchingEvent,
                 ];
-                break;
 
             case 'order':
-                $disptachingEvent = new StripeWebhookOrderEventEvent($localEventEntity);
+                $dispatchingEvent = new StripeWebhookOrderEventEvent($localEventEntity);
 
                 return [
                     self::TYPE   => \constant(StripeWebhookOrderEventEvent::class . '::' . $pieces[self::TYPE]),
-                    self::OBJECT => $disptachingEvent,
+                    self::OBJECT => $dispatchingEvent,
                 ];
-                break;
 
             case 'order_return':
-                $disptachingEvent = new StripeWebhookOrderReturnEventEvent($localEventEntity);
+                $dispatchingEvent = new StripeWebhookOrderReturnEventEvent($localEventEntity);
 
                 return [
                     self::TYPE   => \constant(StripeWebhookOrderReturnEventEvent::class . '::' . $pieces[self::TYPE]),
-                    self::OBJECT => $disptachingEvent,
+                    self::OBJECT => $dispatchingEvent,
                 ];
-                break;
-
-            case 'plan':
-                $disptachingEvent = new StripeWebhookPlanEventEvent($localEventEntity);
-
-                return [
-                    self::TYPE   => \constant(StripeWebhookPlanEventEvent::class . '::' . $pieces[self::TYPE]),
-                    self::OBJECT => $disptachingEvent,
-                ];
-                break;
 
             case 'product':
-                $disptachingEvent = new StripeWebhookProductEventEvent($localEventEntity);
+                $dispatchingEvent = new StripeWebhookProductEventEvent($localEventEntity);
 
                 return [
                     self::TYPE   => \constant(StripeWebhookProductEventEvent::class . '::' . $pieces[self::TYPE]),
-                    self::OBJECT => $disptachingEvent,
+                    self::OBJECT => $dispatchingEvent,
                 ];
-                break;
 
             case 'recipient':
-                $disptachingEvent = new StripeWebhookRecipientEventEvent($localEventEntity);
+                $dispatchingEvent = new StripeWebhookRecipientEventEvent($localEventEntity);
 
                 return [
                     self::TYPE   => \constant(StripeWebhookRecipientEventEvent::class . '::' . $pieces[self::TYPE]),
-                    self::OBJECT => $disptachingEvent,
+                    self::OBJECT => $dispatchingEvent,
                 ];
-                break;
 
             case 'review':
-                $disptachingEvent = new StripeWebhookReviewEvent($localEventEntity);
+                $dispatchingEvent = new StripeWebhookReviewEvent($localEventEntity);
 
                 return [
                     self::TYPE   => \constant(StripeWebhookReviewEvent::class . '::' . $pieces[self::TYPE]),
-                    self::OBJECT => $disptachingEvent,
+                    self::OBJECT => $dispatchingEvent,
                 ];
-                break;
 
             case 'sku':
-                $disptachingEvent = new StripeWebhookSkuEventEvent($localEventEntity);
+                $dispatchingEvent = new StripeWebhookSkuEventEvent($localEventEntity);
 
                 return [
                     self::TYPE   => \constant(StripeWebhookSkuEventEvent::class . '::' . $pieces[self::TYPE]),
-                    self::OBJECT => $disptachingEvent,
+                    self::OBJECT => $dispatchingEvent,
                 ];
-                break;
 
             case 'source':
-                $disptachingEvent = new StripeWebhookSourceEventEvent($localEventEntity);
+                $dispatchingEvent = new StripeWebhookSourceEventEvent($localEventEntity);
 
                 return [
                     self::TYPE   => \constant(StripeWebhookSourceEventEvent::class . '::' . $pieces[self::TYPE]),
-                    self::OBJECT => $disptachingEvent,
+                    self::OBJECT => $dispatchingEvent,
                 ];
-                break;
 
             case 'transfer':
-                $disptachingEvent = new StripeWebhookTransferEventEvent($localEventEntity);
+                $dispatchingEvent = new StripeWebhookTransferEventEvent($localEventEntity);
 
                 return [
                     self::TYPE   => \constant(StripeWebhookTransferEventEvent::class . '::' . $pieces[self::TYPE]),
-                    self::OBJECT => $disptachingEvent,
+                    self::OBJECT => $dispatchingEvent,
                 ];
-                break;
 
             case 'ping':
-                $disptachingEvent = new StripeWebhookPingEventEvent($localEventEntity);
+                $dispatchingEvent = new StripeWebhookPingEventEvent($localEventEntity);
 
                 return [
                     self::TYPE   => \constant(StripeWebhookPingEventEvent::class . '::' . $pieces[self::TYPE]),
-                    self::OBJECT => $disptachingEvent,
+                    self::OBJECT => $dispatchingEvent,
                 ];
-                break;
 
             default:
                 if ($this->debug) {

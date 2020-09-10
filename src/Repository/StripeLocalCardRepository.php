@@ -17,8 +17,6 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard;
 /**
  * @author Audrius Karabanovas <audrius@karabanovas.net>
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
- *
- * {@inheritdoc}
  */
 final class StripeLocalCardRepository extends EntityRepository implements ByStripeIdInterface
 {

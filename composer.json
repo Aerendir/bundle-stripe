@@ -17,6 +17,7 @@
     ],
     "require": {
         "php": "^7.3",
+        "ext-json": "*",
         "doctrine/orm": "^2.5",
         "serendipity_hq/component-value-objects": "^7.0",
         "stripe/stripe-php": "^7.0",
@@ -32,7 +33,12 @@
         "doctrine/doctrine-bundle": "^1.7 || ^2.0",
         "monolog/monolog": "^1.23 || ^2.0",
         "roave/security-advisories": "dev-master",
+        "serendipity_hq/component-var-dumper-f": "^2.0",
+        "symfony/console": "^5.1",
+        "symfony/css-selector": "^5.1",
+        "symfony/dom-crawler": "^4.4|^5.1",
         "symfony/form": "^4.4|^5.1",
+        "symfony/http-client": "^4.4|^5.1",
         "symfony/var-dumper": "^4.4|^5.1",
         "symfony/yaml": "^4.4|^5.1"
     },

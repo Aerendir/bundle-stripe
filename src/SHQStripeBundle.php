@@ -17,14 +17,10 @@ use SerendipityHQ\Component\ValueObjects\Money\Bridge\Doctrine\MoneyType;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- * {@inheritdoc}
- */
 final class SHQStripeBundle extends Bundle
 {
-    /**
-     * {@inheritdoc}
-     */
+    public const SUPPORTED_STRIPE_API = '2017-08-15';
+
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);
@@ -49,7 +45,7 @@ final class SHQStripeBundle extends Bundle
         ]);
     }
 
-    private function getXmlMappingDriver(array $mappings): \Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass
+    private function getXmlMappingDriver(array $mappings): DoctrineOrmMappingsPass
     {
         return DoctrineOrmMappingsPass::createXmlMappingDriver(
             $mappings,

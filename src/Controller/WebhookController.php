@@ -11,15 +11,21 @@
 
 namespace SerendipityHQ\Bundle\StripeBundle\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
+use SerendipityHQ\Bundle\StripeBundle\Manager\StripeManager;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalWebhookEvent;
+use SerendipityHQ\Bundle\StripeBundle\Syncer\CardSyncer;
+use SerendipityHQ\Bundle\StripeBundle\Syncer\ChargeSyncer;
+use SerendipityHQ\Bundle\StripeBundle\Syncer\CustomerSyncer;
+use SerendipityHQ\Bundle\StripeBundle\Syncer\SyncerInterface;
+use SerendipityHQ\Bundle\StripeBundle\Syncer\WebhookEventSyncer;
+use SerendipityHQ\Bundle\StripeBundle\Util\EventGuesser;
 use Stripe\Event;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-/**
- * {@inheritdoc}
- */
 final class WebhookController extends AbstractController
 {
     /** @var string */
@@ -27,27 +33,57 @@ final class WebhookController extends AbstractController
     /** @var string */
     private const OBJECT = 'object';
 
-    public function notifyAction(Request $request): \Symfony\Component\HttpFoundation\Response
-    {
+    public function notifyAction(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        EventDispatcherInterface $eventDispatcher,
+        StripeManager $stripeManager,
+        EventGuesser $eventGuesser,
+        CardSyncer $cardSyncer,
+        ChargeSyncer $chargeSyncer,
+        CustomerSyncer $customerSyncer,
+        WebhookEventSyncer $webhookEventSyncer
+    ): Response {
         /** @var Event $content */
         $content = \Safe\json_decode($request->getContent(), true);
 
         // Get the Event again from Stripe for security reasons
-        $stripeWebhookEvent = $this->get('stripe_bundle.manager.stripe_api')->retrieveEvent($content[self::ID]);
+        $stripeWebhookEvent = $stripeManager->retrieveEvent($content[self::ID]);
 
         // Now check the event doesn't already exist in the database
-        $localWebhookEvent = $this->get('stripe_bundle.entity_manager')->getRepository('SHQStripeBundle:StripeLocalWebhookEvent')->findOneByStripeId($stripeWebhookEvent->id);
+        $localWebhookEvent = $entityManager->getRepository(StripeLocalWebhookEvent::class)->findOneByStripeId($stripeWebhookEvent->id);
 
         if (false !== \strpos($content['type'], 'deleted')) {
-            $objectType = \ucfirst($content['data'][self::OBJECT][self::OBJECT]);
+            $objectType    = \ucfirst($content['data'][self::OBJECT][self::OBJECT]);
+            $localResource = null;
             if (null === $localWebhookEvent) {
-                $localResource = $this->get('stripe_bundle.entity_manager')
-                    ->getRepository('SHQStripeBundle:StripeLocal' . $objectType)
+                $localResource = $entityManager
+                    ->getRepository(\Safe\sprintf('SerendipityHQ\Bundle\StripeBundle\Model\StripeLocal%s', $objectType))
                     ->findOneBy([self::ID => $content['data'][self::OBJECT][self::ID]]);
             }
-            $syncer = $this->get('stripe_bundle.syncer.' . $objectType);
-            if (\method_exists($syncer, 'removeLocal')) {
-                $this->get('stripe_bundle.syncer.' . $objectType)->removeLocal($localResource, $stripeWebhookEvent);
+
+            if (null !== $localResource) {
+                /** @var SyncerInterface|null $syncer */
+                $syncer = null;
+                switch ($objectType) {
+                    case 'card':
+                        $syncer = $cardSyncer;
+                        break;
+                    case 'charge':
+                        $syncer = $chargeSyncer;
+                        break;
+                    case 'customer':
+                        $syncer = $customerSyncer;
+                        break;
+                }
+
+                if (null === $syncer) {
+                    throw new \RuntimeException(\Safe\sprintf('There is no syncer configured for object of type "%s".', $objectType));
+                }
+
+                if (\method_exists($syncer, 'removeLocal')) {
+                    $syncer->removeLocal($localResource);
+                }
             }
 
             return new Response('ok', 200);
@@ -58,13 +94,13 @@ final class WebhookController extends AbstractController
             $localWebhookEvent = new StripeLocalWebhookEvent();
 
             // Now sync the entity LocalWebhookEvent with the remote Stripe\Event (persisting is automatically handled)
-            $this->get('stripe_bundle.syncer.webhook_event')->syncLocalFromStripe($localWebhookEvent, $stripeWebhookEvent);
+            $webhookEventSyncer->syncLocalFromStripe($localWebhookEvent, $stripeWebhookEvent);
         }
 
         // Guess the event to dispatch to the application
-        $guessedDispatchingEvent = $this->get('stripe_bundle.guesser.event_guesser')->guess($stripeWebhookEvent, $localWebhookEvent);
+        $guessedDispatchingEvent = $eventGuesser->guess($stripeWebhookEvent, $localWebhookEvent);
 
-        $this->container->get('event_dispatcher')->dispatch($guessedDispatchingEvent['type'], $guessedDispatchingEvent[self::OBJECT]);
+        $eventDispatcher->dispatch($guessedDispatchingEvent['type'], $guessedDispatchingEvent[self::OBJECT]);
 
         return new Response('ok', 200);
     }
