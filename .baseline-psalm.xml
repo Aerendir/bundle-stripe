@@ -557,36 +557,17 @@
       <code>$this-&gt;container-&gt;getParameter('stripe_bundle.endpoint')['route_name']</code>
     </MixedArrayAccess>
   </file>
-  <file src="tests/Model/StripeLocalCustomerTest.php">
-    <MixedMethodCall occurrences="5">
-      <code>setCurrency</code>
-      <code>setDescription</code>
-      <code>setEmail</code>
-      <code>setMetadata</code>
-      <code>setNewSource</code>
-    </MixedMethodCall>
-    <UndefinedMethod occurrences="2">
-      <code>setBusinessVatId</code>
-      <code>getBusinessVatId</code>
-    </UndefinedMethod>
-  </file>
   <file src="tests/ModelTestCase.php">
     <MixedArrayOffset occurrences="2">
       <code>$data[$reflectedProperty-&gt;getName()]</code>
       <code>$data[$reflectedProperty-&gt;getName()]</code>
     </MixedArrayOffset>
-    <MixedAssignment occurrences="2">
-      <code>$resourceProperties</code>
+    <UndefinedDocblockClass occurrences="5">
+      <code>ReflectionHelper::getLocalModelReflectedProperties(\get_class($resource))</code>
       <code>$reflectedProperty</code>
-    </MixedAssignment>
-    <MixedMethodCall occurrences="4">
-      <code>getName</code>
-      <code>setAccessible</code>
-      <code>setValue</code>
-      <code>getName</code>
-    </MixedMethodCall>
-    <UndefinedMethod occurrences="1">
-      <code>getLocalModelProperties</code>
-    </UndefinedMethod>
+      <code>$reflectedProperty</code>
+      <code>$reflectedProperty</code>
+      <code>$reflectedProperty</code>
+    </UndefinedDocblockClass>
   </file>
 </files>

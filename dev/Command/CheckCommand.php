@@ -11,6 +11,7 @@
 
 namespace SerendipityHQ\Bundle\StripeBundle\Dev\Command;
 
+use SerendipityHQ\Bundle\StripeBundle\Dev\Helper\ReflectionHelper;
 use SerendipityHQ\Bundle\StripeBundle\SHQStripeBundle;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -20,7 +21,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpClient\HttpClient;
-use Symfony\Component\String\ByteString;
 
 final class CheckCommand extends Command
 {
@@ -202,8 +202,8 @@ Run "composer req symfony/domcrawler" to install it.'));
 
     private function testLocalModelIsInSynchWithSdkModel(string $localModelClass, string $sdkModelClass): array
     {
-        $localModelProperties = $this->getLocalModelProperties($localModelClass);
-        $sdkModelProperties   = $this->getSdkModelProperties($sdkModelClass);
+        $localModelProperties = ReflectionHelper::getLocalModelProperties($localModelClass);
+        $sdkModelProperties   = ReflectionHelper::getSdkModelProperties($sdkModelClass);
 
         $localModelPropertiesThatDoNotExistAnymore = \array_diff($localModelProperties, $sdkModelProperties);
         $localModelPropertiesThatDoNotExistAnymore = \array_diff($localModelPropertiesThatDoNotExistAnymore, $localModelClass::IGNORE);
@@ -221,47 +221,5 @@ Run "composer req symfony/domcrawler" to install it.'));
         }
 
         return $failures;
-    }
-
-    /**
-     * @return array<array-key, ReflectionProperty>
-     */
-    private function getLocalModelProperties(string $class): array
-    {
-        $properties = (new \ReflectionClass($class))->getProperties();
-
-        return \array_map(static function ($reflectedProperty): string {
-            return $reflectedProperty->getName();
-        }, $properties);
-    }
-
-    /**
-     * @return array<array-key,string>
-     */
-    private function getSdkModelProperties(string $class): array
-    {
-        $reflectedSdkModel  = new \ReflectionClass($class);
-        $docComment         = $reflectedSdkModel->getDocComment();
-        $explodedDocComment = \explode("\n", $docComment);
-
-        $properties = [];
-        foreach ($explodedDocComment as $docCommentLine) {
-            if (false === \strpos($docCommentLine, '* @property')) {
-                continue;
-            }
-
-            $match = [];
-            \Safe\preg_match('/\$\w+/', $docCommentLine, $match);
-
-            if (false === isset($match[0])) {
-                throw new \RuntimeException(\Safe\sprintf('Impossible to extract the property name. The DocComment line is: "%s"', $docCommentLine));
-            }
-
-            $properties[] = \str_replace('$', '', $match[0]);
-        }
-
-        return \array_map(static function ($property): string {
-            return (new ByteString($property))->camel();
-        }, $properties);
     }
 }

@@ -34,7 +34,6 @@ final class StripeLocalCustomerTest extends ModelTestCase
 
         $expected = [
             'accountBalance' => 100,
-            'businessVatId'  => 'IT1234567890',
             'currency'       => 'EUR',
             'description'    => 'dummy description',
             'email'          => $mockEmail,
@@ -44,7 +43,6 @@ final class StripeLocalCustomerTest extends ModelTestCase
 
         // Test setMethods
         $resource->setBalance($expected['accountBalance'])
-            ->setBusinessVatId($expected['businessVatId'])
             ->setCurrency($expected['currency'])
             ->setDescription($expected['description'])
             ->setEmail($expected['email'])
@@ -52,7 +50,6 @@ final class StripeLocalCustomerTest extends ModelTestCase
             ->setNewSource($expected['source']);
 
         self::assertSame($expected['accountBalance'], $resource->getBalance());
-        self::assertSame($expected['businessVatId'], $resource->getBusinessVatId());
         self::assertSame($expected['currency'], $resource->getCurrency());
         self::assertSame($expected['description'], $resource->getDescription());
         self::assertSame($expected['email'], $resource->getEmail());
@@ -95,7 +92,6 @@ final class StripeLocalCustomerTest extends ModelTestCase
 
         $expectedToStripeCreate = [
             'account_balance' => $expected['accountBalance'],
-            'business_vat_id' => $expected['businessVatId'],
             'description'     => $expected['description'],
             'email'           => 'test@example.com',
             'metadata'        => $expected['metadata'],

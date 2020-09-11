@@ -12,6 +12,7 @@
 namespace SerendipityHQ\Bundle\StripeBundle\Tests;
 
 use PHPUnit\Framework\TestCase;
+use SerendipityHQ\Bundle\StripeBundle\Dev\Helper\ReflectionHelper;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;
 
 /**
@@ -26,7 +27,7 @@ abstract class ModelTestCase extends TestCase
      */
     public function populateModel(StripeLocalResourceInterface $resource, array $data): void
     {
-        $resourceProperties = $this->getLocalModelProperties(\get_class($resource));
+        $resourceProperties = ReflectionHelper::getLocalModelReflectedProperties(\get_class($resource));
 
         foreach ($resourceProperties as $reflectedProperty) {
             if (isset($data[$reflectedProperty->getName()])) {

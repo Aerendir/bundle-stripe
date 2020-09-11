@@ -18,13 +18,13 @@ return [
     // PhanRedefinedExtendedClass : 10+ occurrences
     // PhanTypeMismatchDeclaredReturn : 9 occurrences
     // PhanTypeArraySuspiciousNullable : 6 occurrences
-    // PhanUndeclaredMethod : 6 occurrences
     // PhanUnusedPublicFinalMethodParameter : 6 occurrences
+    // PhanUnextractableAnnotationSuffix : 4 occurrences
     // PhanUnreferencedClass : 4 occurrences
     // PhanTypeMismatchArgumentNullable : 3 occurrences
+    // PhanTypeMismatchArgumentReal : 3 occurrences
+    // PhanUndeclaredMethod : 3 occurrences
     // PhanUndeclaredStaticMethod : 3 occurrences
-    // PhanUnextractableAnnotationSuffix : 3 occurrences
-    // PhanTypeMismatchArgumentReal : 2 occurrences
     // PhanTypeMismatchDeclaredParam : 2 occurrences
     // PhanUndeclaredClassMethod : 2 occurrences
     // PhanUnusedPublicMethodParameter : 2 occurrences
@@ -43,7 +43,8 @@ return [
 
     // Currently, file_suppressions and directory_suppressions are the only supported suppressions
     'file_suppressions' => [
-        'dev/Command/CheckCommand.php' => ['PhanReadOnlyProtectedProperty', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanTypeMismatchReturnReal', 'PhanUnextractableAnnotationSuffix'],
+        'dev/Command/CheckCommand.php' => ['PhanReadOnlyProtectedProperty', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanUnextractableAnnotationSuffix'],
+        'dev/Helper/ReflectionHelper.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchReturnReal', 'PhanUnextractableAnnotationSuffix'],
         'src/Controller/WebhookController.php' => ['PhanRedefinedClassReference', 'PhanUndeclaredMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
         'src/Event/AbstractStripeEvent.php' => ['PhanUnreferencedPublicMethod'],
         'src/Event/StripeCustomerUpdateEvent.php' => ['PhanUnreferencedPublicMethod'],
@@ -90,9 +91,9 @@ return [
         'tests/Form/Type/CreditCardStripeTokenTypeTest.php' => ['PhanUndeclaredExtendedClass', 'PhanUndeclaredProperty', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
         'tests/Model/StripeLocalCardTest.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
         'tests/Model/StripeLocalChargeTest.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
-        'tests/Model/StripeLocalCustomerTest.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanUndeclaredMethod', 'PhanUnreferencedPublicMethod'],
+        'tests/Model/StripeLocalCustomerTest.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
         'tests/Model/StripeLocalWebhookEventTest.php' => ['PhanUnreferencedPublicMethod'],
-        'tests/ModelTestCase.php' => ['PhanRedefinedExtendedClass', 'PhanUndeclaredMethod'],
+        'tests/ModelTestCase.php' => ['PhanRedefinedExtendedClass'],
     ],
     // 'directory_suppressions' => ['src/directory_name' => ['PhanIssueName1', 'PhanIssueName2']] can be manually added if needed.
     // (directory_suppressions will currently be ignored by subsequent calls to --save-baseline, but may be preserved in future Phan releases)

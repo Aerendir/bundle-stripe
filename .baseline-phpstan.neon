@@ -821,17 +821,17 @@ parameters:
 			path: src/Util/EventGuesser.php
 
 		-
-			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:setBusinessVatId\\(\\)\\.$#"
-			count: 1
-			path: tests/Model/StripeLocalCustomerTest.php
+			message: "#^Call to method getName\\(\\) on an unknown class SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Dev\\\\Helper\\\\ReflectionProperty\\.$#"
+			count: 2
+			path: tests/ModelTestCase.php
 
 		-
-			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:getBusinessVatId\\(\\)\\.$#"
+			message: "#^Call to method setAccessible\\(\\) on an unknown class SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Dev\\\\Helper\\\\ReflectionProperty\\.$#"
 			count: 1
-			path: tests/Model/StripeLocalCustomerTest.php
+			path: tests/ModelTestCase.php
 
 		-
-			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Tests\\\\ModelTestCase\\:\\:getLocalModelProperties\\(\\)\\.$#"
+			message: "#^Call to method setValue\\(\\) on an unknown class SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Dev\\\\Helper\\\\ReflectionProperty\\.$#"
 			count: 1
 			path: tests/ModelTestCase.php
 
