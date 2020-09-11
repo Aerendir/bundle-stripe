@@ -20,7 +20,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class StripeLocalCard implements StripeLocalResourceInterface
 {
-    /** @var array<array-key, string> Properties to ignore when populating the Model */
+    /** @var array<array-key, string> Properties of the Model that may not be present in the SDK model: these must be ignored when populating the local model */
     public const IGNORE = [
         // This is used internally to save the error returned by the API when calling it
         'error',
@@ -29,7 +29,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
         'charges',
     ];
 
-    /** @var array<array-key, string> Properties of the SDK model classes to ignore when populating the local Model */
+    /** @var array<array-key, string> Properties of the SDK model classes not implemented in the local model: these must be ignored when populating the local Model */
     public const IGNORE_MODEL = [
         // We already know the type of resource.
         // String representing the object’s type. Objects of the same type share the same value.

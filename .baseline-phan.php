@@ -11,22 +11,22 @@ return [
     // # Issue statistics:
     // PhanRedefinedClassReference : 100+ occurrences
     // PhanUnreferencedPublicClassConstant : 70+ occurrences
+    // PhanUnreferencedPublicMethod : 55+ occurrences
     // PhanReadOnlyPrivateProperty : 30+ occurrences
-    // PhanUnreferencedPublicMethod : 25+ occurrences
     // PhanTypeMismatchArgument : 15+ occurrences
     // PhanAccessMethodInternal : 10+ occurrences
     // PhanRedefinedExtendedClass : 10+ occurrences
     // PhanTypeMismatchDeclaredReturn : 9 occurrences
     // PhanTypeArraySuspiciousNullable : 6 occurrences
+    // PhanUndeclaredMethod : 6 occurrences
     // PhanUnusedPublicFinalMethodParameter : 6 occurrences
     // PhanUnreferencedClass : 4 occurrences
     // PhanTypeMismatchArgumentNullable : 3 occurrences
-    // PhanTypeMismatchArgumentReal : 3 occurrences
     // PhanUndeclaredStaticMethod : 3 occurrences
     // PhanUnextractableAnnotationSuffix : 3 occurrences
+    // PhanTypeMismatchArgumentReal : 2 occurrences
     // PhanTypeMismatchDeclaredParam : 2 occurrences
     // PhanUndeclaredClassMethod : 2 occurrences
-    // PhanUndeclaredMethod : 2 occurrences
     // PhanUnusedPublicMethodParameter : 2 occurrences
     // PhanNonClassMethodCall : 1 occurrence
     // PhanParamSignatureMismatch : 1 occurrence
@@ -43,7 +43,7 @@ return [
 
     // Currently, file_suppressions and directory_suppressions are the only supported suppressions
     'file_suppressions' => [
-        'src/Command/ApiOutdatedCommand.php' => ['PhanReadOnlyProtectedProperty', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanTypeMismatchReturnReal', 'PhanUnextractableAnnotationSuffix'],
+        'src/Command/CheckOutdatedCommand.php' => ['PhanReadOnlyProtectedProperty', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanTypeMismatchReturnReal', 'PhanUnextractableAnnotationSuffix'],
         'src/Controller/WebhookController.php' => ['PhanRedefinedClassReference', 'PhanUndeclaredMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
         'src/Event/AbstractStripeEvent.php' => ['PhanUnreferencedPublicMethod'],
         'src/Event/StripeCustomerUpdateEvent.php' => ['PhanUnreferencedPublicMethod'],
@@ -80,7 +80,7 @@ return [
         'src/Syncer/AbstractSyncer.php' => ['PhanRedefinedClassReference'],
         'src/Syncer/CardSyncer.php' => ['PhanParamSignatureMismatch'],
         'src/Syncer/ChargeSyncer.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument'],
-        'src/Syncer/CustomerSyncer.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanUnusedVariableCaughtException'],
+        'src/Syncer/CustomerSyncer.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanUndeclaredMethod', 'PhanUnusedVariableCaughtException'],
         'src/Syncer/WebhookEventSyncer.php' => ['PhanRedefinedClassReference', 'PhanUnusedPublicFinalMethodParameter'],
         'tests/DependencyInjection/AbstractStripeBundleExtensionTest.php' => ['PhanRedefinedExtendedClass', 'PhanUnreferencedPublicMethod'],
         'tests/DependencyInjection/YamlStripeBundleExtensionTest.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference'],
@@ -90,7 +90,7 @@ return [
         'tests/Form/Type/CreditCardStripeTokenTypeTest.php' => ['PhanUndeclaredExtendedClass', 'PhanUndeclaredProperty', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
         'tests/Model/StripeLocalCardTest.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
         'tests/Model/StripeLocalChargeTest.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
-        'tests/Model/StripeLocalCustomerTest.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
+        'tests/Model/StripeLocalCustomerTest.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanUndeclaredMethod', 'PhanUnreferencedPublicMethod'],
         'tests/Model/StripeLocalWebhookEventTest.php' => ['PhanUnreferencedPublicMethod'],
         'tests/ModelTestCase.php' => ['PhanRedefinedExtendedClass', 'PhanUndeclaredMethod'],
     ],

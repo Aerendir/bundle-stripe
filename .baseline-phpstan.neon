@@ -1,44 +1,44 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Return typehint of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\CheckCommand\\:\\:getLocalModelProperties\\(\\) has invalid type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\ReflectionProperty\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\CheckOutdatedCommand\\:\\:getModelClasses\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: src/Command/CheckCommand.php
+			path: src/Command/CheckOutdatedCommand.php
 
 		-
 			message: "#^Parameter \\#1 \\$argument of class ReflectionClass constructor expects class\\-string\\<T of object\\>\\|T of object, string given\\.$#"
 			count: 3
-			path: src/Command/CheckCommand.php
+			path: src/Command/CheckOutdatedCommand.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\CheckCommand\\:\\:getLocalModelProperties\\(\\) should return array\\<SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\ReflectionProperty\\> but returns array\\<string\\>\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\CheckOutdatedCommand\\:\\:guessSdkModelClassesFromLocalOnes\\(\\) has parameter \\$localModelClasses with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: src/Command/CheckCommand.php
+			path: src/Command/CheckOutdatedCommand.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\CheckOutdatedCommand\\:\\:guessSdkModelClassesFromLocalOnes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Command/CheckOutdatedCommand.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\CheckOutdatedCommand\\:\\:testLocalModelIsInSynchWithSdkModel\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Command/CheckOutdatedCommand.php
+
+		-
+			message: "#^Return typehint of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\CheckOutdatedCommand\\:\\:getLocalModelProperties\\(\\) has invalid type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\ReflectionProperty\\.$#"
+			count: 1
+			path: src/Command/CheckOutdatedCommand.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\CheckOutdatedCommand\\:\\:getLocalModelProperties\\(\\) should return array\\<SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\ReflectionProperty\\> but returns array\\<string\\>\\.$#"
+			count: 1
+			path: src/Command/CheckOutdatedCommand.php
 
 		-
 			message: "#^Parameter \\#2 \\$str of function explode expects string, string\\|false given\\.$#"
 			count: 1
-			path: src/Command/CheckCommand.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\CheckCommand\\:\\:getModelClasses\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Command/CheckCommand.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\CheckCommand\\:\\:guessSdkModelClassesFromLocalOnes\\(\\) has parameter \\$localModelClasses with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Command/CheckCommand.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\CheckCommand\\:\\:guessSdkModelClassesFromLocalOnes\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Command/CheckCommand.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\CheckCommand\\:\\:testLocalModelIsInSynchWithSdkModel\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Command/CheckCommand.php
+			path: src/Command/CheckOutdatedCommand.php
 
 		-
 			message: "#^Parameter \\#1 \\$className of method Doctrine\\\\Persistence\\\\ObjectManager\\:\\:getRepository\\(\\) expects class\\-string\\<mixed\\>, string given\\.$#"
@@ -266,6 +266,16 @@ parameters:
 			path: src/Model/StripeLocalCard.php
 
 		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$billingDetails has no typehint specified\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCharge.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$refunds type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCharge.php
+
+		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$fraudDetails type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCharge.php
@@ -276,7 +286,7 @@ parameters:
 			path: src/Model/StripeLocalCharge.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$capture has no typehint specified\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$paymentMethodDetails type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCharge.php
 
@@ -326,6 +336,36 @@ parameters:
 			path: src/Model/StripeLocalCharge.php
 
 		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:getBillingDetails\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCharge.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:setBillingDetails\\(\\) has parameter \\$billingDetails with no typehint specified\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCharge.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:getRefunds\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCharge.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:setRefunds\\(\\) has parameter \\$refunds with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCharge.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:getPaymentMethodDetails\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCharge.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:setPaymentMethodDetails\\(\\) has parameter \\$paymentMethodDetails with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCharge.php
+
+		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:toStripe\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCharge.php
@@ -342,6 +382,11 @@ parameters:
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:\\$metadata type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCustomer.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:\\$sources type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCustomer.php
 
@@ -366,17 +411,22 @@ parameters:
 			path: src/Model/StripeLocalCustomer.php
 
 		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$vat\\)\\: Unexpected token \"\\$vat\", expected type at offset 18$#"
-			count: 1
-			path: src/Model/StripeLocalCustomer.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:setMetadata\\(\\) has parameter \\$metadata with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCustomer.php
 
 		-
 			message: "#^PHPDoc tag @param has invalid value \\(\\$metadata\\)\\: Unexpected token \"\\$metadata\", expected type at offset 18$#"
+			count: 1
+			path: src/Model/StripeLocalCustomer.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:getSources\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCustomer.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:setSources\\(\\) has parameter \\$sources with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCustomer.php
 
@@ -746,6 +796,11 @@ parameters:
 			path: src/Syncer/CustomerSyncer.php
 
 		-
+			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:getBusinessVatId\\(\\)\\.$#"
+			count: 2
+			path: src/Syncer/CustomerSyncer.php
+
+		-
 			message: "#^Access to an undefined property Stripe\\\\Customer\\:\\:\\$businessVatId\\.$#"
 			count: 1
 			path: src/Syncer/CustomerSyncer.php
@@ -804,6 +859,16 @@ parameters:
 			message: "#^Parameter \\#1 \\$str of function strtoupper expects string, array\\|string given\\.$#"
 			count: 1
 			path: src/Util/EventGuesser.php
+
+		-
+			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:setBusinessVatId\\(\\)\\.$#"
+			count: 1
+			path: tests/Model/StripeLocalCustomerTest.php
+
+		-
+			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:getBusinessVatId\\(\\)\\.$#"
+			count: 1
+			path: tests/Model/StripeLocalCustomerTest.php
 
 		-
 			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Tests\\\\ModelTestCase\\:\\:getLocalModelProperties\\(\\)\\.$#"

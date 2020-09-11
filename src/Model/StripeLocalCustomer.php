@@ -12,7 +12,9 @@
 namespace SerendipityHQ\Bundle\StripeBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use SerendipityHQ\Component\ValueObjects\Address\AddressInterface;
 use SerendipityHQ\Component\ValueObjects\Email\Email;
+use SerendipityHQ\Component\ValueObjects\Phone\PhoneInterface;
 
 /**
  * @author Adamo Crespi <hello@aerendir.me>
@@ -21,7 +23,7 @@ use SerendipityHQ\Component\ValueObjects\Email\Email;
  */
 class StripeLocalCustomer implements StripeLocalResourceInterface
 {
-    /** @var array<array-key, string> Properties to ignore when populating the Model */
+    /** @var array<array-key, string> Properties of the Model that may not be present in the SDK model: these must be ignored when populating the local model */
     public const IGNORE = [
         // This is required by Doctrine to create the relation between Card and Charges
         'cards',
@@ -33,7 +35,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
         'newSource',
     ];
 
-    /** @var array<array-key, string> Properties of the SDK model classes to ignore when populating the local Model */
+    /** @var array<array-key, string> Properties of the SDK model classes not implemented in the local model: these must be ignored when populating the local Model */
     public const IGNORE_MODEL = [
         // We already know the type of resource.
         // String representing the object’s type. Objects of the same type share the same value.
@@ -95,8 +97,32 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     /** @var int|null $balance Current balance, if any, being stored on the customer’s account. If negative, the customer has credit to apply to the next invoice. If positive, the customer has an amount owed that will be added to the next invoice. The balance does not refer to any unpaid invoices; it solely takes into account amounts that have yet to be successfully applied to any invoice. This balance is only taken into account for recurring billing purposes (i.e., subscriptions, invoices, invoice items). */
     private $balance;
 
-    /** @var string $businessVatId The customer’s VAT identification number. */
-    private $businessVatId;
+    /**
+     * @var string
+     *
+     * "The customer’s full name or business name."
+     *
+     * @see https://stripe.com/docs/api/customers/object#customer_object-name
+     */
+    private $name;
+
+    /**
+     * @var AddressInterface
+     *
+     * "The customer’s address."
+     *
+     * @see https://stripe.com/docs/api/customers/object#customer_object-address
+     */
+    private $address;
+
+    /**
+     * @var PhoneInterface
+     *
+     * "The customer’s phone number."
+     *
+     * @see https://stripe.com/docs/api/customers/object#customer_object-phone
+     */
+    private $phone;
 
     /** @var ArrayCollection $cards */
     private $cards;
@@ -128,6 +154,16 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     /** @var array $metadata A set of key/value pairs that you can attach to a customer object. It can be useful for storing additional information about the customer in a structured format. */
     private $metadata;
 
+    /**
+     * @var array
+     *
+     * "The customer’s payment sources, if any.
+     * This field is not included by default. To include it in the response, expand the `sources` field."
+     *
+     * @see https://stripe.com/docs/api/customers/object#customer_object-sources
+     */
+    private $sources;
+
     /** @var string $newSource Used to create a new source for the customer */
     private $newSource;
 
@@ -154,11 +190,6 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     public function getBalance(): ?int
     {
         return $this->balance;
-    }
-
-    public function getBusinessVatId(): string
-    {
-        return $this->businessVatId;
     }
 
     public function getCards(): ArrayCollection
@@ -236,16 +267,6 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * @param $vat
-     */
-    public function setBusinessVatId(string $vat): self
-    {
-        $this->businessVatId = $vat;
-
-        return $this;
-    }
-
     public function setCurrency(string $currency): self
     {
         $this->currency = $currency;
@@ -277,6 +298,46 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this;
     }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function getAddress(): AddressInterface
+    {
+        return $this->address;
+    }
+
+    public function setAddress(AddressInterface $address): void
+    {
+        $this->address = $address;
+    }
+
+    public function getPhone(): PhoneInterface
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(PhoneInterface $phone): void
+    {
+        $this->phone = $phone;
+    }
+
+    public function getSources(): array
+    {
+        return $this->sources;
+    }
+
+    public function setSources(array $sources): void
+    {
+        $this->sources = $sources;
+    }
+
     public function setNewSource(string $source): self
     {
         if (0 < \strpos($source, 'tok_')) {
@@ -296,28 +357,26 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
 
         $return = [];
 
-        if (null !== $this->getBalance() && self::ACTION_CREATE === $action) {
-            $return['account_balance'] = $this->getBalance();
-        }
+        if (self::ACTION_CREATE === $action) {
+            if (null !== $this->getBalance()) {
+                $return['account_balance'] = $this->getBalance();
+            }
 
-        if (null !== $this->getBusinessVatId() && self::ACTION_CREATE === $action) {
-            $return['business_vat_id'] = $this->getBusinessVatId();
-        }
+            if (null !== $this->getDescription()) {
+                $return['description'] = $this->getDescription();
+            }
 
-        if (null !== $this->getDescription() && self::ACTION_CREATE === $action) {
-            $return['description'] = $this->getDescription();
-        }
+            if (null !== $this->getEmail()) {
+                $return['email'] = $this->getEmail()->getEmail();
+            }
 
-        if (null !== $this->getEmail() && self::ACTION_CREATE === $action) {
-            $return['email'] = $this->getEmail()->getEmail();
-        }
+            if (null !== $this->getMetadata()) {
+                $return['metadata'] = $this->getMetadata();
+            }
 
-        if (null !== $this->getMetadata() && self::ACTION_CREATE === $action) {
-            $return['metadata'] = $this->getMetadata();
-        }
-
-        if (null !== $this->getNewSource() && self::ACTION_CREATE === $action) {
-            $return['source'] = $this->getNewSource();
+            if (null !== $this->getNewSource()) {
+                $return['source'] = $this->getNewSource();
+            }
         }
 
         return $return;

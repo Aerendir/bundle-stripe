@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="3.15@de6e7f324f44dde540ebe7ebd4eb481b97c86f30">
-  <file src="src/Command/CheckCommand.php">
+  <file src="src/Command/CheckOutdatedCommand.php">
     <ArgumentTypeCoercion occurrences="2">
-      <code>$class</code>
       <code>$namespace</code>
+      <code>$class</code>
     </ArgumentTypeCoercion>
     <MixedArgument occurrences="6">
-      <code>$match[0]</code>
       <code>$localModelClass</code>
       <code>$sdkModelClasses[$localModelName]</code>
       <code>$fileName</code>
       <code>$localModelClass::IGNORE</code>
       <code>$localModelClass::IGNORE_MODEL</code>
+      <code>$match[0]</code>
     </MixedArgument>
     <MixedArgumentTypeCoercion occurrences="1">
       <code>$localModelName</code>
@@ -238,8 +238,12 @@
     <MissingConstructor occurrences="1">
       <code>$id</code>
     </MissingConstructor>
-    <MissingReturnType occurrences="1">
+    <MissingParamType occurrences="1">
+      <code>$billingDetails</code>
+    </MissingParamType>
+    <MissingReturnType occurrences="2">
       <code>getSource</code>
+      <code>getBillingDetails</code>
     </MissingReturnType>
     <MixedArgument occurrences="1">
       <code>\Safe\json_decode($this-&gt;getMetadata(), true)</code>
@@ -281,19 +285,21 @@
     <PossiblyNullReference occurrences="1">
       <code>getEmail</code>
     </PossiblyNullReference>
-    <PropertyNotSetInConstructor occurrences="9">
+    <PropertyNotSetInConstructor occurrences="12">
       <code>$id</code>
-      <code>$businessVatId</code>
+      <code>$name</code>
+      <code>$address</code>
+      <code>$phone</code>
       <code>$created</code>
       <code>$currency</code>
       <code>$delinquent</code>
       <code>$description</code>
       <code>$livemode</code>
       <code>$metadata</code>
+      <code>$sources</code>
       <code>$newSource</code>
     </PropertyNotSetInConstructor>
-    <RedundantCondition occurrences="3">
-      <code>null !== $this-&gt;getBusinessVatId()</code>
+    <RedundantCondition occurrences="2">
       <code>null !== $this-&gt;getDescription()</code>
       <code>null !== $this-&gt;getNewSource()</code>
     </RedundantCondition>
@@ -504,8 +510,7 @@
     <MixedPropertyFetch occurrences="1">
       <code>$stripeDefaultCard-&gt;id</code>
     </MixedPropertyFetch>
-    <RedundantCondition occurrences="3">
-      <code>null !== $localResource-&gt;getBusinessVatId()</code>
+    <RedundantCondition occurrences="2">
       <code>null !== $localResource-&gt;getNewSource()</code>
       <code>null !== $localResource-&gt;getDescription()</code>
     </RedundantCondition>
@@ -519,6 +524,10 @@
       <code>$stripeResource-&gt;defaultSource</code>
       <code>$stripeResource-&gt;defaultSource</code>
     </UndefinedMagicPropertyFetch>
+    <UndefinedMethod occurrences="2">
+      <code>getBusinessVatId</code>
+      <code>getBusinessVatId</code>
+    </UndefinedMethod>
   </file>
   <file src="src/Syncer/WebhookEventSyncer.php">
     <MixedArgument occurrences="6">
@@ -586,6 +595,19 @@
     <MixedArrayAccess occurrences="1">
       <code>$this-&gt;container-&gt;getParameter('stripe_bundle.endpoint')['route_name']</code>
     </MixedArrayAccess>
+  </file>
+  <file src="tests/Model/StripeLocalCustomerTest.php">
+    <MixedMethodCall occurrences="5">
+      <code>setCurrency</code>
+      <code>setDescription</code>
+      <code>setEmail</code>
+      <code>setMetadata</code>
+      <code>setNewSource</code>
+    </MixedMethodCall>
+    <UndefinedMethod occurrences="2">
+      <code>setBusinessVatId</code>
+      <code>getBusinessVatId</code>
+    </UndefinedMethod>
   </file>
   <file src="tests/ModelTestCase.php">
     <MixedArrayOffset occurrences="2">
