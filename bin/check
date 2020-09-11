@@ -5,7 +5,7 @@ require __DIR__.'/../vendor/autoload.php';
 use Symfony\Component\Console\Application;
 
 $application = new Application('Check', '1.0.0');
-$command = new \SerendipityHQ\Bundle\StripeBundle\Command\CheckOutdatedCommand();
+$command = new \SerendipityHQ\Bundle\StripeBundle\Dev\Command\CheckCommand();
 
 $application->add($command);
 

@@ -1,46 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\CheckOutdatedCommand\\:\\:getModelClasses\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Command/CheckOutdatedCommand.php
-
-		-
-			message: "#^Parameter \\#1 \\$argument of class ReflectionClass constructor expects class\\-string\\<T of object\\>\\|T of object, string given\\.$#"
-			count: 3
-			path: src/Command/CheckOutdatedCommand.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\CheckOutdatedCommand\\:\\:guessSdkModelClassesFromLocalOnes\\(\\) has parameter \\$localModelClasses with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Command/CheckOutdatedCommand.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\CheckOutdatedCommand\\:\\:guessSdkModelClassesFromLocalOnes\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Command/CheckOutdatedCommand.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\CheckOutdatedCommand\\:\\:testLocalModelIsInSynchWithSdkModel\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Command/CheckOutdatedCommand.php
-
-		-
-			message: "#^Return typehint of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\CheckOutdatedCommand\\:\\:getLocalModelProperties\\(\\) has invalid type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\ReflectionProperty\\.$#"
-			count: 1
-			path: src/Command/CheckOutdatedCommand.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\CheckOutdatedCommand\\:\\:getLocalModelProperties\\(\\) should return array\\<SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Command\\\\ReflectionProperty\\> but returns array\\<string\\>\\.$#"
-			count: 1
-			path: src/Command/CheckOutdatedCommand.php
-
-		-
-			message: "#^Parameter \\#2 \\$str of function explode expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/Command/CheckOutdatedCommand.php
-
-		-
 			message: "#^Parameter \\#1 \\$className of method Doctrine\\\\Persistence\\\\ObjectManager\\:\\:getRepository\\(\\) expects class\\-string\\<mixed\\>, string given\\.$#"
 			count: 1
 			path: src/Controller/WebhookController.php

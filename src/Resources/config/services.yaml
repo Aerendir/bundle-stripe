@@ -8,10 +8,6 @@ services:
             $debug: '%stripe_bundle.debug%'
             $secretKey: '%stripe_bundle.secret_key%'
             $statementDescriptor: '%stripe_bundle.statement_descriptor%'
-
-    SerendipityHQ\Bundle\StripeBundle\Command\:
-        resource: '../../Command'
-        tags: [ 'console.command' ]
     SerendipityHQ\Bundle\StripeBundle\Controller\:
         resource: '../../Controller'
         tags: ['controller.service_arguments']

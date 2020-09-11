@@ -21,6 +21,7 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
     $parameters->set(Option::PHP_VERSION_FEATURES, '7.3');
 
     $parameters->set(Option::PATHS, [
+        __DIR__ . '/dev',
         __DIR__ . '/src',
         __DIR__ . '/tests'
     ]);

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace SerendipityHQ\Bundle\StripeBundle\Command;
+namespace SerendipityHQ\Bundle\StripeBundle\Dev\Command;
 
 use SerendipityHQ\Bundle\StripeBundle\SHQStripeBundle;
 use Symfony\Component\Console\Command\Command;
@@ -22,10 +22,10 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\String\ByteString;
 
-final class CheckOutdatedCommand extends Command
+final class CheckCommand extends Command
 {
     /** @var string */
-    protected static $defaultName = 'stripe:check:outdated';
+    protected static $defaultName = 'stripe:dev:check';
 
     /** @var int $return */
     private $return = self::SUCCESS;

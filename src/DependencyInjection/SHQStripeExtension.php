@@ -11,9 +11,11 @@
 
 namespace SerendipityHQ\Bundle\StripeBundle\DependencyInjection;
 
+use SerendipityHQ\Bundle\StripeBundle\Dev\Command\CheckCommand;
 use SerendipityHQ\Bundle\StripeBundle\SHQStripeBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -72,5 +74,16 @@ final class SHQStripeExtension extends Extension implements PrependExtensionInte
 
         // load db_driver container configuration
         $xmlFileLoader->load(\Safe\sprintf('%s.xml', $config[self::DB_DRIVER]));
+
+        if (false === $container->hasParameter('kernel.environment') || 'prod' !== $container->getParameter('kernel.environment')) {
+            $this->registerDevCommands($container);
+        }
+    }
+
+    private function registerDevCommands(ContainerBuilder $containerBuilder): void
+    {
+        $checkCommandDefinition = new Definition(CheckCommand::class);
+        $checkCommandDefinition->addTag('console.command');
+        $containerBuilder->setDefinition(CheckCommand::class, $checkCommandDefinition);
     }
 }
