@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="3.15@de6e7f324f44dde540ebe7ebd4eb481b97c86f30">
-  <file src="src/Command/ApiOutdatedCommand.php">
+  <file src="src/Command/CheckCommand.php">
     <ArgumentTypeCoercion occurrences="2">
       <code>$class</code>
       <code>$namespace</code>

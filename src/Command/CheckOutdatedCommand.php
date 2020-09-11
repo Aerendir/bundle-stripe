@@ -22,10 +22,10 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\String\ByteString;
 
-final class ApiOutdatedCommand extends Command
+final class CheckOutdatedCommand extends Command
 {
     /** @var string */
-    protected static $defaultName = 'stripe:api:outdated';
+    protected static $defaultName = 'stripe:check:outdated';
 
     /** @var int $return */
     private $return = self::SUCCESS;
