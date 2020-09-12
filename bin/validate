@@ -8,4 +8,4 @@ vendor/bin/psalm --find-unused-psalm-suppress &&
 vendor/bin/phpunit --prepend var/xdebug-filter.php --coverage-html var/coverage/html &&
 symfony security:check &&
 composer validate --strict --no-check-lock
-bin/api_check
+bin/check

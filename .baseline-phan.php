@@ -9,7 +9,7 @@
  */
 return [
     // # Issue statistics:
-    // PhanRedefinedClassReference : 100+ occurrences
+    // PhanRedefinedClassReference : 140+ occurrences
     // PhanUnreferencedPublicClassConstant : 70+ occurrences
     // PhanUnreferencedPublicMethod : 55+ occurrences
     // PhanReadOnlyPrivateProperty : 30+ occurrences
@@ -17,24 +17,26 @@ return [
     // PhanAccessMethodInternal : 10+ occurrences
     // PhanRedefinedExtendedClass : 10+ occurrences
     // PhanTypeMismatchDeclaredReturn : 9 occurrences
+    // PhanUnextractableAnnotationSuffix : 7 occurrences
     // PhanTypeArraySuspiciousNullable : 6 occurrences
+    // PhanTypeMismatchArgumentReal : 6 occurrences
     // PhanUnusedPublicFinalMethodParameter : 6 occurrences
-    // PhanUnextractableAnnotationSuffix : 4 occurrences
+    // PhanTypeMismatchArgumentNullable : 5 occurrences
     // PhanUnreferencedClass : 4 occurrences
-    // PhanTypeMismatchArgumentNullable : 3 occurrences
-    // PhanTypeMismatchArgumentReal : 3 occurrences
+    // PhanUnusedPublicMethodParameter : 4 occurrences
+    // PhanParamSignatureMismatch : 3 occurrences
     // PhanUndeclaredMethod : 3 occurrences
     // PhanUndeclaredStaticMethod : 3 occurrences
+    // PhanNonClassMethodCall : 2 occurrences
     // PhanTypeMismatchDeclaredParam : 2 occurrences
     // PhanUndeclaredClassMethod : 2 occurrences
-    // PhanUnusedPublicMethodParameter : 2 occurrences
-    // PhanNonClassMethodCall : 1 occurrence
-    // PhanParamSignatureMismatch : 1 occurrence
+    // PhanUnextractableAnnotationElementName : 2 occurrences
     // PhanPossiblyInfiniteRecursionSameParams : 1 occurrence
     // PhanReadOnlyProtectedProperty : 1 occurrence
+    // PhanRedefinedInheritedInterface : 1 occurrence
     // PhanTypeMismatchDeclaredReturnNullable : 1 occurrence
+    // PhanTypeMismatchProperty : 1 occurrence
     // PhanTypeMismatchReturnProbablyReal : 1 occurrence
-    // PhanTypeMismatchReturnReal : 1 occurrence
     // PhanUndeclaredExtendedClass : 1 occurrence
     // PhanUndeclaredProperty : 1 occurrence
     // PhanUndeclaredTypeParameter : 1 occurrence
@@ -43,8 +45,10 @@ return [
 
     // Currently, file_suppressions and directory_suppressions are the only supported suppressions
     'file_suppressions' => [
-        'dev/Command/CheckCommand.php' => ['PhanReadOnlyProtectedProperty', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanUnextractableAnnotationSuffix'],
-        'dev/Helper/ReflectionHelper.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchReturnReal', 'PhanUnextractableAnnotationSuffix'],
+        'dev/Command/CheckCommand.php' => ['PhanNonClassMethodCall', 'PhanReadOnlyProtectedProperty', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanTypeMismatchArgumentNullable', 'PhanUnextractableAnnotationElementName', 'PhanUnextractableAnnotationSuffix'],
+        'dev/Doctrine/MappingFilesLocator.php' => ['PhanParamSignatureMismatch', 'PhanRedefinedClassReference', 'PhanRedefinedInheritedInterface', 'PhanUnusedPublicMethodParameter'],
+        'dev/Helper/MappingHelper.php' => ['PhanRedefinedClassReference'],
+        'dev/Helper/ReflectionHelper.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchProperty', 'PhanUnextractableAnnotationSuffix'],
         'src/Controller/WebhookController.php' => ['PhanRedefinedClassReference', 'PhanUndeclaredMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
         'src/Event/AbstractStripeEvent.php' => ['PhanUnreferencedPublicMethod'],
         'src/Event/StripeCustomerUpdateEvent.php' => ['PhanUnreferencedPublicMethod'],
@@ -89,7 +93,7 @@ return [
         'tests/Event/AbstractStripeCustomerEventTest.php' => ['PhanRedefinedExtendedClass', 'PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
         'tests/Event/AbstractStripeWebhookEventEventTest.php' => ['PhanRedefinedExtendedClass', 'PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
         'tests/Form/Type/CreditCardStripeTokenTypeTest.php' => ['PhanUndeclaredExtendedClass', 'PhanUndeclaredProperty', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
-        'tests/Model/StripeLocalCardTest.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
+        'tests/Model/StripeLocalCardTest.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
         'tests/Model/StripeLocalChargeTest.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
         'tests/Model/StripeLocalCustomerTest.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
         'tests/Model/StripeLocalWebhookEventTest.php' => ['PhanUnreferencedPublicMethod'],

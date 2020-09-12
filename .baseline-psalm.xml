@@ -175,7 +175,7 @@
     </TypeDoesNotContainType>
   </file>
   <file src="src/Model/StripeLocalCard.php">
-    <PropertyNotSetInConstructor occurrences="9">
+    <PropertyNotSetInConstructor occurrences="10">
       <code>$id</code>
       <code>$brand</code>
       <code>$country</code>
@@ -185,6 +185,7 @@
       <code>$fingerprint</code>
       <code>$funding</code>
       <code>$last4</code>
+      <code>$metadata</code>
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Model/StripeLocalCharge.php">
@@ -199,12 +200,8 @@
     <MissingConstructor occurrences="1">
       <code>$id</code>
     </MissingConstructor>
-    <MissingParamType occurrences="1">
-      <code>$billingDetails</code>
-    </MissingParamType>
-    <MissingReturnType occurrences="2">
+    <MissingReturnType occurrences="1">
       <code>getSource</code>
-      <code>getBillingDetails</code>
     </MissingReturnType>
     <MixedArgument occurrences="1">
       <code>\Safe\json_decode($this-&gt;getMetadata(), true)</code>
@@ -406,8 +403,7 @@
       <code>$stripeResource instanceof Charge</code>
       <code>$localResource instanceof StripeLocalCharge</code>
     </DocblockTypeContradiction>
-    <MixedArgument occurrences="4">
-      <code>$stripeResource-&gt;receiptEmail</code>
+    <MixedArgument occurrences="3">
       <code>$stripeResource-&gt;receiptEmail</code>
       <code>$localCard</code>
       <code>$error['concatenated']</code>
@@ -557,13 +553,20 @@
       <code>$this-&gt;container-&gt;getParameter('stripe_bundle.endpoint')['route_name']</code>
     </MixedArrayAccess>
   </file>
+  <file src="tests/Model/StripeLocalCardTest.php">
+    <InvalidArgument occurrences="3">
+      <code>$expected['expMonth']</code>
+      <code>$expected['expYear']</code>
+      <code>$expected['metadata']</code>
+    </InvalidArgument>
+  </file>
   <file src="tests/ModelTestCase.php">
     <MixedArrayOffset occurrences="2">
       <code>$data[$reflectedProperty-&gt;getName()]</code>
       <code>$data[$reflectedProperty-&gt;getName()]</code>
     </MixedArrayOffset>
     <UndefinedDocblockClass occurrences="5">
-      <code>ReflectionHelper::getLocalModelReflectedProperties(\get_class($resource))</code>
+      <code>ReflectionHelper::getLocalModelPropertiesDocComments(\get_class($resource))</code>
       <code>$reflectedProperty</code>
       <code>$reflectedProperty</code>
       <code>$reflectedProperty</code>

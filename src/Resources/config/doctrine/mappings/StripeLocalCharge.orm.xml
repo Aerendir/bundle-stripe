@@ -6,6 +6,9 @@
             repository-class="SerendipityHQ\Bundle\StripeBundle\Repository\StripeLocalChargeRepository">
         <id name="id" type="string" column="id" length="40"/>
         <field name="amount" type="money" column="amount" nullable="false" length="200" />
+        <field name="amountRefunded" type="money" column="amount_refunded" nullable="false" length="200" />
+        <field name="billingDetails" type="array" column="billing_details" nullable="true" />
+        <field name="disputed" type="boolean" column="disputed" nullable="true" />
         <field name="balanceTransaction" type="string" column="balance_transaction" nullable="true" length="40" />
         <field name="captured" type="boolean" column="captured" nullable="false" />
         <field name="created" type="datetime" column="created" nullable="false" />
@@ -17,9 +20,17 @@
         <field name="livemode" type="boolean" column="livemode" nullable="false" />
         <field name="metadata" type="array" column="metadata" nullable="true" />
         <field name="paid" type="boolean" column="paid" nullable="false" />
+        <field name="paymentMethod" type="string" column="payment_method" nullable="true" />
+        <field name="paymentMethodDetails" type="array" column="payment_method_details" nullable="true" />
         <field name="receiptEmail" type="email" column="receipt_email" nullable="true" />
         <field name="receiptNumber" type="string" column="receipt_number" nullable="true" />
+        <field name="receiptUrl" type="uri" column="receipt_url" nullable="true" />
+        <field name="refunded" type="boolean" column="refunded" nullable="true" />
+        <field name="refunds" type="array" column="refunds" nullable="true" />
+        <field name="review" type="string" column="review" nullable="true" />
         <field name="statementDescriptor" type="string" column="statement_descriptor" nullable="true" />
+        <field name="calculatedStatementDescriptor" type="string" column="calculated_statement_descriptor" nullable="true" />
+        <field name="statementDescriptorSuffix" type="string" column="statement_descriptor_suffix" nullable="true" />
         <field name="status" type="string" column="status" nullable="true" />
 
         <many-to-one field="customer" target-entity="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer" inversed-by="charges">
@@ -29,10 +40,5 @@
         <many-to-one field="source" target-entity="SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard" inversed-by="charges">
             <join-column name="source" referenced-column-name="id" nullable="true" on-delete="SET NULL" />
         </many-to-one>
-
-        <lifecycle-callbacks>
-            <lifecycle-callback type="prePersist" method="metadataTransformer"/>
-            <lifecycle-callback type="postLoad" method="metadataTransformer"/>
-        </lifecycle-callbacks>
     </entity>
 </doctrine-mapping>

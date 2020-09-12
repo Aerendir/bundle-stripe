@@ -70,7 +70,6 @@ final class SHQStripeExtension extends Extension implements PrependExtensionInte
         $fileLocator      = new FileLocator(__DIR__ . '/../Resources/config');
         $yamlFileLoader   = new Loader\YamlFileLoader($container, $fileLocator);
         $yamlFileLoader->load('services.yaml');
-        //$yamlFileLoader->load('twig.yaml');
 
         $xmlFileLoader   = new Loader\XmlFileLoader($container, $fileLocator);
 

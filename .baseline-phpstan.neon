@@ -156,6 +156,11 @@ parameters:
 			path: src/Manager/StripeManager.php
 
 		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$metadata type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCard.php
+
+		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$charges with generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection does not specify its types\\: TKey, T$#"
 			count: 1
 			path: src/Model/StripeLocalCard.php
@@ -166,57 +171,12 @@ parameters:
 			path: src/Model/StripeLocalCard.php
 
 		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$addressCity\\)\\: Unexpected token \"\\$addressCity\", expected type at offset 18$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:getMetadata\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCard.php
 
 		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$addressCountry\\)\\: Unexpected token \"\\$addressCountry\", expected type at offset 18$#"
-			count: 1
-			path: src/Model/StripeLocalCard.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$addressLine1\\)\\: Unexpected token \"\\$addressLine1\", expected type at offset 18$#"
-			count: 1
-			path: src/Model/StripeLocalCard.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$addressLine2\\)\\: Unexpected token \"\\$addressLine2\", expected type at offset 18$#"
-			count: 1
-			path: src/Model/StripeLocalCard.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$addressState\\)\\: Unexpected token \"\\$addressState\", expected type at offset 18$#"
-			count: 1
-			path: src/Model/StripeLocalCard.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$addressZip\\)\\: Unexpected token \"\\$addressZip\", expected type at offset 18$#"
-			count: 1
-			path: src/Model/StripeLocalCard.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$country\\)\\: Unexpected token \"\\$country\", expected type at offset 18$#"
-			count: 1
-			path: src/Model/StripeLocalCard.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$expMonth\\)\\: Unexpected token \"\\$expMonth\", expected type at offset 18$#"
-			count: 1
-			path: src/Model/StripeLocalCard.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$expYear\\)\\: Unexpected token \"\\$expYear\", expected type at offset 18$#"
-			count: 1
-			path: src/Model/StripeLocalCard.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$metadata\\)\\: Unexpected token \"\\$metadata\", expected type at offset 18$#"
-			count: 1
-			path: src/Model/StripeLocalCard.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$name\\)\\: Unexpected token \"\\$name\", expected type at offset 18$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:setMetadata\\(\\) has parameter \\$metadata with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCard.php
 
@@ -226,7 +186,7 @@ parameters:
 			path: src/Model/StripeLocalCard.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$billingDetails has no typehint specified\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$billingDetails type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCharge.php
 
@@ -291,17 +251,12 @@ parameters:
 			path: src/Model/StripeLocalCharge.php
 
 		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$statementDescriptor\\)\\: Unexpected token \"\\$statementDescriptor\", expected type at offset 690$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:getBillingDetails\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCharge.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:getBillingDetails\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Model/StripeLocalCharge.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:setBillingDetails\\(\\) has parameter \\$billingDetails with no typehint specified\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:setBillingDetails\\(\\) has parameter \\$billingDetails with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCharge.php
 
@@ -372,11 +327,6 @@ parameters:
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:setMetadata\\(\\) has parameter \\$metadata with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Model/StripeLocalCustomer.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$metadata\\)\\: Unexpected token \"\\$metadata\", expected type at offset 18$#"
 			count: 1
 			path: src/Model/StripeLocalCustomer.php
 
@@ -771,6 +721,11 @@ parameters:
 			path: src/Syncer/CustomerSyncer.php
 
 		-
+			message: "#^Property Stripe\\\\Customer\\:\\:\\$email \\(string\\|null\\) does not accept SerendipityHQ\\\\Component\\\\ValueObjects\\\\Email\\\\Email\\.$#"
+			count: 1
+			path: src/Syncer/CustomerSyncer.php
+
+		-
 			message: "#^Property Stripe\\\\Customer\\:\\:\\$metadata \\(Stripe\\\\StripeObject\\) does not accept array\\.$#"
 			count: 1
 			path: src/Syncer/CustomerSyncer.php
@@ -819,6 +774,31 @@ parameters:
 			message: "#^Parameter \\#1 \\$str of function strtoupper expects string, array\\|string given\\.$#"
 			count: 1
 			path: src/Util/EventGuesser.php
+
+		-
+			message: "#^Parameter \\#1 \\$expMonth of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:setExpMonth\\(\\) expects int, string given\\.$#"
+			count: 1
+			path: tests/Model/StripeLocalCardTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$expYear of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:setExpYear\\(\\) expects int, string given\\.$#"
+			count: 1
+			path: tests/Model/StripeLocalCardTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$metadata of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:setMetadata\\(\\) expects array, string given\\.$#"
+			count: 1
+			path: tests/Model/StripeLocalCardTest.php
+
+		-
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with 'nocera inferiore' and int will always evaluate to false\\.$#"
+			count: 2
+			path: tests/Model/StripeLocalCardTest.php
+
+		-
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with 'nocera inferiore' and array will always evaluate to false\\.$#"
+			count: 1
+			path: tests/Model/StripeLocalCardTest.php
 
 		-
 			message: "#^Call to method getName\\(\\) on an unknown class SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Dev\\\\Helper\\\\ReflectionProperty\\.$#"

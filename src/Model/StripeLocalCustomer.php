@@ -14,8 +14,10 @@ declare(strict_types=1);
 namespace SerendipityHQ\Bundle\StripeBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Money\Currency;
 use SerendipityHQ\Component\ValueObjects\Address\AddressInterface;
 use SerendipityHQ\Component\ValueObjects\Email\Email;
+use SerendipityHQ\Component\ValueObjects\Email\EmailInterface;
 use SerendipityHQ\Component\ValueObjects\Phone\PhoneInterface;
 
 /**
@@ -96,11 +98,11 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     /** @var string The Stripe ID of the StripeLocalCustomer */
     private $id;
 
-    /** @var int|null $balance Current balance, if any, being stored on the customer’s account. If negative, the customer has credit to apply to the next invoice. If positive, the customer has an amount owed that will be added to the next invoice. The balance does not refer to any unpaid invoices; it solely takes into account amounts that have yet to be successfully applied to any invoice. This balance is only taken into account for recurring billing purposes (i.e., subscriptions, invoices, invoice items). */
+    /** @var int $balance Current balance, if any, being stored on the customer’s account. If negative, the customer has credit to apply to the next invoice. If positive, the customer has an amount owed that will be added to the next invoice. The balance does not refer to any unpaid invoices; it solely takes into account amounts that have yet to be successfully applied to any invoice. This balance is only taken into account for recurring billing purposes (i.e., subscriptions, invoices, invoice items). */
     private $balance;
 
     /**
-     * @var string
+     * @var string|null
      *
      * "The customer’s full name or business name."
      *
@@ -109,7 +111,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     private $name;
 
     /**
-     * @var AddressInterface
+     * @var AddressInterface|null
      *
      * "The customer’s address."
      *
@@ -118,7 +120,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     private $address;
 
     /**
-     * @var PhoneInterface
+     * @var PhoneInterface|null
      *
      * "The customer’s phone number."
      *
@@ -135,19 +137,19 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     /** @var \DateTime $created */
     private $created;
 
-    /** @var string $currency The currency the customer can be charged in for recurring billing purposes. */
+    /** @var Currency|null $currency The currency the customer can be charged in for recurring billing purposes. */
     private $currency;
 
     /** @var StripeLocalCard|null $defaultSource ID of the default source attached to this customer. */
     private $defaultSource;
 
-    /** @var bool $delinquent Whether or not the latest charge for the customer’s latest invoice has failed. */
+    /** @var bool|null $delinquent Whether or not the latest charge for the customer’s latest invoice has failed. */
     private $delinquent;
 
-    /** @var string $description */
+    /** @var string|null $description */
     private $description;
 
-    /** @var Email|null $email */
+    /** @var EmailInterface|null $email */
     private $email;
 
     /** @var bool $livemode */
@@ -189,7 +191,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this;
     }
 
-    public function getBalance(): ?int
+    public function getBalance(): int
     {
         return $this->balance;
     }
@@ -209,7 +211,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this->created;
     }
 
-    public function getCurrency(): string
+    public function getCurrency(): ?Currency
     {
         return $this->currency;
     }
@@ -219,12 +221,12 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this->defaultSource;
     }
 
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function getEmail(): ?Email
+    public function getEmail(): ?EmailInterface
     {
         return $this->email;
     }
@@ -249,7 +251,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
 
     public function isDelinquent(): bool
     {
-        return $this->delinquent;
+        return $this->delinquent ?? false;
     }
 
     public function isLivemode(): bool
@@ -269,30 +271,28 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this;
     }
 
-    public function setCurrency(string $currency): self
+
+    public function setCurrency(?Currency $currency): self
     {
         $this->currency = $currency;
 
         return $this;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
         return $this;
     }
 
-    public function setEmail(Email $email): self
+    public function setEmail(EmailInterface $email): self
     {
         $this->email = $email;
 
         return $this;
     }
 
-    /**
-     * @param $metadata
-     */
     public function setMetadata(array $metadata): self
     {
         $this->metadata = $metadata;
@@ -300,32 +300,32 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
-    public function getAddress(): AddressInterface
+    public function getAddress(): ?AddressInterface
     {
         return $this->address;
     }
 
-    public function setAddress(AddressInterface $address): void
+    public function setAddress(?AddressInterface $address): void
     {
         $this->address = $address;
     }
 
-    public function getPhone(): PhoneInterface
+    public function getPhone(): ?PhoneInterface
     {
         return $this->phone;
     }
 
-    public function setPhone(PhoneInterface $phone): void
+    public function setPhone(?PhoneInterface $phone): void
     {
         $this->phone = $phone;
     }
@@ -361,7 +361,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
 
         if (self::ACTION_CREATE === $action) {
             if (null !== $this->getBalance()) {
-                $return['account_balance'] = $this->getBalance();
+                $return['balance'] = $this->getBalance();
             }
 
             if (null !== $this->getDescription()) {

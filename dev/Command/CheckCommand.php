@@ -13,16 +13,23 @@ declare(strict_types=1);
 
 namespace SerendipityHQ\Bundle\StripeBundle\Dev\Command;
 
+use phpDocumentor\Reflection\Type;
+use phpDocumentor\Reflection\Types\Array_;
+use phpDocumentor\Reflection\Types\Compound;
+use phpDocumentor\Reflection\Types\String_;
+use SerendipityHQ\Bundle\StripeBundle\Dev\Helper\MappingHelper;
 use SerendipityHQ\Bundle\StripeBundle\Dev\Helper\ReflectionHelper;
+use SerendipityHQ\Bundle\StripeBundle\Dev\Helper\StaticHelper;
 use SerendipityHQ\Bundle\StripeBundle\SHQStripeBundle;
+use SerendipityHQ\Component\ValueObjects\Phone\PhoneInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DomCrawler\Crawler;
-use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final class CheckCommand extends Command
 {
@@ -37,7 +44,7 @@ final class CheckCommand extends Command
         $this
             ->setDescription('Checks API compatibility between Stripe, this bundle and your Symfony app.')
             ->addOption('skip-api', null, InputOption::VALUE_NONE, 'Do not check the implemented API is the last one released by Stripe.')
-            ->addOption('skip-models', null, InputOption::VALUE_NONE, 'Do not check local and SDK models are in synch.');
+            ->addOption('skip-models', null, InputOption::VALUE_NONE, 'Do not check local and SDK models are in sync.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -45,26 +52,19 @@ final class CheckCommand extends Command
         $ioWriter = new SymfonyStyle($input, $output);
         $ioWriter->title('Starting ' . self::$defaultName);
 
-        false === (bool) $input->getOption('skip-api')
-            ? $this->checkApiVersion($ioWriter)
-            : $ioWriter->writeln('Skipping checking of API...');
+        (bool) $input->getOption('skip-api')
+            ? $ioWriter->writeln('Skipping checking of API...')
+            : $this->checkApiVersion($ioWriter);
 
-        false === (bool) $input->getOption('skip-models')
-            ? $this->checkLocalModelsHaveSdkModelsProperties($ioWriter)
-            : $ioWriter->writeln('Skipping checking of models...');
+        (bool) $input->getOption('skip-models')
+            ? $ioWriter->writeln('Skipping checking of models...')
+            : $this->checkLocalModels($ioWriter);
 
         return $this->return;
     }
 
     private function checkApiVersion(SymfonyStyle $ioWriter): void
     {
-        if (false === \class_exists(HttpClient::class)) {
-            $ioWriter->error(\Safe\sprintf("The Symfony HTTP client doesn't exist and it is required to run this command.\nRun \"composer req symfony/http-client\" to install it."));
-            $this->return = self::FAILURE;
-
-            return;
-        }
-
         if (false === \class_exists(Crawler::class)) {
             $ioWriter->error(\Safe\sprintf('The Symfony DomCrawler component is not installed and it is required to run this command.
 Run "composer req symfony/domcrawler" to install it.'));
@@ -73,7 +73,19 @@ Run "composer req symfony/domcrawler" to install it.'));
             return;
         }
 
-        $apiVersions            = $this->scrapeApiVersions($ioWriter);
+        if (false === \class_exists(HttpClient::class)) {
+            $ioWriter->error(\Safe\sprintf("The Symfony HTTP client doesn't exist and it is required to run this command.\nRun \"composer req symfony/http-client\" to install it."));
+            $this->return = self::FAILURE;
+
+            return;
+        }
+
+        static $client = null;
+        if (null === $client) {
+            $client = HttpClient::create();
+        }
+
+        $apiVersions            = $this->scrapeApiVersions($client, $ioWriter);
         $supportedApiVersionKey = \array_search(SHQStripeBundle::SUPPORTED_STRIPE_API, $apiVersions);
 
         if (false === $supportedApiVersionKey) {
@@ -96,18 +108,19 @@ Run "composer req symfony/domcrawler" to install it.'));
         $ioWriter->success(\Safe\sprintf('The currently supported API version is even with the last released one.'));
     }
 
-    private function checkLocalModelsHaveSdkModelsProperties(SymfonyStyle $ioWriter): void
+    private function checkLocalModels(SymfonyStyle $ioWriter): void
     {
-        $localModelClasses = $this->getModelClasses();
+        $localModelClasses = ReflectionHelper::getModelClasses();
 
         // This is not an SDK model classes, but it is used internally to manage Stripe's webhook
         unset($localModelClasses['StripeLocalWebhookEvent']);
 
-        $sdkModelClasses = $this->guessSdkModelClassesFromLocalOnes($localModelClasses);
+        $sdkModelClasses = ReflectionHelper::guessSdkModelClassesFromLocalOnes($localModelClasses);
 
         $failures = [];
         foreach ($localModelClasses as $localModelName => $localModelClass) {
-            $failures[] = $this->testLocalModelIsInSynchWithSdkModel($localModelClass, $sdkModelClasses[$localModelName]);
+            $failures[] = $this->checkLocalModelIsInSyncWithSdkModel($localModelClass, $sdkModelClasses[$localModelName]);
+            $failures[] = $this->checkLocalModelIsInSyncWithMapping($localModelClass);
         }
 
         $failures = \array_merge(...$failures);
@@ -118,91 +131,10 @@ Run "composer req symfony/domcrawler" to install it.'));
             return;
         }
 
-        $ioWriter->success('Local model classes and SDK model classes are all in synch.');
+        $ioWriter->success('Local model classes and SDK model classes are all in sync.');
     }
 
-    /**
-     * @return array<array-key,string>
-     */
-    private function scrapeApiVersions(SymfonyStyle $ioWriter): array
-    {
-        $client = HttpClient::create();
-
-        $ioWriter->writeln('Calling https://stripe.com/docs/upgrades ...');
-        $response = $client->request('GET', 'https://stripe.com/docs/upgrades');
-
-        $statusCode = $response->getStatusCode();
-        $ioWriter->writeln(\Safe\sprintf('Status code returned: %s', $statusCode));
-
-        $html = $response->getContent();
-
-        $crawler = new Crawler($html);
-
-        $apiChangelogNode = $crawler->filter('h2#api-changelog');
-
-        $apiChangelogValues = $apiChangelogNode->siblings()->each(static function (Crawler $node) {
-            $apiVersion = $node->filter('h3')->extract(['id']);
-            if (false === empty($apiVersion) && isset($apiVersion[0])) {
-                return $apiVersion[0];
-            }
-
-            return null;
-        });
-
-        $apiVersions = \array_filter($apiChangelogValues);
-
-        return \array_values($apiVersions);
-    }
-
-    private function getModelClasses(): array
-    {
-        $finder = new Finder();
-        $finder->files()->in(__DIR__ . '/../../src/Model');
-
-        if (false === $finder->hasResults()) {
-            throw new \RuntimeException('Impossible to find classes of models.');
-        }
-
-        $modelClasses = [];
-        foreach ($finder as $file) {
-            $fileName  = $file->getFilename();
-            $fileName  = \str_replace('.' . $file->getExtension(), '', $fileName);
-            $namespace = \Safe\sprintf('SerendipityHQ\Bundle\StripeBundle\Model\%s', $fileName);
-
-            try {
-                $reflectedClass = new \ReflectionClass($namespace);
-            } catch (\ReflectionException $reflectionException) {
-                throw new \RuntimeException(\Safe\sprintf("The guessed class \"%s\" doesn't exist.\nException message: %s", $namespace, $reflectionException->getMessage()));
-            }
-
-            if ($reflectedClass->isAbstract() || $reflectedClass->isInterface()) {
-                continue;
-            }
-
-            $modelClasses[$fileName] = $namespace;
-        }
-
-        return $modelClasses;
-    }
-
-    private function guessSdkModelClassesFromLocalOnes(array $localModelClasses): array
-    {
-        $sdkModelClasses = [];
-        foreach (\array_keys($localModelClasses) as $localModelName) {
-            $sdkModelName      = \str_replace('StripeLocal', '', $localModelName);
-            $sdkModelNamespace = \Safe\sprintf('Stripe\%s', $sdkModelName);
-
-            if (false === \class_exists($sdkModelNamespace)) {
-                throw new \RuntimeException(\Safe\sprintf('The guessed SDK class "%s" doesn\'t exist.', $sdkModelNamespace));
-            }
-
-            $sdkModelClasses[$localModelName] = $sdkModelNamespace;
-        }
-
-        return $sdkModelClasses;
-    }
-
-    private function testLocalModelIsInSynchWithSdkModel(string $localModelClass, string $sdkModelClass): array
+    private function checkLocalModelIsInSyncWithSdkModel(string $localModelClass, string $sdkModelClass): array
     {
         $localModelProperties = ReflectionHelper::getLocalModelProperties($localModelClass);
         $sdkModelProperties   = ReflectionHelper::getSdkModelProperties($sdkModelClass);
@@ -222,6 +154,157 @@ Run "composer req symfony/domcrawler" to install it.'));
             $failures[] = \Safe\sprintf("%s contains fields not yet managed by %s:\n  - %s", $sdkModelClass, $localModelClass, \implode("\n  - ", $sdkModelPropertiesNotYetImplemented));
         }
 
+        $propertiesToCheck  = \array_intersect($localModelProperties, $sdkModelProperties);
+        $comparisonFailures = $this->compareLocalPropertiesWithSdkOnes($localModelClass, $sdkModelClass, $propertiesToCheck);
+        if (false === empty($comparisonFailures)) {
+            $failures[] = \Safe\sprintf("The types of properties of class %s doesn't match with the ones of %s class:\n  - %s", $localModelClass, $sdkModelClass, \implode("\n  - ", $comparisonFailures));
+        }
+
+        // Remove null values eventually returned by compareLocalPropertiesWithSdkOnes()
+        return \array_filter($failures);
+    }
+
+    private function checkLocalModelIsInSyncWithMapping(string $localModelClass): array
+    {
+        $localModelProperties  = ReflectionHelper::getLocalModelProperties($localModelClass);
+        $mappedModelProperties = \array_merge(
+            MappingHelper::getMappedProperties($localModelClass),
+            MappingHelper::getMappedAssociations($localModelClass),
+            $localModelClass::IGNORE,
+        );
+        $mappedModelProperties = \array_unique($mappedModelProperties);
+
+        $mappedModelPropertiesThatDoNotExistAnymore = \array_diff($mappedModelProperties, $localModelProperties);
+        $localModelPropertiesNotYetMapped           =  \array_diff($localModelProperties, $mappedModelProperties);
+
+        $failures = [];
+
+        if (false === empty($mappedModelPropertiesThatDoNotExistAnymore)) {
+            $failures[] = \Safe\sprintf("Mapping of %s contains fields not present in the model anymore:\n  - %s", $localModelClass, \implode("\n  - ", $mappedModelPropertiesThatDoNotExistAnymore));
+        }
+
+        if (false === empty($localModelPropertiesNotYetMapped)) {
+            $failures[] = \Safe\sprintf("%s contains properties not yet mapped:\n  - %s", $localModelClass, \implode("\n  - ", $localModelPropertiesNotYetMapped));
+        }
+
         return $failures;
+    }
+
+    /**
+     * @return array<array-key,string>
+     */
+    private function scrapeApiVersions(HttpClientInterface $client, SymfonyStyle $ioWriter): array
+    {
+        $ioWriter->writeln('Calling https://stripe.com/docs/upgrades ...');
+
+        $response = $client->request('GET', 'https://stripe.com/docs/upgrades');
+
+        $statusCode = $response->getStatusCode();
+        $ioWriter->writeln(\Safe\sprintf('Status code returned: %s', $statusCode));
+
+        $html = $response->getContent();
+
+        $crawler            = new Crawler($html);
+        $apiChangelogNode   = $crawler->filter('h2#api-changelog');
+        $apiChangelogValues = $apiChangelogNode->siblings()->each(static function (Crawler $node) {
+            $apiVersion = $node->filter('h3')->extract(['id']);
+            if (false === empty($apiVersion) && isset($apiVersion[0])) {
+                return $apiVersion[0];
+            }
+
+            return null;
+        });
+
+        $apiVersions = \array_filter($apiChangelogValues);
+
+        return \array_values($apiVersions);
+    }
+
+    private function compareLocalPropertiesWithSdkOnes(string $localModelClass, string $sdkModelClass, array $localProperties): array
+    {
+        $failures = [];
+        foreach ($localProperties as $localProperty) {
+            $localPropertyDocBlock = ReflectionHelper::getLocalModelPropertyDocComment($localModelClass, $localProperty);
+            $sdkPropertyDocBlock   = ReflectionHelper::getSdkModelPropertyDocComment($sdkModelClass, $localProperty);
+
+            $localPropertyVar = $localPropertyDocBlock->getTagsByName('var');
+
+            if (false === isset($localPropertyVar[0])) {
+                throw new \RuntimeException('Something unexpected happened.');
+            }
+
+            $localPropertyVar = $localPropertyVar[0];
+
+            if (false === $localPropertyVar instanceof \phpDocumentor\Reflection\DocBlock\Tags\Var_) {
+                throw new \RuntimeException('Unexpected @var type.');
+            }
+
+            $comparison = $this->compareTypes($localModelClass, $localProperty, $localPropertyVar->getType(), $sdkPropertyDocBlock->getType());
+
+            if ($localProperty === 'address') {
+                //dd($localPropertyVar, $sdkPropertyDocBlock);
+            }
+
+            if (false === empty($comparison)) {
+                $failures[] = \Safe\sprintf("%s:\n    - %s", $localProperty, \implode("\n    - ", $comparison));
+            }
+        }
+
+        return $failures;
+    }
+
+    /**
+     * @param string $localModelClass
+     * @param string $property
+     * @param Type|array<array-key, Type> $localTypes
+     * @param Type|array<array-key, Type> $sdkTypes
+     */
+    private function compareTypes(string $localModelClass, string $property, $localTypes, $sdkTypes): array
+    {
+        $callback = static function ($type): ?string {
+            if ($type instanceof \phpDocumentor\Reflection\Types\Object_) {
+                switch ($type->getFqsen()->getName()) {
+                    case 'Collection':
+                    case 'StripeObject':
+                    case 'AddressInterface':
+                        return Array_::class;
+                    case 'PhoneInterface':
+                    case 'UriInterface':
+                        return String_::class;
+                    default:
+                        return null;
+                }
+            }
+
+            return \get_class($type);
+        };
+
+        if ($localTypes instanceof Compound) {
+            $localTypes = $localTypes->getIterator()->getArrayCopy();
+        }
+
+        if ($sdkTypes instanceof Compound) {
+            $sdkTypes = $sdkTypes->getIterator()->getArrayCopy();
+        }
+
+        if (false === \is_iterable($localTypes)) {
+            $localTypes = [$localTypes];
+        }
+
+        if (false === \is_iterable($sdkTypes)) {
+            $sdkTypes = [$sdkTypes];
+        }
+
+        $localTypesClasses = \array_map($callback, $localTypes);
+        $sdkTypesClasses   = \array_map($callback, $sdkTypes);
+
+        // Remove null values returned by the callback
+        $localTypesClasses = \array_filter($localTypesClasses);
+        $sdkTypesClasses   = \array_filter($sdkTypesClasses);
+
+        $localTypesClasses = StaticHelper::filterTypes($localModelClass, $property, $localTypesClasses);
+        $sdkTypesClasses = StaticHelper::filterTypes($localModelClass, $property, $sdkTypesClasses);
+
+        return array_merge(\array_diff($localTypesClasses, $sdkTypesClasses), \array_diff($sdkTypesClasses, $localTypesClasses));
     }
 }

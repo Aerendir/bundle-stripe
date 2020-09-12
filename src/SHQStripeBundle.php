@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace SerendipityHQ\Bundle\StripeBundle;
 
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
+use SerendipityHQ\Component\ValueObjects\Currency\Bridge\Doctrine\CurrencyType;
 use SerendipityHQ\Component\ValueObjects\Email\Bridge\Doctrine\EmailType;
 use SerendipityHQ\Component\ValueObjects\Money\Bridge\Doctrine\MoneyType;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -40,6 +41,7 @@ final class SHQStripeBundle extends Bundle
         $container->loadFromExtension('doctrine', [
             'dbal' => [
                 'types' => [
+                    'currency' => CurrencyType::class,
                     'email' => EmailType::class,
                     'money' => MoneyType::class,
                 ],

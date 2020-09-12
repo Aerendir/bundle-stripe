@@ -46,15 +46,17 @@ abstract class AbstractSyncer implements SyncerInterface
      */
     protected function getLocalCustomer($stripeCustomerId)
     {
-        // First try to get the customer from the database
-        $localCustomer = $this->getEntityManager()->getRepository(StripeLocalCustomer::class)->findOneByStripeId($stripeCustomerId);
+        $localCustomer =
+            // First try to get the customer from the database
+            $this->getEntityManager()->getRepository(StripeLocalCustomer::class)->findOneByStripeId($stripeCustomerId)
+            ??
+            // Try to find the customer in the newly created one that are not already persisted
+            $this->getEntityManager()->getUnitOfWork()->tryGetById($stripeCustomerId, StripeLocalCustomer::class);
 
-        // If we found it, return it
-        if (null !== $localCustomer) {
-            return $localCustomer;
+        if (false === $localCustomer) {
+            return null;
         }
 
-        // Try to find the customer in the newly created one that are not already persisted
-        return $this->getEntityManager()->getUnitOfWork()->tryGetById($stripeCustomerId, StripeLocalCustomer::class);
+        return $localCustomer;
     }
 }

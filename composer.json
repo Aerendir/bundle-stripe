@@ -32,6 +32,7 @@
         "doctrine/common": "^2.8 || ^3.0",
         "doctrine/doctrine-bundle": "^1.7 || ^2.0",
         "monolog/monolog": "^1.23 || ^2.0",
+        "phpdocumentor/reflection-docblock": "^5.2",
         "roave/security-advisories": "dev-master",
         "serendipity_hq/component-var-dumper-f": "^2.0",
         "symfony/console": "^5.1",

@@ -23,9 +23,6 @@ use Stripe\Card;
  */
 final class CardSyncer extends AbstractSyncer
 {
-    /**
-     * @param Card $stripeResource
-     */
     public function syncLocalFromStripe(StripeLocalResourceInterface $localResource, ApiResource $stripeResource): void
     {
         /** @var StripeLocalCard $localResource */
@@ -96,7 +93,7 @@ final class CardSyncer extends AbstractSyncer
                 case 'customer':
                     $localCustomer = $this->getLocalCustomer($stripeResource->customer);
 
-                    if (false !== $localCustomer) {
+                    if (null !== $localCustomer) {
                         $reflectedProperty->setValue($localResource, $localCustomer);
                     }
                     break;
