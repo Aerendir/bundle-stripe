@@ -29,7 +29,7 @@ abstract class ModelTestCase extends TestCase
      */
     public function populateModel(StripeLocalResourceInterface $resource, array $data): void
     {
-        $resourceProperties = ReflectionHelper::getLocalModelPropertiesDocComments(\get_class($resource));
+        $resourceProperties = ReflectionHelper::getLocalModelReflectedProperties(\get_class($resource));
 
         foreach ($resourceProperties as $reflectedProperty) {
             if (isset($data[$reflectedProperty->getName()])) {

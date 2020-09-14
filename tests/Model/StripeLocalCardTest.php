@@ -40,10 +40,10 @@ final class StripeLocalCardTest extends ModelTestCase
             'addressZip'     => '84014',
             'country'        => 'IT',
             'customer'       => $mockCustomer,
-            'expMonth'       => 'nocera inferiore',
-            'expYear'        => 'nocera inferiore',
-            'metadata'       => 'nocera inferiore',
-            'name'           => 'nocera inferiore',
+            'expMonth'       => 12,
+            'expYear'        => 2020,
+            'metadata'       => ['this_is_the_key' => 'this is the value'],
+            'name'           => 'Tizio Caio',
         ];
 
         // Test setMethods

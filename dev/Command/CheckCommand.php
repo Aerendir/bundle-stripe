@@ -13,15 +13,16 @@ declare(strict_types=1);
 
 namespace SerendipityHQ\Bundle\StripeBundle\Dev\Command;
 
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 use phpDocumentor\Reflection\Type;
 use phpDocumentor\Reflection\Types\Array_;
 use phpDocumentor\Reflection\Types\Compound;
+use phpDocumentor\Reflection\Types\Object_;
 use phpDocumentor\Reflection\Types\String_;
 use SerendipityHQ\Bundle\StripeBundle\Dev\Helper\MappingHelper;
 use SerendipityHQ\Bundle\StripeBundle\Dev\Helper\ReflectionHelper;
 use SerendipityHQ\Bundle\StripeBundle\Dev\Helper\StaticHelper;
 use SerendipityHQ\Bundle\StripeBundle\SHQStripeBundle;
-use SerendipityHQ\Component\ValueObjects\Phone\PhoneInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -235,15 +236,11 @@ Run "composer req symfony/domcrawler" to install it.'));
 
             $localPropertyVar = $localPropertyVar[0];
 
-            if (false === $localPropertyVar instanceof \phpDocumentor\Reflection\DocBlock\Tags\Var_) {
+            if (false === $localPropertyVar instanceof Var_) {
                 throw new \RuntimeException('Unexpected @var type.');
             }
 
             $comparison = $this->compareTypes($localModelClass, $localProperty, $localPropertyVar->getType(), $sdkPropertyDocBlock->getType());
-
-            if ($localProperty === 'address') {
-                //dd($localPropertyVar, $sdkPropertyDocBlock);
-            }
 
             if (false === empty($comparison)) {
                 $failures[] = \Safe\sprintf("%s:\n    - %s", $localProperty, \implode("\n    - ", $comparison));
@@ -254,15 +251,13 @@ Run "composer req symfony/domcrawler" to install it.'));
     }
 
     /**
-     * @param string $localModelClass
-     * @param string $property
      * @param Type|array<array-key, Type> $localTypes
      * @param Type|array<array-key, Type> $sdkTypes
      */
     private function compareTypes(string $localModelClass, string $property, $localTypes, $sdkTypes): array
     {
         $callback = static function ($type): ?string {
-            if ($type instanceof \phpDocumentor\Reflection\Types\Object_) {
+            if ($type instanceof Object_) {
                 switch ($type->getFqsen()->getName()) {
                     case 'Collection':
                     case 'StripeObject':
@@ -303,8 +298,8 @@ Run "composer req symfony/domcrawler" to install it.'));
         $sdkTypesClasses   = \array_filter($sdkTypesClasses);
 
         $localTypesClasses = StaticHelper::filterTypes($localModelClass, $property, $localTypesClasses);
-        $sdkTypesClasses = StaticHelper::filterTypes($localModelClass, $property, $sdkTypesClasses);
+        $sdkTypesClasses   = StaticHelper::filterTypes($localModelClass, $property, $sdkTypesClasses);
 
-        return array_merge(\array_diff($localTypesClasses, $sdkTypesClasses), \array_diff($sdkTypesClasses, $localTypesClasses));
+        return \array_merge(\array_diff($localTypesClasses, $sdkTypesClasses), \array_diff($sdkTypesClasses, $localTypesClasses));
     }
 }

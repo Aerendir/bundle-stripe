@@ -252,15 +252,15 @@ class StripeLocalCharge implements StripeLocalResourceInterface
 
     /**
      * @var StripeLocalCard|null For most Stripe users, the source of every charge is a credit or debit card.
-     *                             This hash is then the card object describing that card. There are some checks to
-     *                             create a charge
+     *                           This hash is then the card object describing that card. There are some checks to
+     *                           create a charge
      *
      * @see toStripeArray()
      */
     private $source;
 
     /**
-     * @var null|string $statementDescriptor
+     * @var string|null $statementDescriptor
      *
      * "For card charges, use statement_descriptor_suffix instead. Otherwise, you can use this value as the complete description of a charge on your customers’ statements. Must contain at least one letter, maximum 22 characters."
      *
@@ -409,12 +409,12 @@ class StripeLocalCharge implements StripeLocalResourceInterface
         return $this->receiptNumber;
     }
 
-    public function getSource():?StripeLocalCard
+    public function getSource(): ?StripeLocalCard
     {
         return $this->source;
     }
 
-    public function getStatementDescriptor():? string
+    public function getStatementDescriptor(): ? string
     {
         return $this->statementDescriptor;
     }
@@ -434,29 +434,13 @@ class StripeLocalCharge implements StripeLocalResourceInterface
         return $this->livemode;
     }
 
-    /**
-     * This sets the amount only if it is null.
-     *
-     * This is to prevent an accidental overwriting of it.
-     *
-     * @param Money|MoneyInterface $amount
-     *
-     * @throws \InvalidArgumentException If the amount is not an integer
-     *
-     *
-     */
     public function setAmount(MoneyInterface $amount): self
     {
-        if (null === $this->amount) {
-            $this->amount = $amount;
-        }
+        $this->amount = $amount;
 
         return $this;
     }
 
-    /**
-     *
-     */
     public function setCustomer(?StripeLocalCustomer $customer): self
     {
         $this->customer = $customer;
@@ -464,9 +448,6 @@ class StripeLocalCharge implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     *
-     */
     public function setDescription(?string $description): self
     {
         $this->description = $description;
@@ -481,9 +462,6 @@ class StripeLocalCharge implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     *
-     */
     public function setReceiptEmail(Email $email): self
     {
         $this->receiptEmail = $email;
@@ -491,11 +469,6 @@ class StripeLocalCharge implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     * @param null|StripeLocalCard $card
-     *
-     *
-     */
     public function setSource(?StripeLocalCard $card): self
     {
         $this->source = $card;
@@ -523,9 +496,6 @@ class StripeLocalCharge implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     *
-     */
     public function capture(): self
     {
         $this->capture = true;
@@ -533,9 +503,6 @@ class StripeLocalCharge implements StripeLocalResourceInterface
         return $this;
     }
 
-    /**
-     *
-     */
     public function notCapture(): self
     {
         $this->capture = false;
@@ -603,7 +570,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
         $this->calculatedStatementDescriptor = $calculatedStatementDescriptor;
     }
 
-    public function getStatementDescriptorSuffix():? string
+    public function getStatementDescriptorSuffix(): ? string
     {
         return $this->statementDescriptorSuffix;
     }
@@ -633,7 +600,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
         $this->paymentMethodDetails = $paymentMethodDetails;
     }
 
-    public function getReceiptUrl():? UriInterface
+    public function getReceiptUrl(): ? UriInterface
     {
         return $this->receiptUrl;
     }
@@ -748,7 +715,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
              * @link https://stripe.com/docs/api/php#create_charge-source
              */
             if (null !== $this->getSource()) {
-                $return['source'] = $this->getSource();
+                $return['source'] = $this->getSource()->getId();
             }
 
             if (null !== $this->getStatementDescriptor()) {

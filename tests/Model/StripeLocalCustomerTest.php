@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace SerendipityHQ\Bundle\StripeBundle\Tests\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Money\Currency;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
@@ -35,23 +36,23 @@ final class StripeLocalCustomerTest extends ModelTestCase
         $mockEmail->method('getEmail')->willReturn('test@example.com');
 
         $expected = [
-            'accountBalance' => 100,
-            'currency'       => 'EUR',
-            'description'    => 'dummy description',
-            'email'          => $mockEmail,
-            'metadata'       => ['metadata'],
-            'source'         => 'tok_isastring',
+            'balance'    => 100,
+            'currency'   => new Currency('EUR'),
+            'description'=> 'dummy description',
+            'email'      => $mockEmail,
+            'metadata'   => ['this_is_the_key' => 'this is the value'],
+            'source'     => 'tok_isastring',
         ];
 
         // Test setMethods
-        $resource->setBalance($expected['accountBalance'])
+        $resource->setBalance($expected['balance'])
             ->setCurrency($expected['currency'])
             ->setDescription($expected['description'])
             ->setEmail($expected['email'])
             ->setMetadata($expected['metadata'])
             ->setNewSource($expected['source']);
 
-        self::assertSame($expected['accountBalance'], $resource->getBalance());
+        self::assertSame($expected['balance'], $resource->getBalance());
         self::assertSame($expected['currency'], $resource->getCurrency());
         self::assertSame($expected['description'], $resource->getDescription());
         self::assertSame($expected['email'], $resource->getEmail());
@@ -93,11 +94,11 @@ final class StripeLocalCustomerTest extends ModelTestCase
         self::assertFalse($resource->isLivemode());
 
         $expectedToStripeCreate = [
-            'account_balance' => $expected['accountBalance'],
-            'description'     => $expected['description'],
-            'email'           => 'test@example.com',
-            'metadata'        => $expected['metadata'],
-            'source'          => $expected['source'],
+            'balance'     => $expected['balance'],
+            'description' => $expected['description'],
+            'email'       => 'test@example.com',
+            'metadata'    => $expected['metadata'],
+            'source'      => $expected['source'],
         ];
         self::assertSame($expectedToStripeCreate, $resource->toStripe('create'));
     }

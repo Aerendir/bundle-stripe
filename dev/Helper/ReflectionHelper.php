@@ -21,38 +21,66 @@ use Symfony\Component\String\ByteString;
 
 class ReflectionHelper
 {
+    private const CACHE_TYPE_REFLECTED   = 'reflected';
+    private const CACHE_TYPE_DOC_COMMENT = 'doc_comment';
+
     /** @var DocBlockFactory|null */
     private static $docBlockFactory = null;
 
-    /** @var array<string, array<string, DocBlock>> */
+    /** @var array<string, array<string, array<string, DocBlock|\ReflectionProperty>>> */
     private static $localModelsCache = [];
 
-    /** @var array<string, array<string,\phpDocumentor\Reflection\DocBlock\Tags\Property>> */
+    /** @var array<string, array<string,Property>> */
     private static $sdkModelsCache = [];
 
     /**
-     * @return array<array-key, ReflectionProperty>
+     * @return array<string, \ReflectionProperty>
      */
-    public static function getLocalModelPropertiesDocComments(string $localModelClass): array
+    public static function getLocalModelReflectedProperties(string $localModelClass): array
     {
-        if (false === isset(self::$localModelsCache[$localModelClass])) {
+        if (false === isset(self::$localModelsCache[$localModelClass][self::CACHE_TYPE_REFLECTED])) {
             $properties = (new \ReflectionClass($localModelClass))->getProperties();
 
             foreach ($properties as $property) {
-                self::$localModelsCache[$localModelClass][$property->getName()] = self::getDockBlockFactory()->create($property->getDocComment());
+                self::$localModelsCache[$localModelClass][self::CACHE_TYPE_REFLECTED][$property->getName()] = $property;
             }
         }
 
-        return self::$localModelsCache[$localModelClass];
+        return self::$localModelsCache[$localModelClass][self::CACHE_TYPE_REFLECTED];
+    }
+
+    public static function getLocalModelReflectedProperty(string $localModelClass, string $property): \ReflectionProperty
+    {
+        if (false === isset(self::$localModelsCache[$localModelClass][self::CACHE_TYPE_REFLECTED][$property])) {
+            self::getLocalModelReflectedProperties($localModelClass);
+        }
+
+        return self::$localModelsCache[$localModelClass][self::CACHE_TYPE_REFLECTED][$property];
+    }
+
+    /**
+     * @return DocBlock[]
+     */
+    public static function getLocalModelPropertiesDocComments(string $localModelClass): array
+    {
+        if (false === isset(self::$localModelsCache[$localModelClass][self::CACHE_TYPE_DOC_COMMENT])) {
+            $properties = self::getLocalModelReflectedProperties($localModelClass);
+
+            foreach ($properties as $property) {
+                self::$localModelsCache[$localModelClass][self::CACHE_TYPE_DOC_COMMENT][$property->getName()] = self::getDockBlockFactory()->create($property->getDocComment());
+            }
+        }
+
+        return self::$localModelsCache[$localModelClass][self::CACHE_TYPE_DOC_COMMENT];
     }
 
     public static function getLocalModelPropertyDocComment(string $localModelClass, string $property): DocBlock
     {
-        if (false === isset(self::$localModelsCache[$localModelClass][$property])) {
+        if (false === isset(self::$localModelsCache[$localModelClass][self::CACHE_TYPE_DOC_COMMENT][$property])) {
             self::getLocalModelPropertiesDocComments($localModelClass);
         }
 
-        return self::$localModelsCache[$localModelClass][$property];
+        return self::$localModelsCache[$localModelClass][self::CACHE_TYPE_DOC_COMMENT][$property];
     }
 
     /**
@@ -60,7 +88,7 @@ class ReflectionHelper
      */
     public static function getLocalModelProperties(string $localModelClass): array
     {
-        $reflectedProperties = self::getLocalModelPropertiesDocComments($localModelClass);
+        $reflectedProperties = self::getLocalModelReflectedProperties($localModelClass);
 
         return \array_keys($reflectedProperties);
     }

@@ -13,14 +13,12 @@ declare(strict_types=1);
 
 namespace SerendipityHQ\Bundle\StripeBundle\Dev\Helper;
 
-use phpDocumentor\Reflection\DocBlock;
-use phpDocumentor\Reflection\DocBlock\Tags\Property;
-use phpDocumentor\Reflection\DocBlockFactory;
+use phpDocumentor\Reflection\Types\Array_;
+use phpDocumentor\Reflection\Types\Integer;
+use phpDocumentor\Reflection\Types\String_;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\String\ByteString;
 
 class StaticHelper
 {
@@ -29,64 +27,62 @@ class StaticHelper
         StripeLocalCard::class => [
             'customer' => [
                 // This will be transformed into a StripeLocalCustomer object
-                \phpDocumentor\Reflection\Types\String_::class,
+                String_::class,
             ],
         ],
         StripeLocalCharge::class => [
             'amount' => [
                 // This will be transformed into a Money object
-                \phpDocumentor\Reflection\Types\Integer::class,
+                Integer::class,
             ],
             'amountRefunded' => [
                 // This will be transformed into a Money object
-                \phpDocumentor\Reflection\Types\Integer::class,
+                Integer::class,
             ],
             'created' => [
                 // This is transformed into a \DateTime object
-                \phpDocumentor\Reflection\Types\Integer::class,
+                Integer::class,
             ],
             'customer' => [
                 // This will be transformed into a StripeLocalCustomer object
-                \phpDocumentor\Reflection\Types\String_::class,
+                String_::class,
             ],
             'receiptEmail' => [
                 // This is transformed into an EmailInterface object
-                \phpDocumentor\Reflection\Types\String_::class,
+                String_::class,
             ],
             'source' => [
                 // This is added by the command as a StripeObject may be returned by the api and it is transformed in an Array_ type that is not relevant
-                \phpDocumentor\Reflection\Types\Array_::class,
-
+                Array_::class,
             ],
         ],
         StripeLocalCustomer::class => [
             'created' => [
                 // This is transformed into a \DateTime object
-                \phpDocumentor\Reflection\Types\Integer::class,
+                Integer::class,
             ],
             'currency' => [
                 // This is transformed into a Currency object
-                \phpDocumentor\Reflection\Types\String_::class,
+                String_::class,
             ],
             'defaultSource' => [
                 // This is transformed into a StripeLocalCard object
-                \phpDocumentor\Reflection\Types\String_::class,
+                String_::class,
                 // This is added by the command as a StripeObject may be returned by the api and it is transformed in an Array_ type that is not relevant
-                \phpDocumentor\Reflection\Types\Array_::class,
-
+                Array_::class,
             ],
             'email' => [
                 // This is transformed into an EmailInterface object
-                \phpDocumentor\Reflection\Types\String_::class,
+                String_::class,
             ],
-        ]
+        ],
     ];
 
-    public static function filterTypes(string $localModelClass, string $property, array $types):array
+    public static function filterTypes(string $localModelClass, string $property, array $types): array
     {
-        return array_filter($types,static function ($type) use ($localModelClass, $property) {
+        return \array_filter($types, static function ($type) use ($localModelClass, $property): bool {
             if (isset(self::FILTERS[$localModelClass]) && isset(self::FILTERS[$localModelClass][$property])) {
-                return false === in_array($type, self::FILTERS[$localModelClass][$property]);
+                return false === \in_array($type, self::FILTERS[$localModelClass][$property]);
             }
 
             return true;

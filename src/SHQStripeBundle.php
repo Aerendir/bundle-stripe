@@ -42,8 +42,8 @@ final class SHQStripeBundle extends Bundle
             'dbal' => [
                 'types' => [
                     'currency' => CurrencyType::class,
-                    'email' => EmailType::class,
-                    'money' => MoneyType::class,
+                    'email'    => EmailType::class,
+                    'money'    => MoneyType::class,
                 ],
             ],
         ]);

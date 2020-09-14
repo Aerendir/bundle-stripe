@@ -45,7 +45,7 @@ final class StripeLocalChargeTest extends ModelTestCase
             'failureCode'         => '123',
             'failureMessage'      => 'there ever is a reason',
             'fraudDetails'        => ['details about fraud'],
-            'metadata'            => 'metadata',
+            'metadata'            => ['this_is_the_key' => 'this is the value'],
             'paid'                => true,
             'receiptEmail'        => $this->createMock(Email::class),
             'receiptNumber'       => 'xxxxxxx',
@@ -65,8 +65,7 @@ final class StripeLocalChargeTest extends ModelTestCase
         self::assertSame($test['amount'], $resource->getAmount());
         self::assertSame($test['customer'], $resource->getCustomer());
         self::assertSame($test['receiptEmail'], $resource->getReceiptEmail());
-        // Hard coded result: equal to the ID set for $mockCard
-        self::assertSame('123', $resource->getSource());
+        self::assertSame($test['source'], $resource->getSource());
         self::assertSame($test['statementDescriptor'], $resource->getStatementDescriptor());
 
         // Populate the object
@@ -98,7 +97,7 @@ final class StripeLocalChargeTest extends ModelTestCase
             'currency'             => 'EUR',
             'capture'              => true,
             'description'          => 'the description',
-            'metadata'             => 'metadata',
+            'metadata'             => ['this_is_the_key' => 'this is the value'],
             'receipt_email'        => 'test@example.com',
             'customer'             => 'cus_idofcustomerisastring',
             'source'               => 'card_idofthecardisastring',

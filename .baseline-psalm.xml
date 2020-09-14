@@ -75,9 +75,8 @@
     </MixedAssignment>
   </file>
   <file src="src/Event/AbstractStripeChargeEvent.php">
-    <TypeDoesNotContainNull occurrences="2">
+    <TypeDoesNotContainNull occurrences="1">
       <code>null === $charge-&gt;getAmount()</code>
-      <code>null === $charge-&gt;getCustomer()</code>
     </TypeDoesNotContainNull>
   </file>
   <file src="src/Manager/StripeManager.php">
@@ -175,58 +174,49 @@
     </TypeDoesNotContainType>
   </file>
   <file src="src/Model/StripeLocalCard.php">
-    <PropertyNotSetInConstructor occurrences="10">
+    <InvalidNullableReturnType occurrences="2">
+      <code>string</code>
+      <code>StripeLocalCustomer</code>
+    </InvalidNullableReturnType>
+    <NullableReturnStatement occurrences="2">
+      <code>$this-&gt;country</code>
+      <code>$this-&gt;customer</code>
+    </NullableReturnStatement>
+    <PropertyNotSetInConstructor occurrences="7">
       <code>$id</code>
       <code>$brand</code>
-      <code>$country</code>
-      <code>$customer</code>
       <code>$expMonth</code>
       <code>$expYear</code>
-      <code>$fingerprint</code>
       <code>$funding</code>
       <code>$last4</code>
       <code>$metadata</code>
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Model/StripeLocalCharge.php">
-    <DocblockTypeContradiction occurrences="2">
-      <code>null === $this-&gt;amount</code>
+    <DocblockTypeContradiction occurrences="1">
       <code>null === $this-&gt;amount</code>
     </DocblockTypeContradiction>
-    <MismatchingDocblockReturnType occurrences="2">
+    <MismatchingDocblockReturnType occurrences="1">
       <code>bool|string</code>
-      <code>mixed</code>
     </MismatchingDocblockReturnType>
     <MissingConstructor occurrences="1">
       <code>$id</code>
     </MissingConstructor>
-    <MissingReturnType occurrences="1">
-      <code>getSource</code>
-    </MissingReturnType>
-    <MixedArgument occurrences="1">
-      <code>\Safe\json_decode($this-&gt;getMetadata(), true)</code>
-    </MixedArgument>
-    <MixedAssignment occurrences="1">
-      <code>$return['source']</code>
-    </MixedAssignment>
     <MixedInferredReturnType occurrences="1">
       <code>bool|string</code>
     </MixedInferredReturnType>
-    <PossiblyInvalidPropertyAssignmentValue occurrences="1">
-      <code>$metadata</code>
-    </PossiblyInvalidPropertyAssignmentValue>
-    <PossiblyNullReference occurrences="1">
+    <PossiblyNullReference occurrences="4">
       <code>getEmail</code>
+      <code>getId</code>
+      <code>getId</code>
+      <code>getId</code>
     </PossiblyNullReference>
     <PropertyTypeCoercion occurrences="1">
       <code>$amount</code>
     </PropertyTypeCoercion>
-    <RedundantCondition occurrences="5">
-      <code>\is_string($this-&gt;getMetadata())</code>
-      <code>null !== $this-&gt;getDescription()</code>
+    <RedundantCondition occurrences="2">
       <code>null !== $this-&gt;getMetadata()</code>
       <code>null !== $this-&gt;getCustomer()-&gt;getId()</code>
-      <code>null !== $this-&gt;getStatementDescriptor()</code>
     </RedundantCondition>
   </file>
   <file src="src/Model/StripeLocalCustomer.php">
@@ -243,22 +233,17 @@
     <PossiblyNullReference occurrences="1">
       <code>getEmail</code>
     </PossiblyNullReference>
-    <PropertyNotSetInConstructor occurrences="12">
+    <PropertyNotSetInConstructor occurrences="7">
       <code>$id</code>
-      <code>$name</code>
-      <code>$address</code>
-      <code>$phone</code>
+      <code>$balance</code>
       <code>$created</code>
-      <code>$currency</code>
-      <code>$delinquent</code>
-      <code>$description</code>
       <code>$livemode</code>
       <code>$metadata</code>
       <code>$sources</code>
       <code>$newSource</code>
     </PropertyNotSetInConstructor>
     <RedundantCondition occurrences="2">
-      <code>null !== $this-&gt;getDescription()</code>
+      <code>null !== $this-&gt;getBalance()</code>
       <code>null !== $this-&gt;getNewSource()</code>
     </RedundantCondition>
   </file>
@@ -343,17 +328,11 @@
     <PossiblyNullArgument occurrences="1">
       <code>$this-&gt;getStripeManager()-&gt;getError()</code>
     </PossiblyNullArgument>
-    <RedundantCondition occurrences="1">
-      <code>null !== $currency</code>
-    </RedundantCondition>
     <UndefinedDocblockClass occurrences="1">
       <code>ContainerAwareEventDispatcher|EventDispatcherInterface</code>
     </UndefinedDocblockClass>
   </file>
   <file src="src/Syncer/AbstractSyncer.php">
-    <LessSpecificReturnStatement occurrences="1">
-      <code>$this-&gt;getEntityManager()-&gt;getUnitOfWork()-&gt;tryGetById($stripeCustomerId, StripeLocalCustomer::class)</code>
-    </LessSpecificReturnStatement>
     <MissingParamType occurrences="1">
       <code>$stripeCustomerId</code>
     </MissingParamType>
@@ -366,6 +345,9 @@
     <MixedReturnStatement occurrences="1">
       <code>$localCustomer</code>
     </MixedReturnStatement>
+    <NullableReturnStatement occurrences="1">
+      <code>null</code>
+    </NullableReturnStatement>
   </file>
   <file src="src/Syncer/CardSyncer.php">
     <DocblockTypeContradiction occurrences="4">
@@ -374,9 +356,9 @@
       <code>$stripeResource instanceof Card</code>
       <code>$localResource instanceof StripeLocalCard</code>
     </DocblockTypeContradiction>
-    <MoreSpecificImplementedParamType occurrences="1">
-      <code>$stripeResource</code>
-    </MoreSpecificImplementedParamType>
+    <RedundantConditionGivenDocblockType occurrences="1">
+      <code>null !== $localCustomer</code>
+    </RedundantConditionGivenDocblockType>
     <UndefinedMagicPropertyFetch occurrences="13">
       <code>$stripeResource-&gt;addressCity</code>
       <code>$stripeResource-&gt;addressCountry</code>
@@ -425,8 +407,9 @@
     <PossiblyNullPropertyFetch occurrences="1">
       <code>$stripeResource-&gt;source-&gt;id</code>
     </PossiblyNullPropertyFetch>
-    <PossiblyNullReference occurrences="2">
+    <PossiblyNullReference occurrences="3">
       <code>toArray</code>
+      <code>getDefaultSource</code>
       <code>setError</code>
     </PossiblyNullReference>
     <RedundantConditionGivenDocblockType occurrences="1">
@@ -467,9 +450,10 @@
     <MixedPropertyFetch occurrences="1">
       <code>$stripeDefaultCard-&gt;id</code>
     </MixedPropertyFetch>
-    <RedundantCondition occurrences="2">
+    <RedundantCondition occurrences="3">
+      <code>null !== $localResource-&gt;getBalance()</code>
       <code>null !== $localResource-&gt;getNewSource()</code>
-      <code>null !== $localResource-&gt;getDescription()</code>
+      <code>null !== $localResource-&gt;getBalance()</code>
     </RedundantCondition>
     <UndefinedMagicPropertyAssignment occurrences="3">
       <code>$stripeResource-&gt;accountBalance</code>
@@ -553,24 +537,22 @@
       <code>$this-&gt;container-&gt;getParameter('stripe_bundle.endpoint')['route_name']</code>
     </MixedArrayAccess>
   </file>
-  <file src="tests/Model/StripeLocalCardTest.php">
-    <InvalidArgument occurrences="3">
-      <code>$expected['expMonth']</code>
-      <code>$expected['expYear']</code>
-      <code>$expected['metadata']</code>
-    </InvalidArgument>
-  </file>
   <file src="tests/ModelTestCase.php">
     <MixedArrayOffset occurrences="2">
       <code>$data[$reflectedProperty-&gt;getName()]</code>
       <code>$data[$reflectedProperty-&gt;getName()]</code>
     </MixedArrayOffset>
-    <UndefinedDocblockClass occurrences="5">
-      <code>ReflectionHelper::getLocalModelPropertiesDocComments(\get_class($resource))</code>
+    <MixedAssignment occurrences="1">
       <code>$reflectedProperty</code>
-      <code>$reflectedProperty</code>
-      <code>$reflectedProperty</code>
-      <code>$reflectedProperty</code>
-    </UndefinedDocblockClass>
+    </MixedAssignment>
+    <MixedMethodCall occurrences="4">
+      <code>getName</code>
+      <code>setAccessible</code>
+      <code>setValue</code>
+      <code>getName</code>
+    </MixedMethodCall>
+    <RawObjectIteration occurrences="1">
+      <code>$resourceProperties</code>
+    </RawObjectIteration>
   </file>
 </files>

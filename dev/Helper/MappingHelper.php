@@ -26,14 +26,14 @@ class MappingHelper
     public static function getMappedProperties(string $localModelClass): array
     {
         $metadataInfo = self::getMetadataInfo($localModelClass);
-        $fieldNames = $metadataInfo->getFieldNames();
+        $fieldNames   = $metadataInfo->getFieldNames();
 
-        $reflectedMetadataInfo = new \ReflectionClass($metadataInfo);
+        $reflectedMetadataInfo            = new \ReflectionClass($metadataInfo);
         $embeddedClassesReflectedProperty = $reflectedMetadataInfo->getProperty('embeddedClasses');
         $embeddedClassesReflectedProperty->setAccessible(true);
-        $embeddables = array_keys($metadataInfo->embeddedClasses);
+        $embeddables = \array_keys($metadataInfo->embeddedClasses);
 
-        return array_merge($fieldNames, $embeddables);
+        return \array_merge($fieldNames, $embeddables);
     }
 
     public static function getMappedAssociations(string $localModelClass): array

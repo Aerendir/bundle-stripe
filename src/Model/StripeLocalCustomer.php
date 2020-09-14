@@ -16,7 +16,6 @@ namespace SerendipityHQ\Bundle\StripeBundle\Model;
 use Doctrine\Common\Collections\ArrayCollection;
 use Money\Currency;
 use SerendipityHQ\Component\ValueObjects\Address\AddressInterface;
-use SerendipityHQ\Component\ValueObjects\Email\Email;
 use SerendipityHQ\Component\ValueObjects\Email\EmailInterface;
 use SerendipityHQ\Component\ValueObjects\Phone\PhoneInterface;
 
@@ -270,7 +269,6 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
 
         return $this;
     }
-
 
     public function setCurrency(?Currency $currency): self
     {
