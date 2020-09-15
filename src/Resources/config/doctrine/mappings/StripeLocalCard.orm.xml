@@ -14,13 +14,13 @@
         <field name="addressZip" type="text" column="address_zip" precision="0" scale="0" nullable="true"/>
         <field name="addressZipCheck" type="text" column="address_zip_check" precision="0" scale="0" nullable="true"/>
         <field name="brand" type="text" column="brand" precision="0" scale="0" nullable="false"/>
-        <field name="country" type="text" column="country" precision="0" scale="0" nullable="false"/>
+        <field name="country" type="text" column="country" precision="0" scale="0" nullable="true"/>
         <field name="cvcCheck" type="text" column="cvc_check" precision="0" scale="0" nullable="true"/>
         <field name="dynamicLast4" type="text" column="dynamic_last4" precision="0" scale="0" nullable="true"/>
         <field name="expMonth" type="integer" column="exp_month" precision="0" scale="0" nullable="false"/>
         <field name="expYear" type="integer" column="exp_year" precision="0" scale="0" nullable="false"/>
         <field name="error" type="string" column="error" precision="0" scale="0" nullable="true"/>
-        <field name="fingerprint" type="string" column="fingerprint" precision="0" scale="0" nullable="false"/>
+        <field name="fingerprint" type="string" column="fingerprint" precision="0" scale="0" nullable="true"/>
         <field name="funding" type="string" column="funding" precision="0" scale="0" nullable="false"/>
         <field name="last4" type="string" column="last4" precision="0" scale="0" nullable="false"/>
         <field name="metadata" type="array" column="metadata" nullable="true"/>

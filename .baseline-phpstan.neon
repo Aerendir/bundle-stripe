@@ -785,8 +785,3 @@ parameters:
 			count: 1
 			path: src/Util/EventGuesser.php
 
-		-
-			message: "#^Argument of an invalid type phpDocumentor\\\\Reflection\\\\DocBlock supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: tests/ModelTestCase.php
-

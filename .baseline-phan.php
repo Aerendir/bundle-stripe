@@ -16,42 +16,38 @@ return [
     // PhanTypeMismatchArgument : 15+ occurrences
     // PhanAccessMethodInternal : 10+ occurrences
     // PhanRedefinedExtendedClass : 10+ occurrences
-    // PhanTypeMismatchDeclaredReturn : 9 occurrences
+    // PhanTypeMismatchDeclaredReturn : 8 occurrences
+    // PhanTypeMismatchArgumentNullable : 7 occurrences
     // PhanUnextractableAnnotationSuffix : 7 occurrences
     // PhanTypeArraySuspiciousNullable : 6 occurrences
     // PhanUnusedPublicFinalMethodParameter : 6 occurrences
-    // PhanTypeMismatchArgumentNullable : 4 occurrences
     // PhanUnreferencedClass : 4 occurrences
     // PhanUnusedPublicMethodParameter : 4 occurrences
     // PhanUndeclaredMethod : 3 occurrences
     // PhanUndeclaredStaticMethod : 3 occurrences
+    // PhanUnextractableAnnotationElementName : 3 occurrences
     // PhanParamSignatureMismatch : 2 occurrences
-    // PhanTypeArraySuspicious : 2 occurrences
     // PhanTypeMismatchArgumentReal : 2 occurrences
     // PhanTypeMismatchDeclaredParam : 2 occurrences
-    // PhanTypeMismatchProperty : 2 occurrences
     // PhanTypeMismatchReturnProbablyReal : 2 occurrences
-    // PhanTypeNoAccessiblePropertiesForeach : 2 occurrences
     // PhanUndeclaredClassMethod : 2 occurrences
-    // PhanUnextractableAnnotationElementName : 2 occurrences
+    // PhanUnusedVariableCaughtException : 2 occurrences
     // PhanNonClassMethodCall : 1 occurrence
     // PhanPossiblyInfiniteRecursionSameParams : 1 occurrence
     // PhanReadOnlyProtectedProperty : 1 occurrence
     // PhanRedefinedInheritedInterface : 1 occurrence
-    // PhanTypeMismatchArgumentInternalProbablyReal : 1 occurrence
     // PhanTypeMismatchDeclaredReturnNullable : 1 occurrence
     // PhanUndeclaredExtendedClass : 1 occurrence
     // PhanUndeclaredProperty : 1 occurrence
     // PhanUndeclaredTypeParameter : 1 occurrence
-    // PhanUnusedVariableCaughtException : 1 occurrence
     // PhanWriteOnlyPublicProperty : 1 occurrence
 
     // Currently, file_suppressions and directory_suppressions are the only supported suppressions
     'file_suppressions' => [
-        'dev/Command/CheckCommand.php' => ['PhanReadOnlyProtectedProperty', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanUnextractableAnnotationElementName', 'PhanUnextractableAnnotationSuffix'],
+        'dev/Command/CheckCommand.php' => ['PhanReadOnlyProtectedProperty', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanTypeMismatchArgumentNullable', 'PhanUnextractableAnnotationElementName', 'PhanUnextractableAnnotationSuffix'],
         'dev/Doctrine/MappingFilesLocator.php' => ['PhanParamSignatureMismatch', 'PhanRedefinedClassReference', 'PhanRedefinedInheritedInterface', 'PhanUnusedPublicMethodParameter'],
-        'dev/Helper/MappingHelper.php' => ['PhanRedefinedClassReference'],
-        'dev/Helper/ReflectionHelper.php' => ['PhanRedefinedClassReference', 'PhanTypeArraySuspicious', 'PhanTypeMismatchArgumentInternalProbablyReal', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDeclaredReturn', 'PhanTypeMismatchProperty', 'PhanTypeNoAccessiblePropertiesForeach', 'PhanUnextractableAnnotationSuffix', 'PhanUnreferencedPublicMethod'],
+        'dev/Helper/MappingHelper.php' => ['PhanRedefinedClassReference', 'PhanUnusedVariableCaughtException'],
+        'dev/Helper/ReflectionHelper.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgumentNullable', 'PhanUnextractableAnnotationSuffix', 'PhanUnreferencedPublicMethod'],
         'dev/Helper/StaticHelper.php' => ['PhanRedefinedClassReference'],
         'src/Controller/WebhookController.php' => ['PhanRedefinedClassReference', 'PhanUndeclaredMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
         'src/Event/AbstractStripeEvent.php' => ['PhanUnreferencedPublicMethod'],
@@ -100,7 +96,7 @@ return [
         'tests/Model/StripeLocalChargeTest.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
         'tests/Model/StripeLocalCustomerTest.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
         'tests/Model/StripeLocalWebhookEventTest.php' => ['PhanUnreferencedPublicMethod'],
-        'tests/ModelTestCase.php' => ['PhanRedefinedExtendedClass', 'PhanTypeNoAccessiblePropertiesForeach'],
+        'tests/ModelTestCase.php' => ['PhanRedefinedExtendedClass'],
     ],
     // 'directory_suppressions' => ['src/directory_name' => ['PhanIssueName1', 'PhanIssueName2']] can be manually added if needed.
     // (directory_suppressions will currently be ignored by subsequent calls to --save-baseline, but may be preserved in future Phan releases)

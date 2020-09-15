@@ -34,6 +34,9 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final class CheckCommand extends Command
 {
+    private const MAPPING_NULLABLE = 'nullable';
+    private const MAPPING_TYPE     = 'type';
+
     /** @var string */
     protected static $defaultName = 'stripe:dev:check';
 
@@ -155,8 +158,8 @@ Run "composer req symfony/domcrawler" to install it.'));
             $failures[] = \Safe\sprintf("%s contains fields not yet managed by %s:\n  - %s", $sdkModelClass, $localModelClass, \implode("\n  - ", $sdkModelPropertiesNotYetImplemented));
         }
 
-        $propertiesToCheck  = \array_intersect($localModelProperties, $sdkModelProperties);
-        $comparisonFailures = $this->compareLocalPropertiesWithSdkOnes($localModelClass, $sdkModelClass, $propertiesToCheck);
+        $propertiesToCompare = \array_intersect($localModelProperties, $sdkModelProperties);
+        $comparisonFailures  = $this->compareLocalPropertiesWithSdkOnes($localModelClass, $sdkModelClass, $propertiesToCompare);
         if (false === empty($comparisonFailures)) {
             $failures[] = \Safe\sprintf("The types of properties of class %s doesn't match with the ones of %s class:\n  - %s", $localModelClass, $sdkModelClass, \implode("\n  - ", $comparisonFailures));
         }
@@ -179,7 +182,6 @@ Run "composer req symfony/domcrawler" to install it.'));
         $localModelPropertiesNotYetMapped           =  \array_diff($localModelProperties, $mappedModelProperties);
 
         $failures = [];
-
         if (false === empty($mappedModelPropertiesThatDoNotExistAnymore)) {
             $failures[] = \Safe\sprintf("Mapping of %s contains fields not present in the model anymore:\n  - %s", $localModelClass, \implode("\n  - ", $mappedModelPropertiesThatDoNotExistAnymore));
         }
@@ -188,7 +190,14 @@ Run "composer req symfony/domcrawler" to install it.'));
             $failures[] = \Safe\sprintf("%s contains properties not yet mapped:\n  - %s", $localModelClass, \implode("\n  - ", $localModelPropertiesNotYetMapped));
         }
 
-        return $failures;
+        $propertiesToCompare = \array_intersect($localModelProperties, MappingHelper::getMappedProperties($localModelClass));
+        $comparisonFailures  = $this->compareLocalPropertiesWithMappedOnes($localModelClass, $propertiesToCompare);
+        if (false === empty($comparisonFailures)) {
+            $failures[] = \Safe\sprintf("The types of properties of class %s doesn't match with the mapped ones:\n  - %s", $localModelClass, \implode("\n  - ", $comparisonFailures));
+        }
+
+        // Remove null values eventually returned by compareLocalPropertiesWithSdkOnes()
+        return \array_filter($failures);
     }
 
     /**
@@ -221,12 +230,12 @@ Run "composer req symfony/domcrawler" to install it.'));
         return \array_values($apiVersions);
     }
 
-    private function compareLocalPropertiesWithSdkOnes(string $localModelClass, string $sdkModelClass, array $localProperties): array
+    private function compareLocalPropertiesWithSdkOnes(string $localModelClass, string $sdkModelClass, array $propertiesToCompare): array
     {
         $failures = [];
-        foreach ($localProperties as $localProperty) {
-            $localPropertyDocBlock = ReflectionHelper::getLocalModelPropertyDocComment($localModelClass, $localProperty);
-            $sdkPropertyDocBlock   = ReflectionHelper::getSdkModelPropertyDocComment($sdkModelClass, $localProperty);
+        foreach ($propertiesToCompare as $propertyToCompare) {
+            $localPropertyDocBlock = ReflectionHelper::getLocalModelPropertyDocComment($localModelClass, $propertyToCompare);
+            $sdkPropertyDocBlock   = ReflectionHelper::getSdkModelPropertyDocComment($sdkModelClass, $propertyToCompare);
 
             $localPropertyVar = $localPropertyDocBlock->getTagsByName('var');
 
@@ -240,10 +249,82 @@ Run "composer req symfony/domcrawler" to install it.'));
                 throw new \RuntimeException('Unexpected @var type.');
             }
 
-            $comparison = $this->compareTypes($localModelClass, $localProperty, $localPropertyVar->getType(), $sdkPropertyDocBlock->getType());
+            $comparison = $this->compareTypes($localModelClass, $propertyToCompare, $localPropertyVar->getType(), $sdkPropertyDocBlock->getType());
 
             if (false === empty($comparison)) {
-                $failures[] = \Safe\sprintf("%s:\n    - %s", $localProperty, \implode("\n    - ", $comparison));
+                $failures[] = \Safe\sprintf("%s:\n    - %s", $propertyToCompare, \implode("\n    - ", $comparison));
+            }
+        }
+
+        return $failures;
+    }
+
+    private function compareLocalPropertiesWithMappedOnes(string $localModelClass, array $propertiesToCompare): array
+    {
+        $failures = [];
+        foreach ($propertiesToCompare as $propertyToCompare) {
+            $localPropertyDocBlock = ReflectionHelper::getLocalModelPropertyDocComment($localModelClass, $propertyToCompare);
+            $mappedPropertyInfo    = MappingHelper::getMappedProperty($localModelClass, $propertyToCompare);
+
+            // If it is null, it is an embeddable or the field doesn't exist.
+            // If it doesn't exist, then there are other rules that report this error.
+            if (null === $mappedPropertyInfo) {
+                continue;
+            }
+
+            $localPropertyVar = $localPropertyDocBlock->getTagsByName('var');
+
+            if (false === isset($localPropertyVar[0])) {
+                throw new \RuntimeException('Something unexpected happened.');
+            }
+
+            $localPropertyVar = $localPropertyVar[0];
+
+            if (false === $localPropertyVar instanceof Var_) {
+                throw new \RuntimeException('Unexpected @var type.');
+            }
+
+            $processTypes = static function ($type): string {
+                if ($type instanceof Type) {
+                    $type = \get_class($type);
+                }
+
+                $type = \str_replace(['_', 'phpDocumentor\Reflection\Types', '\\'], '', $type);
+
+                return \strtolower($type);
+            };
+
+            $processMappings = static function (array $mapping): array {
+                $types = [];
+
+                if (isset($mapping[self::MAPPING_TYPE])) {
+                    switch ($mapping[self::MAPPING_TYPE]) {
+                        case 'text':
+                        case 'uri':
+                            $types[] = 'string';
+                            break;
+                        default:
+                            $types[] = $mapping[self::MAPPING_TYPE];
+                    }
+                }
+
+                if (isset($mapping[self::MAPPING_NULLABLE]) && $mapping[self::MAPPING_NULLABLE]) {
+                    $types[] = 'null';
+                }
+
+                return $types;
+            };
+
+            $localTypes = $this->extractTypes($localPropertyVar->getType());
+            $localTypes = $this->convertTypes($localTypes);
+            $localTypes = \array_map($processTypes, $localTypes);
+
+            $mappedTypes = $processMappings($mappedPropertyInfo);
+
+            $comparison = \array_filter(\array_diff($localTypes, $mappedTypes));
+
+            if (false === empty($comparison)) {
+                $failures[] = \Safe\sprintf("%s:\n    - %s", $propertyToCompare, \implode("\n    - ", $comparison));
             }
         }
 
@@ -255,6 +336,40 @@ Run "composer req symfony/domcrawler" to install it.'));
      * @param Type|array<array-key, Type> $sdkTypes
      */
     private function compareTypes(string $localModelClass, string $property, $localTypes, $sdkTypes): array
+    {
+        $localTypes = $this->extractTypes($localTypes);
+        $sdkTypes   = $this->extractTypes($sdkTypes);
+
+        $localTypesClasses = $this->convertTypes($localTypes);
+        $sdkTypesClasses   = $this->convertTypes($sdkTypes);
+
+        // Remove null values returned by the callback
+        $localTypesClasses = \array_filter($localTypesClasses);
+        $sdkTypesClasses   = \array_filter($sdkTypesClasses);
+
+        $localTypesClasses = StaticHelper::filterTypes($localModelClass, $property, $localTypesClasses);
+        $sdkTypesClasses   = StaticHelper::filterTypes($localModelClass, $property, $sdkTypesClasses);
+
+        return \array_merge(\array_diff($localTypesClasses, $sdkTypesClasses), \array_diff($sdkTypesClasses, $localTypesClasses));
+    }
+
+    /**
+     * @param Type|array<array-key, Type> $types
+     */
+    private function extractTypes($types): array
+    {
+        if ($types instanceof Compound) {
+            $types = $types->getIterator()->getArrayCopy();
+        }
+
+        if (false === \is_iterable($types)) {
+            $types = [$types];
+        }
+
+        return $types;
+    }
+
+    private function convertTypes(array $types): array
     {
         $callback = static function ($type): ?string {
             if ($type instanceof Object_) {
@@ -274,32 +389,6 @@ Run "composer req symfony/domcrawler" to install it.'));
             return \get_class($type);
         };
 
-        if ($localTypes instanceof Compound) {
-            $localTypes = $localTypes->getIterator()->getArrayCopy();
-        }
-
-        if ($sdkTypes instanceof Compound) {
-            $sdkTypes = $sdkTypes->getIterator()->getArrayCopy();
-        }
-
-        if (false === \is_iterable($localTypes)) {
-            $localTypes = [$localTypes];
-        }
-
-        if (false === \is_iterable($sdkTypes)) {
-            $sdkTypes = [$sdkTypes];
-        }
-
-        $localTypesClasses = \array_map($callback, $localTypes);
-        $sdkTypesClasses   = \array_map($callback, $sdkTypes);
-
-        // Remove null values returned by the callback
-        $localTypesClasses = \array_filter($localTypesClasses);
-        $sdkTypesClasses   = \array_filter($sdkTypesClasses);
-
-        $localTypesClasses = StaticHelper::filterTypes($localModelClass, $property, $localTypesClasses);
-        $sdkTypesClasses   = StaticHelper::filterTypes($localModelClass, $property, $sdkTypesClasses);
-
-        return \array_merge(\array_diff($localTypesClasses, $sdkTypesClasses), \array_diff($sdkTypesClasses, $localTypesClasses));
+        return \array_map($callback, $types);
     }
 }

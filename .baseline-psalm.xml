@@ -537,22 +537,4 @@
       <code>$this-&gt;container-&gt;getParameter('stripe_bundle.endpoint')['route_name']</code>
     </MixedArrayAccess>
   </file>
-  <file src="tests/ModelTestCase.php">
-    <MixedArrayOffset occurrences="2">
-      <code>$data[$reflectedProperty-&gt;getName()]</code>
-      <code>$data[$reflectedProperty-&gt;getName()]</code>
-    </MixedArrayOffset>
-    <MixedAssignment occurrences="1">
-      <code>$reflectedProperty</code>
-    </MixedAssignment>
-    <MixedMethodCall occurrences="4">
-      <code>getName</code>
-      <code>setAccessible</code>
-      <code>setValue</code>
-      <code>getName</code>
-    </MixedMethodCall>
-    <RawObjectIteration occurrences="1">
-      <code>$resourceProperties</code>
-    </RawObjectIteration>
-  </file>
 </files>
