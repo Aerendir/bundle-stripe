@@ -98,7 +98,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     private $id;
 
     /** @var int $balance Current balance, if any, being stored on the customer’s account. If negative, the customer has credit to apply to the next invoice. If positive, the customer has an amount owed that will be added to the next invoice. The balance does not refer to any unpaid invoices; it solely takes into account amounts that have yet to be successfully applied to any invoice. This balance is only taken into account for recurring billing purposes (i.e., subscriptions, invoices, invoice items). */
-    private $balance;
+    private $balance = 0;
 
     /**
      * @var string|null
@@ -155,7 +155,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     private $livemode;
 
     /** @var array $metadata A set of key/value pairs that you can attach to a customer object. It can be useful for storing additional information about the customer in a structured format. */
-    private $metadata;
+    private $metadata = [];
 
     /**
      * @var array
@@ -165,7 +165,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
      *
      * @see https://stripe.com/docs/api/customers/object#customer_object-sources
      */
-    private $sources;
+    private $sources = [];
 
     /** @var string $newSource Used to create a new source for the customer */
     private $newSource;
@@ -270,8 +270,19 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this;
     }
 
-    public function setCurrency(?Currency $currency): self
+    /**
+     * @param null|Currency|string $currency
+     */
+    public function setCurrency($currency): self
     {
+        if (is_string($currency)) {
+            $currency = new Currency($currency);
+        }
+
+        if (null !== $currency && false === $currency instanceof Currency) {
+            throw new \InvalidArgumentException('The currency can be only null, string or Money\Currency.');
+        }
+
         $this->currency = $currency;
 
         return $this;

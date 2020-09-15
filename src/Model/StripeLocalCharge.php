@@ -239,7 +239,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     private $livemode;
 
     /** @var array $metadata A set of key/value pairs that you can attach to a charge object. It can be useful for storing additional information about the charge in a structured format. */
-    private $metadata;
+    private $metadata = [];
 
     /** @var bool $paid true if the charge succeeded, or was successfully authorized for later capture. */
     private $paid;

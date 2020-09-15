@@ -126,7 +126,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     private $last4;
 
     /** @var array $metadata A set of key/value pairs that you can attach to a card object. It can be useful for storing additional information about the card in a structured format. */
-    private $metadata;
+    private $metadata = [];
 
     /** @var string|null $name Cardholder name */
     private $name;
