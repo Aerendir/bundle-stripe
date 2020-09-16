@@ -14,8 +14,6 @@ declare(strict_types=1);
 namespace SerendipityHQ\Bundle\StripeBundle\Subscriber;
 
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeChargeCreateEvent;
-use Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher;
-use Symfony\Components\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Manages Charges on Stripe.
@@ -29,11 +27,7 @@ final class StripeChargeSubscriber extends AbstractStripeSubscriber
         ];
     }
 
-    /**
-     * @param $eventName
-     * @param ContainerAwareEventDispatcher|EventDispatcherInterface $dispatcher
-     */
-    public function onChargeCreate(StripeChargeCreateEvent $event, $eventName, EventDispatcherInterface $dispatcher): void
+    public function onChargeCreate(StripeChargeCreateEvent $event): void
     {
         $localCharge = $event->getLocalCharge();
 
@@ -41,16 +35,16 @@ final class StripeChargeSubscriber extends AbstractStripeSubscriber
 
         // Check if something went wrong
         if (false === $result) {
-            // Stop progation
+            // Stop propagation
             $event->setStopReason($this->getStripeManager()->getError())->stopPropagation();
 
             // Dispatch a failed event
-            $dispatcher->dispatch($event, StripeChargeCreateEvent::FAILED);
+            $this->getDispatcher()->dispatch($event, StripeChargeCreateEvent::FAILED);
 
             // exit
             return;
         }
 
-        $dispatcher->dispatch($event, StripeChargeCreateEvent::CREATED);
+        $this->getDispatcher()->dispatch($event, StripeChargeCreateEvent::CREATED);
     }
 }

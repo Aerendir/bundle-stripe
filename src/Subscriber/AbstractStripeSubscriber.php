@@ -15,18 +15,30 @@ namespace SerendipityHQ\Bundle\StripeBundle\Subscriber;
 
 use SerendipityHQ\Bundle\StripeBundle\Manager\StripeManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Manages Charges on Stripe.
  */
 abstract class AbstractStripeSubscriber implements EventSubscriberInterface
 {
+    /** @var EventDispatcherInterface $dispatcher */
+    private $dispatcher;
+
     /** @var StripeManager $stripeManager */
     private $stripeManager;
 
-    public function __construct(StripeManager $stripeManager)
+    public function __construct(EventDispatcherInterface $dispatcher, StripeManager $stripeManager)
     {
         $this->stripeManager = $stripeManager;
+    }
+
+    /**
+     * @return EventDispatcherInterface
+     */
+    public function getDispatcher() : EventDispatcherInterface
+    {
+        return $this->dispatcher;
     }
 
     public function getStripeManager(): StripeManager

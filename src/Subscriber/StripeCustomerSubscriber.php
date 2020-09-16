@@ -15,7 +15,6 @@ namespace SerendipityHQ\Bundle\StripeBundle\Subscriber;
 
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeCustomerCreateEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeCustomerUpdateEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Manages Customers on Stripe.
@@ -30,10 +29,7 @@ final class StripeCustomerSubscriber extends AbstractStripeSubscriber
         ];
     }
 
-    /**
-     * @param $eventName
-     */
-    public function onCustomerCreate(StripeCustomerCreateEvent $event, $eventName, EventDispatcherInterface $dispatcher): void
+    public function onCustomerCreate(StripeCustomerCreateEvent $event): void
     {
         $localCustomer = $event->getLocalCustomer();
 
@@ -50,7 +46,7 @@ final class StripeCustomerSubscriber extends AbstractStripeSubscriber
             $event->setStopReason($this->getStripeManager()->getError())->stopPropagation();
 
             // Dispatch a failed event
-            $dispatcher->dispatch($event, StripeCustomerCreateEvent::FAILED);
+            $this->getDispatcher()->dispatch($event, StripeCustomerCreateEvent::FAILED);
 
             // exit
             return;
@@ -62,14 +58,10 @@ final class StripeCustomerSubscriber extends AbstractStripeSubscriber
             $localCustomer->setCurrency($currency);
         }
 
-        $dispatcher->dispatch($event, StripeCustomerCreateEvent::CREATED);
+        $this->getDispatcher()->dispatch($event, StripeCustomerCreateEvent::CREATED);
     }
 
-    /**
-     * @param $eventName
-     * @param ContainerAwareEventDispatcher|EventDispatcherInterface $dispatcher
-     */
-    public function onCustomerUpdate(StripeCustomerUpdateEvent $event, $eventName, EventDispatcherInterface $dispatcher): void
+    public function onCustomerUpdate(StripeCustomerUpdateEvent $event): void
     {
         $localCustomer = $event->getLocalCustomer();
 
@@ -81,12 +73,12 @@ final class StripeCustomerSubscriber extends AbstractStripeSubscriber
             $event->setStopReason($this->getStripeManager()->getError())->stopPropagation();
 
             // Dispatch a failed event
-            $dispatcher->dispatch($event, StripeCustomerUpdateEvent::FAILED);
+            $this->getDispatcher()->dispatch($event, StripeCustomerUpdateEvent::FAILED);
 
             // exit
             return;
         }
 
-        $dispatcher->dispatch($event, StripeCustomerUpdateEvent::UPDATED);
+        $this->getDispatcher()->dispatch($event, StripeCustomerUpdateEvent::UPDATED);
     }
 }
