@@ -336,6 +336,13 @@ class StripeLocalCharge implements StripeLocalResourceInterface
      */
     private $capture = true;
 
+    public function __construct()
+    {
+        // Here we use EUR as it is irrelevant: the amunt is simply 0.
+        // Once the objet will be synced with Stripe, then, the correct currency will be set.
+        $this->amountRefunded = new Money([MoneyInterface::BASE_AMOUNT => 0, MoneyInterface::CURRENCY => 'EUR']);
+    }
+
     public function getId(): string
     {
         return $this->id;

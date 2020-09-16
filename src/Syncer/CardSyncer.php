@@ -51,35 +51,35 @@ final class CardSyncer extends AbstractSyncer
                     break;
 
                 case 'addressCity':
-                    $reflectedProperty->setValue($localResource, $stripeResource->addressCity);
+                    $reflectedProperty->setValue($localResource, $stripeResource->address_city);
                     break;
 
                 case 'addressCountry':
-                    $reflectedProperty->setValue($localResource, $stripeResource->addressCountry);
+                    $reflectedProperty->setValue($localResource, $stripeResource->address_country);
                     break;
 
                 case 'addressLine1':
-                    $reflectedProperty->setValue($localResource, $stripeResource->addressLine1);
+                    $reflectedProperty->setValue($localResource, $stripeResource->address_line1);
                     break;
 
                 case 'addressLine1Check':
-                    $reflectedProperty->setValue($localResource, $stripeResource->addressLine1Check);
+                    $reflectedProperty->setValue($localResource, $stripeResource->address_line1_check);
                     break;
 
                 case 'addressLine2':
-                    $reflectedProperty->setValue($localResource, $stripeResource->addressLine2);
+                    $reflectedProperty->setValue($localResource, $stripeResource->address_line2);
                     break;
 
                 case 'addressState':
-                    $reflectedProperty->setValue($localResource, $stripeResource->addressState);
+                    $reflectedProperty->setValue($localResource, $stripeResource->address_state);
                     break;
 
                 case 'addressZip':
-                    $reflectedProperty->setValue($localResource, $stripeResource->addressZip);
+                    $reflectedProperty->setValue($localResource, $stripeResource->address_zip);
                     break;
 
                 case 'addressZipCheck':
-                    $reflectedProperty->setValue($localResource, $stripeResource->addressZipCheck);
+                    $reflectedProperty->setValue($localResource, $stripeResource->address_zip_check);
                     break;
 
                 case 'brand':
@@ -99,19 +99,19 @@ final class CardSyncer extends AbstractSyncer
                     break;
 
                 case 'cvcCheck':
-                    $reflectedProperty->setValue($localResource, $stripeResource->cvcCheck);
+                    $reflectedProperty->setValue($localResource, $stripeResource->cvc_check);
                     break;
 
                 case 'dynamicLast4':
-                    $reflectedProperty->setValue($localResource, $stripeResource->dynamicLast4);
+                    $reflectedProperty->setValue($localResource, $stripeResource->dynamic_last4);
                     break;
 
                 case 'expMonth':
-                    $reflectedProperty->setValue($localResource, $stripeResource->expMonth);
+                    $reflectedProperty->setValue($localResource, $stripeResource->exp_month);
                     break;
 
                 case 'expYear':
-                    $reflectedProperty->setValue($localResource, $stripeResource->expYear);
+                    $reflectedProperty->setValue($localResource, $stripeResource->exp_year);
                     break;
 
                 case 'fingerprint':
@@ -135,7 +135,7 @@ final class CardSyncer extends AbstractSyncer
                     break;
 
                 case 'tokenizationMethod':
-                    $reflectedProperty->setValue($localResource, $stripeResource->tokenizationMethod);
+                    $reflectedProperty->setValue($localResource, $stripeResource->tokenization_method);
                     break;
             }
         }

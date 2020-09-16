@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace SerendipityHQ\Bundle\StripeBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Money\Currency;
 use SerendipityHQ\Component\ValueObjects\Address\AddressInterface;
 use SerendipityHQ\Component\ValueObjects\Email\EmailInterface;
@@ -127,10 +128,10 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
      */
     private $phone;
 
-    /** @var ArrayCollection $cards */
+    /** @var Collection $cards */
     private $cards;
 
-    /** @var ArrayCollection $charges The charges of the customer */
+    /** @var Collection $charges The charges of the customer */
     private $charges;
 
     /** @var \DateTime $created */
@@ -167,7 +168,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
      */
     private $sources = [];
 
-    /** @var string $newSource Used to create a new source for the customer */
+    /** @var string|null $newSource Used to create a new source for the customer. Can be null if a source already exists. */
     private $newSource;
 
     /**
@@ -175,8 +176,8 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
      */
     public function __construct()
     {
-        $this->charges       = new ArrayCollection();
-        $this->cards         = new ArrayCollection();
+        $this->charges = new ArrayCollection();
+        $this->cards   = new ArrayCollection();
     }
 
     public function addCharge(StripeLocalCharge $charge): self
@@ -195,12 +196,12 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this->balance;
     }
 
-    public function getCards(): ArrayCollection
+    public function getCards(): Collection
     {
         return $this->cards;
     }
 
-    public function getCharges(): ArrayCollection
+    public function getCharges(): Collection
     {
         return $this->charges;
     }
@@ -243,7 +244,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this->metadata;
     }
 
-    public function getNewSource(): string
+    public function getNewSource(): ?string
     {
         return $this->newSource;
     }
@@ -271,11 +272,11 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     }
 
     /**
-     * @param null|Currency|string $currency
+     * @param Currency|string|null $currency
      */
     public function setCurrency($currency): self
     {
-        if (is_string($currency)) {
+        if (\is_string($currency)) {
             $currency = new Currency($currency);
         }
 

@@ -30,13 +30,11 @@ abstract class AbstractStripeSubscriber implements EventSubscriberInterface
 
     public function __construct(EventDispatcherInterface $dispatcher, StripeManager $stripeManager)
     {
+        $this->dispatcher    = $dispatcher;
         $this->stripeManager = $stripeManager;
     }
 
-    /**
-     * @return EventDispatcherInterface
-     */
-    public function getDispatcher() : EventDispatcherInterface
+    public function getDispatcher(): EventDispatcherInterface
     {
         return $this->dispatcher;
     }

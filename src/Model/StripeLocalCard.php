@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace SerendipityHQ\Bundle\StripeBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @author Adamo Crespi <hello@aerendir.me>
@@ -113,9 +114,6 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /** @var int */
     private $expYear;
 
-    /** @var string|null $error If an error occurred with the card, it is stored here. */
-    private $error;
-
     /** @var string|null $fingerprint Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. */
     private $fingerprint;
 
@@ -134,8 +132,11 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /** @var string|null $tokenizationMethod If the card number is tokenized, this is the method that was used. Can be apple_pay or android_pay. */
     private $tokenizationMethod;
 
-    /** @var ArrayCollection $charges */
+    /** @var Collection $charges */
     private $charges;
+
+    /** @var string|null $error If an error occurred with the card, it is stored here. */
+    private $error;
 
     /**
      * Initializes collections.
@@ -206,7 +207,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
         return $this->brand;
     }
 
-    public function getCharges(): ArrayCollection
+    public function getCharges(): Collection
     {
         return $this->charges;
     }

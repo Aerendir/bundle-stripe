@@ -126,6 +126,9 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector::class,
             Rector\TypeDeclaration\Rector\ClassMethod\AddArrayReturnDocTypeRector::class,
 
+            // Not good for this bundle
+            Rector\CodingStyle\Rector\PropertyProperty\UnderscoreToCamelCasePropertyNameRector::class, // This changes the properties of Stripes object from snake to camel and this breaks the code.
+
             // Temporarily disabled
             Rector\SOLID\Rector\Class_\ChangeReadOnlyVariableWithDefaultValueToConstantRector::class,
             Rector\SOLID\Rector\Property\ChangeReadOnlyPropertyWithDefaultValueToConstantRector::class,

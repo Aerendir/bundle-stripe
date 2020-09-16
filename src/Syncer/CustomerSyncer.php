@@ -23,7 +23,6 @@ use Stripe\ApiResource;
 use Stripe\Card;
 use Stripe\Collection;
 use Stripe\Customer;
-use Stripe\Exception\ExceptionInterface;
 
 /**
  * @author Adamo Crespi <hello@aerendir.me>
@@ -72,7 +71,7 @@ final class CustomerSyncer extends AbstractSyncer
                     break;
 
                 case 'balance':
-                    $reflectedProperty->setValue($localResource, $stripeResource->accountBalance);
+                    $reflectedProperty->setValue($localResource, $stripeResource->balance);
                     break;
 
                 case 'created':
@@ -85,7 +84,7 @@ final class CustomerSyncer extends AbstractSyncer
                     break;
 
                 case 'defaultSource':
-                    $reflectedProperty->setValue($localResource, $stripeResource->defaultSource);
+                    $reflectedProperty->setValue($localResource, $stripeResource->default_source);
                     break;
 
                 case 'delinquent':
@@ -117,7 +116,7 @@ final class CustomerSyncer extends AbstractSyncer
         $this->getEntityManager()->persist($localResource);
 
         /*
-         * Out of the foreach, process the deafult source to persist it.
+         * Out of the foreach, process the default source to persist it.
          *
          * Other sources are simply ignored as, per the current structure of the bundle, each time a new card is created
          * for the customer, it is set as default.
@@ -125,22 +124,14 @@ final class CustomerSyncer extends AbstractSyncer
          * So, also if the customer changes his card, we for sure have it persisted locally due to this choice to only
          * persist default sources.
          *
-         * If the customer has no cards, he gives data for a card for the first time. This card is created on Stripe and
+         * If the customer has no cards, (s)he gives data for a card for the first time. This card is created on Stripe and
          * set as the default one for the Customer. Here we get only the default card and so this first card is for sure
          * persisted. And so the subsequent cards.
          *
-         * The cancellation process of a card is handled differently and does not concerns this updating process.
+         * The cancellation process of a card is handled differently and does not concern this updating process.
          */
-        try {
-            $stripeDefaultCard = $stripeResource->sources->retrieve($stripeResource->defaultSource);
-        } catch (ExceptionInterface $exceptionInterface) {
-            // If an error occurs, simply flush the Customer object
-            $this->getEntityManager()->flush();
-
-            return;
-        }
-
-        $localCard = $this->getEntityManager()->getRepository(StripeLocalCard::class)->findOneByStripeId($stripeDefaultCard->id);
+        $stripeDefaultCard = \Stripe\Customer::retrieveSource($stripeResource->id, $stripeResource->default_source);
+        $localCard         = $this->getEntityManager()->getRepository(StripeLocalCard::class)->findOneByStripeId($stripeDefaultCard->id);
 
         // Chek if the card exists
         if (null === $localCard) {
@@ -179,11 +170,7 @@ final class CustomerSyncer extends AbstractSyncer
         }
 
         if (null !== $localResource->getBalance()) {
-            $stripeResource->accountBalance = $localResource->getBalance();
-        }
-
-        if (null !== $localResource->getBusinessVatId()) {
-            $stripeResource->businessVatId = $localResource->getBusinessVatId();
+            $stripeResource->balance = $localResource->getBalance();
         }
 
         if (null !== $localResource->getNewSource()) {
@@ -198,7 +185,7 @@ final class CustomerSyncer extends AbstractSyncer
             $stripeResource->email = $localResource->getEmail();
         }
 
-        if (null !== $localResource->getBalance()) {
+        if (null !== $localResource->getMetadata()) {
             $stripeResource->metadata = $localResource->getMetadata();
         }
     }
@@ -207,7 +194,7 @@ final class CustomerSyncer extends AbstractSyncer
     {
         /** @var StripeLocalCustomer $localResource */
         if ( ! $localResource instanceof StripeLocalCustomer) {
-            throw new \InvalidArgumentException('CustomerSyncer::syncLocalFromStripe() accepts only StripeLocalCustoer objects as first parameter.');
+            throw new \InvalidArgumentException('CustomerSyncer::syncLocalFromStripe() accepts only StripeLocalCustomer objects as first parameter.');
         }
 
         /** @var Customer $stripeResource */
@@ -217,6 +204,9 @@ final class CustomerSyncer extends AbstractSyncer
 
         // Now, be sure the sources are in sync
         foreach ($localResource->getCards() as $card) {
+            if (null === $stripeResource->sources) {
+                \dd($stripeResource);
+            }
             if (false === $this->sourceExists($card, $stripeResource->sources)) {
                 // The card doesn't exists on the Stripe account: remove it from the local one
                 $this->getEntityManager()->remove($card);
@@ -230,7 +220,7 @@ final class CustomerSyncer extends AbstractSyncer
     /**
      * Checks if the given card is set source in the StripeCustomer object.
      *
-     * Perfrom this check guarantees that the local database is ever in sync with the Stripe Account.
+     * Perform this check guarantees that the local database is always in sync with the Stripe Account.
      */
     private function sourceExists(StripeLocalCard $card, Collection $sources): bool
     {

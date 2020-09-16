@@ -151,12 +151,12 @@ parameters:
 			path: src/Model/StripeLocalCard.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$charges with generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection does not specify its types\\: TKey, T$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$charges with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
 			count: 1
 			path: src/Model/StripeLocalCard.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:getCharges\\(\\) return type with generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection does not specify its types\\: TKey, T$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:getCharges\\(\\) return type with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
 			count: 1
 			path: src/Model/StripeLocalCard.php
 
@@ -286,12 +286,12 @@ parameters:
 			path: src/Model/StripeLocalCharge.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:\\$cards with generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection does not specify its types\\: TKey, T$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:\\$cards with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
 			count: 1
 			path: src/Model/StripeLocalCustomer.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:\\$charges with generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection does not specify its types\\: TKey, T$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:\\$charges with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
 			count: 1
 			path: src/Model/StripeLocalCustomer.php
 
@@ -306,12 +306,12 @@ parameters:
 			path: src/Model/StripeLocalCustomer.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:getCards\\(\\) return type with generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection does not specify its types\\: TKey, T$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:getCards\\(\\) return type with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
 			count: 1
 			path: src/Model/StripeLocalCustomer.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:getCharges\\(\\) return type with generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection does not specify its types\\: TKey, T$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:getCharges\\(\\) return type with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
 			count: 1
 			path: src/Model/StripeLocalCustomer.php
 
@@ -322,6 +322,16 @@ parameters:
 
 		-
 			message: "#^PHPDoc tag @return with type mixed is not subtype of native type array\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCustomer.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCustomer.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between false and true will always evaluate to false\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCustomer.php
 
@@ -466,61 +476,6 @@ parameters:
 			path: src/SHQStripeBundle.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Subscriber\\\\StripeChargeSubscriber\\:\\:onChargeCreate\\(\\) has parameter \\$eventName with no typehint specified\\.$#"
-			count: 1
-			path: src/Subscriber/StripeChargeSubscriber.php
-
-		-
-			message: "#^PHPDoc tag @param for parameter \\$dispatcher with type Symfony\\\\Component\\\\EventDispatcher\\\\ContainerAwareEventDispatcher\\|Symfony\\\\Components\\\\EventDispatcher\\\\EventDispatcherInterface is not subtype of native type Symfony\\\\Components\\\\EventDispatcher\\\\EventDispatcherInterface\\.$#"
-			count: 1
-			path: src/Subscriber/StripeChargeSubscriber.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$eventName\\)\\: Unexpected token \"\\$eventName\", expected type at offset 18$#"
-			count: 1
-			path: src/Subscriber/StripeChargeSubscriber.php
-
-		-
-			message: "#^Parameter \\$dispatcher of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Subscriber\\\\StripeChargeSubscriber\\:\\:onChargeCreate\\(\\) has invalid typehint type Symfony\\\\Component\\\\EventDispatcher\\\\ContainerAwareEventDispatcher\\.$#"
-			count: 1
-			path: src/Subscriber/StripeChargeSubscriber.php
-
-		-
-			message: "#^Parameter \\$dispatcher of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Subscriber\\\\StripeChargeSubscriber\\:\\:onChargeCreate\\(\\) has invalid typehint type Symfony\\\\Components\\\\EventDispatcher\\\\EventDispatcherInterface\\.$#"
-			count: 2
-			path: src/Subscriber/StripeChargeSubscriber.php
-
-		-
-			message: "#^Call to method dispatch\\(\\) on an unknown class Symfony\\\\Components\\\\EventDispatcher\\\\EventDispatcherInterface\\.$#"
-			count: 2
-			path: src/Subscriber/StripeChargeSubscriber.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Subscriber\\\\StripeCustomerSubscriber\\:\\:onCustomerCreate\\(\\) has parameter \\$eventName with no typehint specified\\.$#"
-			count: 1
-			path: src/Subscriber/StripeCustomerSubscriber.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$eventName\\)\\: Unexpected token \"\\$eventName\", expected type at offset 18$#"
-			count: 2
-			path: src/Subscriber/StripeCustomerSubscriber.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Subscriber\\\\StripeCustomerSubscriber\\:\\:onCustomerUpdate\\(\\) has parameter \\$eventName with no typehint specified\\.$#"
-			count: 1
-			path: src/Subscriber/StripeCustomerSubscriber.php
-
-		-
-			message: "#^PHPDoc tag @param for parameter \\$dispatcher with type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Subscriber\\\\ContainerAwareEventDispatcher\\|Symfony\\\\Component\\\\EventDispatcher\\\\EventDispatcherInterface is not subtype of native type Symfony\\\\Component\\\\EventDispatcher\\\\EventDispatcherInterface\\.$#"
-			count: 1
-			path: src/Subscriber/StripeCustomerSubscriber.php
-
-		-
-			message: "#^Parameter \\$dispatcher of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Subscriber\\\\StripeCustomerSubscriber\\:\\:onCustomerUpdate\\(\\) has invalid typehint type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Subscriber\\\\ContainerAwareEventDispatcher\\.$#"
-			count: 1
-			path: src/Subscriber/StripeCustomerSubscriber.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\AbstractSyncer\\:\\:getLocalCustomer\\(\\) has parameter \\$stripeCustomerId with no typehint specified\\.$#"
 			count: 1
 			path: src/Syncer/AbstractSyncer.php
@@ -546,113 +501,18 @@ parameters:
 			path: src/Syncer/AbstractSyncer.php
 
 		-
-			message: "#^Access to an undefined property Stripe\\\\Card\\:\\:\\$addressCity\\.$#"
-			count: 1
-			path: src/Syncer/CardSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Card\\:\\:\\$addressCountry\\.$#"
-			count: 1
-			path: src/Syncer/CardSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Card\\:\\:\\$addressLine1\\.$#"
-			count: 1
-			path: src/Syncer/CardSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Card\\:\\:\\$addressLine1Check\\.$#"
-			count: 1
-			path: src/Syncer/CardSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Card\\:\\:\\$addressLine2\\.$#"
-			count: 1
-			path: src/Syncer/CardSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Card\\:\\:\\$addressState\\.$#"
-			count: 1
-			path: src/Syncer/CardSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Card\\:\\:\\$addressZip\\.$#"
-			count: 1
-			path: src/Syncer/CardSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Card\\:\\:\\$addressZipCheck\\.$#"
-			count: 1
-			path: src/Syncer/CardSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Card\\:\\:\\$cvcCheck\\.$#"
-			count: 1
-			path: src/Syncer/CardSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Card\\:\\:\\$dynamicLast4\\.$#"
-			count: 1
-			path: src/Syncer/CardSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Card\\:\\:\\$expMonth\\.$#"
-			count: 1
-			path: src/Syncer/CardSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Card\\:\\:\\$expYear\\.$#"
-			count: 1
-			path: src/Syncer/CardSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Card\\:\\:\\$tokenizationMethod\\.$#"
-			count: 1
-			path: src/Syncer/CardSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Charge\\:\\:\\$balanceTransaction\\.$#"
-			count: 1
-			path: src/Syncer/ChargeSyncer.php
-
-		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 2
 			path: src/Syncer/ChargeSyncer.php
 
 		-
-			message: "#^Access to an undefined property Stripe\\\\Charge\\:\\:\\$failureCode\\.$#"
-			count: 1
-			path: src/Syncer/ChargeSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Charge\\:\\:\\$failureMessage\\.$#"
-			count: 1
-			path: src/Syncer/ChargeSyncer.php
-
-		-
 			message: "#^Access to an undefined property Stripe\\\\Charge\\:\\:\\$fraudDetails\\.$#"
-			count: 2
+			count: 1
 			path: src/Syncer/ChargeSyncer.php
 
 		-
 			message: "#^Cannot call method toArray\\(\\) on Stripe\\\\StripeObject\\|null\\.$#"
-			count: 1
-			path: src/Syncer/ChargeSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Charge\\:\\:\\$receiptEmail\\.$#"
 			count: 2
-			path: src/Syncer/ChargeSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Charge\\:\\:\\$receiptNumber\\.$#"
-			count: 1
-			path: src/Syncer/ChargeSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Charge\\:\\:\\$statementDescriptor\\.$#"
-			count: 1
 			path: src/Syncer/ChargeSyncer.php
 
 		-
@@ -691,18 +551,18 @@ parameters:
 			path: src/Syncer/CustomerSyncer.php
 
 		-
-			message: "#^Access to an undefined property Stripe\\\\Customer\\:\\:\\$accountBalance\\.$#"
-			count: 2
-			path: src/Syncer/CustomerSyncer.php
-
-		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
 			path: src/Syncer/CustomerSyncer.php
 
 		-
-			message: "#^Access to an undefined property Stripe\\\\Customer\\:\\:\\$defaultSource\\.$#"
-			count: 2
+			message: "#^Parameter \\#2 \\$sourceId of static method Stripe\\\\Customer\\:\\:retrieveSource\\(\\) expects string, string\\|Stripe\\\\StripeObject\\|null given\\.$#"
+			count: 1
+			path: src/Syncer/CustomerSyncer.php
+
+		-
+			message: "#^Access to an undefined property Stripe\\\\AlipayAccount\\|Stripe\\\\BankAccount\\|Stripe\\\\BitcoinReceiver\\|Stripe\\\\Card\\|Stripe\\\\Source\\:\\:\\$id\\.$#"
+			count: 1
 			path: src/Syncer/CustomerSyncer.php
 
 		-
@@ -712,16 +572,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method getProperty\\(\\) on ReflectionClass\\|false\\.$#"
-			count: 1
-			path: src/Syncer/CustomerSyncer.php
-
-		-
-			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:getBusinessVatId\\(\\)\\.$#"
-			count: 2
-			path: src/Syncer/CustomerSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\Customer\\:\\:\\$businessVatId\\.$#"
 			count: 1
 			path: src/Syncer/CustomerSyncer.php
 

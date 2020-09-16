@@ -19,6 +19,7 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;
 use SerendipityHQ\Component\ValueObjects\Email\Email;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
+use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 use Stripe\ApiResource;
 use Stripe\Charge;
 use Stripe\StripeObject;
@@ -66,11 +67,15 @@ final class ChargeSyncer extends AbstractSyncer
                     break;
 
                 case 'amount':
-                    $reflectedProperty->setValue($localResource, new Money(['baseAmount' => $stripeResource->amount, 'currency' => $stripeResource->currency]));
+                    $reflectedProperty->setValue($localResource, new Money([MoneyInterface::BASE_AMOUNT => $stripeResource->amount, MoneyInterface::CURRENCY => $stripeResource->currency]));
+                    break;
+
+                case 'amountRefunded':
+                    $reflectedProperty->setValue($localResource, new Money([MoneyInterface::BASE_AMOUNT => $stripeResource->amount_refunded, MoneyInterface::CURRENCY => $stripeResource->currency]));
                     break;
 
                 case 'balanceTransaction':
-                    $reflectedProperty->setValue($localResource, $stripeResource->balanceTransaction);
+                    $reflectedProperty->setValue($localResource, $stripeResource->balance_transaction);
                     break;
 
                 case 'created':
@@ -87,15 +92,15 @@ final class ChargeSyncer extends AbstractSyncer
                     break;
 
                 case 'failureCode':
-                    $reflectedProperty->setValue($localResource, $stripeResource->failureCode);
+                    $reflectedProperty->setValue($localResource, $stripeResource->failure_code);
                     break;
 
                 case 'failureMessage':
-                    $reflectedProperty->setValue($localResource, $stripeResource->failureMessage);
+                    $reflectedProperty->setValue($localResource, $stripeResource->failure_message);
                     break;
 
                 case 'fraudDetails':
-                    $fraudDetails = $stripeResource->fraudDetails;
+                    $fraudDetails = $stripeResource->fraud_details;
 
                     // If the object come from an Event is a StripeObject
                     if ($stripeResource->fraudDetails instanceof StripeObject) {
@@ -136,16 +141,20 @@ final class ChargeSyncer extends AbstractSyncer
                     break;
 
                 case 'receiptEmail':
-                    $email = ('' === \trim($stripeResource->receiptEmail)) ? null : new Email($stripeResource->receiptEmail);
+                    $email = $stripeResource->receipt_email;
+                    if (\is_string($email)) {
+                        $email = \trim($email);
+                        $email = new Email($email);
+                    }
                     $reflectedProperty->setValue($localResource, $email);
                     break;
 
                 case 'receiptNumber':
-                    $reflectedProperty->setValue($localResource, $stripeResource->receiptNumber);
+                    $reflectedProperty->setValue($localResource, $stripeResource->receipt_number);
                     break;
 
                 case 'statementDescriptor':
-                    $reflectedProperty->setValue($localResource, $stripeResource->statementDescriptor);
+                    $reflectedProperty->setValue($localResource, $stripeResource->statement_descriptor);
                     break;
 
                 case 'status':

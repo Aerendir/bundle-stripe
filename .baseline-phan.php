@@ -9,7 +9,7 @@
  */
 return [
     // # Issue statistics:
-    // PhanRedefinedClassReference : 160+ occurrences
+    // PhanRedefinedClassReference : 170+ occurrences
     // PhanUnreferencedPublicClassConstant : 70+ occurrences
     // PhanUnreferencedPublicMethod : 60+ occurrences
     // PhanReadOnlyPrivateProperty : 30+ occurrences
@@ -20,26 +20,23 @@ return [
     // PhanTypeMismatchArgumentNullable : 7 occurrences
     // PhanUnextractableAnnotationSuffix : 7 occurrences
     // PhanTypeArraySuspiciousNullable : 6 occurrences
-    // PhanUnusedPublicFinalMethodParameter : 6 occurrences
     // PhanUnreferencedClass : 4 occurrences
     // PhanUnusedPublicMethodParameter : 4 occurrences
-    // PhanUndeclaredMethod : 3 occurrences
     // PhanUndeclaredStaticMethod : 3 occurrences
     // PhanUnextractableAnnotationElementName : 3 occurrences
+    // PhanUnusedPublicFinalMethodParameter : 3 occurrences
     // PhanParamSignatureMismatch : 2 occurrences
     // PhanTypeMismatchArgumentReal : 2 occurrences
-    // PhanTypeMismatchDeclaredParam : 2 occurrences
     // PhanTypeMismatchReturnProbablyReal : 2 occurrences
-    // PhanUndeclaredClassMethod : 2 occurrences
-    // PhanUnusedVariableCaughtException : 2 occurrences
     // PhanNonClassMethodCall : 1 occurrence
     // PhanPossiblyInfiniteRecursionSameParams : 1 occurrence
     // PhanReadOnlyProtectedProperty : 1 occurrence
     // PhanRedefinedInheritedInterface : 1 occurrence
     // PhanTypeMismatchDeclaredReturnNullable : 1 occurrence
     // PhanUndeclaredExtendedClass : 1 occurrence
+    // PhanUndeclaredMethod : 1 occurrence
     // PhanUndeclaredProperty : 1 occurrence
-    // PhanUndeclaredTypeParameter : 1 occurrence
+    // PhanUnusedVariableCaughtException : 1 occurrence
     // PhanWriteOnlyPublicProperty : 1 occurrence
 
     // Currently, file_suppressions and directory_suppressions are the only supported suppressions
@@ -80,11 +77,11 @@ return [
         'src/Repository/StripeLocalChargeRepository.php' => ['PhanRedefinedExtendedClass', 'PhanTypeMismatchDeclaredReturn'],
         'src/Repository/StripeLocalCustomerRepository.php' => ['PhanRedefinedExtendedClass', 'PhanTypeMismatchDeclaredReturn'],
         'src/Repository/StripeLocalWebhookEventRepository.php' => ['PhanRedefinedExtendedClass', 'PhanTypeMismatchDeclaredReturn'],
-        'src/Subscriber/StripeChargeSubscriber.php' => ['PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDeclaredParam', 'PhanUndeclaredClassMethod', 'PhanUndeclaredTypeParameter', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod', 'PhanUnusedPublicFinalMethodParameter'],
-        'src/Subscriber/StripeCustomerSubscriber.php' => ['PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDeclaredParam', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod', 'PhanUnusedPublicFinalMethodParameter'],
+        'src/Subscriber/StripeChargeSubscriber.php' => ['PhanTypeMismatchArgumentNullable', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
+        'src/Subscriber/StripeCustomerSubscriber.php' => ['PhanTypeMismatchArgumentNullable', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
         'src/Syncer/AbstractSyncer.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchReturnProbablyReal'],
         'src/Syncer/ChargeSyncer.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument'],
-        'src/Syncer/CustomerSyncer.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanUndeclaredMethod', 'PhanUnusedVariableCaughtException'],
+        'src/Syncer/CustomerSyncer.php' => ['PhanRedefinedClassReference'],
         'src/Syncer/WebhookEventSyncer.php' => ['PhanRedefinedClassReference', 'PhanUnusedPublicFinalMethodParameter'],
         'tests/DependencyInjection/AbstractStripeBundleExtensionTest.php' => ['PhanRedefinedExtendedClass', 'PhanUnreferencedPublicMethod'],
         'tests/DependencyInjection/YamlStripeBundleExtensionTest.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference'],
