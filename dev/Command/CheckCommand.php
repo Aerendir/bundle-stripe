@@ -41,7 +41,7 @@ final class CheckCommand extends Command
     protected static $defaultName = 'stripe:dev:check';
 
     /** @var int $return */
-    private $return = self::SUCCESS;
+    private $return = 0;
 
     protected function configure(): void
     {
@@ -72,14 +72,14 @@ final class CheckCommand extends Command
         if (false === \class_exists(Crawler::class)) {
             $ioWriter->error(\Safe\sprintf('The Symfony DomCrawler component is not installed and it is required to run this command.
 Run "composer req symfony/domcrawler" to install it.'));
-            $this->return = self::FAILURE;
+            $this->return = 1;
 
             return;
         }
 
         if (false === \class_exists(HttpClient::class)) {
             $ioWriter->error(\Safe\sprintf("The Symfony HTTP client doesn't exist and it is required to run this command.\nRun \"composer req symfony/http-client\" to install it."));
-            $this->return = self::FAILURE;
+            $this->return = 1;
 
             return;
         }
@@ -94,7 +94,7 @@ Run "composer req symfony/domcrawler" to install it.'));
 
         if (false === $supportedApiVersionKey) {
             $ioWriter->error(\Safe\sprintf("The supported API version %s seems not a valid one: it doesn't exist in Stripe documentation.", SHQStripeBundle::SUPPORTED_STRIPE_API));
-            $this->return = self::FAILURE;
+            $this->return = 1;
 
             return;
         }
@@ -104,7 +104,7 @@ Run "composer req symfony/domcrawler" to install it.'));
 
         if (0 !== $supportedApiVersionKey) {
             $ioWriter->error(\Safe\sprintf('The currently supported API version is %s versions behind the last released one.', $supportedApiVersionKey));
-            $this->return = self::FAILURE;
+            $this->return = 1;
 
             return;
         }
@@ -130,7 +130,7 @@ Run "composer req symfony/domcrawler" to install it.'));
         $failures = \array_merge(...$failures);
         if ( ! empty($failures)) {
             $ioWriter->error(\implode("\n", $failures));
-            $this->return = self::FAILURE;
+            $this->return = 1;
 
             return;
         }
