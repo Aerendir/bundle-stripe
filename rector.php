@@ -19,7 +19,7 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
     ]);
 
     $parameters->set(Option::AUTOLOAD_PATHS, [
-        __DIR__ . '/vendor-bin/phpunit/vendor',
+        __DIR__ . '/vendor-bin/phpunit/vendor/bin/.phpunit/phpunit/vendor/autoload.php',
     ]);
 
     $parameters->set(
