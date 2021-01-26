@@ -28,7 +28,7 @@ jobs:
 
             - name: Run PHPunit
               run: |
-                  vendor/bin/simple-phpunit
+                  vendor/bin/phpunit --coverage-clover var/coverage/clover.xml
 
             - name: Change paths in clover.xml
               run: |
