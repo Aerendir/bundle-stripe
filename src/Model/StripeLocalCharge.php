@@ -421,7 +421,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
         return $this->source;
     }
 
-    public function getStatementDescriptor(): ? string
+    public function getStatementDescriptor(): ?string
     {
         return $this->statementDescriptor;
     }
@@ -577,7 +577,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
         $this->calculatedStatementDescriptor = $calculatedStatementDescriptor;
     }
 
-    public function getStatementDescriptorSuffix(): ? string
+    public function getStatementDescriptorSuffix(): ?string
     {
         return $this->statementDescriptorSuffix;
     }
@@ -607,7 +607,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
         $this->paymentMethodDetails = $paymentMethodDetails;
     }
 
-    public function getReceiptUrl(): ? UriInterface
+    public function getReceiptUrl(): ?UriInterface
     {
         return $this->receiptUrl;
     }
