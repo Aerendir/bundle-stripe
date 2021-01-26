@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="vendor-bin/phpunit/vendor/phpunit/phpunit/phpunit.xsd"
+        xsi:noNamespaceSchemaLocation="vendor-bin/phpunit/vendor/bin/.phpunit/phpunit.xsd"
         cacheResultFile="var/cache/"
         colors="true"
         bootstrap="tests/bootstrap.php"
@@ -18,14 +18,18 @@
         </testsuite>
     </testsuites>
 
-    <coverage includeUncoveredFiles="true">
-        <include>
+    <logging>
+        <log type="coverage-html" target="var/coverage/html" />
+        <log type="coverage-clover" target="var/coverage/clover.xml" />
+    </logging>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src/</directory>
-        </include>
-        <exclude>
-            <directory>./src/Resources</directory>
-        </exclude>
-    </coverage>
+            <exclude>
+                <directory>./src/Resources</directory>
+            </exclude>
+        </whitelist>
+    </filter>
 
     <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener"/>
