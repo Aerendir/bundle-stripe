@@ -39,4 +39,4 @@ jobs:
 
             - name: Run PHPStan
               run: |
-                  ./vendor/bin/phpstan analyse --no-progress
+                  ./vendor/bin/phpstan analyse --no-progress -c phpstan.ci-with-baseline.neon

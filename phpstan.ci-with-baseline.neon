@@ -1,0 +1,15 @@
+includes:
+    - phpstan.neon
+
+parameters:
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        # Those errors are manually added
+        # To actually fix
+        - "#^Cannot access property \\$id on Stripe\\\\StripeObject\\|null\\.$#"
+        - "#^Parameter \\#2 \\$stripeResource of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\CardSyncer\\:\\:syncLocalFromStripe\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\StripeObject\\|null given\\.$#"
+        - "#^Parameter \\#2 \\$sourceId of static method Stripe\\\\Customer\\:\\:retrieveSource\\(\\) expects string, string\\|Stripe\\\\StripeObject\\|null given\\.$#"
+        # On PHP 8
+        - "#^Parameter \\#1 \\$string of function strtoupper expects string, array\\|string given\\.$#"
+        # Causes error on SF <5
+        - "#^Method Symfony\\\\Contracts\\\\EventDispatcher\\\\EventDispatcherInterface\\:\\:dispatch\\(\\) invoked with 2 parameters, 1 required\\.$#"
