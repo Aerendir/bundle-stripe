@@ -34,7 +34,7 @@
         "monolog/monolog": "^1.23 || ^2.0",
         "phpdocumentor/reflection-docblock": "^5.2",
         "roave/security-advisories": "dev-master",
-        "serendipity_hq/component-var-dumper-f": "^2.0",
+        "serendipity_hq/component-var-dumper-f": "^2.1",
         "symfony/console": "^5.2",
         "symfony/css-selector": "^5.2",
         "symfony/dom-crawler": "^4.4|^5.2",
