@@ -50,7 +50,7 @@ final class EventGuesser
     /** @var string */
     private const OBJECT = 'object';
     /** @var bool $debug Defines if the class has to operate in debug mode or not */
-    private $debug;
+    private $debug = false;
 
     public function __construct(bool $debug)
     {

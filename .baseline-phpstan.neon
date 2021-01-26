@@ -1,12 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Parameter \\#1 \\$className of method Doctrine\\\\Persistence\\\\ObjectManager\\:\\:getRepository\\(\\) expects class\\-string\\<mixed\\>, string given\\.$#"
+			message: "#^Unable to resolve the template type T in call to method Doctrine\\\\Persistence\\\\ObjectManager\\:\\:getRepository\\(\\)$#"
 			count: 1
 			path: src/Controller/WebhookController.php
 
 		-
-			message: "#^Unable to resolve the template type T in call to method Doctrine\\\\Persistence\\\\ObjectManager\\:\\:getRepository\\(\\)$#"
+			message: "#^Parameter \\#1 \\$className of method Doctrine\\\\Persistence\\\\ObjectManager\\:\\:getRepository\\(\\) expects class\\-string\\<mixed\\>, string given\\.$#"
 			count: 1
 			path: src/Controller/WebhookController.php
 
@@ -486,19 +486,29 @@ parameters:
 			path: src/Syncer/AbstractSyncer.php
 
 		-
+			message: "#^PHPDoc tag @return with type bool\\|SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer is not subtype of native type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\BaseObject\\|null\\.$#"
+			count: 1
+			path: src/Syncer/AbstractSyncer.php
+
+		-
+			message: "#^Return typehint of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\AbstractSyncer\\:\\:getLocalCustomer\\(\\) has invalid type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\BaseObject\\.$#"
+			count: 1
+			path: src/Syncer/AbstractSyncer.php
+
+		-
 			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\<SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\>\\:\\:findOneByStripeId\\(\\)\\.$#"
 			count: 1
 			path: src/Syncer/AbstractSyncer.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\AbstractSyncer\\:\\:getLocalCustomer\\(\\) should return bool\\|SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer but returns null\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\AbstractSyncer\\:\\:getLocalCustomer\\(\\) should return SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\BaseObject\\|null but returns object\\.$#"
 			count: 1
 			path: src/Syncer/AbstractSyncer.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\AbstractSyncer\\:\\:getLocalCustomer\\(\\) should return bool\\|SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer but returns object\\|true\\.$#"
+			message: "#^Cannot call method toArray\\(\\) on Stripe\\\\StripeObject\\|null\\.$#"
 			count: 1
-			path: src/Syncer/AbstractSyncer.php
+			path: src/Syncer/CardSyncer.php
 
 		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
@@ -521,12 +531,12 @@ parameters:
 			path: src/Syncer/ChargeSyncer.php
 
 		-
-			message: "#^Cannot access property \\$id on Stripe\\\\StripeObject\\|null\\.$#"
+			message: "#^Cannot access property \\$id on Stripe\\\\Account\\|Stripe\\\\AlipayAccount\\|Stripe\\\\BankAccount\\|Stripe\\\\BitcoinReceiver\\|Stripe\\\\Card\\|Stripe\\\\Source\\|null\\.$#"
 			count: 1
 			path: src/Syncer/ChargeSyncer.php
 
 		-
-			message: "#^Parameter \\#2 \\$stripeResource of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\CardSyncer\\:\\:syncLocalFromStripe\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\StripeObject\\|null given\\.$#"
+			message: "#^Parameter \\#2 \\$stripeResource of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\CardSyncer\\:\\:syncLocalFromStripe\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\Account\\|Stripe\\\\AlipayAccount\\|Stripe\\\\BankAccount\\|Stripe\\\\BitcoinReceiver\\|Stripe\\\\Card\\|Stripe\\\\Source\\|null given\\.$#"
 			count: 1
 			path: src/Syncer/ChargeSyncer.php
 
@@ -556,7 +566,7 @@ parameters:
 			path: src/Syncer/CustomerSyncer.php
 
 		-
-			message: "#^Parameter \\#2 \\$sourceId of static method Stripe\\\\Customer\\:\\:retrieveSource\\(\\) expects string, string\\|Stripe\\\\StripeObject\\|null given\\.$#"
+			message: "#^Parameter \\#2 \\$sourceId of static method Stripe\\\\Customer\\:\\:retrieveSource\\(\\) expects string, string\\|Stripe\\\\Account\\|Stripe\\\\AlipayAccount\\|Stripe\\\\BankAccount\\|Stripe\\\\BitcoinReceiver\\|Stripe\\\\Card\\|Stripe\\\\Source\\|null given\\.$#"
 			count: 1
 			path: src/Syncer/CustomerSyncer.php
 
@@ -626,7 +636,7 @@ parameters:
 			path: src/Util/EventGuesser.php
 
 		-
-			message: "#^Parameter \\#3 \\$length of function Safe\\\\substr expects int\\|null, int\\|false given\\.$#"
+			message: "#^Parameter \\#3 \\$length of function Safe\\\\substr expects int\\|null, int\\<0, max\\>\\|false given\\.$#"
 			count: 1
 			path: src/Util/EventGuesser.php
 

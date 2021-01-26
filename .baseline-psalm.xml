@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="3.16@d03e5ef057d6adc656c0ff7e166c50b73b4f48f3">
+<files psalm-version="3.18.2@19aa905f7c3c7350569999a93c40ae91ae4e1626">
   <file src="src/Controller/WebhookController.php">
     <ArgumentTypeCoercion occurrences="2">
       <code>$localWebhookEvent</code>
@@ -163,6 +163,9 @@
       <code>getJsonBody</code>
       <code>getRequestId</code>
     </PossiblyUndefinedMethod>
+    <PossiblyUndefinedVariable occurrences="1">
+      <code>$return</code>
+    </PossiblyUndefinedVariable>
     <RedundantConditionGivenDocblockType occurrences="1">
       <code>false === isset($params['statement_descriptor']) &amp;&amp; false === \is_null($this-&gt;statementDescriptor)</code>
     </RedundantConditionGivenDocblockType>
@@ -207,16 +210,11 @@
       <code>getId</code>
       <code>getId</code>
     </PossiblyNullReference>
-    <PropertyNotSetInConstructor occurrences="11">
+    <PropertyNotSetInConstructor occurrences="6">
       <code>$amount</code>
       <code>$billingDetails</code>
-      <code>$captured</code>
       <code>$created</code>
-      <code>$disputed</code>
       <code>$id</code>
-      <code>$livemode</code>
-      <code>$paid</code>
-      <code>$refunded</code>
       <code>$refunds</code>
       <code>$status</code>
     </PropertyNotSetInConstructor>
@@ -245,10 +243,9 @@
     <PossiblyNullReference occurrences="1">
       <code>getEmail</code>
     </PossiblyNullReference>
-    <PropertyNotSetInConstructor occurrences="3">
+    <PropertyNotSetInConstructor occurrences="2">
       <code>$created</code>
       <code>$id</code>
-      <code>$livemode</code>
     </PropertyNotSetInConstructor>
     <RedundantCondition occurrences="1">
       <code>null !== $this-&gt;getBalance()</code>
@@ -261,11 +258,10 @@
     <MismatchingDocblockReturnType occurrences="1">
       <code>mixed</code>
     </MismatchingDocblockReturnType>
-    <MissingConstructor occurrences="7">
+    <MissingConstructor occurrences="6">
       <code>$created</code>
       <code>$data</code>
       <code>$id</code>
-      <code>$livemode</code>
       <code>$pendingWebhooks</code>
       <code>$request</code>
       <code>$type</code>
@@ -332,21 +328,12 @@
     </PossiblyNullArgument>
   </file>
   <file src="src/Syncer/AbstractSyncer.php">
-    <MissingParamType occurrences="1">
-      <code>$stripeCustomerId</code>
-    </MissingParamType>
-    <MixedAssignment occurrences="1">
-      <code>$localCustomer</code>
-    </MixedAssignment>
     <MixedInferredReturnType occurrences="1">
       <code>bool|StripeLocalCustomer</code>
     </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1">
-      <code>$localCustomer</code>
-    </MixedReturnStatement>
-    <NullableReturnStatement occurrences="1">
-      <code>null</code>
-    </NullableReturnStatement>
+    <UndefinedClass occurrences="1">
+      <code>?BaseObject</code>
+    </UndefinedClass>
   </file>
   <file src="src/Syncer/CardSyncer.php">
     <DocblockTypeContradiction occurrences="4">
@@ -355,14 +342,11 @@
       <code>$stripeResource instanceof Card</code>
       <code>$stripeResource instanceof Card</code>
     </DocblockTypeContradiction>
-    <RedundantConditionGivenDocblockType occurrences="1">
-      <code>null !== $localCustomer</code>
-    </RedundantConditionGivenDocblockType>
+    <PossiblyNullReference occurrences="1">
+      <code>toArray</code>
+    </PossiblyNullReference>
   </file>
   <file src="src/Syncer/ChargeSyncer.php">
-    <ArgumentTypeCoercion occurrences="1">
-      <code>$stripeResource-&gt;source</code>
-    </ArgumentTypeCoercion>
     <DocblockTypeContradiction occurrences="4">
       <code>$localResource instanceof StripeLocalCharge</code>
       <code>$localResource instanceof StripeLocalCharge</code>

@@ -153,7 +153,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     private $email;
 
     /** @var bool $livemode */
-    private $livemode;
+    private $livemode = false;
 
     /** @var array $metadata A set of key/value pairs that you can attach to a customer object. It can be useful for storing additional information about the customer in a structured format. */
     private $metadata = [];

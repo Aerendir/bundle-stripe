@@ -30,7 +30,7 @@ class StripeLocalWebhookEvent implements StripeLocalResourceInterface
     private $data;
 
     /** @var bool $livemode */
-    private $livemode;
+    private $livemode = false;
 
     /** @var int $pendingWebhooks Number of webhooks yet to be delivered successfully (return a 20x response) to the URLs you’ve specified. */
     private $pendingWebhooks;

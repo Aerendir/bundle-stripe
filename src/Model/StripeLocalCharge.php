@@ -171,7 +171,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
      *
      * https://stripe.com/docs/api/php#charge_object-captured
      */
-    private $captured;
+    private $captured = false;
 
     /** @var \DateTime */
     private $created;
@@ -183,7 +183,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
      *
      * @see https://stripe.com/docs/api/charges/object#charge_object-disputed
      */
-    private $disputed;
+    private $disputed = false;
 
     /**
      * @var bool
@@ -192,7 +192,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
      *
      * @see https://stripe.com/docs/api/charges/object#charge_object-refunded
      */
-    private $refunded;
+    private $refunded = false;
 
     /**
      * @var array
@@ -236,13 +236,13 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     private $outcome;
 
     /** @var bool */
-    private $livemode;
+    private $livemode = false;
 
     /** @var array $metadata A set of key/value pairs that you can attach to a charge object. It can be useful for storing additional information about the charge in a structured format. */
     private $metadata = [];
 
     /** @var bool $paid true if the charge succeeded, or was successfully authorized for later capture. */
-    private $paid;
+    private $paid = false;
 
     /** @var Email|null $receiptEmail This is the email address that the receipt for this charge was sent to. */
     private $receiptEmail;
