@@ -37,6 +37,10 @@ jobs:
               run: |
                   composer update ${{ matrix.composer-flags }} --no-interaction --no-suggest --no-scripts
 
+            - name: Actuall download PHPUnit
+              run: |
+                  vendor/bin/simple-phpunit --help
+
             - name: Run PHPStan
               run: |
                   ./vendor/bin/phpstan analyse --no-progress
