@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="3.18.2@19aa905f7c3c7350569999a93c40ae91ae4e1626">
+<files psalm-version="4.4.1@9fd7a7d885b3a216cff8dec9d8c21a132f275224">
   <file src="src/Controller/WebhookController.php">
     <ArgumentTypeCoercion occurrences="2">
       <code>$localWebhookEvent</code>
@@ -57,9 +57,6 @@
       <code>thenInvalid</code>
       <code>validate</code>
     </MixedMethodCall>
-    <PossiblyFalseOperand occurrences="1">
-      <code>json_encode(self::getSupportedDrivers())</code>
-    </PossiblyFalseOperand>
     <PossiblyUndefinedMethod occurrences="1">
       <code>children</code>
     </PossiblyUndefinedMethod>
@@ -75,6 +72,9 @@
     </MixedAssignment>
   </file>
   <file src="src/Event/AbstractStripeChargeEvent.php">
+    <MissingReturnType occurrences="1">
+      <code>validate</code>
+    </MissingReturnType>
     <TypeDoesNotContainNull occurrences="1">
       <code>null === $charge-&gt;getAmount()</code>
     </TypeDoesNotContainNull>
@@ -94,12 +94,15 @@
     <MismatchingDocblockReturnType occurrences="1">
       <code>array|null</code>
     </MismatchingDocblockReturnType>
-    <MixedArrayAccess occurrences="5">
+    <MixedArrayAccess occurrences="8">
       <code>$body[self::ERROR]</code>
       <code>$e-&gt;getJsonBody()[self::ERROR]['decline_code']</code>
       <code>$e-&gt;getJsonBody()[self::ERROR][self::CODE]</code>
       <code>$e-&gt;getJsonBody()[self::ERROR][self::TYPE]</code>
       <code>$e-&gt;getJsonBody()[self::ERROR][self::TYPE]</code>
+      <code>$err['param']</code>
+      <code>$err[self::CODE]</code>
+      <code>$err[self::TYPE]</code>
     </MixedArrayAccess>
     <MixedAssignment occurrences="17">
       <code>$body</code>
@@ -482,8 +485,53 @@
     </PossiblyFalseArgument>
   </file>
   <file src="tests/DependencyInjection/AbstractStripeBundleExtensionTest.php">
-    <MixedArrayAccess occurrences="1">
-      <code>$this-&gt;container-&gt;getParameter('stripe_bundle.endpoint')['route_name']</code>
-    </MixedArrayAccess>
+    <MissingDependency occurrences="1">
+      <code>TestCase</code>
+    </MissingDependency>
+  </file>
+  <file src="tests/DependencyInjection/YamlStripeBundleExtensionTest.php">
+    <MissingDependency occurrences="1">
+      <code>AbstractStripeBundleExtensionTest</code>
+    </MissingDependency>
+  </file>
+  <file src="tests/Event/AbstractStripeChargeEventTest.php">
+    <MissingDependency occurrences="1">
+      <code>TestCase</code>
+    </MissingDependency>
+  </file>
+  <file src="tests/Event/AbstractStripeCustomerEventTest.php">
+    <MissingDependency occurrences="1">
+      <code>TestCase</code>
+    </MissingDependency>
+  </file>
+  <file src="tests/Event/AbstractStripeWebhookEventEventTest.php">
+    <MissingDependency occurrences="1">
+      <code>TestCase</code>
+    </MissingDependency>
+  </file>
+  <file src="tests/Model/StripeLocalCardTest.php">
+    <MissingDependency occurrences="1">
+      <code>ModelTestCase</code>
+    </MissingDependency>
+  </file>
+  <file src="tests/Model/StripeLocalChargeTest.php">
+    <MissingDependency occurrences="1">
+      <code>ModelTestCase</code>
+    </MissingDependency>
+  </file>
+  <file src="tests/Model/StripeLocalCustomerTest.php">
+    <MissingDependency occurrences="1">
+      <code>ModelTestCase</code>
+    </MissingDependency>
+  </file>
+  <file src="tests/Model/StripeLocalWebhookEventTest.php">
+    <MissingDependency occurrences="1">
+      <code>ModelTestCase</code>
+    </MissingDependency>
+  </file>
+  <file src="tests/ModelTestCase.php">
+    <MissingDependency occurrences="1">
+      <code>TestCase</code>
+    </MissingDependency>
   </file>
 </files>
