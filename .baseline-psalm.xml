@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.4.1@9fd7a7d885b3a216cff8dec9d8c21a132f275224">
   <file src="src/Controller/WebhookController.php">
-    <ArgumentTypeCoercion occurrences="2">
-      <code>$localWebhookEvent</code>
-      <code>\Safe\sprintf('SerendipityHQ\Bundle\StripeBundle\Model\StripeLocal%s', $objectType)</code>
-    </ArgumentTypeCoercion>
     <MixedArgument occurrences="5">
       <code>$content['data'][self::OBJECT][self::OBJECT]</code>
       <code>$content['type']</code>
@@ -485,53 +481,8 @@
     </PossiblyFalseArgument>
   </file>
   <file src="tests/DependencyInjection/AbstractStripeBundleExtensionTest.php">
-    <MissingDependency occurrences="1">
-      <code>TestCase</code>
-    </MissingDependency>
-  </file>
-  <file src="tests/DependencyInjection/YamlStripeBundleExtensionTest.php">
-    <MissingDependency occurrences="1">
-      <code>AbstractStripeBundleExtensionTest</code>
-    </MissingDependency>
-  </file>
-  <file src="tests/Event/AbstractStripeChargeEventTest.php">
-    <MissingDependency occurrences="1">
-      <code>TestCase</code>
-    </MissingDependency>
-  </file>
-  <file src="tests/Event/AbstractStripeCustomerEventTest.php">
-    <MissingDependency occurrences="1">
-      <code>TestCase</code>
-    </MissingDependency>
-  </file>
-  <file src="tests/Event/AbstractStripeWebhookEventEventTest.php">
-    <MissingDependency occurrences="1">
-      <code>TestCase</code>
-    </MissingDependency>
-  </file>
-  <file src="tests/Model/StripeLocalCardTest.php">
-    <MissingDependency occurrences="1">
-      <code>ModelTestCase</code>
-    </MissingDependency>
-  </file>
-  <file src="tests/Model/StripeLocalChargeTest.php">
-    <MissingDependency occurrences="1">
-      <code>ModelTestCase</code>
-    </MissingDependency>
-  </file>
-  <file src="tests/Model/StripeLocalCustomerTest.php">
-    <MissingDependency occurrences="1">
-      <code>ModelTestCase</code>
-    </MissingDependency>
-  </file>
-  <file src="tests/Model/StripeLocalWebhookEventTest.php">
-    <MissingDependency occurrences="1">
-      <code>ModelTestCase</code>
-    </MissingDependency>
-  </file>
-  <file src="tests/ModelTestCase.php">
-    <MissingDependency occurrences="1">
-      <code>TestCase</code>
-    </MissingDependency>
+    <MixedArrayAccess occurrences="1">
+      <code>$this-&gt;container-&gt;getParameter('stripe_bundle.endpoint')['route_name']</code>
+    </MixedArrayAccess>
   </file>
 </files>

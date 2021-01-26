@@ -9,18 +9,17 @@
  */
 return [
     // # Issue statistics:
-    // PhanRedefinedClassReference : 170+ occurrences
+    // PhanRedefinedClassReference : 150+ occurrences
     // PhanUnreferencedPublicClassConstant : 70+ occurrences
     // PhanUnreferencedPublicMethod : 60+ occurrences
     // PhanReadOnlyPrivateProperty : 30+ occurrences
-    // PhanAccessMethodInternal : 10+ occurrences
-    // PhanRedefinedExtendedClass : 10+ occurrences
     // PhanTypeMismatchArgument : 10+ occurrences
     // PhanTypeMismatchDeclaredReturn : 10+ occurrences
     // PhanTypeMismatchArgumentNullable : 8 occurrences
     // PhanUndeclaredMethod : 8 occurrences
     // PhanUnextractableAnnotationSuffix : 7 occurrences
     // PhanTypeArraySuspiciousNullable : 6 occurrences
+    // PhanRedefinedExtendedClass : 5 occurrences
     // PhanUnreferencedClass : 4 occurrences
     // PhanUnusedPublicMethodParameter : 4 occurrences
     // PhanUndeclaredStaticMethod : 3 occurrences
@@ -83,17 +82,16 @@ return [
         'src/Syncer/ChargeSyncer.php' => ['PhanRedefinedClassReference', 'PhanUndeclaredMethod'],
         'src/Syncer/CustomerSyncer.php' => ['PhanRedefinedClassReference', 'PhanUndeclaredMethod'],
         'src/Syncer/WebhookEventSyncer.php' => ['PhanRedefinedClassReference', 'PhanUndeclaredMethod', 'PhanUnusedPublicFinalMethodParameter'],
-        'tests/DependencyInjection/AbstractStripeBundleExtensionTest.php' => ['PhanRedefinedExtendedClass', 'PhanUnreferencedPublicMethod'],
-        'tests/DependencyInjection/YamlStripeBundleExtensionTest.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference'],
-        'tests/Event/AbstractStripeChargeEventTest.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
-        'tests/Event/AbstractStripeCustomerEventTest.php' => ['PhanRedefinedExtendedClass', 'PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
-        'tests/Event/AbstractStripeWebhookEventEventTest.php' => ['PhanRedefinedExtendedClass', 'PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
+        'tests/DependencyInjection/AbstractStripeBundleExtensionTest.php' => ['PhanUnreferencedPublicMethod'],
+        'tests/DependencyInjection/YamlStripeBundleExtensionTest.php' => ['PhanRedefinedClassReference'],
+        'tests/Event/AbstractStripeChargeEventTest.php' => ['PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
+        'tests/Event/AbstractStripeCustomerEventTest.php' => ['PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
+        'tests/Event/AbstractStripeWebhookEventEventTest.php' => ['PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
         'tests/Form/Type/CreditCardStripeTokenTypeTest.php' => ['PhanUndeclaredExtendedClass', 'PhanUndeclaredProperty', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
         'tests/Model/StripeLocalCardTest.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
-        'tests/Model/StripeLocalChargeTest.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
-        'tests/Model/StripeLocalCustomerTest.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
+        'tests/Model/StripeLocalChargeTest.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
+        'tests/Model/StripeLocalCustomerTest.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
         'tests/Model/StripeLocalWebhookEventTest.php' => ['PhanUnreferencedPublicMethod'],
-        'tests/ModelTestCase.php' => ['PhanRedefinedExtendedClass'],
     ],
     // 'directory_suppressions' => ['src/directory_name' => ['PhanIssueName1', 'PhanIssueName2']] can be manually added if needed.
     // (directory_suppressions will currently be ignored by subsequent calls to --save-baseline, but may be preserved in future Phan releases)
