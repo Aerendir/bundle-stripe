@@ -645,3 +645,8 @@ parameters:
 			count: 1
 			path: src/Util/EventGuesser.php
 
+		-
+			message: "#^Cannot access offset 'route_name' on array\\|bool\\|float\\|int\\|string\\|null\\.$#"
+			count: 1
+			path: tests/DependencyInjection/AbstractStripeBundleExtensionTest.php
+

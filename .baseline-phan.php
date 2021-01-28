@@ -17,8 +17,8 @@ return [
     // PhanTypeMismatchDeclaredReturn : 10+ occurrences
     // PhanTypeMismatchArgumentNullable : 8 occurrences
     // PhanUndeclaredMethod : 8 occurrences
+    // PhanTypeArraySuspiciousNullable : 7 occurrences
     // PhanUnextractableAnnotationSuffix : 7 occurrences
-    // PhanTypeArraySuspiciousNullable : 6 occurrences
     // PhanRedefinedExtendedClass : 5 occurrences
     // PhanUnreferencedClass : 4 occurrences
     // PhanUnusedPublicMethodParameter : 4 occurrences
@@ -82,7 +82,7 @@ return [
         'src/Syncer/ChargeSyncer.php' => ['PhanRedefinedClassReference', 'PhanUndeclaredMethod'],
         'src/Syncer/CustomerSyncer.php' => ['PhanRedefinedClassReference', 'PhanUndeclaredMethod'],
         'src/Syncer/WebhookEventSyncer.php' => ['PhanRedefinedClassReference', 'PhanUndeclaredMethod', 'PhanUnusedPublicFinalMethodParameter'],
-        'tests/DependencyInjection/AbstractStripeBundleExtensionTest.php' => ['PhanUnreferencedPublicMethod'],
+        'tests/DependencyInjection/AbstractStripeBundleExtensionTest.php' => ['PhanTypeArraySuspiciousNullable', 'PhanUnreferencedPublicMethod'],
         'tests/DependencyInjection/YamlStripeBundleExtensionTest.php' => ['PhanRedefinedClassReference'],
         'tests/Event/AbstractStripeChargeEventTest.php' => ['PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
         'tests/Event/AbstractStripeCustomerEventTest.php' => ['PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
