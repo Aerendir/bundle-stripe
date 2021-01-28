@@ -481,8 +481,11 @@
     </PossiblyFalseArgument>
   </file>
   <file src="tests/DependencyInjection/AbstractStripeBundleExtensionTest.php">
-    <MixedArrayAccess occurrences="1">
+    <PossiblyInvalidArrayAccess occurrences="1">
       <code>$this-&gt;container-&gt;getParameter('stripe_bundle.endpoint')['route_name']</code>
-    </MixedArrayAccess>
+    </PossiblyInvalidArrayAccess>
+    <PossiblyNullArrayAccess occurrences="1">
+      <code>$this-&gt;container-&gt;getParameter('stripe_bundle.endpoint')['route_name']</code>
+    </PossiblyNullArrayAccess>
   </file>
 </files>

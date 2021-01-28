@@ -27,8 +27,9 @@
         <RedundantIdentityWithTrue errorLevel="suppress" />
 
         <!-- Causes issues in CI in some circumstances -->
-        <TooManyArguments errorLevel="suppress" />
         <ArgumentTypeCoercion errorLevel="suppress" />
+        <MixedArrayAccess errorLevel="suppress" />
+        <TooManyArguments errorLevel="suppress" />
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
