@@ -9,7 +9,7 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ubuntu-latest]
-                php: ['7.3']
+                php: ['7.3', '7.4', '8.0']
         name: PHP ${{ matrix.php }} on ${{ matrix.os }}
         steps:
             - name: Checkout
@@ -20,11 +20,12 @@ jobs:
               with:
                   php-version: ${{ matrix.php }}
                   coverage: none # disable xdebug, pcov
-                  extensions: ast
+                  extensions: ast, intl
 
             - name: Install Composer deps
               run: |
-                  composer update --no-interaction --no-suggest
+                  composer update --no-interaction --no-suggest --no-scripts
+                  composer bin phpunit update
 
             - name: Run Rector
               run: |

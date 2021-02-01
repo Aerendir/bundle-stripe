@@ -3,7 +3,7 @@ name: PHPunit
 on: [push, pull_request]
 
 jobs:
-    serendipity_hq:
+    phpunit:
         runs-on: ${{ matrix.os }}
         strategy:
             fail-fast: false
@@ -24,15 +24,16 @@ jobs:
 
             - name: Install Composer deps
               run: |
-                  composer update --no-interaction --no-suggest
+                  composer update --no-interaction --no-suggest --no-scripts
+                  composer bin phpunit update
 
             - name: Run PHPunit
               run: |
-                  vendor/bin/phpunit --coverage-clover var/coverage/clover.xml
+                  vendor/bin/phpunit
 
             - name: Change paths in clover.xml
               run: |
-                  sed -i 's+/home/runner/work/bundle-stripe/bundle-stripe+/github/workspace+g' ./var/coverage/clover.xml
+                  sed -i 's+/home/runner/work/bundle-features/bundle-features+/github/workspace+g' ./var/coverage/clover.xml
 
             - name: Sonarcloud
               uses: sonarsource/sonarcloud-github-action@master
