@@ -1,37 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="vendor-bin/phpunit/vendor/bin/.phpunit/phpunit.xsd"
-        cacheResultFile="var/cache/"
-        colors="true"
-        bootstrap="tests/bootstrap.php"
->
-
-    <php>
-        <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[self]=0"/>
-        <ini name="error_reporting" value="-16385"/>
-    </php>
-
-    <testsuites>
-        <testsuite name="Serendipity HQ Stripe Bundle">
-            <directory>tests</directory>
-        </testsuite>
-    </testsuites>
-
-    <logging>
-        <log type="coverage-html" target="var/coverage/html" />
-        <log type="coverage-clover" target="var/coverage/clover.xml" />
-    </logging>
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">src/</directory>
-            <exclude>
-                <directory>./src/Resources</directory>
-            </exclude>
-        </whitelist>
-    </filter>
-
-    <listeners>
-        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener"/>
-    </listeners>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd" cacheResultFile="var/cache/" colors="true" bootstrap="tests/bootstrap.php">
+  <coverage processUncoveredFiles="true">
+    <include>
+      <directory suffix=".php">src/</directory>
+    </include>
+    <exclude>
+      <directory>./src/Resources</directory>
+    </exclude>
+  </coverage>
+  <php>
+    <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[self]=0"/>
+    <ini name="error_reporting" value="-16385"/>
+  </php>
+  <testsuites>
+    <testsuite name="Serendipity HQ Stripe Bundle">
+      <directory>tests</directory>
+    </testsuite>
+  </testsuites>
+  <listeners>
+    <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener"/>
+  </listeners>
 </phpunit>
