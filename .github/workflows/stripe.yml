@@ -33,7 +33,7 @@ jobs:
 
             -   name: Install Composer deps
                 run: |
-                    composer update --no-interaction --no-suggest
+                    composer update --no-interaction
 
             -   name: Run Stripe Check
                 run: |
