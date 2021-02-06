@@ -3,7 +3,7 @@ name: Stripe
 on: [ push, pull_request ]
 
 jobs:
-    serendipity_hq:
+    stripe:
         runs-on: ${{ matrix.os }}
         strategy:
             fail-fast: false
