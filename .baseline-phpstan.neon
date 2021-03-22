@@ -471,6 +471,11 @@ parameters:
 			path: src/Repository/StripeLocalWebhookEventRepository.php
 
 		-
+			message: "#^Parameter \\#2 \\$type of method Symfony\\\\Component\\\\DependencyInjection\\\\ContainerBuilder\\:\\:addCompilerPass\\(\\) expects string, int given\\.$#"
+			count: 1
+			path: src/SHQStripeBundle.php
+
+		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\SHQStripeBundle\\:\\:getXmlMappingDriver\\(\\) has parameter \\$mappings with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/SHQStripeBundle.php

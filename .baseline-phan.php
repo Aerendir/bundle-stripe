@@ -27,10 +27,10 @@ return [
     // PhanUnextractableAnnotationElementName : 3 occurrences
     // PhanUnusedPublicFinalMethodParameter : 3 occurrences
     // PhanParamSignatureMismatch : 2 occurrences
+    // PhanTypeMismatchArgumentReal : 2 occurrences
     // PhanNonClassMethodCall : 1 occurrence
     // PhanPossiblyInfiniteRecursionSameParams : 1 occurrence
     // PhanRedefinedInheritedInterface : 1 occurrence
-    // PhanTypeMismatchArgumentReal : 1 occurrence
     // PhanTypeMismatchDeclaredReturnNullable : 1 occurrence
     // PhanTypeMismatchReturnProbablyReal : 1 occurrence
     // PhanUndeclaredExtendedClass : 1 occurrence
@@ -77,6 +77,7 @@ return [
         'src/Repository/StripeLocalChargeRepository.php' => ['PhanRedefinedExtendedClass', 'PhanTypeMismatchDeclaredReturn'],
         'src/Repository/StripeLocalCustomerRepository.php' => ['PhanRedefinedExtendedClass', 'PhanTypeMismatchDeclaredReturn'],
         'src/Repository/StripeLocalWebhookEventRepository.php' => ['PhanRedefinedExtendedClass', 'PhanTypeMismatchDeclaredReturn'],
+        'src/SHQStripeBundle.php' => ['PhanTypeMismatchArgumentReal'],
         'src/Subscriber/StripeChargeSubscriber.php' => ['PhanTypeMismatchArgumentNullable', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
         'src/Subscriber/StripeCustomerSubscriber.php' => ['PhanTypeMismatchArgumentNullable', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
         'src/Syncer/AbstractSyncer.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchDeclaredReturn', 'PhanUndeclaredMethod', 'PhanUndeclaredTypeReturnType'],

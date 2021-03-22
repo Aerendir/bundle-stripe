@@ -30,7 +30,6 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             SetList::CODE_QUALITY,
             SetList::CODING_STYLE,
             SetList::MONOLOG_20,
-            SetList::PHP_DI_DECOUPLE,
             SetList::SWIFTMAILER_60,
             SetList::DOCTRINE_25,
             SetList::DOCTRINE_CODE_QUALITY,
@@ -38,7 +37,6 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             SetList::DOCTRINE_DBAL_210,
             SetList::FRAMEWORK_EXTRA_BUNDLE_40,
             SetList::FRAMEWORK_EXTRA_BUNDLE_50,
-            SetList::PERFORMANCE,
             SetList::PHP_52,
             SetList::PHP_53,
             SetList::PHP_54,
@@ -46,7 +44,6 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             SetList::PHP_70,
             SetList::PHP_71,
             SetList::PHP_72,
-            SetList::PHP_73,
             SetList::PHPUNIT_40,
             SetList::PHPUNIT_50,
             SetList::PHPUNIT_60,
@@ -56,7 +53,6 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             SetList::PHPUNIT80_DMS,
             SetList::PHPUNIT_CODE_QUALITY,
             SetList::PHPUNIT_EXCEPTION,
-            SetList::PHPUNIT_INJECTOR,
             SetList::PHPUNIT_MOCK,
             SetList::PHPUNIT_SPECIFIC_METHOD,
             SetList::PHPUNIT_YIELD_DATA_PROVIDER,
@@ -77,7 +73,6 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             SetList::SYMFONY_50_TYPES,
             SetList::SYMFONY_CODE_QUALITY,
             SetList::SYMFONY_CONSTRUCTOR_INJECTION,
-            SetList::SYMFONY_PHPUNIT,
             SetList::SAFE_07,
             SetList::TYPE_DECLARATION,
             SetList::TWIG_112,
@@ -93,6 +88,10 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
     $parameters->set(
         Option::SKIP,
         [
+            __DIR__ . '/tests/Form/Type/CreditCardStripeTokenTypeTest.php',
+            __DIR__ . '/tests/Model/StripeLocalChargeTest.php',
+            __DIR__ . '/tests/Model/StripeLocalCustomerTest.php',
+            __DIR__ . '/tests/Model/StripeLocalWebhookEventTest.php',
             Rector\CodeQuality\Rector\Catch_\ThrowWithPreviousExceptionRector::class,
             Rector\CodeQuality\Rector\Concat\JoinStringConcatRector::class,
             Rector\CodeQuality\Rector\Identical\SimplifyBoolIdenticalTrueRector::class,
@@ -103,7 +102,6 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector::class,
             Rector\CodingStyle\Rector\MethodCall\UseMessageVariableForSprintfInSymfonyStyleRector::class,
             Rector\CodingStyle\Rector\Switch_\BinarySwitchToIfElseRector::class,
-            Rector\CodingStyle\Rector\Throw_\AnnotateThrowablesRector::class,
             Rector\CodingStyle\Rector\Use_\RemoveUnusedAliasRector::class,
             Rector\Php56\Rector\FunctionLike\AddDefaultValueForUndefinedVariableRector::class, // Maybe good one day
             Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector::class,
@@ -112,6 +110,8 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             Rector\Privatization\Rector\MethodCall\PrivatizeLocalGetterToPropertyRector::class,
             Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector::class,
             Rector\TypeDeclaration\Rector\ClassMethod\AddArrayReturnDocTypeRector::class,
+            Rector\Php70\Rector\StaticCall\StaticCallOnNonStaticToInstanceCallRector::class,
+            Rector\Arguments\Rector\ClassMethod\ArgumentAdderRector::class, // BUGGED: Adds an int but is expected a string
         ]
     );
 };
