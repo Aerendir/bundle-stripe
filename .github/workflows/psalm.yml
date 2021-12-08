@@ -50,6 +50,10 @@ jobs:
                     composer update ${{ matrix.composer-flags }} --no-interaction --no-scripts
                     composer bin phpunit update
 
+            -   name: Remove Kernel.php
+                run: |
+                    rm ./src/Kernel.php
+
             -   name: Run PSalm
                 run: |
                     ./vendor/bin/psalm
