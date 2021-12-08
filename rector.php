@@ -68,6 +68,7 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             Rector\Arguments\Rector\ClassMethod\ArgumentAdderRector::class, // BUGGED: Adds an int but is expected a string
             \Rector\CodingStyle\Rector\Stmt\NewlineAfterStatementRector::class,
             \Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector::class,
+            \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector::class // BUGGED: https://github.com/rectorphp/rector/issues/6852
         ]
     );
 };
