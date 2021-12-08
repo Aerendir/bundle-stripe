@@ -134,7 +134,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     /** @var Collection $charges The charges of the customer */
     private $charges;
 
-    /** @var \DateTime $created */
+    /** @var \DateTimeInterface $created */
     private $created;
 
     /** @var Currency|null $currency The currency the customer can be charged in for recurring billing purposes. */
@@ -206,7 +206,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this->charges;
     }
 
-    public function getCreated(): \DateTime
+    public function getCreated(): \DateTimeInterface
     {
         return $this->created;
     }
