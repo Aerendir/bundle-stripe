@@ -27,7 +27,7 @@ final class StripeWebhookOrderEventEvent extends AbstractStripeWebhookEventEvent
      *
      * @see https://stripe.com/docs/api#event_types-order.created
      */
-    const CREATED = 'stripe.webhook.order.created';
+    public const CREATED = 'stripe.webhook.order.created';
 
     /**
      * Occurs whenever payment is attempted on an order, and the payment fails.
@@ -36,7 +36,7 @@ final class StripeWebhookOrderEventEvent extends AbstractStripeWebhookEventEvent
      *
      * @see https://stripe.com/docs/api#event_types-order.payment_failed
      */
-    const PAYMENT_FAILED = 'stripe.webhook.order.payment_failed';
+    public const PAYMENT_FAILED = 'stripe.webhook.order.payment_failed';
 
     /**
      * Occurs whenever payment is attempted on an order, and the payment succeeds.
@@ -45,7 +45,7 @@ final class StripeWebhookOrderEventEvent extends AbstractStripeWebhookEventEvent
      *
      * @see https://stripe.com/docs/api#event_types-order.payment_succeeded
      */
-    const PAYMENT_SUCCEEDED = 'stripe.webhook.order.payment_succeeded';
+    public const PAYMENT_SUCCEEDED = 'stripe.webhook.order.payment_succeeded';
 
     /**
      * Occurs whenever an order is updated.
@@ -54,5 +54,5 @@ final class StripeWebhookOrderEventEvent extends AbstractStripeWebhookEventEvent
      *
      * @see https://stripe.com/docs/api#event_types-order.updated
      */
-    const UPDATED = 'stripe.webhook.order.updated';
+    public const UPDATED = 'stripe.webhook.order.updated';
 }

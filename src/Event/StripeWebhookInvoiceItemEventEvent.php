@@ -27,7 +27,7 @@ final class StripeWebhookInvoiceItemEventEvent extends AbstractStripeWebhookEven
      *
      * @see https://stripe.com/docs/api#event_types-invoiceitem.created
      */
-    const CREATED = 'stripe.webhook.invoiceitem.created';
+    public const CREATED = 'stripe.webhook.invoiceitem.created';
 
     /**
      * Occurs whenever an invoice item is deleted.
@@ -36,7 +36,7 @@ final class StripeWebhookInvoiceItemEventEvent extends AbstractStripeWebhookEven
      *
      * @see https://stripe.com/docs/api#event_types-invoiceitem.deleted
      */
-    const DELETED = 'stripe.webhook.invoiceitem.deleted';
+    public const DELETED = 'stripe.webhook.invoiceitem.deleted';
 
     /**
      * Occurs whenever an invoice item is updated.
@@ -45,5 +45,5 @@ final class StripeWebhookInvoiceItemEventEvent extends AbstractStripeWebhookEven
      *
      * @see https://stripe.com/docs/api#event_types-invoiceitem.updated
      */
-    const UPDATED = 'stripe.webhook.invoiceitem.updated';
+    public const UPDATED = 'stripe.webhook.invoiceitem.updated';
 }

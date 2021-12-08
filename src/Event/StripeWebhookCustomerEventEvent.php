@@ -27,7 +27,7 @@ final class StripeWebhookCustomerEventEvent extends AbstractStripeWebhookEventEv
      *
      * @see https://stripe.com/docs/api#event_types-customer.created
      */
-    const CREATED = 'stripe.webhook.customer.created';
+    public const CREATED = 'stripe.webhook.customer.created';
 
     /**
      * Occurs whenever a customer is deleted.
@@ -36,7 +36,7 @@ final class StripeWebhookCustomerEventEvent extends AbstractStripeWebhookEventEv
      *
      * @see https://stripe.com/docs/api#event_types-customer.deleted
      */
-    const DELETED = 'stripe.webhook.customer.deleted';
+    public const DELETED = 'stripe.webhook.customer.deleted';
 
     /**
      * Occurs whenever any property of a customer changes.
@@ -45,7 +45,7 @@ final class StripeWebhookCustomerEventEvent extends AbstractStripeWebhookEventEv
      *
      * @see https://stripe.com/docs/api#event_types-customer.updated
      */
-    const UPDATED = 'stripe.webhook.customer.updated';
+    public const UPDATED = 'stripe.webhook.customer.updated';
 
     /**
      * Occurs whenever a coupon is attached to a customer.
@@ -54,7 +54,7 @@ final class StripeWebhookCustomerEventEvent extends AbstractStripeWebhookEventEv
      *
      * @see https://stripe.com/docs/api#event_types-customer.discount.created
      */
-    const DISCOUNT_CREATED = 'stripe.webhook.customer.discount.created';
+    public const DISCOUNT_CREATED = 'stripe.webhook.customer.discount.created';
 
     /**
      * Occurs whenever a customer's discount is removed.
@@ -63,7 +63,7 @@ final class StripeWebhookCustomerEventEvent extends AbstractStripeWebhookEventEv
      *
      * @see https://stripe.com/docs/api#event_types-customer.discount.deleted
      */
-    const DISCOUNT_DELETED = 'stripe.webhook.customer.discount.deleted';
+    public const DISCOUNT_DELETED = 'stripe.webhook.customer.discount.deleted';
 
     /**
      * Occurs whenever a customer is switched from one coupon to another.
@@ -72,7 +72,7 @@ final class StripeWebhookCustomerEventEvent extends AbstractStripeWebhookEventEv
      *
      * @see https://stripe.com/docs/api#event_types-customer.discount.udated
      */
-    const DISCOUNT_UPDATED = 'stripe.webhook.customer.discount.udated';
+    public const DISCOUNT_UPDATED = 'stripe.webhook.customer.discount.udated';
 
     /**
      * Occurs whenever a new source is created for the customer.
@@ -81,7 +81,7 @@ final class StripeWebhookCustomerEventEvent extends AbstractStripeWebhookEventEv
      *
      * @see https://stripe.com/docs/api#event_types-customer.source.created
      */
-    const SOURCE_CREATED = 'stripe.webhook.customer.source.created';
+    public const SOURCE_CREATED = 'stripe.webhook.customer.source.created';
 
     /**
      * Occurs whenever a source is removed from a customer.
@@ -90,7 +90,7 @@ final class StripeWebhookCustomerEventEvent extends AbstractStripeWebhookEventEv
      *
      * @see https://stripe.com/docs/api#event_types-customer.source.deleted
      */
-    const SOURCE_DELETED = 'stripe.webhook.customer.source.deleted';
+    public const SOURCE_DELETED = 'stripe.webhook.customer.source.deleted';
 
     /**
      * Occurs whenever a source's details are changed.
@@ -99,5 +99,5 @@ final class StripeWebhookCustomerEventEvent extends AbstractStripeWebhookEventEv
      *
      * @see https://stripe.com/docs/api#event_types-customer.source.udated
      */
-    const SOURCE_UPDATED = 'stripe.webhook.customer.source.udated';
+    public const SOURCE_UPDATED = 'stripe.webhook.customer.source.udated';
 }

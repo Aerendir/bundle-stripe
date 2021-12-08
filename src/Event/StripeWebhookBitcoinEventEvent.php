@@ -27,7 +27,7 @@ final class StripeWebhookBitcoinEventEvent extends AbstractStripeWebhookEventEve
      *
      * @see https://stripe.com/docs/api#event_types-bitcoin.receiver.created
      */
-    const RECEIVER_CREATED = 'stripe.webhook.receiver.created';
+    public const RECEIVER_CREATED = 'stripe.webhook.receiver.created';
 
     /**
      * Occurs whenever a receiver is filled (that is, when it has received enough bitcoin to process a payment of the
@@ -37,7 +37,7 @@ final class StripeWebhookBitcoinEventEvent extends AbstractStripeWebhookEventEve
      *
      * @see https://stripe.com/docs/api#event_types-bitcoin.receiver.filled
      */
-    const RECEIVER_FILLED = 'stripe.webhook.receiver.filled';
+    public const RECEIVER_FILLED = 'stripe.webhook.receiver.filled';
 
     /**
      * Occurs whenever a receiver is updated.
@@ -46,7 +46,7 @@ final class StripeWebhookBitcoinEventEvent extends AbstractStripeWebhookEventEve
      *
      * @see https://stripe.com/docs/api#event_types-bitcoin.receiver.updated
      */
-    const RECEIVER_UPDATED = 'stripe.webhook.receiver.refund.updated';
+    public const RECEIVER_UPDATED = 'stripe.webhook.receiver.refund.updated';
 
     /**
      * Occurs whenever bitcoin is pushed to a receiver.
@@ -55,5 +55,5 @@ final class StripeWebhookBitcoinEventEvent extends AbstractStripeWebhookEventEve
      *
      * @see https://stripe.com/docs/api#event_types-bitcoin.receiver.transaction.created
      */
-    const RECEIVER_TRANSACTION_CREATED = 'stripe.webhook.receiver.transaction.created';
+    public const RECEIVER_TRANSACTION_CREATED = 'stripe.webhook.receiver.transaction.created';
 }

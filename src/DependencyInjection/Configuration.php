@@ -40,7 +40,7 @@ final class Configuration implements ConfigurationInterface
                 ->scalarNode('db_driver')
                     ->validate()
                         ->ifNotInArray(self::getSupportedDrivers())
-                        ->thenInvalid('The driver %s is not supported. Please choose one of ' . json_encode(self::getSupportedDrivers()))
+                        ->thenInvalid('The driver %s is not supported. Please choose one of ' . \Safe\json_encode(self::getSupportedDrivers()))
                     ->end()
                     ->cannotBeOverwritten()
                     ->defaultValue('orm')

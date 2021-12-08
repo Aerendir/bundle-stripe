@@ -27,7 +27,7 @@ final class StripeWebhookCouponEventEvent extends AbstractStripeWebhookEventEven
      *
      * @see https://stripe.com/docs/api#event_types-coupon.created
      */
-    const CREATED = 'stripe.webhook.coupon.created';
+    public const CREATED = 'stripe.webhook.coupon.created';
 
     /**
      * Occurs whenever a coupon is deleted.
@@ -36,7 +36,7 @@ final class StripeWebhookCouponEventEvent extends AbstractStripeWebhookEventEven
      *
      * @see https://stripe.com/docs/api#event_types-coupon.deleted
      */
-    const DELETED = 'stripe.webhook.coupon.deleted';
+    public const DELETED = 'stripe.webhook.coupon.deleted';
 
     /**
      * Occurs whenever a coupon is updated.
@@ -45,5 +45,5 @@ final class StripeWebhookCouponEventEvent extends AbstractStripeWebhookEventEven
      *
      * @see https://stripe.com/docs/api#event_types-coupon.updated
      */
-    const UPDATED = 'stripe.webhook.coupon.updated';
+    public const UPDATED = 'stripe.webhook.coupon.updated';
 }

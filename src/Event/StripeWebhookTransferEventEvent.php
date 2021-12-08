@@ -27,7 +27,7 @@ final class StripeWebhookTransferEventEvent extends AbstractStripeWebhookEventEv
      *
      * @see https://stripe.com/docs/api#event_types-transfer.created
      */
-    const CREATED = 'stripe.webhook.transfer.created';
+    public const CREATED = 'stripe.webhook.transfer.created';
 
     /**
      * Occurs whenever Stripe attempts to send a transfer and that transfer fails.
@@ -36,7 +36,7 @@ final class StripeWebhookTransferEventEvent extends AbstractStripeWebhookEventEv
      *
      * @see https://stripe.com/docs/api#event_types-transfer.failed
      */
-    const FAILED = 'stripe.webhook.transfer.failed';
+    public const FAILED = 'stripe.webhook.transfer.failed';
 
     /**
      * Occurs whenever a sent transfer is expected to be available in the destination bank account.
@@ -49,7 +49,7 @@ final class StripeWebhookTransferEventEvent extends AbstractStripeWebhookEventEv
      *
      * @see https://stripe.com/docs/api#event_types-transfer.paid
      */
-    const PAID = 'stripe.webhook.transfer.paid';
+    public const PAID = 'stripe.webhook.transfer.paid';
 
     /**
      * Occurs whenever a transfer is reversed, including partial reversals.
@@ -58,7 +58,7 @@ final class StripeWebhookTransferEventEvent extends AbstractStripeWebhookEventEv
      *
      * @see https://stripe.com/docs/api#event_types-transfer.reversed
      */
-    const REVERSED = 'stripe.webhook.transfer.reversed';
+    public const REVERSED = 'stripe.webhook.transfer.reversed';
 
     /**
      * Occurs whenever a transfer is updated.
@@ -67,5 +67,5 @@ final class StripeWebhookTransferEventEvent extends AbstractStripeWebhookEventEv
      *
      * @see https://stripe.com/docs/api#event_types-transfer.updated
      */
-    const UPDATED = 'stripe.webhook.transfer.updated';
+    public const UPDATED = 'stripe.webhook.transfer.updated';
 }

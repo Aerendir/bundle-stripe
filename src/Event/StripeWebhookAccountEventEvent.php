@@ -27,7 +27,7 @@ final class StripeWebhookAccountEventEvent extends AbstractStripeWebhookEventEve
      *
      * @see https://stripe.com/docs/api#event_types-account.updated
      */
-    const UPDATED = 'stripe.webhook.account.updated';
+    public const UPDATED = 'stripe.webhook.account.updated';
 
     /**
      * Occurs whenever a user deauthorizes an application. Sent to the related application only.
@@ -36,7 +36,7 @@ final class StripeWebhookAccountEventEvent extends AbstractStripeWebhookEventEve
      *
      * @see https://stripe.com/docs/api#event_types-account.application.deauthorized
      */
-    const APPLICATION_DEAUTHORIZED = 'stripe.webhook.account.application.deauthorized';
+    public const APPLICATION_DEAUTHORIZED = 'stripe.webhook.account.application.deauthorized';
 
     /**
      * Occurs whenever an external account is created.
@@ -45,7 +45,7 @@ final class StripeWebhookAccountEventEvent extends AbstractStripeWebhookEventEve
      *
      * @see https://stripe.com/docs/api#event_types-account.external_account.created
      */
-    const EXTERNAL_ACCOUNT_CREATED = 'stripe.webhook.account.external_account.created';
+    public const EXTERNAL_ACCOUNT_CREATED = 'stripe.webhook.account.external_account.created';
 
     /**
      * Occurs whenever an external account is deleted.
@@ -54,7 +54,7 @@ final class StripeWebhookAccountEventEvent extends AbstractStripeWebhookEventEve
      *
      * @see https://stripe.com/docs/api#event_types-account.external_account.deleted
      */
-    const EXTERNAL_ACCOUNT_DELETED = 'stripe.webhook.account.external_account.deleted';
+    public const EXTERNAL_ACCOUNT_DELETED = 'stripe.webhook.account.external_account.deleted';
 
     /**
      * Occurs whenever an external account is updated.
@@ -63,5 +63,5 @@ final class StripeWebhookAccountEventEvent extends AbstractStripeWebhookEventEve
      *
      * @see https://stripe.com/docs/api#event_types-account.external_account.updated
      */
-    const EXTERNAL_ACCOUNT_UPDATED = 'stripe.webhook.account.external_account.updated';
+    public const EXTERNAL_ACCOUNT_UPDATED = 'stripe.webhook.account.external_account.updated';
 }

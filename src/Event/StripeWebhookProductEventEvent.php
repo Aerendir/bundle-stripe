@@ -27,7 +27,7 @@ final class StripeWebhookProductEventEvent extends AbstractStripeWebhookEventEve
      *
      * @see https://stripe.com/docs/api#event_types-product.created
      */
-    const CREATED = 'stripe.webhook.product.created';
+    public const CREATED = 'stripe.webhook.product.created';
 
     /**
      * Occurs whenever an product is deleted.
@@ -36,7 +36,7 @@ final class StripeWebhookProductEventEvent extends AbstractStripeWebhookEventEve
      *
      * @see https://stripe.com/docs/api#event_types-product.deleted
      */
-    const DELETED = 'stripe.webhook.product.deleted';
+    public const DELETED = 'stripe.webhook.product.deleted';
 
     /**
      * Occurs whenever an product is updated.
@@ -45,5 +45,5 @@ final class StripeWebhookProductEventEvent extends AbstractStripeWebhookEventEve
      *
      * @see https://stripe.com/docs/api#event_types-product.updated
      */
-    const UPDATED = 'stripe.webhook.product.updated';
+    public const UPDATED = 'stripe.webhook.product.updated';
 }

@@ -27,5 +27,5 @@ final class StripeWebhookOrderReturnEventEvent extends AbstractStripeWebhookEven
      *
      * @see https://stripe.com/docs/api#event_types-order_return.created
      */
-    const CREATED = 'stripe.webhook.order_return.created';
+    public const CREATED = 'stripe.webhook.order_return.created';
 }

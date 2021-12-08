@@ -335,7 +335,7 @@ Run "composer req symfony/domcrawler" to install it.'));
      * @param Type|array<array-key, Type> $localTypes
      * @param Type|array<array-key, Type> $sdkTypes
      */
-    private function compareTypes(string $localModelClass, string $property, $localTypes, $sdkTypes): array
+    private function compareTypes(string $localModelClass, string $property, array $localTypes, array $sdkTypes): array
     {
         $localTypes = $this->extractTypes($localTypes);
         $sdkTypes   = $this->extractTypes($sdkTypes);

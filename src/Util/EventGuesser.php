@@ -218,7 +218,7 @@ final class EventGuesser
     /**
      * @param $type
      */
-    public function guessEventPieces($type): array
+    public function guessEventPieces(string $type): array
     {
         /*
          * Guess the event kind.

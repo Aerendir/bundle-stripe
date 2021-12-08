@@ -27,7 +27,7 @@ final class StripeWebhookRecipientEventEvent extends AbstractStripeWebhookEventE
      *
      * @see https://stripe.com/docs/api#event_types-recipient.created
      */
-    const CREATED = 'stripe.webhook.recipient.created';
+    public const CREATED = 'stripe.webhook.recipient.created';
 
     /**
      * Occurs whenever an recipient is deleted.
@@ -36,7 +36,7 @@ final class StripeWebhookRecipientEventEvent extends AbstractStripeWebhookEventE
      *
      * @see https://stripe.com/docs/api#event_types-recipient.deleted
      */
-    const DELETED = 'stripe.webhook.recipient.deleted';
+    public const DELETED = 'stripe.webhook.recipient.deleted';
 
     /**
      * Occurs whenever an recipient is updated.
@@ -45,5 +45,5 @@ final class StripeWebhookRecipientEventEvent extends AbstractStripeWebhookEventE
      *
      * @see https://stripe.com/docs/api#event_types-recipient.updated
      */
-    const UPDATED = 'stripe.webhook.recipient.updated';
+    public const UPDATED = 'stripe.webhook.recipient.updated';
 }
