@@ -249,7 +249,17 @@ Run "composer req symfony/domcrawler" to install it.'));
                 throw new \RuntimeException('Unexpected @var type.');
             }
 
-            $comparison = $this->compareTypes($localModelClass, $propertyToCompare, $localPropertyVar->getType(), $sdkPropertyDocBlock->getType());
+            $localType  = $localPropertyVar->getType();
+            $localTypes = is_countable($localType) ? $localType : [$localType];
+
+            $sdkType  = $sdkPropertyDocBlock->getType();
+            $sdkTypes = is_countable($sdkType) ? $sdkType : [$sdkType];
+
+            try {
+                $comparison = $this->compareTypes($localModelClass, $propertyToCompare, $localTypes, $sdkTypes);
+            } catch (\OutOfBoundsException $outOfBoundsException) {
+                throw new \OutOfBoundsException(\Safe\sprintf('%s::$%s: %s', $localModelClass, $propertyToCompare, $outOfBoundsException->getMessage()));
+            }
 
             if (false === empty($comparison)) {
                 $failures[] = \Safe\sprintf("%s:\n    - %s", $propertyToCompare, \implode("\n    - ", $comparison));
@@ -315,7 +325,9 @@ Run "composer req symfony/domcrawler" to install it.'));
                 return $types;
             };
 
-            $localTypes = $this->extractTypes($localPropertyVar->getType());
+            $localType  = $localPropertyVar->getType();
+            $localTypes = is_countable($localType) ? $localType : [$localType];
+            $localTypes = $this->extractTypes($localTypes);
             $localTypes = $this->convertTypes($localTypes);
             $localTypes = \array_map($processTypes, $localTypes);
 
@@ -382,7 +394,7 @@ Run "composer req symfony/domcrawler" to install it.'));
                     case 'UriInterface':
                         return String_::class;
                     default:
-                        return null;
+                        throw new \OutOfBoundsException(\Safe\sprintf('%s is not supported by the CheckCommand::convertTypes() method. Please, implement it to fix this exception.', $type->getFqsen()->getName()));
                 }
             }
 
