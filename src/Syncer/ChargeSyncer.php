@@ -169,13 +169,31 @@ final class ChargeSyncer extends AbstractSyncer
         // Out of the foreach, process the source to associate to the charge.
         $localCard = $this->getEntityManager()->getRepository(StripeLocalCard::class)->findOneByStripeId($stripeResource->source->id);
 
-        // Chek if the card exists
+        // Check if the card exists
+        /**
+         * Fails on:
+         * - PHP7.3, --prefer-stable --prefer-lowest, SF~4.4
+         * - PHP7.3, --prefer-stable --prefer-lowest, SF~5.2
+         * - PHP7.4, --prefer-stable --prefer-lowest, SF~4.4
+         * - PHP7.4, --prefer-stable --prefer-lowest, SF~5.2.
+         *
+         * @psalm-suppress DocblockTypeContradiction
+         */
         if (null === $localCard) {
             // It doesn't exist: create and persist it
             $localCard = new StripeLocalCard();
         }
 
         // Sync the local card with the remote object
+        /**
+         * Fails on:
+         * - PHP7.3, --prefer-stable --prefer-lowest, SF~4.4
+         * - PHP7.3, --prefer-stable --prefer-lowest, SF~5.2
+         * - PHP7.4, --prefer-stable --prefer-lowest, SF~4.4
+         * - PHP7.4, --prefer-stable --prefer-lowest, SF~5.2.
+         *
+         * @psalm-suppress InvalidArgument
+         */
         $this->cardSyncer->syncLocalFromStripe($localCard, $stripeResource->source);
 
         /*
