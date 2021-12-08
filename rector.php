@@ -67,6 +67,7 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             Rector\Php70\Rector\StaticCall\StaticCallOnNonStaticToInstanceCallRector::class,
             Rector\Arguments\Rector\ClassMethod\ArgumentAdderRector::class, // BUGGED: Adds an int but is expected a string
             \Rector\CodingStyle\Rector\Stmt\NewlineAfterStatementRector::class,
+            \Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector::class,
         ]
     );
 };
