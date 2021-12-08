@@ -10,5 +10,6 @@ return array_merge(require_once 'config.php', [
         'PhanTypeMismatchArgument',
         // Causes some issues with ChargeSyncer
         'PhanTypeMismatchArgumentSuperType',
+        'PhanUnreferencedClass',
     ],
 ]);
