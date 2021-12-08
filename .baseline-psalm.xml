@@ -54,9 +54,21 @@
     </PossiblyUndefinedMethod>
   </file>
   <file src="src/DependencyInjection/SHQStripeExtension.php">
+    <MixedArgument occurrences="6">
+      <code>$config['endpoint']</code>
+      <code>$config[self::DB_DRIVER]</code>
+      <code>$config[self::STRIPE_CONFIG]['publishable_key']</code>
+      <code>$config[self::STRIPE_CONFIG]['secret_key']</code>
+      <code>$config[self::STRIPE_CONFIG]['statement_descriptor']</code>
+      <code>$debug</code>
+    </MixedArgument>
     <MixedAssignment occurrences="1">
       <code>$debug</code>
     </MixedAssignment>
+    <ReservedWord occurrences="2">
+      <code>$xmlFileLoader-&gt;load(\Safe\sprintf('%s.xml', $config[self::DB_DRIVER]))</code>
+      <code>$yamlFileLoader-&gt;load('services.yaml')</code>
+    </ReservedWord>
   </file>
   <file src="src/Event/AbstractStripeChargeEvent.php">
     <MissingReturnType occurrences="1">
@@ -291,9 +303,9 @@
     </MixedInferredReturnType>
   </file>
   <file src="src/SHQStripeBundle.php">
-    <InvalidArgument occurrences="1">
-      <code>0</code>
-    </InvalidArgument>
+    <MixedArgumentTypeCoercion occurrences="1">
+      <code>$mappings</code>
+    </MixedArgumentTypeCoercion>
   </file>
   <file src="src/Subscriber/StripeChargeSubscriber.php">
     <PossiblyNullArgument occurrences="1">
@@ -424,13 +436,6 @@
     </UndefinedMagicPropertyFetch>
   </file>
   <file src="src/Util/EventGuesser.php">
-    <MissingParamType occurrences="1">
-      <code>$type</code>
-    </MissingParamType>
-    <MixedArgument occurrences="2">
-      <code>$type</code>
-      <code>$type</code>
-    </MixedArgument>
     <MixedOperand occurrences="18">
       <code>$pieces[self::TYPE]</code>
       <code>$pieces[self::TYPE]</code>
@@ -462,5 +467,10 @@
     <PossiblyNullArrayAccess occurrences="1">
       <code>$this-&gt;container-&gt;getParameter('stripe_bundle.endpoint')['route_name']</code>
     </PossiblyNullArrayAccess>
+  </file>
+  <file src="tests/DependencyInjection/YamlStripeBundleExtensionTest.php">
+    <ReservedWord occurrences="1">
+      <code>$loader-&gt;load($resource . '.yaml')</code>
+    </ReservedWord>
   </file>
 </files>

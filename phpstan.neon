@@ -16,4 +16,5 @@ parameters:
         - src
         - tests
     excludePaths:
+        - */src/Controller/WebhookController.php
         - */src/DependencyInjection/Configuration.php
