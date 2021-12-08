@@ -41,6 +41,7 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
     $parameters->set(
         Option::SKIP,
         [
+            __DIR__ . '/src/Controller/WebhookController.php',
             __DIR__ . '/tests/Form/Type/CreditCardStripeTokenTypeTest.php',
             __DIR__ . '/tests/Model/StripeLocalChargeTest.php',
             __DIR__ . '/tests/Model/StripeLocalCustomerTest.php',
