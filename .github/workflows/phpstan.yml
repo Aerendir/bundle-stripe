@@ -53,10 +53,6 @@ jobs:
                 run: |
                     rm ./src/Kernel.php
 
-            -   name: TMP Remove psr container 2 from bin phpunit
-                run: |
-                    rm -r ./vendor-bin/phpunit/vendor/psr/container
-
             -   name: Run PHPStan
                 run: |
                     ./vendor/bin/phpstan analyse --no-progress -c phpstan.ci-with-baseline.neon
