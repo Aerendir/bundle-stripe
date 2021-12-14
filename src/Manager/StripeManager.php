@@ -283,6 +283,7 @@ final class StripeManager
     public function callStripeApi(string $endpoint, string $action, array $arguments)
     {
         $return = null;
+
         try {
             switch (\count($arguments)) {
                 // Method with 1 argument only accept "options"
@@ -290,6 +291,7 @@ final class StripeManager
                     // If the value is an empty array, then set it as null
                     $options = empty($arguments[self::OPTIONS]) ? null : $arguments[self::OPTIONS];
                     $return  = $endpoint::$action($options);
+
                     break;
                 case 2:
                     // If the ID exists, we have to call for sure a method that in the signature has the ID and the options
@@ -305,6 +307,7 @@ final class StripeManager
                         $options = empty($arguments[self::OPTIONS]) ? null : $arguments[self::OPTIONS];
                         $return  = $endpoint::$action($params, $options);
                     }
+
                     break;
                 // Method with 3 arguments accept id, params and options
                 case 3:
@@ -312,6 +315,7 @@ final class StripeManager
                     $params  = empty($arguments[self::PARAMS]) ? null : $arguments[self::PARAMS];
                     $options = empty($arguments[self::OPTIONS]) ? null : $arguments[self::OPTIONS];
                     $return  = $endpoint::$action($arguments[self::ID], $params, $options);
+
                     break;
                 default:
                     throw new \RuntimeException("The arguments passed don't correspond to the allowed number. Please, review them.");
@@ -395,11 +399,13 @@ final class StripeManager
                 // Method has no signature (it doesn't accept any argument)
                 case 0:
                     $return = $object->$method();
+
                     break;
                 // Method with 1 argument only accept one between "options" or "params"
                 case 1:
                     // So we simply use the unique value in the array
                     $return = $object->$method($arguments[0]);
+
                     break;
                 // Method with 3 arguments accept id, params and options
                 case 2:
@@ -407,6 +413,7 @@ final class StripeManager
                     $params  = empty($arguments[self::PARAMS]) ? null : $arguments[self::PARAMS];
                     $options = empty($arguments[self::OPTIONS]) ? null : $arguments[self::OPTIONS];
                     $return  = $object->$method($params, $options);
+
                     break;
                 default:
                     throw new \RuntimeException("The arguments passed don't correspond to the allowed number. Please, review them.");
@@ -463,6 +470,7 @@ final class StripeManager
 
                     return true;
                 }
+
                 break;
             case CardException::class:
                 $concatenated = 'stripe';
@@ -475,6 +483,7 @@ final class StripeManager
                 if (isset($e->getJsonBody()[self::ERROR]['decline_code'])) {
                     $concatenated .= '.' . $e->getJsonBody()[self::ERROR]['decline_code'];
                 }
+
                 break;
         }
 
