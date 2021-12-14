@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.6.4@97fe86c4e158b5a57c5150aa5055c38b5a809aab">
+<files psalm-version="v4.15.0@a1b5e489e6fcebe40cb804793d964e99fc347820">
   <file src="src/Controller/WebhookController.php">
     <MixedArgument occurrences="5">
       <code>$content['data'][self::OBJECT][self::OBJECT]</code>
@@ -65,6 +65,9 @@
     <MixedAssignment occurrences="1">
       <code>$debug</code>
     </MixedAssignment>
+    <ParamNameMismatch occurrences="1">
+      <code>$containerBuilder</code>
+    </ParamNameMismatch>
     <ReservedWord occurrences="2">
       <code>$xmlFileLoader-&gt;load(\Safe\sprintf('%s.xml', $config[self::DB_DRIVER]))</code>
       <code>$yamlFileLoader-&gt;load('services.yaml')</code>
@@ -112,11 +115,10 @@
       <code>$return</code>
       <code>$return</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="4">
+    <MixedInferredReturnType occurrences="3">
       <code>ApiResource|bool</code>
       <code>ApiResource|bool</code>
       <code>array|null</code>
-      <code>bool</code>
     </MixedInferredReturnType>
     <MixedOperand occurrences="4">
       <code>$e-&gt;getJsonBody()[self::ERROR]['decline_code']</code>
@@ -219,9 +221,6 @@
     </RedundantCondition>
   </file>
   <file src="src/Model/StripeLocalCustomer.php">
-    <DocblockTypeContradiction occurrences="1">
-      <code>null !== $currency &amp;&amp; false === $currency instanceof Currency</code>
-    </DocblockTypeContradiction>
     <MixedArgument occurrences="2">
       <code>$this-&gt;getMetadata()</code>
       <code>\Safe\json_decode($this-&gt;getMetadata(), true)</code>
@@ -327,23 +326,11 @@
     </UndefinedClass>
   </file>
   <file src="src/Syncer/CardSyncer.php">
-    <DocblockTypeContradiction occurrences="4">
-      <code>$localResource instanceof StripeLocalCard</code>
-      <code>$localResource instanceof StripeLocalCard</code>
-      <code>$stripeResource instanceof Card</code>
-      <code>$stripeResource instanceof Card</code>
-    </DocblockTypeContradiction>
     <PossiblyNullReference occurrences="1">
       <code>toArray</code>
     </PossiblyNullReference>
   </file>
   <file src="src/Syncer/ChargeSyncer.php">
-    <DocblockTypeContradiction occurrences="4">
-      <code>$localResource instanceof StripeLocalCharge</code>
-      <code>$localResource instanceof StripeLocalCharge</code>
-      <code>$stripeResource instanceof Charge</code>
-      <code>$stripeResource instanceof Charge</code>
-    </DocblockTypeContradiction>
     <MixedArgument occurrences="2">
       <code>$error['concatenated']</code>
       <code>$localCard</code>
@@ -351,9 +338,6 @@
     <MixedAssignment occurrences="1">
       <code>$localCard</code>
     </MixedAssignment>
-    <PossiblyNullArgument occurrences="1">
-      <code>$stripeResource-&gt;source</code>
-    </PossiblyNullArgument>
     <PossiblyNullPropertyFetch occurrences="1">
       <code>$stripeResource-&gt;source-&gt;id</code>
     </PossiblyNullPropertyFetch>
@@ -374,13 +358,7 @@
     <DeprecatedClass occurrences="1">
       <code>\Stripe\Customer::retrieveSource($stripeResource-&gt;id, $stripeResource-&gt;default_source)</code>
     </DeprecatedClass>
-    <DocblockTypeContradiction occurrences="7">
-      <code>$localResource instanceof StripeLocalCustomer</code>
-      <code>$localResource instanceof StripeLocalCustomer</code>
-      <code>$localResource instanceof StripeLocalCustomer</code>
-      <code>$stripeResource instanceof Customer</code>
-      <code>$stripeResource instanceof Customer</code>
-      <code>$stripeResource instanceof Customer</code>
+    <DocblockTypeContradiction occurrences="1">
       <code>null === $stripeResource-&gt;sources</code>
     </DocblockTypeContradiction>
     <ImplicitToStringCast occurrences="2">

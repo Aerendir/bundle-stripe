@@ -636,11 +636,6 @@ parameters:
 			path: src/Repository/StripeLocalWebhookEventRepository.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\SHQStripeBundle\\:\\:getXmlMappingDriver\\(\\) has parameter \\$mappings with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/SHQStripeBundle.php
-
-		-
 			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\<SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\>\\:\\:findOneByStripeId\\(\\)\\.$#"
 			count: 1
 			path: src/Syncer/AbstractSyncer.php
@@ -814,11 +809,6 @@ parameters:
 			message: "#^Parameter \\#3 \\$length of function Safe\\\\substr expects int\\|null, int\\<0, max\\>\\|false given\\.$#"
 			count: 1
 			path: src/Util/EventGuesser.php
-
-		-
-			message: "#^Cannot access offset 'route_name' on array\\|bool\\|float\\|int\\|string\\|null\\.$#"
-			count: 1
-			path: tests/DependencyInjection/AbstractStripeBundleExtensionTest.php
 
 		-
 			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
