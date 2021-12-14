@@ -18,11 +18,10 @@ return [
     // PhanUndeclaredMethod : 8 occurrences
     // PhanTypeArraySuspiciousNullable : 7 occurrences
     // PhanUnextractableAnnotationSuffix : 7 occurrences
-    // PhanTypeMismatchArgumentNullable : 6 occurrences
     // PhanRedefinedExtendedClass : 5 occurrences
+    // PhanTypeMismatchArgumentNullable : 5 occurrences
     // PhanUnreferencedClass : 4 occurrences
     // PhanUnusedPublicMethodParameter : 4 occurrences
-    // PhanTypeMismatchArgumentReal : 3 occurrences
     // PhanUndeclaredStaticMethod : 3 occurrences
     // PhanUnextractableAnnotationElementName : 3 occurrences
     // PhanUnusedPublicFinalMethodParameter : 3 occurrences
@@ -32,6 +31,7 @@ return [
     // PhanPossiblyInfiniteRecursionSameParams : 1 occurrence
     // PhanRedefinedInheritedInterface : 1 occurrence
     // PhanTypeComparisonToArray : 1 occurrence
+    // PhanTypeMismatchArgumentReal : 1 occurrence
     // PhanTypeMismatchDeclaredReturnNullable : 1 occurrence
     // PhanTypeMismatchReturnProbablyReal : 1 occurrence
     // PhanUndeclaredExtendedClass : 1 occurrence
@@ -42,7 +42,7 @@ return [
 
     // Currently, file_suppressions and directory_suppressions are the only supported suppressions
     'file_suppressions' => [
-        'dev/Command/CheckCommand.php' => ['PhanParamTooFewInternalUnpack', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchArgumentReal', 'PhanUnextractableAnnotationElementName', 'PhanUnextractableAnnotationSuffix'],
+        'dev/Command/CheckCommand.php' => ['PhanParamTooFewInternalUnpack', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanUnextractableAnnotationElementName', 'PhanUnextractableAnnotationSuffix'],
         'dev/Doctrine/MappingFilesLocator.php' => ['PhanParamSignatureMismatch', 'PhanRedefinedClassReference', 'PhanRedefinedInheritedInterface', 'PhanUnusedPublicMethodParameter'],
         'dev/Helper/MappingHelper.php' => ['PhanRedefinedClassReference', 'PhanUnusedVariableCaughtException'],
         'dev/Helper/ReflectionHelper.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgumentNullable', 'PhanUnextractableAnnotationSuffix', 'PhanUnreferencedPublicMethod'],
