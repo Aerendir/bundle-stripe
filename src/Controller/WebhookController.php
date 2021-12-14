@@ -74,12 +74,15 @@ final class WebhookController extends AbstractController
                 switch ($objectType) {
                     case 'card':
                         $syncer = $cardSyncer;
+
                         break;
                     case 'charge':
                         $syncer = $chargeSyncer;
+
                         break;
                     case 'customer':
                         $syncer = $customerSyncer;
+
                         break;
                 }
 

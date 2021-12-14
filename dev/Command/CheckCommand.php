@@ -312,6 +312,7 @@ Run "composer req symfony/domcrawler" to install it.'));
                         case 'text':
                         case 'uri':
                             $types[] = 'string';
+
                             break;
                         default:
                             $types[] = $mapping[self::MAPPING_TYPE];
@@ -344,8 +345,8 @@ Run "composer req symfony/domcrawler" to install it.'));
     }
 
     /**
-     * @param Type|array<array-key, Type> $localTypes
-     * @param Type|array<array-key, Type> $sdkTypes
+     * @param array<array-key, Type>|Type $localTypes
+     * @param array<array-key, Type>|Type $sdkTypes
      */
     private function compareTypes(string $localModelClass, string $property, array $localTypes, array $sdkTypes): array
     {
@@ -366,7 +367,7 @@ Run "composer req symfony/domcrawler" to install it.'));
     }
 
     /**
-     * @param Type|array<array-key, Type> $types
+     * @param array<array-key, Type>|Type $types
      */
     private function extractTypes($types): array
     {
