@@ -49,10 +49,6 @@ jobs:
                     composer update --no-interaction --no-scripts
                     composer bin phpunit update
 
-            -   name: Remove Kernel.php
-                run: |
-                    rm ./src/Kernel.php
-
             -   name: Run PSalm
                 run: |
                     ./vendor/bin/psalm
