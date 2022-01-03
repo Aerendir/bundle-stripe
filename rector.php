@@ -15,10 +15,14 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
     $parameters->set(Option::PATHS, [
         __DIR__ . '/dev',
         __DIR__ . '/src',
-        __DIR__ . '/tests'
+        // This causes issues with controllers
+        // Until required for tests, keep it commented
+        // __DIR__ . '/tests'
     ]);
 
-    $parameters->set(Option::BOOTSTRAP_FILES, [__DIR__ . '/vendor-bin/phpunit/vendor/autoload.php']);
+    // This causes issues with controllers
+    // Until required for tests, keep it commented
+    //$parameters->set(Option::BOOTSTRAP_FILES, [__DIR__ . '/vendor-bin/phpunit/vendor/autoload.php']);
 
     $containerConfigurator->import(SetList::ACTION_INJECTION_TO_CONSTRUCTOR_INJECTION);
     $containerConfigurator->import(SetList::CODE_QUALITY);
@@ -41,11 +45,32 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
     $parameters->set(
         Option::SKIP,
         [
+            /*
+            __DIR__ . '/dev/Command/CheckCommand.php',
+            __DIR__ . '/dev/Doctrine/MappingFilesLocator.php',
+            __DIR__ . '/dev/Helper/MappingHelper.php',
+            __DIR__ . '/dev/Helper/ReflectionHelper.php',
+            __DIR__ . '/dev/Helper/StaticHelper.php',
             __DIR__ . '/src/Controller/WebhookController.php',
+            __DIR__ . '/src/DependencyInjection/SHQStripeExtension.php',
+            __DIR__ . '/src/Event/AbstractStripeChargeEvent.php',
+            __DIR__ . '/src/Event/AbstractStripeCustomerEvent.php',
+            __DIR__ . '/src/Event/AbstractStripeEvent.php',
+            __DIR__ . '/src/Event/AbstractStripeWebhookEventEvent.php',
+            __DIR__ . '/src/Form/Type/CreditCardStripeTokenType.php',
+            __DIR__ . '/src/Manager/StripeManager.php',
+            __DIR__ . '/src/Model/*',
+            __DIR__ . '/src/Repository/*',
+            __DIR__ . '/src/SHQStripeBundle.php',
+            __DIR__ . '/src/Subscriber/*',
+            __DIR__ . '/src/Syncer/*',
+            __DIR__ . '/src/Util/EventGuesser.php',
+            __DIR__ . '/tests/DependencyInjection/*',
             __DIR__ . '/tests/Form/Type/CreditCardStripeTokenTypeTest.php',
             __DIR__ . '/tests/Model/StripeLocalChargeTest.php',
             __DIR__ . '/tests/Model/StripeLocalCustomerTest.php',
             __DIR__ . '/tests/Model/StripeLocalWebhookEventTest.php',
+            */
             Rector\CodeQuality\Rector\Catch_\ThrowWithPreviousExceptionRector::class,
             Rector\CodeQuality\Rector\Concat\JoinStringConcatRector::class,
             Rector\CodeQuality\Rector\Identical\SimplifyBoolIdenticalTrueRector::class,

@@ -47,7 +47,7 @@
         "phpstan/phpstan-doctrine": "1.0.2",
         "phpstan/phpstan-symfony": "1.0.4",
         "thecodingmachine/phpstan-safe-rule": "1.1.0",
-        "rector/rector": "0.12.9"
+        "rector/rector": "0.12.10"
     },
     "autoload": {
         "psr-4": {
@@ -61,7 +61,11 @@
         }
     },
     "config":{
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "bamarni/composer-bin-plugin": true
+        }
     },
     "scripts": {
         "bin": "echo 'bin not installed'",
