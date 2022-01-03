@@ -61,7 +61,11 @@
         }
     },
     "config":{
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "bamarni/composer-bin-plugin": true
+        }
     },
     "scripts": {
         "bin": "echo 'bin not installed'",
