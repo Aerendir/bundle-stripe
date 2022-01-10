@@ -27,5 +27,5 @@ final class StripeWebhookPingEventEvent extends AbstractStripeWebhookEventEvent
      *
      * @see https://stripe.com/docs/api#event_types-ping
      */
-    const PING = 'stripe.webhook.ping';
+    public const PING = 'stripe.webhook.ping';
 }

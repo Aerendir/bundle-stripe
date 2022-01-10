@@ -68,31 +68,38 @@ final class CustomerSyncer extends AbstractSyncer
             switch ($reflectedProperty->getName()) {
                 case 'id':
                     $reflectedProperty->setValue($localResource, $stripeResource->id);
+
                     break;
 
                 case 'balance':
                     $reflectedProperty->setValue($localResource, $stripeResource->balance);
+
                     break;
 
                 case 'created':
                     $created = new \DateTime();
                     $reflectedProperty->setValue($localResource, $created->setTimestamp($stripeResource->created));
+
                     break;
 
                 case 'currency':
                     $reflectedProperty->setValue($localResource, $stripeResource->currency);
+
                     break;
 
                 case 'defaultSource':
                     $reflectedProperty->setValue($localResource, $stripeResource->default_source);
+
                     break;
 
                 case 'delinquent':
                     $reflectedProperty->setValue($localResource, $stripeResource->delinquent);
+
                     break;
 
                 case 'description':
                     $reflectedProperty->setValue($localResource, $stripeResource->description);
+
                     break;
 
                 case 'email':
@@ -100,14 +107,17 @@ final class CustomerSyncer extends AbstractSyncer
                     if (null !== $stripeResource->email) {
                         $reflectedProperty->setValue($localResource, new Email($stripeResource->email));
                     }
+
                     break;
 
                 case 'livemode':
                     $reflectedProperty->setValue($localResource, $stripeResource->livemode);
+
                     break;
 
                 case 'metadata':
                     $reflectedProperty->setValue($localResource, $stripeResource->metadata->toArray());
+
                     break;
             }
         }
@@ -130,7 +140,7 @@ final class CustomerSyncer extends AbstractSyncer
          *
          * The cancellation process of a card is handled differently and does not concern this updating process.
          */
-        $stripeDefaultCard = \Stripe\Customer::retrieveSource($stripeResource->id, $stripeResource->default_source);
+        $stripeDefaultCard = Customer::retrieveSource($stripeResource->id, $stripeResource->default_source);
         $localCard         = $this->getEntityManager()->getRepository(StripeLocalCard::class)->findOneByStripeId($stripeDefaultCard->id);
 
         // Chek if the card exists

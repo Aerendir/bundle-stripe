@@ -13,13 +13,15 @@ declare(strict_types=1);
 
 namespace SerendipityHQ\Bundle\StripeBundle\DependencyInjection;
 
+use function Safe\sprintf;
 use SerendipityHQ\Bundle\StripeBundle\Dev\Command\CheckCommand;
 use SerendipityHQ\Bundle\StripeBundle\SHQStripeBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
@@ -60,7 +62,7 @@ final class SHQStripeExtension extends Extension implements PrependExtensionInte
 
         // Set parameters in the container
         $container->setParameter('stripe_bundle.db_driver', $config[self::DB_DRIVER]);
-        $container->setParameter(\Safe\sprintf('stripe_bundle.backend_%s', $config[self::DB_DRIVER]), true);
+        $container->setParameter(sprintf('stripe_bundle.backend_%s', $config[self::DB_DRIVER]), true);
         $container->setParameter('stripe_bundle.secret_key', $config[self::STRIPE_CONFIG]['secret_key']);
         $container->setParameter('stripe_bundle.publishable_key', $config[self::STRIPE_CONFIG]['publishable_key']);
         $container->setParameter('stripe_bundle.debug', $debug);
@@ -68,13 +70,13 @@ final class SHQStripeExtension extends Extension implements PrependExtensionInte
         $container->setParameter('stripe_bundle.endpoint', $config['endpoint']);
 
         $fileLocator      = new FileLocator(__DIR__ . '/../Resources/config');
-        $yamlFileLoader   = new Loader\YamlFileLoader($container, $fileLocator);
+        $yamlFileLoader   = new YamlFileLoader($container, $fileLocator);
         $yamlFileLoader->load('services.yaml');
 
-        $xmlFileLoader   = new Loader\XmlFileLoader($container, $fileLocator);
+        $xmlFileLoader   = new XmlFileLoader($container, $fileLocator);
 
         // load db_driver container configuration
-        $xmlFileLoader->load(\Safe\sprintf('%s.xml', $config[self::DB_DRIVER]));
+        $xmlFileLoader->load(sprintf('%s.xml', $config[self::DB_DRIVER]));
 
         if (false === $container->hasParameter('kernel.environment') || 'prod' !== $container->getParameter('kernel.environment')) {
             $this->registerDevCommands($container);

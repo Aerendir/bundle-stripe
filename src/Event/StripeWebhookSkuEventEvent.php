@@ -27,7 +27,7 @@ final class StripeWebhookSkuEventEvent extends AbstractStripeWebhookEventEvent
      *
      * @see https://stripe.com/docs/api#event_types-sku.created
      */
-    const CREATED = 'stripe.webhook.sku.created';
+    public const CREATED = 'stripe.webhook.sku.created';
 
     /**
      * Occurs whenever an sku is deleted.
@@ -36,7 +36,7 @@ final class StripeWebhookSkuEventEvent extends AbstractStripeWebhookEventEvent
      *
      * @see https://stripe.com/docs/api#event_types-sku.deleted
      */
-    const DELETED = 'stripe.webhook.sku.deleted';
+    public const DELETED = 'stripe.webhook.sku.deleted';
 
     /**
      * Occurs whenever an sku is updated.
@@ -45,5 +45,5 @@ final class StripeWebhookSkuEventEvent extends AbstractStripeWebhookEventEvent
      *
      * @see https://stripe.com/docs/api#event_types-sku.updated
      */
-    const UPDATED = 'stripe.webhook.sku.updated';
+    public const UPDATED = 'stripe.webhook.sku.updated';
 }

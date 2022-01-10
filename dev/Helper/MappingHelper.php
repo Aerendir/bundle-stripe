@@ -14,12 +14,13 @@ declare(strict_types=1);
 namespace SerendipityHQ\Bundle\StripeBundle\Dev\Helper;
 
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
+use Doctrine\ORM\Mapping\Driver\XmlDriver;
 use Doctrine\ORM\Mapping\MappingException;
 use SerendipityHQ\Bundle\StripeBundle\Dev\Doctrine\MappingFilesLocator;
 
 class MappingHelper
 {
-    /** @var \Doctrine\ORM\Mapping\Driver\XmlDriver|null */
+    /** @var XmlDriver|null */
     private static $driver;
     /** @var mixed[] */
     private static $cache = [];
@@ -65,11 +66,11 @@ class MappingHelper
         return self::$cache[$localModelClass];
     }
 
-    private static function getDriver(): \Doctrine\ORM\Mapping\Driver\XmlDriver
+    private static function getDriver(): XmlDriver
     {
         if (null === self::$driver) {
             $locator       = new MappingFilesLocator(__DIR__ . '/../../src/Resources/config/doctrine/mappings/', '.orm.xml');
-            self::$driver  = new \Doctrine\ORM\Mapping\Driver\XmlDriver($locator, '.orm.xml');
+            self::$driver  = new XmlDriver($locator, '.orm.xml');
         }
 
         return self::$driver;

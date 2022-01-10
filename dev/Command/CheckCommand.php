@@ -19,6 +19,7 @@ use phpDocumentor\Reflection\Types\Array_;
 use phpDocumentor\Reflection\Types\Compound;
 use phpDocumentor\Reflection\Types\Object_;
 use phpDocumentor\Reflection\Types\String_;
+use function Safe\sprintf;
 use SerendipityHQ\Bundle\StripeBundle\Dev\Helper\MappingHelper;
 use SerendipityHQ\Bundle\StripeBundle\Dev\Helper\ReflectionHelper;
 use SerendipityHQ\Bundle\StripeBundle\Dev\Helper\StaticHelper;
@@ -70,15 +71,15 @@ final class CheckCommand extends Command
     private function checkApiVersion(SymfonyStyle $ioWriter): void
     {
         if (false === \class_exists(Crawler::class)) {
-            $ioWriter->error(\Safe\sprintf('The Symfony DomCrawler component is not installed and it is required to run this command.
-Run "composer req symfony/domcrawler" to install it.'));
+            $ioWriter->error('The Symfony DomCrawler component is not installed and it is required to run this command.
+Run "composer req symfony/domcrawler" to install it.');
             $this->return = 1;
 
             return;
         }
 
         if (false === \class_exists(HttpClient::class)) {
-            $ioWriter->error(\Safe\sprintf("The Symfony HTTP client doesn't exist and it is required to run this command.\nRun \"composer req symfony/http-client\" to install it."));
+            $ioWriter->error("The Symfony HTTP client doesn't exist and it is required to run this command.\nRun \"composer req symfony/http-client\" to install it.");
             $this->return = 1;
 
             return;
@@ -93,23 +94,23 @@ Run "composer req symfony/domcrawler" to install it.'));
         $supportedApiVersionKey = \array_search(SHQStripeBundle::SUPPORTED_STRIPE_API, $apiVersions);
 
         if (false === $supportedApiVersionKey) {
-            $ioWriter->error(\Safe\sprintf("The supported API version %s seems not a valid one: it doesn't exist in Stripe documentation.", SHQStripeBundle::SUPPORTED_STRIPE_API));
+            $ioWriter->error(sprintf("The supported API version %s seems not a valid one: it doesn't exist in Stripe documentation.", SHQStripeBundle::SUPPORTED_STRIPE_API));
             $this->return = 1;
 
             return;
         }
 
-        $ioWriter->writeln(\Safe\sprintf('Supported API Version: %s', SHQStripeBundle::SUPPORTED_STRIPE_API));
-        $ioWriter->writeln(\Safe\sprintf('Last API Version: %s', $apiVersions[0]));
+        $ioWriter->writeln(sprintf('Supported API Version: %s', SHQStripeBundle::SUPPORTED_STRIPE_API));
+        $ioWriter->writeln(sprintf('Last API Version: %s', $apiVersions[0]));
 
         if (0 !== $supportedApiVersionKey) {
-            $ioWriter->error(\Safe\sprintf('The currently supported API version is %s versions behind the last released one.', $supportedApiVersionKey));
+            $ioWriter->error(sprintf('The currently supported API version is %s versions behind the last released one.', $supportedApiVersionKey));
             $this->return = 1;
 
             return;
         }
 
-        $ioWriter->success(\Safe\sprintf('The currently supported API version is even with the last released one.'));
+        $ioWriter->success('The currently supported API version is even with the last released one.');
     }
 
     private function checkLocalModels(SymfonyStyle $ioWriter): void
@@ -151,17 +152,17 @@ Run "composer req symfony/domcrawler" to install it.'));
 
         $failures = [];
         if (false === empty($localModelPropertiesThatDoNotExistAnymore)) {
-            $failures[] = \Safe\sprintf("%s contains fields not present in %s anymore:\n  - %s", $localModelClass, $sdkModelClass, \implode("\n  - ", $localModelPropertiesThatDoNotExistAnymore));
+            $failures[] = sprintf("%s contains fields not present in %s anymore:\n  - %s", $localModelClass, $sdkModelClass, \implode("\n  - ", $localModelPropertiesThatDoNotExistAnymore));
         }
 
         if (false === empty($sdkModelPropertiesNotYetImplemented)) {
-            $failures[] = \Safe\sprintf("%s contains fields not yet managed by %s:\n  - %s", $sdkModelClass, $localModelClass, \implode("\n  - ", $sdkModelPropertiesNotYetImplemented));
+            $failures[] = sprintf("%s contains fields not yet managed by %s:\n  - %s", $sdkModelClass, $localModelClass, \implode("\n  - ", $sdkModelPropertiesNotYetImplemented));
         }
 
         $propertiesToCompare = \array_intersect($localModelProperties, $sdkModelProperties);
         $comparisonFailures  = $this->compareLocalPropertiesWithSdkOnes($localModelClass, $sdkModelClass, $propertiesToCompare);
         if (false === empty($comparisonFailures)) {
-            $failures[] = \Safe\sprintf("The types of properties of class %s doesn't match with the ones of %s class:\n  - %s", $localModelClass, $sdkModelClass, \implode("\n  - ", $comparisonFailures));
+            $failures[] = sprintf("The types of properties of class %s doesn't match with the ones of %s class:\n  - %s", $localModelClass, $sdkModelClass, \implode("\n  - ", $comparisonFailures));
         }
 
         // Remove null values eventually returned by compareLocalPropertiesWithSdkOnes()
@@ -183,17 +184,17 @@ Run "composer req symfony/domcrawler" to install it.'));
 
         $failures = [];
         if (false === empty($mappedModelPropertiesThatDoNotExistAnymore)) {
-            $failures[] = \Safe\sprintf("Mapping of %s contains fields not present in the model anymore:\n  - %s", $localModelClass, \implode("\n  - ", $mappedModelPropertiesThatDoNotExistAnymore));
+            $failures[] = sprintf("Mapping of %s contains fields not present in the model anymore:\n  - %s", $localModelClass, \implode("\n  - ", $mappedModelPropertiesThatDoNotExistAnymore));
         }
 
         if (false === empty($localModelPropertiesNotYetMapped)) {
-            $failures[] = \Safe\sprintf("%s contains properties not yet mapped:\n  - %s", $localModelClass, \implode("\n  - ", $localModelPropertiesNotYetMapped));
+            $failures[] = sprintf("%s contains properties not yet mapped:\n  - %s", $localModelClass, \implode("\n  - ", $localModelPropertiesNotYetMapped));
         }
 
         $propertiesToCompare = \array_intersect($localModelProperties, MappingHelper::getMappedProperties($localModelClass));
         $comparisonFailures  = $this->compareLocalPropertiesWithMappedOnes($localModelClass, $propertiesToCompare);
         if (false === empty($comparisonFailures)) {
-            $failures[] = \Safe\sprintf("The types of properties of class %s doesn't match with the mapped ones:\n  - %s", $localModelClass, \implode("\n  - ", $comparisonFailures));
+            $failures[] = sprintf("The types of properties of class %s doesn't match with the mapped ones:\n  - %s", $localModelClass, \implode("\n  - ", $comparisonFailures));
         }
 
         // Remove null values eventually returned by compareLocalPropertiesWithSdkOnes()
@@ -210,7 +211,7 @@ Run "composer req symfony/domcrawler" to install it.'));
         $response = $client->request('GET', 'https://stripe.com/docs/upgrades');
 
         $statusCode = $response->getStatusCode();
-        $ioWriter->writeln(\Safe\sprintf('Status code returned: %s', $statusCode));
+        $ioWriter->writeln(sprintf('Status code returned: %s', $statusCode));
 
         $html = $response->getContent();
 
@@ -249,10 +250,20 @@ Run "composer req symfony/domcrawler" to install it.'));
                 throw new \RuntimeException('Unexpected @var type.');
             }
 
-            $comparison = $this->compareTypes($localModelClass, $propertyToCompare, $localPropertyVar->getType(), $sdkPropertyDocBlock->getType());
+            $localType  = $localPropertyVar->getType();
+            $localTypes = is_countable($localType) ? $localType : [$localType];
+
+            $sdkType  = $sdkPropertyDocBlock->getType();
+            $sdkTypes = is_countable($sdkType) ? $sdkType : [$sdkType];
+
+            try {
+                $comparison = $this->compareTypes($localModelClass, $propertyToCompare, $localTypes, $sdkTypes);
+            } catch (\OutOfBoundsException $outOfBoundsException) {
+                throw new \OutOfBoundsException(sprintf('%s::$%s: %s', $localModelClass, $propertyToCompare, $outOfBoundsException->getMessage()));
+            }
 
             if (false === empty($comparison)) {
-                $failures[] = \Safe\sprintf("%s:\n    - %s", $propertyToCompare, \implode("\n    - ", $comparison));
+                $failures[] = sprintf("%s:\n    - %s", $propertyToCompare, \implode("\n    - ", $comparison));
             }
         }
 
@@ -302,6 +313,7 @@ Run "composer req symfony/domcrawler" to install it.'));
                         case 'text':
                         case 'uri':
                             $types[] = 'string';
+
                             break;
                         default:
                             $types[] = $mapping[self::MAPPING_TYPE];
@@ -315,7 +327,9 @@ Run "composer req symfony/domcrawler" to install it.'));
                 return $types;
             };
 
-            $localTypes = $this->extractTypes($localPropertyVar->getType());
+            $localType  = $localPropertyVar->getType();
+            $localTypes = is_countable($localType) ? $localType : [$localType];
+            $localTypes = $this->extractTypes($localTypes);
             $localTypes = $this->convertTypes($localTypes);
             $localTypes = \array_map($processTypes, $localTypes);
 
@@ -324,7 +338,7 @@ Run "composer req symfony/domcrawler" to install it.'));
             $comparison = \array_filter(\array_diff($localTypes, $mappedTypes));
 
             if (false === empty($comparison)) {
-                $failures[] = \Safe\sprintf("%s:\n    - %s", $propertyToCompare, \implode("\n    - ", $comparison));
+                $failures[] = sprintf("%s:\n    - %s", $propertyToCompare, \implode("\n    - ", $comparison));
             }
         }
 
@@ -332,10 +346,10 @@ Run "composer req symfony/domcrawler" to install it.'));
     }
 
     /**
-     * @param Type|array<array-key, Type> $localTypes
-     * @param Type|array<array-key, Type> $sdkTypes
+     * @param array<array-key, Type>|Type $localTypes
+     * @param array<array-key, Type>|Type $sdkTypes
      */
-    private function compareTypes(string $localModelClass, string $property, $localTypes, $sdkTypes): array
+    private function compareTypes(string $localModelClass, string $property, array $localTypes, array $sdkTypes): array
     {
         $localTypes = $this->extractTypes($localTypes);
         $sdkTypes   = $this->extractTypes($sdkTypes);
@@ -354,7 +368,7 @@ Run "composer req symfony/domcrawler" to install it.'));
     }
 
     /**
-     * @param Type|array<array-key, Type> $types
+     * @param array<array-key, Type>|Type $types
      */
     private function extractTypes($types): array
     {
@@ -382,7 +396,7 @@ Run "composer req symfony/domcrawler" to install it.'));
                     case 'UriInterface':
                         return String_::class;
                     default:
-                        return null;
+                        throw new \OutOfBoundsException(sprintf('%s is not supported by the CheckCommand::convertTypes() method. Please, implement it to fix this exception.', $type->getFqsen()->getName()));
                 }
             }
 

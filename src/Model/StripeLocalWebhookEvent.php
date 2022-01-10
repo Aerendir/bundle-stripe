@@ -23,7 +23,7 @@ class StripeLocalWebhookEvent implements StripeLocalResourceInterface
     /** @var string The Stripe ID of the StripeLocalWebhookEvent */
     private $id;
 
-    /** @var \DateTime $created */
+    /** @var \DateTimeInterface $created */
     private $created;
 
     /** @var string $data Hash containing data associated with the event. */
@@ -48,7 +48,7 @@ class StripeLocalWebhookEvent implements StripeLocalResourceInterface
     /** @var string $request Description of the event: e.g. invoice.created, charge.refunded, etc. */
     private $type;
 
-    public function getCreated(): \DateTime
+    public function getCreated(): \DateTimeInterface
     {
         return $this->created;
     }

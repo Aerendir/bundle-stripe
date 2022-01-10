@@ -8,5 +8,8 @@ return array_merge(require_once 'config.php', [
         'PhanParamTooMany',
         // Manually added baseline
         'PhanTypeMismatchArgument',
+        // Causes some issues with ChargeSyncer
+        'PhanTypeMismatchArgumentSuperType',
+        'PhanUnreferencedClass',
     ],
 ]);

@@ -28,5 +28,5 @@ final class StripeWebhookBalanceEventEvent extends AbstractStripeWebhookEventEve
      *
      * @see https://stripe.com/docs/api#event_types-balance.available
      */
-    const AVAILABLE = 'stripe.webhook.balance.available';
+    public const AVAILABLE = 'stripe.webhook.balance.available';
 }

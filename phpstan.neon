@@ -15,5 +15,10 @@ parameters:
     paths:
         - src
         - tests
-    excludes_analyse:
+    excludePaths:
+        - */src/SHQStripeBundle.php
+        - */src/DependencyInjection/SHQStripeExtension.php
+        - */src/Controller/WebhookController.php
         - */src/DependencyInjection/Configuration.php
+        - */tests/DependencyInjection/AbstractStripeBundleExtensionTest.php
+        - */tests/DependencyInjection/YamlStripeBundleExtensionTest.php

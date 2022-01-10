@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace SerendipityHQ\Bundle\StripeBundle\Util;
 
+use function Safe\substr;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookAccountEventEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookApplicationFeeEventEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookBalanceEventEvent;
@@ -218,7 +219,7 @@ final class EventGuesser
     /**
      * @param $type
      */
-    public function guessEventPieces($type): array
+    public function guessEventPieces(string $type): array
     {
         /*
          * Guess the event kind.
@@ -226,7 +227,7 @@ final class EventGuesser
          * In an event like charge.dispute.closed, the kind is "charge".
          */
         $dotPosition = \strpos($type, '.');
-        $eventKind   = \Safe\substr($type, 0, $dotPosition);
+        $eventKind   = substr($type, 0, $dotPosition);
 
         /*
          * Guess the constant of the type.

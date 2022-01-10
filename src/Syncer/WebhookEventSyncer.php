@@ -73,31 +73,38 @@ final class WebhookEventSyncer extends AbstractSyncer
             switch ($reflectedProperty->getName()) {
                 case 'id':
                     $reflectedProperty->setValue($localResource, $stripeResource->id);
+
                     break;
 
                 case 'created':
                     $created = new \DateTime();
                     $reflectedProperty->setValue($localResource, $created->setTimestamp($stripeResource->created));
+
                     break;
 
                 case 'data':
                     $reflectedProperty->setValue($localResource, $stripeResource->data->__toString());
+
                     break;
 
                 case 'livemode':
                     $reflectedProperty->setValue($localResource, $stripeResource->livemode);
+
                     break;
 
                 case 'pendingWebhooks':
                     $reflectedProperty->setValue($localResource, $stripeResource->pendingWebhooks);
+
                     break;
 
                 case 'request':
                     $reflectedProperty->setValue($localResource, $stripeResource->request);
+
                     break;
 
                 case 'type':
                     $reflectedProperty->setValue($localResource, $stripeResource->type);
+
                     break;
             }
         }
@@ -120,6 +127,7 @@ final class WebhookEventSyncer extends AbstractSyncer
 
                 // Sync the local object with the remote one
                 $this->chargeSyncer->syncLocalFromStripe($localCharge, $stripeObjectData);
+
                 break;
 
             case 'customer':
@@ -133,6 +141,7 @@ final class WebhookEventSyncer extends AbstractSyncer
 
                 // Sync the local object with the remote one
                 $this->customerSyncer->syncLocalFromStripe($localCustomer, $stripeResource->data->object);
+
                 break;
 
             case 'source':
@@ -150,6 +159,7 @@ final class WebhookEventSyncer extends AbstractSyncer
                     // Sync the local card with the remote object
                     $this->cardSyncer->syncLocalFromStripe($localCard, $stripeObjectData->source);
                 }
+
                 break;
         }
 

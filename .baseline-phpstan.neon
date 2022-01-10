@@ -1,22 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Unable to resolve the template type T in call to method Doctrine\\\\Persistence\\\\ObjectManager\\:\\:getRepository\\(\\)$#"
-			count: 1
-			path: src/Controller/WebhookController.php
-
-		-
-			message: "#^Parameter \\#1 \\$className of method Doctrine\\\\Persistence\\\\ObjectManager\\:\\:getRepository\\(\\) expects class\\-string\\<mixed\\>, string given\\.$#"
-			count: 1
-			path: src/Controller/WebhookController.php
-
-		-
-			message: "#^Parameter \\#2 \\$localEventEntity of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Util\\\\EventGuesser\\:\\:guess\\(\\) expects SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalWebhookEvent, SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalResourceInterface given\\.$#"
-			count: 1
-			path: src/Controller/WebhookController.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Event\\\\AbstractStripeChargeEvent\\:\\:validate\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Event\\\\AbstractStripeChargeEvent\\:\\:validate\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Event/AbstractStripeChargeEvent.php
 
@@ -24,11 +9,6 @@ parameters:
 			message: "#^Strict comparison using \\=\\=\\= between null and SerendipityHQ\\\\Component\\\\ValueObjects\\\\Money\\\\Money will always evaluate to false\\.$#"
 			count: 1
 			path: src/Event/AbstractStripeChargeEvent.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Event\\\\AbstractStripeEvent\\:\\:\\$stopReason type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Event/AbstractStripeEvent.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Event\\\\AbstractStripeEvent\\:\\:getStopReason\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -41,12 +21,27 @@ parameters:
 			path: src/Event/AbstractStripeEvent.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Manager\\\\StripeManager\\:\\:\\$error has no typehint specified\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Event\\\\AbstractStripeEvent\\:\\:\\$stopReason type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Event/AbstractStripeEvent.php
+
+		-
+			message: "#^Call to an undefined method Stripe\\\\Exception\\\\ExceptionInterface\\:\\:getHttpHeaders\\(\\)\\.$#"
 			count: 1
 			path: src/Manager/StripeManager.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Manager\\\\StripeManager\\:\\:\\$logger \\(Psr\\\\Log\\\\LoggerInterface\\) does not accept Psr\\\\Log\\\\LoggerInterface\\|null\\.$#"
+			message: "#^Call to an undefined method Stripe\\\\Exception\\\\ExceptionInterface\\:\\:getHttpStatus\\(\\)\\.$#"
+			count: 2
+			path: src/Manager/StripeManager.php
+
+		-
+			message: "#^Call to an undefined method Stripe\\\\Exception\\\\ExceptionInterface\\:\\:getJsonBody\\(\\)\\.$#"
+			count: 2
+			path: src/Manager/StripeManager.php
+
+		-
+			message: "#^Call to an undefined method Stripe\\\\Exception\\\\ExceptionInterface\\:\\:getRequestId\\(\\)\\.$#"
 			count: 1
 			path: src/Manager/StripeManager.php
 
@@ -56,22 +51,47 @@ parameters:
 			path: src/Manager/StripeManager.php
 
 		-
-			message: "#^Parameter \\#2 \\$stripeResource of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\ChargeSyncer\\:\\:syncLocalFromStripe\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\ApiResource\\|true given\\.$#"
+			message: "#^Cannot access offset 'code' on mixed\\.$#"
+			count: 2
+			path: src/Manager/StripeManager.php
+
+		-
+			message: "#^Cannot access offset 'decline_code' on mixed\\.$#"
+			count: 2
+			path: src/Manager/StripeManager.php
+
+		-
+			message: "#^Cannot access offset 'type' on mixed\\.$#"
+			count: 2
+			path: src/Manager/StripeManager.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Manager\\\\StripeManager\\:\\:callStripeApi\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Manager/StripeManager.php
 
 		-
-			message: "#^Strict comparison using \\=\\=\\= between false and Stripe\\\\Customer will always evaluate to false\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Manager\\\\StripeManager\\:\\:callStripeObject\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Manager/StripeManager.php
 
 		-
-			message: "#^Strict comparison using \\=\\=\\= between null and string will always evaluate to false\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Manager\\\\StripeManager\\:\\:getError\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Manager/StripeManager.php
 
 		-
-			message: "#^Strict comparison using \\=\\=\\= between false and Stripe\\\\Customer\\|null will always evaluate to false\\.$#"
+			message: "#^Offset 'error' does not exist on array\\<string, mixed\\>\\|null\\.$#"
+			count: 3
+			path: src/Manager/StripeManager.php
+
+		-
+			message: "#^PHPDoc tag @return with type array\\|null is not subtype of native type array\\.$#"
+			count: 1
+			path: src/Manager/StripeManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$object of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Manager\\\\StripeManager\\:\\:callStripeObject\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\Customer\\|null given\\.$#"
 			count: 1
 			path: src/Manager/StripeManager.php
 
@@ -81,7 +101,7 @@ parameters:
 			path: src/Manager/StripeManager.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Manager\\\\StripeManager\\:\\:callStripeObject\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\Customer\\|null given\\.$#"
+			message: "#^Parameter \\#2 \\$stripeResource of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\ChargeSyncer\\:\\:syncLocalFromStripe\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\ApiResource\\|true given\\.$#"
 			count: 1
 			path: src/Manager/StripeManager.php
 
@@ -96,12 +116,12 @@ parameters:
 			path: src/Manager/StripeManager.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Manager\\\\StripeManager\\:\\:callStripeApi\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Manager\\\\StripeManager\\:\\:\\$error has no type specified\\.$#"
 			count: 1
 			path: src/Manager/StripeManager.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Manager\\\\StripeManager\\:\\:callStripeObject\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Manager\\\\StripeManager\\:\\:\\$logger \\(Psr\\\\Log\\\\LoggerInterface\\) does not accept Psr\\\\Log\\\\LoggerInterface\\|null\\.$#"
 			count: 1
 			path: src/Manager/StripeManager.php
 
@@ -111,49 +131,19 @@ parameters:
 			path: src/Manager/StripeManager.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Manager\\\\StripeManager\\:\\:getError\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Strict comparison using \\=\\=\\= between false and Stripe\\\\Customer will always evaluate to false\\.$#"
 			count: 1
 			path: src/Manager/StripeManager.php
 
 		-
-			message: "#^PHPDoc tag @return with type array\\|null is not subtype of native type array\\.$#"
+			message: "#^Strict comparison using \\=\\=\\= between false and Stripe\\\\Customer\\|null will always evaluate to false\\.$#"
 			count: 1
 			path: src/Manager/StripeManager.php
 
 		-
-			message: "#^Offset 'error' does not exist on array\\<string, mixed\\>\\|null\\.$#"
-			count: 3
-			path: src/Manager/StripeManager.php
-
-		-
-			message: "#^Call to an undefined method Stripe\\\\Exception\\\\ExceptionInterface\\:\\:getJsonBody\\(\\)\\.$#"
-			count: 2
-			path: src/Manager/StripeManager.php
-
-		-
-			message: "#^Call to an undefined method Stripe\\\\Exception\\\\ExceptionInterface\\:\\:getHttpStatus\\(\\)\\.$#"
-			count: 2
-			path: src/Manager/StripeManager.php
-
-		-
-			message: "#^Call to an undefined method Stripe\\\\Exception\\\\ExceptionInterface\\:\\:getRequestId\\(\\)\\.$#"
+			message: "#^Strict comparison using \\=\\=\\= between null and string will always evaluate to false\\.$#"
 			count: 1
 			path: src/Manager/StripeManager.php
-
-		-
-			message: "#^Call to an undefined method Stripe\\\\Exception\\\\ExceptionInterface\\:\\:getHttpHeaders\\(\\)\\.$#"
-			count: 1
-			path: src/Manager/StripeManager.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$metadata type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Model/StripeLocalCard.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$charges with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
-			count: 1
-			path: src/Model/StripeLocalCard.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:getCharges\\(\\) return type with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
@@ -186,32 +176,72 @@ parameters:
 			path: src/Model/StripeLocalCard.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$billingDetails type has no value type specified in iterable type array\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$addressLine1Check is never written, only read\\.$#"
 			count: 1
+			path: src/Model/StripeLocalCard.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$addressZipCheck is never written, only read\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCard.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$brand is never written, only read\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCard.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$charges with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
+			count: 1
+			path: src/Model/StripeLocalCard.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$cvcCheck is never written, only read\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCard.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$dynamicLast4 is never written, only read\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCard.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$fingerprint is never written, only read\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCard.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$funding is never written, only read\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCard.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$id is never written, only read\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCard.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$last4 is never written, only read\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCard.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$metadata type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCard.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$tokenizationMethod is never written, only read\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCard.php
+
+		-
+			message: "#^Cannot call method getId\\(\\) on SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\|null\\.$#"
+			count: 2
 			path: src/Model/StripeLocalCharge.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$refunds type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Model/StripeLocalCharge.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$fraudDetails type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Model/StripeLocalCharge.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$outcome type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Model/StripeLocalCharge.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$metadata type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Model/StripeLocalCharge.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$paymentMethodDetails type has no value type specified in iterable type array\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:getBillingDetails\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCharge.php
 
@@ -221,12 +251,47 @@ parameters:
 			path: src/Model/StripeLocalCharge.php
 
 		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:getMetadata\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCharge.php
+
+		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:getOutcome\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCharge.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:getMetadata\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:getPaymentMethodDetails\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCharge.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:getRefunds\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCharge.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:setBillingDetails\\(\\) has parameter \\$billingDetails with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCharge.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:setMetadata\\(\\) has parameter \\$metadata with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCharge.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:setPaymentMethodDetails\\(\\) has parameter \\$paymentMethodDetails with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCharge.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:setRefunds\\(\\) has parameter \\$refunds with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCharge.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:toStripe\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCharge.php
 
@@ -241,67 +306,82 @@ parameters:
 			path: src/Model/StripeLocalCharge.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:setMetadata\\(\\) has parameter \\$metadata with no value type specified in iterable type array\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$balanceTransaction is never written, only read\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCharge.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:getBillingDetails\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$billingDetails type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCharge.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:setBillingDetails\\(\\) has parameter \\$billingDetails with no value type specified in iterable type array\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$created is never written, only read\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCharge.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:getRefunds\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$failureCode is never written, only read\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCharge.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:setRefunds\\(\\) has parameter \\$refunds with no value type specified in iterable type array\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$failureMessage is never written, only read\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCharge.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:getPaymentMethodDetails\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$fraudDetails is never written, only read\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCharge.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:setPaymentMethodDetails\\(\\) has parameter \\$paymentMethodDetails with no value type specified in iterable type array\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$fraudDetails type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCharge.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:toStripe\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$id is never written, only read\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCharge.php
 
 		-
-			message: "#^Cannot call method getId\\(\\) on SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\|null\\.$#"
-			count: 2
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$metadata type has no value type specified in iterable type array\\.$#"
+			count: 1
 			path: src/Model/StripeLocalCharge.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:\\$cards with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$outcome is never written, only read\\.$#"
 			count: 1
-			path: src/Model/StripeLocalCustomer.php
+			path: src/Model/StripeLocalCharge.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:\\$charges with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$outcome type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: src/Model/StripeLocalCustomer.php
+			path: src/Model/StripeLocalCharge.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:\\$metadata type has no value type specified in iterable type array\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$paymentMethodDetails type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: src/Model/StripeLocalCustomer.php
+			path: src/Model/StripeLocalCharge.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:\\$sources type has no value type specified in iterable type array\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$receiptNumber is never written, only read\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCharge.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$refunds type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCharge.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$status is never written, only read\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCharge.php
+
+		-
+			message: "#^Call to function is_string\\(\\) with array will always evaluate to false\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCustomer.php
 
@@ -321,27 +401,12 @@ parameters:
 			path: src/Model/StripeLocalCustomer.php
 
 		-
-			message: "#^PHPDoc tag @return with type mixed is not subtype of native type array\\.$#"
-			count: 1
-			path: src/Model/StripeLocalCustomer.php
-
-		-
-			message: "#^Result of && is always false\\.$#"
-			count: 1
-			path: src/Model/StripeLocalCustomer.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between false and true will always evaluate to false\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:getSources\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCustomer.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:setMetadata\\(\\) has parameter \\$metadata with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Model/StripeLocalCustomer.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:getSources\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCustomer.php
 
@@ -356,7 +421,62 @@ parameters:
 			path: src/Model/StripeLocalCustomer.php
 
 		-
-			message: "#^Call to function is_string\\(\\) with array will always evaluate to false\\.$#"
+			message: "#^PHPDoc tag @return with type mixed is not subtype of native type array\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCustomer.php
+
+		-
+			message: "#^Parameter \\#1 \\$metadata of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:setMetadata\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCustomer.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:\\$cards with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
+			count: 1
+			path: src/Model/StripeLocalCustomer.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:\\$charges with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
+			count: 1
+			path: src/Model/StripeLocalCustomer.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:\\$created is never written, only read\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCustomer.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:\\$defaultSource is never written, only read\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCustomer.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:\\$delinquent is never written, only read\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCustomer.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:\\$id is never written, only read\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCustomer.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:\\$metadata type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCustomer.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:\\$sources type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCustomer.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCustomer.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between false and true will always evaluate to false\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCustomer.php
 
@@ -366,7 +486,7 @@ parameters:
 			path: src/Model/StripeLocalResourceInterface.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalWebhookEvent\\:\\:\\$type has no typehint specified\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalWebhookEvent\\:\\:toStripe\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/StripeLocalWebhookEvent.php
 
@@ -376,12 +496,37 @@ parameters:
 			path: src/Model/StripeLocalWebhookEvent.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalWebhookEvent\\:\\:toStripe\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalWebhookEvent\\:\\:\\$created is never written, only read\\.$#"
 			count: 1
 			path: src/Model/StripeLocalWebhookEvent.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\ByStripeIdInterface\\:\\:findOneByStripeId\\(\\) has parameter \\$id with no typehint specified\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalWebhookEvent\\:\\:\\$id is never written, only read\\.$#"
+			count: 1
+			path: src/Model/StripeLocalWebhookEvent.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalWebhookEvent\\:\\:\\$pendingWebhooks is never written, only read\\.$#"
+			count: 1
+			path: src/Model/StripeLocalWebhookEvent.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalWebhookEvent\\:\\:\\$request is never written, only read\\.$#"
+			count: 1
+			path: src/Model/StripeLocalWebhookEvent.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalWebhookEvent\\:\\:\\$type has no type specified\\.$#"
+			count: 1
+			path: src/Model/StripeLocalWebhookEvent.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalWebhookEvent\\:\\:\\$type is never written, only read\\.$#"
+			count: 1
+			path: src/Model/StripeLocalWebhookEvent.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\ByStripeIdInterface\\:\\:findOneByStripeId\\(\\) has parameter \\$id with no type specified\\.$#"
 			count: 1
 			path: src/Repository/ByStripeIdInterface.php
 
@@ -396,7 +541,12 @@ parameters:
 			path: src/Repository/StripeLocalCardRepository.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalCardRepository\\:\\:findOneByStripeId\\(\\) has parameter \\$id with no typehint specified\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalCardRepository\\:\\:findOneByStripeId\\(\\) has parameter \\$id with no type specified\\.$#"
+			count: 1
+			path: src/Repository/StripeLocalCardRepository.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalCardRepository\\:\\:findOneByStripeId\\(\\) should return SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalResourceInterface\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Repository/StripeLocalCardRepository.php
 
@@ -416,7 +566,12 @@ parameters:
 			path: src/Repository/StripeLocalChargeRepository.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalChargeRepository\\:\\:findOneByStripeId\\(\\) has parameter \\$id with no typehint specified\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalChargeRepository\\:\\:findOneByStripeId\\(\\) has parameter \\$id with no type specified\\.$#"
+			count: 1
+			path: src/Repository/StripeLocalChargeRepository.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalChargeRepository\\:\\:findOneByStripeId\\(\\) should return SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalResourceInterface\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Repository/StripeLocalChargeRepository.php
 
@@ -436,7 +591,12 @@ parameters:
 			path: src/Repository/StripeLocalCustomerRepository.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalCustomerRepository\\:\\:findOneByStripeId\\(\\) has parameter \\$id with no typehint specified\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalCustomerRepository\\:\\:findOneByStripeId\\(\\) has parameter \\$id with no type specified\\.$#"
+			count: 1
+			path: src/Repository/StripeLocalCustomerRepository.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalCustomerRepository\\:\\:findOneByStripeId\\(\\) should return SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalResourceInterface\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Repository/StripeLocalCustomerRepository.php
 
@@ -456,7 +616,12 @@ parameters:
 			path: src/Repository/StripeLocalWebhookEventRepository.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalWebhookEventRepository\\:\\:findOneByStripeId\\(\\) has parameter \\$id with no typehint specified\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalWebhookEventRepository\\:\\:findOneByStripeId\\(\\) has parameter \\$id with no type specified\\.$#"
+			count: 1
+			path: src/Repository/StripeLocalWebhookEventRepository.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalWebhookEventRepository\\:\\:findOneByStripeId\\(\\) should return SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalResourceInterface\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Repository/StripeLocalWebhookEventRepository.php
 
@@ -471,12 +636,22 @@ parameters:
 			path: src/Repository/StripeLocalWebhookEventRepository.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\SHQStripeBundle\\:\\:getXmlMappingDriver\\(\\) has parameter \\$mappings with no value type specified in iterable type array\\.$#"
+			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\<SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\>\\:\\:findOneByStripeId\\(\\)\\.$#"
 			count: 1
-			path: src/SHQStripeBundle.php
+			path: src/Syncer/AbstractSyncer.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\AbstractSyncer\\:\\:getLocalCustomer\\(\\) has parameter \\$stripeCustomerId with no typehint specified\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\AbstractSyncer\\:\\:getLocalCustomer\\(\\) has invalid return type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\BaseObject\\.$#"
+			count: 1
+			path: src/Syncer/AbstractSyncer.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\AbstractSyncer\\:\\:getLocalCustomer\\(\\) has parameter \\$stripeCustomerId with no type specified\\.$#"
+			count: 1
+			path: src/Syncer/AbstractSyncer.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\AbstractSyncer\\:\\:getLocalCustomer\\(\\) should return SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\BaseObject\\|null but returns object\\.$#"
 			count: 1
 			path: src/Syncer/AbstractSyncer.php
 
@@ -491,38 +666,13 @@ parameters:
 			path: src/Syncer/AbstractSyncer.php
 
 		-
-			message: "#^Return typehint of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\AbstractSyncer\\:\\:getLocalCustomer\\(\\) has invalid type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\BaseObject\\.$#"
-			count: 1
-			path: src/Syncer/AbstractSyncer.php
-
-		-
-			message: "#^Call to an undefined method Doctrine\\\\ORM\\\\EntityRepository\\<SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\>\\:\\:findOneByStripeId\\(\\)\\.$#"
-			count: 1
-			path: src/Syncer/AbstractSyncer.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\AbstractSyncer\\:\\:getLocalCustomer\\(\\) should return SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\BaseObject\\|null but returns object\\.$#"
-			count: 1
-			path: src/Syncer/AbstractSyncer.php
-
-		-
 			message: "#^Cannot call method toArray\\(\\) on Stripe\\\\StripeObject\\|null\\.$#"
 			count: 1
 			path: src/Syncer/CardSyncer.php
 
 		-
-			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 2
-			path: src/Syncer/ChargeSyncer.php
-
-		-
 			message: "#^Access to an undefined property Stripe\\\\Charge\\:\\:\\$fraudDetails\\.$#"
 			count: 1
-			path: src/Syncer/ChargeSyncer.php
-
-		-
-			message: "#^Cannot call method toArray\\(\\) on Stripe\\\\StripeObject\\|null\\.$#"
-			count: 2
 			path: src/Syncer/ChargeSyncer.php
 
 		-
@@ -532,16 +682,6 @@ parameters:
 
 		-
 			message: "#^Cannot access property \\$id on Stripe\\\\Account\\|Stripe\\\\AlipayAccount\\|Stripe\\\\BankAccount\\|Stripe\\\\BitcoinReceiver\\|Stripe\\\\Card\\|Stripe\\\\Source\\|null\\.$#"
-			count: 1
-			path: src/Syncer/ChargeSyncer.php
-
-		-
-			message: "#^Parameter \\#2 \\$stripeResource of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\CardSyncer\\:\\:syncLocalFromStripe\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\Account\\|Stripe\\\\AlipayAccount\\|Stripe\\\\BankAccount\\|Stripe\\\\BitcoinReceiver\\|Stripe\\\\Card\\|Stripe\\\\Source\\|null given\\.$#"
-			count: 1
-			path: src/Syncer/ChargeSyncer.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\ChargeSyncer\\:\\:handleFraudDetection\\(\\) has parameter \\$error with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Syncer/ChargeSyncer.php
 
@@ -556,22 +696,32 @@ parameters:
 			path: src/Syncer/ChargeSyncer.php
 
 		-
-			message: "#^Cannot call method getProperties\\(\\) on ReflectionClass\\|false\\.$#"
-			count: 1
-			path: src/Syncer/CustomerSyncer.php
+			message: "#^Cannot call method toArray\\(\\) on Stripe\\\\StripeObject\\|null\\.$#"
+			count: 2
+			path: src/Syncer/ChargeSyncer.php
 
 		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 1
-			path: src/Syncer/CustomerSyncer.php
+			count: 2
+			path: src/Syncer/ChargeSyncer.php
 
 		-
-			message: "#^Parameter \\#2 \\$sourceId of static method Stripe\\\\Customer\\:\\:retrieveSource\\(\\) expects string, string\\|Stripe\\\\Account\\|Stripe\\\\AlipayAccount\\|Stripe\\\\BankAccount\\|Stripe\\\\BitcoinReceiver\\|Stripe\\\\Card\\|Stripe\\\\Source\\|null given\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\ChargeSyncer\\:\\:handleFraudDetection\\(\\) has parameter \\$error with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: src/Syncer/CustomerSyncer.php
+			path: src/Syncer/ChargeSyncer.php
+
+		-
+			message: "#^Parameter \\#2 \\$stripeResource of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\CardSyncer\\:\\:syncLocalFromStripe\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\Account\\|Stripe\\\\AlipayAccount\\|Stripe\\\\BankAccount\\|Stripe\\\\BitcoinReceiver\\|Stripe\\\\Card\\|Stripe\\\\Source\\|null given\\.$#"
+			count: 1
+			path: src/Syncer/ChargeSyncer.php
 
 		-
 			message: "#^Access to an undefined property Stripe\\\\AlipayAccount\\|Stripe\\\\BankAccount\\|Stripe\\\\BitcoinReceiver\\|Stripe\\\\Card\\|Stripe\\\\Source\\:\\:\\$id\\.$#"
+			count: 1
+			path: src/Syncer/CustomerSyncer.php
+
+		-
+			message: "#^Access to an undefined property Stripe\\\\Customer\\:\\:\\$source\\.$#"
 			count: 1
 			path: src/Syncer/CustomerSyncer.php
 
@@ -581,12 +731,27 @@ parameters:
 			path: src/Syncer/CustomerSyncer.php
 
 		-
+			message: "#^Cannot call method getProperties\\(\\) on ReflectionClass\\|false\\.$#"
+			count: 1
+			path: src/Syncer/CustomerSyncer.php
+
+		-
 			message: "#^Cannot call method getProperty\\(\\) on ReflectionClass\\|false\\.$#"
 			count: 1
 			path: src/Syncer/CustomerSyncer.php
 
 		-
-			message: "#^Access to an undefined property Stripe\\\\Customer\\:\\:\\$source\\.$#"
+			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
+			count: 1
+			path: src/Syncer/CustomerSyncer.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\CustomerSyncer\\:\\:sourceExists\\(\\) has parameter \\$sources with no value type specified in iterable type Stripe\\\\Collection\\.$#"
+			count: 1
+			path: src/Syncer/CustomerSyncer.php
+
+		-
+			message: "#^Parameter \\#2 \\$sourceId of static method Stripe\\\\Customer\\:\\:retrieveSource\\(\\) expects string, string\\|Stripe\\\\Account\\|Stripe\\\\AlipayAccount\\|Stripe\\\\BankAccount\\|Stripe\\\\BitcoinReceiver\\|Stripe\\\\Card\\|Stripe\\\\Source\\|null given\\.$#"
 			count: 1
 			path: src/Syncer/CustomerSyncer.php
 
@@ -601,12 +766,22 @@ parameters:
 			path: src/Syncer/CustomerSyncer.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\CustomerSyncer\\:\\:sourceExists\\(\\) has parameter \\$sources with no value type specified in iterable type Stripe\\\\Collection\\.$#"
+			message: "#^Instanceof between SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer and SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalWebhookEvent will always evaluate to false\\.$#"
 			count: 1
-			path: src/Syncer/CustomerSyncer.php
+			path: src/Syncer/WebhookEventSyncer.php
 
 		-
-			message: "#^Instanceof between SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer and SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalWebhookEvent will always evaluate to false\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\WebhookEventSyncer\\:\\:\\$cardSyncer is never read, only written\\.$#"
+			count: 1
+			path: src/Syncer/WebhookEventSyncer.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\WebhookEventSyncer\\:\\:\\$chargeSyncer is never read, only written\\.$#"
+			count: 1
+			path: src/Syncer/WebhookEventSyncer.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\WebhookEventSyncer\\:\\:\\$customerSyncer is never read, only written\\.$#"
 			count: 1
 			path: src/Syncer/WebhookEventSyncer.php
 
@@ -617,11 +792,6 @@ parameters:
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Util\\\\EventGuesser\\:\\:guess\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Util/EventGuesser.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Util\\\\EventGuesser\\:\\:guessEventPieces\\(\\) has parameter \\$type with no typehint specified\\.$#"
 			count: 1
 			path: src/Util/EventGuesser.php
 
@@ -641,12 +811,32 @@ parameters:
 			path: src/Util/EventGuesser.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function strtoupper expects string, array\\|string given\\.$#"
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
 			count: 1
-			path: src/Util/EventGuesser.php
+			path: tests/Event/AbstractStripeChargeEventTest.php
 
 		-
-			message: "#^Cannot access offset 'route_name' on array\\|bool\\|float\\|int\\|string\\|null\\.$#"
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with \\*NEVER\\* and SerendipityHQ\\\\Component\\\\ValueObjects\\\\Email\\\\Email\\|null will always evaluate to false\\.$#"
 			count: 1
-			path: tests/DependencyInjection/AbstractStripeBundleExtensionTest.php
+			path: tests/Model/StripeLocalChargeTest.php
+
+		-
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with \\*NEVER\\* and SerendipityHQ\\\\Component\\\\ValueObjects\\\\Money\\\\Money will always evaluate to false\\.$#"
+			count: 1
+			path: tests/Model/StripeLocalChargeTest.php
+
+		-
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			count: 4
+			path: tests/Model/StripeLocalChargeTest.php
+
+		-
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with \\*NEVER\\* and SerendipityHQ\\\\Component\\\\ValueObjects\\\\Email\\\\EmailInterface\\|null will always evaluate to false\\.$#"
+			count: 1
+			path: tests/Model/StripeLocalCustomerTest.php
+
+		-
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			count: 1
+			path: tests/Model/StripeLocalCustomerTest.php
 

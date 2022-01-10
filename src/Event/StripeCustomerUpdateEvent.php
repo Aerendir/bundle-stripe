@@ -19,11 +19,11 @@ namespace SerendipityHQ\Bundle\StripeBundle\Event;
 final class StripeCustomerUpdateEvent extends AbstractStripeCustomerEvent
 {
     /** @var string */
-    const UPDATE  = 'stripe.local.customer.update';
+    public const UPDATE  = 'stripe.local.customer.update';
     /** @var string */
-    const UPDATED = 'stripe.local.customer.updated';
+    public const UPDATED = 'stripe.local.customer.updated';
     /** @var string */
-    const FAILED  = 'stripe.local.customer.update_failed';
+    public const FAILED  = 'stripe.local.customer.update_failed';
 
     /** @var bool */
     private $syncSources = true;

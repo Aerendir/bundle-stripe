@@ -173,7 +173,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
      */
     private $captured = false;
 
-    /** @var \DateTime */
+    /** @var \DateTimeInterface */
     private $created;
 
     /**
@@ -358,7 +358,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
         return $this->balanceTransaction;
     }
 
-    public function getCreated(): \DateTime
+    public function getCreated(): \DateTimeInterface
     {
         return $this->created;
     }

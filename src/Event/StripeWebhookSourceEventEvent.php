@@ -27,7 +27,7 @@ final class StripeWebhookSourceEventEvent extends AbstractStripeWebhookEventEven
      *
      * @see https://stripe.com/docs/api#event_types-source.canceled
      */
-    const CANCELED = 'stripe.webhook.source.canceled';
+    public const CANCELED = 'stripe.webhook.source.canceled';
 
     /**
      * Occurs whenever an source transition to chargeable.
@@ -36,7 +36,7 @@ final class StripeWebhookSourceEventEvent extends AbstractStripeWebhookEventEven
      *
      * @see https://stripe.com/docs/api#event_types-source.chargeable
      */
-    const CHARGEABLE = 'stripe.webhook.source.chargeable';
+    public const CHARGEABLE = 'stripe.webhook.source.chargeable';
 
     /**
      * Occurs whenever an source is failed.
@@ -45,5 +45,5 @@ final class StripeWebhookSourceEventEvent extends AbstractStripeWebhookEventEven
      *
      * @see https://stripe.com/docs/api#event_types-source.failed
      */
-    const FAILED = 'stripe.webhook.source.failed';
+    public const FAILED = 'stripe.webhook.source.failed';
 }

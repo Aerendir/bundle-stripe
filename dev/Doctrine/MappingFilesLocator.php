@@ -13,9 +13,11 @@ declare(strict_types=1);
 
 namespace SerendipityHQ\Bundle\StripeBundle\Dev\Doctrine;
 
+use Doctrine\Persistence\Mapping\Driver\FileLocator;
 use Doctrine\Persistence\Mapping\MappingException;
+use function Safe\substr;
 
-class MappingFilesLocator implements \Doctrine\Persistence\Mapping\Driver\FileLocator
+class MappingFilesLocator implements FileLocator
 {
     /**
      * File extension that is searched for.
@@ -74,7 +76,7 @@ class MappingFilesLocator implements \Doctrine\Persistence\Mapping\Driver\FileLo
         $entityFile        = $this->path . $entityName . $this->fileExtension;
 
         if (false === \is_file($entityFile)) {
-            throw MappingException::mappingFileNotFound($className, \Safe\substr($className, \strrpos($className, '\\') + 1) . $this->fileExtension);
+            throw MappingException::mappingFileNotFound($className, substr($className, \strrpos($className, '\\') + 1) . $this->fileExtension);
         }
 
         return $entityFile;

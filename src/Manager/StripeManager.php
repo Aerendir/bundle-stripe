@@ -15,6 +15,8 @@ namespace SerendipityHQ\Bundle\StripeBundle\Manager;
 
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
+use function Safe\sleep;
+use function Safe\sprintf;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
 use SerendipityHQ\Bundle\StripeBundle\SHQStripeBundle;
@@ -165,7 +167,7 @@ final class StripeManager
         $customer = $this->callStripeApi(Customer::class, self::ACTION_RETRIEVE, $arguments);
 
         if ( ! $customer instanceof Customer) {
-            throw new \InvalidArgumentException(\Safe\sprintf('The response is not of the expected type %s.', Customer::class));
+            throw new \InvalidArgumentException(sprintf('The response is not of the expected type %s.', Customer::class));
         }
 
         // Return the stripe object that can be "false" or "Customer"
@@ -182,7 +184,7 @@ final class StripeManager
         $event = $this->callStripeApi(Event::class, self::ACTION_RETRIEVE, $arguments);
 
         if ( ! $event instanceof Event) {
-            throw new \InvalidArgumentException(\Safe\sprintf('The response is not of the expected type %s.', Event::class));
+            throw new \InvalidArgumentException(sprintf('The response is not of the expected type %s.', Event::class));
         }
 
         // Return the stripe object that can be "false" or "Customer"
@@ -283,6 +285,7 @@ final class StripeManager
     public function callStripeApi(string $endpoint, string $action, array $arguments)
     {
         $return = null;
+
         try {
             switch (\count($arguments)) {
                 // Method with 1 argument only accept "options"
@@ -290,6 +293,7 @@ final class StripeManager
                     // If the value is an empty array, then set it as null
                     $options = empty($arguments[self::OPTIONS]) ? null : $arguments[self::OPTIONS];
                     $return  = $endpoint::$action($options);
+
                     break;
                 case 2:
                     // If the ID exists, we have to call for sure a method that in the signature has the ID and the options
@@ -305,6 +309,7 @@ final class StripeManager
                         $options = empty($arguments[self::OPTIONS]) ? null : $arguments[self::OPTIONS];
                         $return  = $endpoint::$action($params, $options);
                     }
+
                     break;
                 // Method with 3 arguments accept id, params and options
                 case 3:
@@ -312,6 +317,7 @@ final class StripeManager
                     $params  = empty($arguments[self::PARAMS]) ? null : $arguments[self::PARAMS];
                     $options = empty($arguments[self::OPTIONS]) ? null : $arguments[self::OPTIONS];
                     $return  = $endpoint::$action($arguments[self::ID], $params, $options);
+
                     break;
                 default:
                     throw new \RuntimeException("The arguments passed don't correspond to the allowed number. Please, review them.");
@@ -395,11 +401,13 @@ final class StripeManager
                 // Method has no signature (it doesn't accept any argument)
                 case 0:
                     $return = $object->$method();
+
                     break;
                 // Method with 1 argument only accept one between "options" or "params"
                 case 1:
                     // So we simply use the unique value in the array
                     $return = $object->$method($arguments[0]);
+
                     break;
                 // Method with 3 arguments accept id, params and options
                 case 2:
@@ -407,6 +415,7 @@ final class StripeManager
                     $params  = empty($arguments[self::PARAMS]) ? null : $arguments[self::PARAMS];
                     $options = empty($arguments[self::OPTIONS]) ? null : $arguments[self::OPTIONS];
                     $return  = $object->$method($params, $options);
+
                     break;
                 default:
                     throw new \RuntimeException("The arguments passed don't correspond to the allowed number. Please, review them.");
@@ -453,7 +462,7 @@ final class StripeManager
                 // We have to retry with an exponential backoff if is not reached the maximum number of retries
                 if ($this->retries <= self::MAX_RETRIES) {
                     // First, put the script on sleep
-                    \Safe\sleep($this->wait);
+                    sleep($this->wait);
 
                     // Then we have to increment the sleep time
                     $this->wait += $this->wait;
@@ -463,6 +472,7 @@ final class StripeManager
 
                     return true;
                 }
+
                 break;
             case CardException::class:
                 $concatenated = 'stripe';
@@ -475,6 +485,7 @@ final class StripeManager
                 if (isset($e->getJsonBody()[self::ERROR]['decline_code'])) {
                     $concatenated .= '.' . $e->getJsonBody()[self::ERROR]['decline_code'];
                 }
+
                 break;
         }
 

@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace SerendipityHQ\Bundle\StripeBundle\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
+use function Safe\json_decode;
+use function Safe\sprintf;
 use SerendipityHQ\Bundle\StripeBundle\Manager\StripeManager;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalWebhookEvent;
 use SerendipityHQ\Bundle\StripeBundle\Repository\StripeLocalWebhookEventRepository;
@@ -48,7 +50,7 @@ final class WebhookController extends AbstractController
         WebhookEventSyncer $webhookEventSyncer
     ): Response {
         /** @var Event $content */
-        $content = \Safe\json_decode($request->getContent(), true);
+        $content = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
         // Get the Event again from Stripe for security reasons
         $stripeWebhookEvent = $stripeManager->retrieveEvent($content[self::ID]);
@@ -64,7 +66,7 @@ final class WebhookController extends AbstractController
             $localResource = null;
             if (null === $localWebhookEvent) {
                 $localResource = $entityManager
-                    ->getRepository(\Safe\sprintf('SerendipityHQ\Bundle\StripeBundle\Model\StripeLocal%s', $objectType))
+                    ->getRepository(sprintf('SerendipityHQ\Bundle\StripeBundle\Model\StripeLocal%s', $objectType))
                     ->findOneBy([self::ID => $content['data'][self::OBJECT][self::ID]]);
             }
 
@@ -74,17 +76,20 @@ final class WebhookController extends AbstractController
                 switch ($objectType) {
                     case 'card':
                         $syncer = $cardSyncer;
+
                         break;
                     case 'charge':
                         $syncer = $chargeSyncer;
+
                         break;
                     case 'customer':
                         $syncer = $customerSyncer;
+
                         break;
                 }
 
                 if (null === $syncer) {
-                    throw new \RuntimeException(\Safe\sprintf('There is no syncer configured for object of type "%s".', $objectType));
+                    throw new \RuntimeException(sprintf('There is no syncer configured for object of type "%s".', $objectType));
                 }
 
                 if (\method_exists($syncer, 'removeLocal')) {

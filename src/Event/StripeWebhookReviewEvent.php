@@ -27,7 +27,7 @@ final class StripeWebhookReviewEvent extends AbstractStripeWebhookEventEvent
      *
      * @see https://stripe.com/docs/api#event_types-review.opened
      */
-    const OPENED = 'stripe.webhook.review.opened';
+    public const OPENED = 'stripe.webhook.review.opened';
 
     /**
      * Occurs whenever a review is closed.
@@ -38,5 +38,5 @@ final class StripeWebhookReviewEvent extends AbstractStripeWebhookEventEvent
      *
      * @see https://stripe.com/docs/api#event_types-review.closed
      */
-    const CLOSED = 'stripe.webhook.review.closed';
+    public const CLOSED = 'stripe.webhook.review.closed';
 }

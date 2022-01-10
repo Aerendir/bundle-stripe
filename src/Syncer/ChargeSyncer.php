@@ -64,39 +64,48 @@ final class ChargeSyncer extends AbstractSyncer
             switch ($reflectedProperty->getName()) {
                 case 'id':
                     $reflectedProperty->setValue($localResource, $stripeResource->id);
+
                     break;
 
                 case 'amount':
                     $reflectedProperty->setValue($localResource, new Money([MoneyInterface::BASE_AMOUNT => $stripeResource->amount, MoneyInterface::CURRENCY => $stripeResource->currency]));
+
                     break;
 
                 case 'amountRefunded':
                     $reflectedProperty->setValue($localResource, new Money([MoneyInterface::BASE_AMOUNT => $stripeResource->amount_refunded, MoneyInterface::CURRENCY => $stripeResource->currency]));
+
                     break;
 
                 case 'balanceTransaction':
                     $reflectedProperty->setValue($localResource, $stripeResource->balance_transaction);
+
                     break;
 
                 case 'created':
                     $created = new \DateTime();
                     $reflectedProperty->setValue($localResource, $created->setTimestamp($stripeResource->created));
+
                     break;
 
                 case 'captured':
                     $reflectedProperty->setValue($localResource, $stripeResource->captured);
+
                     break;
 
                 case 'description':
                     $reflectedProperty->setValue($localResource, $stripeResource->description);
+
                     break;
 
                 case 'failureCode':
                     $reflectedProperty->setValue($localResource, $stripeResource->failure_code);
+
                     break;
 
                 case 'failureMessage':
                     $reflectedProperty->setValue($localResource, $stripeResource->failure_message);
+
                     break;
 
                 case 'fraudDetails':
@@ -108,10 +117,12 @@ final class ChargeSyncer extends AbstractSyncer
                     }
 
                     $reflectedProperty->setValue($localResource, $fraudDetails);
+
                     break;
 
                 case 'livemode':
                     $reflectedProperty->setValue($localResource, $stripeResource->livemode);
+
                     break;
 
                 case 'metadata':
@@ -123,6 +134,7 @@ final class ChargeSyncer extends AbstractSyncer
                     }
 
                     $reflectedProperty->setValue($localResource, $metadata);
+
                     break;
 
                 case 'outcome':
@@ -134,10 +146,12 @@ final class ChargeSyncer extends AbstractSyncer
                     }
 
                     $reflectedProperty->setValue($localResource, $outcome);
+
                     break;
 
                 case 'paid':
                     $reflectedProperty->setValue($localResource, $stripeResource->paid);
+
                     break;
 
                 case 'receiptEmail':
@@ -147,18 +161,22 @@ final class ChargeSyncer extends AbstractSyncer
                         $email = new Email($email);
                     }
                     $reflectedProperty->setValue($localResource, $email);
+
                     break;
 
                 case 'receiptNumber':
                     $reflectedProperty->setValue($localResource, $stripeResource->receipt_number);
+
                     break;
 
                 case 'statementDescriptor':
                     $reflectedProperty->setValue($localResource, $stripeResource->statement_descriptor);
+
                     break;
 
                 case 'status':
                     $reflectedProperty->setValue($localResource, $stripeResource->status);
+
                     break;
             }
         }
@@ -169,13 +187,31 @@ final class ChargeSyncer extends AbstractSyncer
         // Out of the foreach, process the source to associate to the charge.
         $localCard = $this->getEntityManager()->getRepository(StripeLocalCard::class)->findOneByStripeId($stripeResource->source->id);
 
-        // Chek if the card exists
+        // Check if the card exists
+        /**
+         * Fails on:
+         * - PHP7.3, --prefer-stable --prefer-lowest, SF~4.4
+         * - PHP7.3, --prefer-stable --prefer-lowest, SF~5.2
+         * - PHP7.4, --prefer-stable --prefer-lowest, SF~4.4
+         * - PHP7.4, --prefer-stable --prefer-lowest, SF~5.2.
+         *
+         * @psalm-suppress DocblockTypeContradiction
+         */
         if (null === $localCard) {
             // It doesn't exist: create and persist it
             $localCard = new StripeLocalCard();
         }
 
         // Sync the local card with the remote object
+        /**
+         * Fails on:
+         * - PHP7.3, --prefer-stable --prefer-lowest, SF~4.4
+         * - PHP7.3, --prefer-stable --prefer-lowest, SF~5.2
+         * - PHP7.4, --prefer-stable --prefer-lowest, SF~4.4
+         * - PHP7.4, --prefer-stable --prefer-lowest, SF~5.2.
+         *
+         * @psalm-suppress InvalidArgument
+         */
         $this->cardSyncer->syncLocalFromStripe($localCard, $stripeResource->source);
 
         /*
