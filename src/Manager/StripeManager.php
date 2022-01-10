@@ -15,6 +15,8 @@ namespace SerendipityHQ\Bundle\StripeBundle\Manager;
 
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
+use function Safe\sleep;
+use function Safe\sprintf;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
 use SerendipityHQ\Bundle\StripeBundle\SHQStripeBundle;
@@ -165,7 +167,7 @@ final class StripeManager
         $customer = $this->callStripeApi(Customer::class, self::ACTION_RETRIEVE, $arguments);
 
         if ( ! $customer instanceof Customer) {
-            throw new \InvalidArgumentException(\Safe\sprintf('The response is not of the expected type %s.', Customer::class));
+            throw new \InvalidArgumentException(sprintf('The response is not of the expected type %s.', Customer::class));
         }
 
         // Return the stripe object that can be "false" or "Customer"
@@ -182,7 +184,7 @@ final class StripeManager
         $event = $this->callStripeApi(Event::class, self::ACTION_RETRIEVE, $arguments);
 
         if ( ! $event instanceof Event) {
-            throw new \InvalidArgumentException(\Safe\sprintf('The response is not of the expected type %s.', Event::class));
+            throw new \InvalidArgumentException(sprintf('The response is not of the expected type %s.', Event::class));
         }
 
         // Return the stripe object that can be "false" or "Customer"
@@ -460,7 +462,7 @@ final class StripeManager
                 // We have to retry with an exponential backoff if is not reached the maximum number of retries
                 if ($this->retries <= self::MAX_RETRIES) {
                     // First, put the script on sleep
-                    \Safe\sleep($this->wait);
+                    sleep($this->wait);
 
                     // Then we have to increment the sleep time
                     $this->wait += $this->wait;

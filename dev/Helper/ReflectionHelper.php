@@ -16,6 +16,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\Dev\Helper;
 use phpDocumentor\Reflection\DocBlock;
 use phpDocumentor\Reflection\DocBlock\Tags\Property;
 use phpDocumentor\Reflection\DocBlockFactory;
+use function Safe\sprintf;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\String\ByteString;
 
@@ -153,12 +154,12 @@ class ReflectionHelper
         foreach ($finder as $file) {
             $fileName  = $file->getFilename();
             $fileName  = \str_replace('.' . $file->getExtension(), '', $fileName);
-            $namespace = \Safe\sprintf('SerendipityHQ\Bundle\StripeBundle\Model\%s', $fileName);
+            $namespace = sprintf('SerendipityHQ\Bundle\StripeBundle\Model\%s', $fileName);
 
             try {
                 $reflectedClass = new \ReflectionClass($namespace);
             } catch (\ReflectionException $reflectionException) {
-                throw new \RuntimeException(\Safe\sprintf("The guessed class \"%s\" doesn't exist.\nException message: %s", $namespace, $reflectionException->getMessage()));
+                throw new \RuntimeException(sprintf("The guessed class \"%s\" doesn't exist.\nException message: %s", $namespace, $reflectionException->getMessage()));
             }
 
             if ($reflectedClass->isAbstract() || $reflectedClass->isInterface()) {
@@ -182,10 +183,10 @@ class ReflectionHelper
         $sdkModelClasses = [];
         foreach (\array_keys($localModelClasses) as $localModelName) {
             $sdkModelName      = \str_replace('StripeLocal', '', $localModelName);
-            $sdkModelNamespace = \Safe\sprintf('Stripe\%s', $sdkModelName);
+            $sdkModelNamespace = sprintf('Stripe\%s', $sdkModelName);
 
             if (false === \class_exists($sdkModelNamespace)) {
-                throw new \RuntimeException(\Safe\sprintf('The guessed SDK class "%s" doesn\'t exist.', $sdkModelNamespace));
+                throw new \RuntimeException(sprintf('The guessed SDK class "%s" doesn\'t exist.', $sdkModelNamespace));
             }
 
             $sdkModelClasses[$localModelName] = $sdkModelNamespace;

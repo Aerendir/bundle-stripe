@@ -16,6 +16,8 @@ namespace SerendipityHQ\Bundle\StripeBundle\Model;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Money\Currency;
+use function Safe\json_decode;
+use function Safe\sprintf;
 use SerendipityHQ\Component\ValueObjects\Address\AddressInterface;
 use SerendipityHQ\Component\ValueObjects\Email\EmailInterface;
 use SerendipityHQ\Component\ValueObjects\Phone\PhoneInterface;
@@ -353,7 +355,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     public function setNewSource(string $source): self
     {
         if (0 < \strpos($source, 'tok_')) {
-            throw new \InvalidArgumentException(\Safe\sprintf('The token you passed seems not to be a card token: %s', $source));
+            throw new \InvalidArgumentException(sprintf('The token you passed seems not to be a card token: %s', $source));
         }
 
         $this->newSource = $source;
@@ -405,7 +407,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     public function metadataTransformer(): void
     {
         if (\is_string($this->getMetadata())) {
-            $this->setMetadata(\Safe\json_decode($this->getMetadata(), true));
+            $this->setMetadata(json_decode($this->getMetadata(), true, 512, JSON_THROW_ON_ERROR));
         }
     }
 

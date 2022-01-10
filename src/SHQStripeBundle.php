@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace SerendipityHQ\Bundle\StripeBundle;
 
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
+use function Safe\realpath;
 use SerendipityHQ\Component\ValueObjects\Currency\Bridge\Doctrine\CurrencyType;
 use SerendipityHQ\Component\ValueObjects\Email\Bridge\Doctrine\EmailType;
 use SerendipityHQ\Component\ValueObjects\Money\Bridge\Doctrine\MoneyType;
@@ -28,7 +29,7 @@ final class SHQStripeBundle extends Bundle
     {
         parent::build($container);
 
-        $modelDir = \Safe\realpath(__DIR__ . '/Resources/config/doctrine/mappings');
+        $modelDir = realpath(__DIR__ . '/Resources/config/doctrine/mappings');
         $mappings = [
             $modelDir => 'SerendipityHQ\Bundle\StripeBundle\Model',
         ];

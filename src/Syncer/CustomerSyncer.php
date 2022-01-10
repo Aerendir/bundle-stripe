@@ -140,7 +140,7 @@ final class CustomerSyncer extends AbstractSyncer
          *
          * The cancellation process of a card is handled differently and does not concern this updating process.
          */
-        $stripeDefaultCard = \Stripe\Customer::retrieveSource($stripeResource->id, $stripeResource->default_source);
+        $stripeDefaultCard = Customer::retrieveSource($stripeResource->id, $stripeResource->default_source);
         $localCard         = $this->getEntityManager()->getRepository(StripeLocalCard::class)->findOneByStripeId($stripeDefaultCard->id);
 
         // Chek if the card exists

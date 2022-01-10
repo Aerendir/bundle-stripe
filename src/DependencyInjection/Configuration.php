@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace SerendipityHQ\Bundle\StripeBundle\DependencyInjection;
 
+use function Safe\json_encode;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -40,7 +41,7 @@ final class Configuration implements ConfigurationInterface
                 ->scalarNode('db_driver')
                     ->validate()
                         ->ifNotInArray(self::getSupportedDrivers())
-                        ->thenInvalid('The driver %s is not supported. Please choose one of ' . \Safe\json_encode(self::getSupportedDrivers()))
+                        ->thenInvalid('The driver %s is not supported. Please choose one of ' . json_encode(self::getSupportedDrivers(), JSON_THROW_ON_ERROR))
                     ->end()
                     ->cannotBeOverwritten()
                     ->defaultValue('orm')
