@@ -9,7 +9,9 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ ubuntu-latest ]
+                # When you change a version here, change it also in the SonarCloud if condition
                 php: [ '7.4', '8.0', '8.1' ]
+                symfony: [ '~4.4', '~5.4', '~6.0' ]
 
         steps:
             -   name: Checkout
@@ -33,10 +35,23 @@ jobs:
                     path: ${{ steps.composer-cache.outputs.dir }}
                     key: php-composer-dependencies-cache
 
+            -   name: Fix Symfony version
+                run: |
+                    composer req symfony/flex --no-update
+                    composer config extra.symfony.require "${{ matrix.symfony }}"
+                    composer config --no-plugins allow-plugins.symfony/flex true
+
             -   name: Install Composer deps
+                # Do not install all bin deps, but individually install the required ones
+                # The second update is to make Flex able to do its job
                 run: |
                     composer update --no-interaction --no-scripts
+                    composer update --no-interaction --no-scripts
                     composer bin phpunit update
+
+            -   name: Remove Kernel.php
+                run: |
+                    rm ./src/Kernel.php
 
             -   name: Run PHPunit
                 run: |
