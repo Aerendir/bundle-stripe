@@ -42,7 +42,7 @@
         "symfony/http-client": "^4.4|^5.4|^6.0",
         "symfony/var-dumper": "^4.4|^5.4|^6.0",
         "symfony/yaml": "^4.4|^5.4|^6.0",
-        "phpstan/phpstan": "1.4.0",
+        "phpstan/phpstan": "1.4.1",
         "phpstan/phpstan-phpunit": "1.0.0",
         "phpstan/phpstan-doctrine": "1.0.4",
         "phpstan/phpstan-symfony": "1.0.6",
