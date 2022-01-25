@@ -44,7 +44,7 @@
         "symfony/yaml": "^4.4|^5.4|^6.0",
         "phpstan/phpstan": "1.4.2",
         "phpstan/phpstan-phpunit": "1.0.0",
-        "phpstan/phpstan-doctrine": "1.2.5",
+        "phpstan/phpstan-doctrine": "1.2.7",
         "phpstan/phpstan-symfony": "1.1.2",
         "thecodingmachine/phpstan-safe-rule": "1.2.0",
         "rector/rector": "0.12.13"
