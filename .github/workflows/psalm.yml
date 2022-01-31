@@ -2,6 +2,12 @@ name: PSalm
 
 on: [ push ]
 
+# Cancels all previous workflow runs for the same branch that have not yet completed.
+concurrency:
+    # The concurrency group contains the workflow name and the branch name.
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
 jobs:
     psalm:
         runs-on: ${{ matrix.os }}
@@ -12,6 +18,7 @@ jobs:
                 php: [ '7.4', '8.0', '8.1' ]
                 symfony: [ '~4.4', '~5.4', '~6.0' ]
 
+                # This combination is not installable
                 exclude:
                     - php: '7.4'
                       symfony: '~6.0'
@@ -25,18 +32,7 @@ jobs:
                 with:
                     php-version: ${{ matrix.php }}
                     coverage: none # disable xdebug, pcov
-                    extensions: ast, intl
-
-            -   name: Get Composer Cache Directory
-                id: composer-cache
-                run: |
-                    echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-            -   name: Cache Composer's dependencies
-                uses: actions/cache@v2.1.7
-                with:
-                    path: ${{ steps.composer-cache.outputs.dir }}
-                    key: php-composer-dependencies-cache
+                    extensions: ast
 
             -   name: Fix Symfony version
                 run: |
@@ -49,12 +45,19 @@ jobs:
                     composer rem rector/rector --dev --no-update
 
             -   name: Install Composer deps
-                # Do not install all bin deps, but individually install the required ones
+                uses: ramsey/composer-install@v2
+                with:
+                    composer-options: --no-scripts
+
+            -   name: Update Composer deps (with Flex)
                 # The second update is to make Flex able to do its job
                 run: |
                     composer update --no-interaction --no-scripts
-                    composer update --no-interaction --no-scripts
-                    composer bin phpunit update
+
+            -   name: Install Composer bin PHPUnit
+                uses: ramsey/composer-install@v2
+                with:
+                    working-directory: './vendor-bin/phpunit'
 
             -   name: Remove Kernel.php
                 run: |
@@ -62,4 +65,4 @@ jobs:
 
             -   name: Run PSalm
                 run: |
-                    ./vendor/bin/psalm
+                    ./vendor-bin/phpunit/vendor/bin/psalm
