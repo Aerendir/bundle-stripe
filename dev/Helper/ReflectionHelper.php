@@ -23,6 +23,7 @@ use Symfony\Component\String\ByteString;
 class ReflectionHelper
 {
     private const CACHE_TYPE_REFLECTED   = 'reflected';
+
     private const CACHE_TYPE_DOC_COMMENT = 'doc_comment';
 
     /** @var DocBlockFactory|null */

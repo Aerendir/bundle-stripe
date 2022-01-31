@@ -39,14 +39,23 @@ final class StripeManager
 {
     /** @var int How many retries should the manager has to do */
     private const MAX_RETRIES     = 5;
+
     private const ACTION_CREATE   = 'create';
+
     private const ACTION_RETRIEVE = 'retrieve';
+
     private const OPTIONS         = 'options';
+
     private const ID              = 'id';
+
     private const PARAMS          = 'params';
+
     private const RETRY           = 'retry';
+
     private const ERROR           = 'error';
+
     private const TYPE            = 'type';
+
     private const CODE            = 'code';
 
     /** @var WebhookEventSyncer */
@@ -436,10 +445,8 @@ final class StripeManager
 
     /**
      * This should be called only if an error exists. Use hasError().
-     *
-     * @return array|null
      */
-    public function getError(): array
+    public function getError(): ?array
     {
         return $this->error;
     }
@@ -479,9 +486,11 @@ final class StripeManager
                 if (isset($e->getJsonBody()[self::ERROR][self::TYPE])) {
                     $concatenated .= '.' . $e->getJsonBody()[self::ERROR][self::TYPE];
                 }
+
                 if (isset($e->getJsonBody()[self::ERROR][self::CODE])) {
                     $concatenated .= '.' . $e->getJsonBody()[self::ERROR][self::CODE];
                 }
+
                 if (isset($e->getJsonBody()[self::ERROR]['decline_code'])) {
                     $concatenated .= '.' . $e->getJsonBody()[self::ERROR]['decline_code'];
                 }
@@ -502,7 +511,7 @@ final class StripeManager
             'stripe_version'     => $e->getHttpHeaders()['Stripe-Version'],
         ];
 
-        if (null === $this->logger) {
+        if ( ! $this->logger instanceof LoggerInterface) {
             $this->logger->error($message, $context);
         }
 

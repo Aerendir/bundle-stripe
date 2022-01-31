@@ -36,6 +36,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 final class CheckCommand extends Command
 {
     private const MAPPING_NULLABLE = 'nullable';
+
     private const MAPPING_TYPE     = 'type';
 
     /** @var string */

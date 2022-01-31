@@ -20,8 +20,10 @@ final class StripeCustomerCreateEvent extends AbstractStripeCustomerEvent
 {
     /** @var string */
     public const CREATE  = 'stripe.local.customer.create';
+
     /** @var string */
     public const CREATED = 'stripe.local.customer.created';
+
     /** @var string */
     public const FAILED  = 'stripe.local.customer.create_failed';
 }

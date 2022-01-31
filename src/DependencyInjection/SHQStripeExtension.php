@@ -31,6 +31,7 @@ final class SHQStripeExtension extends Extension implements PrependExtensionInte
 {
     /** @var string */
     private const DB_DRIVER = 'db_driver';
+
     /** @var string */
     private const STRIPE_CONFIG = 'stripe_config';
 

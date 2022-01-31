@@ -33,8 +33,14 @@
         "doctrine/doctrine-bundle": "^1.7 || ^2.0",
         "monolog/monolog": "^1.23 || ^2.0",
         "phpdocumentor/reflection-docblock": "^5.2",
+        "phpstan/phpstan": "1.4.3",
+        "phpstan/phpstan-doctrine": "1.2.8",
+        "phpstan/phpstan-phpunit": "1.0.0",
+        "phpstan/phpstan-symfony": "1.1.2",
+        "rector/rector": "0.12.13",
         "roave/security-advisories": "dev-master",
         "serendipity_hq/component-var-dumper-f": "^2.1.1",
+        "serendipity_hq/rector-config": "^1.0",
         "symfony/console": "^4.4|^5.4|^6.0",
         "symfony/css-selector": "^4.4|^5.4|^6.0",
         "symfony/dom-crawler": "^4.4|^5.4|^6.0",
@@ -42,12 +48,7 @@
         "symfony/http-client": "^4.4|^5.4|^6.0",
         "symfony/var-dumper": "^4.4|^5.4|^6.0",
         "symfony/yaml": "^4.4|^5.4|^6.0",
-        "phpstan/phpstan": "1.4.3",
-        "phpstan/phpstan-phpunit": "1.0.0",
-        "phpstan/phpstan-doctrine": "1.2.8",
-        "phpstan/phpstan-symfony": "1.1.2",
-        "thecodingmachine/phpstan-safe-rule": "1.2.0",
-        "rector/rector": "0.12.13"
+        "thecodingmachine/phpstan-safe-rule": "1.2.0"
     },
     "autoload": {
         "psr-4": {

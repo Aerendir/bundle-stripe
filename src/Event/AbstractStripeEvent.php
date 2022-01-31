@@ -28,9 +28,6 @@ abstract class AbstractStripeEvent extends Event
         return $this->stopReason;
     }
 
-    /**
-     * @return AbstractStripeEvent
-     */
     public function setStopReason(array $stopReason): self
     {
         $this->stopReason = $stopReason;

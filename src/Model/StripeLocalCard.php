@@ -212,12 +212,12 @@ class StripeLocalCard implements StripeLocalResourceInterface
         return $this->charges;
     }
 
-    public function getCountry(): string
+    public function getCountry(): ?string
     {
         return $this->country;
     }
 
-    public function getCustomer(): StripeLocalCustomer
+    public function getCustomer(): ?StripeLocalCustomer
     {
         return $this->customer;
     }

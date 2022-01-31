@@ -25,6 +25,7 @@ class MappingFilesLocator implements FileLocator
      * @var string
      */
     protected $fileExtension;
+
     /** @var string */
     private $path;
 

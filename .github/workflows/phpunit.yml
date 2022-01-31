@@ -67,6 +67,10 @@ jobs:
                 with:
                     working-directory: './vendor-bin/phpunit'
 
+            -   name: Remove Kernel.php
+                run: |
+                    rm ./src/Kernel.php
+
             -   name: Run PHPunit
                 run: |
                     ./vendor-bin/phpunit/vendor/bin/phpunit --coverage-clover var/coverage/clover.xml

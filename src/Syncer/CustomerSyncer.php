@@ -217,6 +217,7 @@ final class CustomerSyncer extends AbstractSyncer
             if (null === $stripeResource->sources) {
                 \dd($stripeResource);
             }
+
             if (false === $this->sourceExists($card, $stripeResource->sources)) {
                 // The card doesn't exists on the Stripe account: remove it from the local one
                 $this->getEntityManager()->remove($card);

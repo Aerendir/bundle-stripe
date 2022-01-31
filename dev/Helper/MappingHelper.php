@@ -15,24 +15,19 @@ namespace SerendipityHQ\Bundle\StripeBundle\Dev\Helper;
 
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Mapping\Driver\XmlDriver;
-use Doctrine\ORM\Mapping\MappingException;
 use SerendipityHQ\Bundle\StripeBundle\Dev\Doctrine\MappingFilesLocator;
 
 class MappingHelper
 {
     /** @var XmlDriver|null */
     private static $driver;
+
     /** @var mixed[] */
     private static $cache = [];
 
-    public static function getMappedProperty(string $localModelClass, string $property): ?array
+    public static function getMappedProperty(string $localModelClass, string $property): array
     {
-        try {
-            return self::getMetadataInfo($localModelClass)->getFieldMapping($property);
-        } catch (MappingException $mappingException) {
-        }
-
-        return null;
+        return self::getMetadataInfo($localModelClass)->getFieldMapping($property);
     }
 
     public static function getMappedProperties(string $localModelClass): array

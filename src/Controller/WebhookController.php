@@ -17,6 +17,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use function Safe\json_decode;
 use function Safe\sprintf;
 use SerendipityHQ\Bundle\StripeBundle\Manager\StripeManager;
+use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalWebhookEvent;
 use SerendipityHQ\Bundle\StripeBundle\Repository\StripeLocalWebhookEventRepository;
 use SerendipityHQ\Bundle\StripeBundle\Syncer\CardSyncer;
@@ -35,6 +36,7 @@ final class WebhookController extends AbstractController
 {
     /** @var string */
     private const ID = 'id';
+
     /** @var string */
     private const OBJECT = 'object';
 
@@ -64,7 +66,7 @@ final class WebhookController extends AbstractController
         if (false !== \strpos($content['type'], 'deleted')) {
             $objectType    = \ucfirst($content['data'][self::OBJECT][self::OBJECT]);
             $localResource = null;
-            if (null === $localWebhookEvent) {
+            if ( ! $localWebhookEvent instanceof StripeLocalResourceInterface) {
                 $localResource = $entityManager
                     ->getRepository(sprintf('SerendipityHQ\Bundle\StripeBundle\Model\StripeLocal%s', $objectType))
                     ->findOneBy([self::ID => $content['data'][self::OBJECT][self::ID]]);

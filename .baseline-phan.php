@@ -14,7 +14,7 @@ return [
     // PhanUnreferencedPublicMethod : 60+ occurrences
     // PhanReadOnlyPrivateProperty : 30+ occurrences
     // PhanTypeMismatchArgument : 10+ occurrences
-    // PhanTypeMismatchDeclaredReturn : 10+ occurrences
+    // PhanTypeMismatchDeclaredReturn : 9 occurrences
     // PhanUndeclaredMethod : 8 occurrences
     // PhanTypeArraySuspiciousNullable : 7 occurrences
     // PhanUnextractableAnnotationSuffix : 7 occurrences
@@ -25,7 +25,6 @@ return [
     // PhanUnextractableAnnotationElementName : 3 occurrences
     // PhanUnusedPublicFinalMethodParameter : 3 occurrences
     // PhanParamSignatureMismatch : 2 occurrences
-    // PhanNonClassMethodCall : 1 occurrence
     // PhanParamTooFewInternalUnpack : 1 occurrence
     // PhanPossiblyInfiniteRecursionSameParams : 1 occurrence
     // PhanRedefinedExtendedClass : 1 occurrence
@@ -36,14 +35,12 @@ return [
     // PhanUndeclaredExtendedClass : 1 occurrence
     // PhanUndeclaredProperty : 1 occurrence
     // PhanUndeclaredTypeReturnType : 1 occurrence
-    // PhanUnusedVariableCaughtException : 1 occurrence
     // PhanWriteOnlyPublicProperty : 1 occurrence
 
     // Currently, file_suppressions and directory_suppressions are the only supported suppressions
     'file_suppressions' => [
         'dev/Command/CheckCommand.php' => ['PhanParamTooFewInternalUnpack', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanUnextractableAnnotationElementName', 'PhanUnextractableAnnotationSuffix'],
         'dev/Doctrine/MappingFilesLocator.php' => ['PhanParamSignatureMismatch', 'PhanUnusedPublicMethodParameter'],
-        'dev/Helper/MappingHelper.php' => ['PhanUnusedVariableCaughtException'],
         'dev/Helper/ReflectionHelper.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgumentNullable', 'PhanUnextractableAnnotationSuffix', 'PhanUnreferencedPublicMethod'],
         'dev/Helper/StaticHelper.php' => ['PhanRedefinedClassReference'],
         'src/Controller/WebhookController.php' => ['PhanUndeclaredMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
@@ -68,7 +65,7 @@ return [
         'src/Event/StripeWebhookSourceEventEvent.php' => ['PhanUnreferencedPublicClassConstant'],
         'src/Event/StripeWebhookTransferEventEvent.php' => ['PhanUnreferencedPublicClassConstant'],
         'src/Form/Type/CreditCardStripeTokenType.php' => ['PhanUnusedPublicFinalMethodParameter'],
-        'src/Manager/StripeManager.php' => ['PhanNonClassMethodCall', 'PhanPossiblyInfiniteRecursionSameParams', 'PhanRedefinedClassReference', 'PhanTypeArraySuspiciousNullable', 'PhanTypeComparisonToArray', 'PhanTypeMismatchDeclaredReturn', 'PhanTypeMismatchDeclaredReturnNullable', 'PhanTypeMismatchReturnProbablyReal', 'PhanUnreferencedPublicMethod', 'PhanWriteOnlyPublicProperty'],
+        'src/Manager/StripeManager.php' => ['PhanPossiblyInfiniteRecursionSameParams', 'PhanRedefinedClassReference', 'PhanTypeArraySuspiciousNullable', 'PhanTypeComparisonToArray', 'PhanTypeMismatchDeclaredReturnNullable', 'PhanTypeMismatchReturnProbablyReal', 'PhanUnreferencedPublicMethod', 'PhanWriteOnlyPublicProperty'],
         'src/Model/StripeLocalCard.php' => ['PhanReadOnlyPrivateProperty', 'PhanUnreferencedPublicClassConstant', 'PhanUnreferencedPublicMethod', 'PhanUnusedPublicMethodParameter'],
         'src/Model/StripeLocalCharge.php' => ['PhanReadOnlyPrivateProperty', 'PhanTypeMismatchDeclaredReturn', 'PhanUnreferencedPublicClassConstant', 'PhanUnreferencedPublicMethod'],
         'src/Model/StripeLocalCustomer.php' => ['PhanReadOnlyPrivateProperty', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDeclaredReturn', 'PhanUnreferencedPublicClassConstant', 'PhanUnreferencedPublicMethod'],

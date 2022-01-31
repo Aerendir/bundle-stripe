@@ -160,6 +160,7 @@ final class ChargeSyncer extends AbstractSyncer
                         $email = \trim($email);
                         $email = new Email($email);
                     }
+
                     $reflectedProperty->setValue($localResource, $email);
 
                     break;
