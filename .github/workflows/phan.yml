@@ -44,6 +44,11 @@ jobs:
                 run: |
                     composer rem rector/rector --dev --no-update
 
+            -   name: Remove Roave Security Advisories
+                # Not compatible with symfony/framework-bundle <5.4
+                run: |
+                    composer rem roave/security-advisories --dev --no-update
+
             -   name: Install Composer deps
                 uses: ramsey/composer-install@v2
                 with:
