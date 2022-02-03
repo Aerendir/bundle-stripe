@@ -52,6 +52,11 @@ jobs:
                     composer config extra.symfony.require "${{ matrix.symfony }}"
                     composer config --no-plugins allow-plugins.symfony/flex true
 
+            -   name: Remove Roave Security Advisories
+                # Not compatible with symfony/framework-bundle <5.4
+                run: |
+                    composer rem roave/security-advisories --dev --no-update
+
             -   name: Install Composer deps
                 uses: ramsey/composer-install@v2
                 with:
