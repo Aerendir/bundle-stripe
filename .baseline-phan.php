@@ -29,6 +29,7 @@ return [
     // PhanPossiblyInfiniteRecursionSameParams : 1 occurrence
     // PhanRedefinedExtendedClass : 1 occurrence
     // PhanTypeComparisonToArray : 1 occurrence
+    // PhanTypeExpectedObjectPropAccess : 1 occurrence
     // PhanTypeMismatchArgumentReal : 1 occurrence
     // PhanTypeMismatchDeclaredReturnNullable : 1 occurrence
     // PhanTypeMismatchReturnProbablyReal : 1 occurrence
@@ -78,7 +79,7 @@ return [
         'src/Subscriber/StripeCustomerSubscriber.php' => ['PhanTypeMismatchArgumentNullable', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
         'src/Syncer/AbstractSyncer.php' => ['PhanTypeMismatchDeclaredReturn', 'PhanUndeclaredMethod', 'PhanUndeclaredTypeReturnType'],
         'src/Syncer/ChargeSyncer.php' => ['PhanUndeclaredMethod'],
-        'src/Syncer/CustomerSyncer.php' => ['PhanUndeclaredMethod'],
+        'src/Syncer/CustomerSyncer.php' => ['PhanTypeExpectedObjectPropAccess', 'PhanUndeclaredMethod'],
         'src/Syncer/WebhookEventSyncer.php' => ['PhanUndeclaredMethod', 'PhanUnusedPublicFinalMethodParameter'],
         'tests/DependencyInjection/AbstractStripeBundleExtensionTest.php' => ['PhanTypeArraySuspiciousNullable', 'PhanUnreferencedPublicMethod'],
         'tests/Event/AbstractStripeChargeEventTest.php' => ['PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],

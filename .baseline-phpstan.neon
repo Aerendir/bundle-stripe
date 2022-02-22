@@ -81,11 +81,6 @@ parameters:
 			path: src/Manager/StripeManager.php
 
 		-
-			message: "#^Offset 'error' does not exist on array\\<string, mixed\\>\\|null\\.$#"
-			count: 3
-			path: src/Manager/StripeManager.php
-
-		-
 			message: "#^Parameter \\#1 \\$object of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Manager\\\\StripeManager\\:\\:callStripeObject\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\Customer\\|null given\\.$#"
 			count: 1
 			path: src/Manager/StripeManager.php
@@ -646,11 +641,6 @@ parameters:
 			path: src/Syncer/AbstractSyncer.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\AbstractSyncer\\:\\:getLocalCustomer\\(\\) should return SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\BaseObject\\|null but returns object\\.$#"
-			count: 1
-			path: src/Syncer/AbstractSyncer.php
-
-		-
 			message: "#^PHPDoc tag @param has invalid value \\(\\$stripeCustomerId\\)\\: Unexpected token \"\\$stripeCustomerId\", expected type at offset 167$#"
 			count: 1
 			path: src/Syncer/AbstractSyncer.php
@@ -741,7 +731,7 @@ parameters:
 			path: src/Syncer/CustomerSyncer.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\CustomerSyncer\\:\\:sourceExists\\(\\) has parameter \\$sources with no value type specified in iterable type Stripe\\\\Collection\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\CustomerSyncer\\:\\:sourceExists\\(\\) has parameter \\$sources with generic class Stripe\\\\Collection but does not specify its types\\: TStripeObject$#"
 			count: 1
 			path: src/Syncer/CustomerSyncer.php
 

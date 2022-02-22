@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.19.0@a2ad69ae4f5ab1f7d225a8dc4e2ec2d9415ed599">
+<files psalm-version="4.20.0@f82a70e7edfc6cf2705e9374c8a0b6a974a779ed">
   <file src="src/Controller/WebhookController.php">
     <MixedArgument occurrences="5">
       <code>$content['data'][self::OBJECT][self::OBJECT]</code>
@@ -349,6 +349,9 @@
       <code>$localResource-&gt;getEmail()</code>
       <code>$stripeResource-&gt;default_source</code>
     </ImplicitToStringCast>
+    <InvalidArgument occurrences="1">
+      <code>$stripeResource-&gt;sources</code>
+    </InvalidArgument>
     <MixedArgument occurrences="2">
       <code>$card</code>
       <code>$localCard</code>
