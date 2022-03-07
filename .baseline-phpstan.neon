@@ -736,6 +736,16 @@ parameters:
 			path: src/Syncer/CustomerSyncer.php
 
 		-
+			message: "#^Parameter \\#1 \\$card of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\CustomerSyncer\\:\\:sourceExists\\(\\) expects SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard, mixed given\\.$#"
+			count: 1
+			path: src/Syncer/CustomerSyncer.php
+
+		-
+			message: "#^Parameter \\#1 \\$object of method Doctrine\\\\Persistence\\\\ObjectManager\\:\\:remove\\(\\) expects object, mixed given\\.$#"
+			count: 1
+			path: src/Syncer/CustomerSyncer.php
+
+		-
 			message: "#^Parameter \\#2 \\$sourceId of static method Stripe\\\\Customer\\:\\:retrieveSource\\(\\) expects string, string\\|Stripe\\\\Account\\|Stripe\\\\AlipayAccount\\|Stripe\\\\BankAccount\\|Stripe\\\\BitcoinReceiver\\|Stripe\\\\Card\\|Stripe\\\\Source\\|null given\\.$#"
 			count: 1
 			path: src/Syncer/CustomerSyncer.php
