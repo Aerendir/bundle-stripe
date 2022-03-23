@@ -331,8 +331,8 @@ final class StripeManager
                 default:
                     throw new \RuntimeException("The arguments passed don't correspond to the allowed number. Please, review them.");
             }
-        } catch (ExceptionInterface $exceptionInterface) {
-            $retry = $this->handleException($exceptionInterface);
+        } catch (ExceptionInterface $exception) {
+            $retry = $this->handleException($exception);
 
             if ($retry) {
                 return $this->callStripeApi($endpoint, $action, $arguments);
@@ -429,8 +429,8 @@ final class StripeManager
                 default:
                     throw new \RuntimeException("The arguments passed don't correspond to the allowed number. Please, review them.");
             }
-        } catch (ExceptionInterface $exceptionInterface) {
-            $return = $this->handleException($exceptionInterface);
+        } catch (ExceptionInterface $exception) {
+            $return = $this->handleException($exception);
 
             if (self::RETRY === $return) {
                 $return = $this->callStripeObject($object, $method);
