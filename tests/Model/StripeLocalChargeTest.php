@@ -149,12 +149,4 @@ final class StripeLocalChargeTest extends ModelTestCase
 
         self::assertSame($expected, $resource->toStripe('create'));
     }
-
-    public function testToStripeThrowsAnExceptionIfAmountIsNotSet(): void
-    {
-        $resource = new StripeLocalCharge();
-
-        $this->expectException(\InvalidArgumentException::class);
-        $resource->toStripe('create');
-    }
 }
