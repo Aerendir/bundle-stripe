@@ -22,11 +22,9 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  */
 abstract class AbstractStripeSubscriber implements EventSubscriberInterface
 {
-    /** @var EventDispatcherInterface $dispatcher */
-    private $dispatcher;
+    private EventDispatcherInterface $dispatcher;
 
-    /** @var StripeManager $stripeManager */
-    private $stripeManager;
+    private StripeManager $stripeManager;
 
     public function __construct(EventDispatcherInterface $dispatcher, StripeManager $stripeManager)
     {

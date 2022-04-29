@@ -26,8 +26,7 @@ class MappingFilesLocator implements FileLocator
      */
     protected $fileExtension;
 
-    /** @var string */
-    private $path;
+    private string $path;
 
     public function __construct(string $path, string $fileExtension)
     {

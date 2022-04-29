@@ -27,8 +27,7 @@ final class StripeCustomerUpdateEvent extends AbstractStripeCustomerEvent
     /** @var string */
     public const FAILED  = 'stripe.local.customer.update_failed';
 
-    /** @var bool */
-    private $syncSources = true;
+    private bool $syncSources = true;
 
     public function hasToSyncSources(): bool
     {

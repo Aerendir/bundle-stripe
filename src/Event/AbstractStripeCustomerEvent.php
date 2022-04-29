@@ -20,8 +20,7 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
  */
 abstract class AbstractStripeCustomerEvent extends AbstractStripeEvent
 {
-    /** @var StripeLocalCustomer $localCustomer */
-    private $localCustomer;
+    private StripeLocalCustomer $localCustomer;
 
     public function __construct(StripeLocalCustomer $customer)
     {

@@ -42,8 +42,7 @@ final class CheckCommand extends Command
     /** @var string */
     protected static $defaultName = 'stripe:dev:check';
 
-    /** @var int $return */
-    private $return = 0;
+    private int $return = 0;
 
     protected function configure(): void
     {

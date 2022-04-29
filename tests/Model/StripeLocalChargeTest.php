@@ -58,6 +58,7 @@ final class StripeLocalChargeTest extends ModelTestCase
 
         $resource->setAmount($test['amount'])
             ->setCustomer($test['customer'])
+            /* @phan-suppress-next-line PhanTypeMismatchArgumentReal */
             ->setReceiptEmail($test['receiptEmail'])
             ->setSource($test['source'])
             ->setStatementDescriptor($test['statementDescriptor']);
@@ -147,13 +148,5 @@ final class StripeLocalChargeTest extends ModelTestCase
         $resource->notCapture();
 
         self::assertSame($expected, $resource->toStripe('create'));
-    }
-
-    public function testToStripeThrowsAnExceptionIfAmountIsNotSet(): void
-    {
-        $resource = new StripeLocalCharge();
-
-        $this->expectException(\InvalidArgumentException::class);
-        $resource->toStripe('create');
     }
 }

@@ -20,8 +20,7 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
  */
 abstract class AbstractStripeChargeEvent extends AbstractStripeEvent
 {
-    /** @var StripeLocalCharge $localCharge */
-    private $localCharge;
+    private StripeLocalCharge $localCharge;
 
     public function __construct(StripeLocalCharge $charge)
     {

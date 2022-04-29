@@ -120,135 +120,113 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     private $id;
 
     /**
-     * @var Money
-     *
      * "A positive integer in the smallest currency unit (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a
      * 0-decimal currency) representing how much to charge. The minimum amount is $0.50 US or equivalent in charge
      * currency.
-     * The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99)."
+     * The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).".
      *
      * This is represented as a Money object, that also contains the Currency.
      *
      * @see https://stripe.com/docs/api/php#charge_object-amount
      */
-    private $amount;
+    private MoneyInterface $amount;
 
     /**
-     * @var Money
-     *
-     * "Amount in cents refunded (can be less than the amount attribute on the charge if a partial refund was issued)."
+     * "Amount in cents refunded (can be less than the amount attribute on the charge if a partial refund was issued).".
      *
      * This is represented as a Money object, that also contains the Currency.
      *
      * @see https://stripe.com/docs/api/charges/object#charge_object-amount_refunded
      */
-    private $amountRefunded;
+    private MoneyInterface $amountRefunded;
 
     /**
-     * @var string|null
-     *
      * ID of the balance transaction that describes the impact of this charge on your account balance (not including
-     * refunds or disputes)
+     * refunds or disputes).
      *
      * @see https://stripe.com/docs/api/php#charge_object-balance_transaction
      */
-    private $balanceTransaction;
+    private ?string $balanceTransaction = null;
 
     /**
-     * @var array
-     *
-     * "Billing information associated with the payment method at the time of the transaction."
+     * "Billing information associated with the payment method at the time of the transaction.".
      *
      * @see https://stripe.com/docs/api/charges/object#charge_object-billing_details
      */
-    private $billingDetails;
+    private array $billingDetails = [];
 
     /**
-     * @var bool
-     *
      * If the charge was created without capturing, this boolean represents whether or not it is still uncaptured or has
      * since been captured.
      *
      * https://stripe.com/docs/api/php#charge_object-captured
      */
-    private $captured = false;
+    private bool $captured = false;
 
-    /** @var \DateTimeInterface */
-    private $created;
+    private \DateTimeInterface $created;
 
     /**
-     * @var bool
-     *
-     * "Whether the charge has been disputed."
+     * "Whether the charge has been disputed.".
      *
      * @see https://stripe.com/docs/api/charges/object#charge_object-disputed
      */
-    private $disputed = false;
+    private bool $disputed = false;
 
     /**
-     * @var bool
-     *
-     * "Whether the charge has been fully refunded. If the charge is only partially refunded, this attribute will still be false."
+     * "Whether the charge has been fully refunded. If the charge is only partially refunded, this attribute will still be false.".
      *
      * @see https://stripe.com/docs/api/charges/object#charge_object-refunded
      */
-    private $refunded = false;
+    private bool $refunded = false;
 
     /**
-     * @var array
-     *
-     * "A list of refunds that have been applied to the charge."
+     * "A list of refunds that have been applied to the charge.".
      *
      * @see https://stripe.com/docs/api/charges/object#charge_object-refunds
      */
-    private $refunds;
+    private array $refunds = [];
 
     /**
-     * @var StripeLocalCustomer|null
-     *
-     * ID of the customer this charge is for if one exists
+     * ID of the customer this charge is for if one exists.
      *
      * @see  https://stripe.com/docs/api/php#charge_object-customer
      */
-    private $customer;
+    private ?StripeLocalCustomer $customer = null;
 
     /**
-     * @var string|null
-     *
      * An arbitrary string which you can attach to a charge object. It is displayed when in the web interface
      * alongside the charge. Note that if you use Stripe to send automatic email receipts to your customers,
-     * your receipt emails will include the description of the charge(s) that they are describing
+     * your receipt emails will include the description of the charge(s) that they are describing.
      *
      * @see https://stripe.com/docs/api/php#create_charge-description
      */
-    private $description;
+    private ?string $description = null;
 
-    /** @var string|null $failureCode error code explaining reason for charge failure if available (see the errors section for a list of codes) */
-    private $failureCode;
+    /** Error code explaining reason for charge failure if available (see the errors section for a list of codes) */
+    private ?string $failureCode = null;
 
-    /** @var string|null $failureMessage Message to user further explaining reason for charge failure if available. */
-    private $failureMessage;
+    /** Message to user further explaining reason for charge failure if available. */
+    private ?string $failureMessage = null;
 
-    /** @var array|null $fraudDetails Hash with information on fraud assessments for the charge. Assessments reported by you have the key user_report and, if set, possible values of safe and fraudulent. Assessments from Stripe have the key stripe_report and, if set, the value fraudulent. */
-    private $fraudDetails;
+    /** Hash with information on fraud assessments for the charge. Assessments reported by you have the key user_report and, if set, possible values of safe and fraudulent. Assessments from Stripe have the key stripe_report and, if set, the value fraudulent. */
+    private ?array $fraudDetails = null;
 
-    /** @var array|null $outcome Details about whether or not the payment was accepted, and why. See understanding declines for details (https://stripe.com/docs/declines). */
-    private $outcome;
+    /** Details about whether or not the payment was accepted, and why. See understanding declines for details (https://stripe.com/docs/declines). */
+    private ?array $outcome = null;
 
-    /** @var bool */
-    private $livemode = false;
+    private bool $livemode = false;
 
-    /** @var array $metadata A set of key/value pairs that you can attach to a charge object. It can be useful for storing additional information about the charge in a structured format. */
-    private $metadata = [];
+    /** A set of key/value pairs that you can attach to a charge object. It can be useful for storing additional information about the charge in a structured format. */
+    private array $metadata = [];
 
-    /** @var bool $paid true if the charge succeeded, or was successfully authorized for later capture. */
-    private $paid = false;
+    /** true if the charge succeeded, or was successfully authorized for later capture. */
+    private bool $paid = false;
 
-    /** @var Email|null $receiptEmail This is the email address that the receipt for this charge was sent to. */
-    private $receiptEmail;
+    /** This is the email address that the receipt for this charge was sent to. */
+    private ?Email $receiptEmail = null;
 
-    /** @var string|null $receiptNumber This is the transaction number that appears on email receipts sent for this charge. */
-    private $receiptNumber;
+    /** This is the transaction number that appears on email receipts sent for this charge. */
+    private ?string $receiptNumber;
 
     /**
      * @var StripeLocalCard|null For most Stripe users, the source of every charge is a credit or debit card.
@@ -257,84 +235,62 @@ class StripeLocalCharge implements StripeLocalResourceInterface
      *
      * @see toStripeArray()
      */
-    private $source;
+    private ?StripeLocalCard $source = null;
 
     /**
-     * @var string|null $statementDescriptor
-     *
-     * "For card charges, use statement_descriptor_suffix instead. Otherwise, you can use this value as the complete description of a charge on your customers’ statements. Must contain at least one letter, maximum 22 characters."
+     * "For card charges, use statement_descriptor_suffix instead. Otherwise, you can use this value as the complete description of a charge on your customers’ statements. Must contain at least one letter, maximum 22 characters.".
      *
      * @see https://stripe.com/docs/api/charges/object#charge_object-statement_descriptor
      */
-    private $statementDescriptor;
+    private ?string $statementDescriptor = null;
 
     /**
-     * @var string|null
-     *
-     * "The full statement descriptor that is passed to card networks, and that is displayed on your customers’ credit card and bank statements. Allows you to see what the statement descriptor looks like after the static and dynamic portions are combined."
+     * "The full statement descriptor that is passed to card networks, and that is displayed on your customers’ credit card and bank statements. Allows you to see what the statement descriptor looks like after the static and dynamic portions are combined.".
      *
      * @see https://stripe.com/docs/api/charges/object#charge_object-calculated_statement_descriptor
      */
-    private $calculatedStatementDescriptor;
+    private ?string $calculatedStatementDescriptor = null;
 
     /**
-     * @var string|null
-     *
-     * "Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor."
+     * "Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.".
      *
      * @see https://stripe.com/docs/api/charges/object#charge_object-statement_descriptor_suffix
      */
-    private $statementDescriptorSuffix;
+    private ?string $statementDescriptorSuffix = null;
+
+    /** The status of the payment is either succeeded, pending, or failed */
+    private string $status;
 
     /**
-     * @var string
-     *
-     * The status of the payment is either succeeded, pending, or failed
-     */
-    private $status;
-
-    /**
-     * @var string|null
-     *
-     * "ID of the payment method used in this charge."
+     * "ID of the payment method used in this charge.".
      *
      * @see https://stripe.com/docs/api/charges/object#charge_object-payment_method
      */
-    private $paymentMethod;
+    private ?string $paymentMethod = null;
 
     /**
-     * @var array|null
-     *
-     * Details about the payment method at the time of the transaction
+     * Details about the payment method at the time of the transaction.
      *
      * @see https://stripe.com/docs/api/charges/object#charge_object-payment_method_details
      */
-    private $paymentMethodDetails;
+    private ?array $paymentMethodDetails = null;
 
     /**
-     * @var UriInterface|null
-     *
-     * "This is the URL to view the receipt for this charge. The receipt is kept up-to-date to the latest state of the charge, including any refunds. If the charge is for an Invoice, the receipt will be stylized as an Invoice receipt."
+     * "This is the URL to view the receipt for this charge. The receipt is kept up-to-date to the latest state of the charge, including any refunds. If the charge is for an Invoice, the receipt will be stylized as an Invoice receipt.".
      *
      * @see https://stripe.com/docs/api/charges/object#charge_object-receipt_url
      */
-    private $receiptUrl;
+    private ?UriInterface $receiptUrl = null;
 
     /**
-     * @var string|null
-     *
-     * "ID of the review associated with this charge if one exists."
+     * "ID of the review associated with this charge if one exists.".
      *
      * @see https://stripe.com/docs/api/charges/object#charge_object-review
      */
-    private $review;
+    private ?string $review = null;
 
-    /**
-     * @var bool
-     *
-     * Defines if the charge has to be immediately captured or not. Use capture() or notCapture() to set this on or off.
-     */
-    private $capture = true;
+    /** Defines if the charge has to be immediately captured or not. Use capture() or notCapture() to set this on or off. */
+    private bool $capture = true;
 
     public function __construct()
     {
