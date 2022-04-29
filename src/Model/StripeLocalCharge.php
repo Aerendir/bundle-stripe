@@ -156,14 +156,12 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     private array $billingDetails = [];
 
     /**
-     * @var bool
-     *
      * If the charge was created without capturing, this boolean represents whether or not it is still uncaptured or has
      * since been captured.
      *
      * https://stripe.com/docs/api/php#charge_object-captured
      */
-    private $captured = false;
+    private bool $captured = false;
 
     private \DateTimeInterface $created;
 
