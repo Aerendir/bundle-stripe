@@ -20,8 +20,7 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 abstract class AbstractStripeEvent extends Event
 {
-    /** @var array $stopReason */
-    private $stopReason;
+    private array $stopReason = [];
 
     public function getStopReason(): array
     {

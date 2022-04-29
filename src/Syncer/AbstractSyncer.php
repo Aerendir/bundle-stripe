@@ -23,8 +23,7 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
  */
 abstract class AbstractSyncer implements SyncerInterface
 {
-    /** @var EntityManagerInterface $entityManager */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
     {

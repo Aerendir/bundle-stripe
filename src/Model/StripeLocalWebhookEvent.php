@@ -23,17 +23,14 @@ class StripeLocalWebhookEvent implements StripeLocalResourceInterface
     /** @var string The Stripe ID of the StripeLocalWebhookEvent */
     private $id;
 
-    /** @var \DateTimeInterface $created */
-    private $created;
+    private \DateTimeInterface $created;
 
-    /** @var string $data Hash containing data associated with the event. */
-    private $data;
+    private ?string $data = null;
 
-    /** @var bool $livemode */
-    private $livemode = false;
+    private bool $livemode = false;
 
-    /** @var int $pendingWebhooks Number of webhooks yet to be delivered successfully (return a 20x response) to the URLs you’ve specified. */
-    private $pendingWebhooks;
+    /** Number of webhooks yet to be delivered successfully (return a 20x response) to the URLs you’ve specified. */
+    private int $pendingWebhooks;
 
     /**
      * ID of the API request that caused the event.
@@ -53,7 +50,7 @@ class StripeLocalWebhookEvent implements StripeLocalResourceInterface
         return $this->created;
     }
 
-    public function getData(): string
+    public function getData(): ?string
     {
         return $this->data;
     }

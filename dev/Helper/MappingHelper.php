@@ -19,11 +19,10 @@ use SerendipityHQ\Bundle\StripeBundle\Dev\Doctrine\MappingFilesLocator;
 
 class MappingHelper
 {
-    /** @var XmlDriver|null */
-    private static $driver;
+    private static ?XmlDriver $driver = null;
 
     /** @var mixed[] */
-    private static $cache = [];
+    private static array $cache = [];
 
     public static function getMappedProperty(string $localModelClass, string $property): array
     {

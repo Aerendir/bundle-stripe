@@ -97,81 +97,68 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     /** @var string */
     private const ACTION_CREATE = 'create';
 
-    /** @var string The Stripe ID of the StripeLocalCustomer */
-    private $id;
+    /** The Stripe ID of the StripeLocalCustomer */
+    private string $id;
 
-    /** @var int $balance Current balance, if any, being stored on the customer’s account. If negative, the customer has credit to apply to the next invoice. If positive, the customer has an amount owed that will be added to the next invoice. The balance does not refer to any unpaid invoices; it solely takes into account amounts that have yet to be successfully applied to any invoice. This balance is only taken into account for recurring billing purposes (i.e., subscriptions, invoices, invoice items). */
-    private $balance = 0;
+    /** Current balance, if any, being stored on the customer’s account. If negative, the customer has credit to apply to the next invoice. If positive, the customer has an amount owed that will be added to the next invoice. The balance does not refer to any unpaid invoices; it solely takes into account amounts that have yet to be successfully applied to any invoice. This balance is only taken into account for recurring billing purposes (i.e., subscriptions, invoices, invoice items). */
+    private int $balance = 0;
 
     /**
-     * @var string|null
-     *
-     * "The customer’s full name or business name."
+     * "The customer’s full name or business name.".
      *
      * @see https://stripe.com/docs/api/customers/object#customer_object-name
      */
-    private $name;
+    private ?string $name = null;
 
     /**
-     * @var AddressInterface|null
-     *
-     * "The customer’s address."
+     * "The customer’s address.".
      *
      * @see https://stripe.com/docs/api/customers/object#customer_object-address
      */
-    private $address;
+    private ?AddressInterface $address = null;
 
     /**
-     * @var PhoneInterface|null
-     *
-     * "The customer’s phone number."
+     * "The customer’s phone number.".
      *
      * @see https://stripe.com/docs/api/customers/object#customer_object-phone
      */
-    private $phone;
+    private ?PhoneInterface $phone = null;
 
-    /** @var Collection $cards */
-    private $cards;
+    private Collection $cards;
 
-    /** @var Collection $charges The charges of the customer */
-    private $charges;
+    /** The charges of the customer */
+    private Collection $charges;
 
-    /** @var \DateTimeInterface $created */
-    private $created;
+    private \DateTimeInterface $created;
 
-    /** @var Currency|null $currency The currency the customer can be charged in for recurring billing purposes. */
-    private $currency;
+    /** The currency the customer can be charged in for recurring billing purposes. */
+    private ?Currency $currency = null;
 
-    /** @var StripeLocalCard|null $defaultSource ID of the default source attached to this customer. */
-    private $defaultSource;
+    /** ID of the default source attached to this customer. */
+    private ?StripeLocalCard $defaultSource;
 
-    /** @var bool|null $delinquent Whether or not the latest charge for the customer’s latest invoice has failed. */
-    private $delinquent;
+    /** Whether or not the latest charge for the customer’s latest invoice has failed. */
+    private ?bool $delinquent;
 
-    /** @var string|null $description */
-    private $description;
+    private ?string $description = null;
 
-    /** @var EmailInterface|null $email */
-    private $email;
+    private ?EmailInterface $email = null;
 
-    /** @var bool $livemode */
-    private $livemode = false;
+    private bool $livemode = false;
 
-    /** @var array $metadata A set of key/value pairs that you can attach to a customer object. It can be useful for storing additional information about the customer in a structured format. */
-    private $metadata = [];
+    /** A set of key/value pairs that you can attach to a customer object. It can be useful for storing additional information about the customer in a structured format. */
+    private array $metadata = [];
 
     /**
-     * @var array
-     *
      * "The customer’s payment sources, if any.
-     * This field is not included by default. To include it in the response, expand the `sources` field."
+     * This field is not included by default. To include it in the response, expand the `sources` field.".
      *
      * @see https://stripe.com/docs/api/customers/object#customer_object-sources
      */
-    private $sources = [];
+    private array $sources = [];
 
-    /** @var string|null $newSource Used to create a new source for the customer. Can be null if a source already exists. */
-    private $newSource;
+    /** Used to create a new source for the customer. Can be null if a source already exists. */
+    private ?string $newSource = null;
 
     /**
      * Initializes the collections.

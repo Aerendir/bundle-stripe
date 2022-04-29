@@ -61,29 +61,24 @@ final class StripeManager
     /** @var WebhookEventSyncer */
     public $WebhookEventSyncer;
 
-    /** @var string $debug */
-    private $debug;
+    private string $debug;
 
-    /** @var string $statementDescriptor */
-    private $statementDescriptor;
+    private string $statementDescriptor;
 
-    /** @var array|null $errors Saves the errors thrown by the Stripe API */
-    private $error;
+    /** Saves the errors thrown by the Stripe API */
+    private ?array $error = null;
 
-    /** @var LoggerInterface $logger */
-    private $logger;
+    private LoggerInterface $logger;
 
-    /** @var int $retries The current number of retries. This has to ever be less than $maxRetries */
-    private $retries = 0;
+    /** The current number of retries. This has to ever be less than $maxRetries */
+    private int $retries = 0;
 
-    /** @var int $wait The time in seconds the manager has to wait before retrying the request */
-    private $wait = 1;
+    /** The time in seconds the manager has to wait before retrying the request */
+    private int $wait = 1;
 
-    /** @var ChargeSyncer $chargeSyncer */
-    private $chargeSyncer;
+    private ChargeSyncer $chargeSyncer;
 
-    /** @var CustomerSyncer $customerSyncer */
-    private $customerSyncer;
+    private CustomerSyncer $customerSyncer;
 
     public function __construct(string $secretKey, string $debug, string $statementDescriptor, ChargeSyncer $chargeSyncer, CustomerSyncer $customerSyncer, WebhookEventSyncer $webhookEventSyncer, LoggerInterface $logger = null)
     {
@@ -158,9 +153,6 @@ final class StripeManager
         return true;
     }
 
-    /**
-     * @return Customer
-     */
     public function retrieveCustomer(StripeLocalCustomer $localCustomer): ?Customer
     {
         // If no ID is set, return false

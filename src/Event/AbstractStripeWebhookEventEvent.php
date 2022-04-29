@@ -20,8 +20,7 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalWebhookEvent;
  */
 abstract class AbstractStripeWebhookEventEvent extends AbstractStripeEvent
 {
-    /** @var StripeLocalWebhookEvent $localWebhookEvent */
-    private $localWebhookEvent;
+    private StripeLocalWebhookEvent $localWebhookEvent;
 
     /**
      * @param StripeLocalWebhookEvent $localWebhookEvent The local entity representing the \Stripe\Event

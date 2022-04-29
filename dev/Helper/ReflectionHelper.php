@@ -26,8 +26,7 @@ class ReflectionHelper
 
     private const CACHE_TYPE_DOC_COMMENT = 'doc_comment';
 
-    /** @var DocBlockFactory|null */
-    private static $docBlockFactory;
+    private static ?DocBlockFactory $docBlockFactory = null;
 
     /** @var array<string, array<string, array<string, DocBlock|\ReflectionProperty>>> */
     private static $localModelsCache = [];

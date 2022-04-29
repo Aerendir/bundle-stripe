@@ -28,8 +28,7 @@
     </TypeDoesNotContainNull>
   </file>
   <file src="src/Manager/StripeManager.php">
-    <DocblockTypeContradiction occurrences="2">
-      <code>\is_null($this-&gt;statementDescriptor)</code>
+    <DocblockTypeContradiction occurrences="1">
       <code>false === $stripeCustomer</code>
     </DocblockTypeContradiction>
     <InvalidStringClass occurrences="4">
@@ -65,10 +64,11 @@
     <PossiblyUndefinedVariable occurrences="1">
       <code>$return</code>
     </PossiblyUndefinedVariable>
-    <RedundantConditionGivenDocblockType occurrences="1">
+    <RedundantCondition occurrences="1">
       <code>false === isset($params['statement_descriptor']) &amp;&amp; false === \is_null($this-&gt;statementDescriptor)</code>
-    </RedundantConditionGivenDocblockType>
-    <TypeDoesNotContainNull occurrences="1">
+    </RedundantCondition>
+    <TypeDoesNotContainNull occurrences="2">
+      <code>\is_null($this-&gt;statementDescriptor)</code>
       <code>null === $localCustomer-&gt;getId()</code>
     </TypeDoesNotContainNull>
     <TypeDoesNotContainType occurrences="1">
@@ -76,50 +76,60 @@
     </TypeDoesNotContainType>
   </file>
   <file src="src/Model/StripeLocalCard.php">
-    <PropertyNotSetInConstructor occurrences="6">
+    <PropertyNotSetInConstructor occurrences="10">
+      <code>$addressLine1Check</code>
+      <code>$addressZipCheck</code>
       <code>$brand</code>
-      <code>$expMonth</code>
-      <code>$expYear</code>
+      <code>$cvcCheck</code>
+      <code>$dynamicLast4</code>
+      <code>$fingerprint</code>
       <code>$funding</code>
       <code>$id</code>
       <code>$last4</code>
+      <code>$tokenizationMethod</code>
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Model/StripeLocalCharge.php">
-    <DocblockTypeContradiction occurrences="1">
-      <code>null === $this-&gt;amount</code>
-    </DocblockTypeContradiction>
+    <LessSpecificReturnStatement occurrences="2">
+      <code>$this-&gt;amount</code>
+      <code>$this-&gt;amountRefunded</code>
+    </LessSpecificReturnStatement>
     <MismatchingDocblockReturnType occurrences="1">
       <code>bool|string</code>
     </MismatchingDocblockReturnType>
+    <MoreSpecificReturnType occurrences="2">
+      <code>Money</code>
+      <code>Money</code>
+    </MoreSpecificReturnType>
     <PossiblyNullReference occurrences="4">
       <code>getEmail</code>
       <code>getId</code>
       <code>getId</code>
       <code>getId</code>
     </PossiblyNullReference>
-    <PropertyNotSetInConstructor occurrences="6">
+    <PropertyNotSetInConstructor occurrences="5">
       <code>$amount</code>
-      <code>$billingDetails</code>
       <code>$created</code>
       <code>$id</code>
-      <code>$refunds</code>
+      <code>$receiptNumber</code>
       <code>$status</code>
     </PropertyNotSetInConstructor>
-    <PropertyTypeCoercion occurrences="1">
-      <code>$amount</code>
-    </PropertyTypeCoercion>
     <RedundantCondition occurrences="2">
       <code>null !== $this-&gt;getCustomer()-&gt;getId()</code>
       <code>null !== $this-&gt;getMetadata()</code>
     </RedundantCondition>
+    <TypeDoesNotContainNull occurrences="1">
+      <code>null === $this-&gt;amount</code>
+    </TypeDoesNotContainNull>
   </file>
   <file src="src/Model/StripeLocalCustomer.php">
     <PossiblyNullReference occurrences="1">
       <code>getEmail</code>
     </PossiblyNullReference>
-    <PropertyNotSetInConstructor occurrences="2">
+    <PropertyNotSetInConstructor occurrences="4">
       <code>$created</code>
+      <code>$defaultSource</code>
+      <code>$delinquent</code>
       <code>$id</code>
     </PropertyNotSetInConstructor>
     <RedundantCondition occurrences="1">
@@ -127,12 +137,8 @@
     </RedundantCondition>
   </file>
   <file src="src/Model/StripeLocalWebhookEvent.php">
-    <DocblockTypeContradiction occurrences="1">
-      <code>null === $this-&gt;data</code>
-    </DocblockTypeContradiction>
-    <MissingConstructor occurrences="6">
+    <MissingConstructor occurrences="5">
       <code>$created</code>
-      <code>$data</code>
       <code>$id</code>
       <code>$pendingWebhooks</code>
       <code>$request</code>

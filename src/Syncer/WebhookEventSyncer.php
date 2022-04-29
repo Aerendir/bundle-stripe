@@ -30,14 +30,11 @@ use Stripe\Event;
  */
 final class WebhookEventSyncer extends AbstractSyncer
 {
-    /** @var CardSyncer $cardSyncer */
-    private $cardSyncer;
+    private CardSyncer $cardSyncer;
 
-    /** @var ChargeSyncer $chargeSyncer */
-    private $chargeSyncer;
+    private ChargeSyncer $chargeSyncer;
 
-    /** @var CustomerSyncer $customerSyncer */
-    private $customerSyncer;
+    private CustomerSyncer $customerSyncer;
 
     public function __construct(
         EntityManagerInterface $entityManager,
