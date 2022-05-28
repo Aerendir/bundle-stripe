@@ -102,7 +102,7 @@ final class WebhookController extends AbstractController
             return new Response('ok', 200);
         }
 
-        if (null === $localWebhookEvent) {
+        if ( ! $localWebhookEvent instanceof StripeLocalResourceInterface) {
             // Create the entity object (this will be persisted)
             $localWebhookEvent = new StripeLocalWebhookEvent();
 
