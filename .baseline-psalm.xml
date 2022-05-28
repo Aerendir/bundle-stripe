@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.22.0@fc2c6ab4d5fa5d644d8617089f012f3bb84b8703">
+<files psalm-version="4.23.0@f1fe6ff483bf325c803df9f510d09a03fd796f88">
   <file src="src/Controller/WebhookController.php">
     <PossiblyInvalidArgument occurrences="1">
       <code>$request-&gt;getContent()</code>
@@ -14,10 +14,12 @@
     <ParamNameMismatch occurrences="1">
       <code>$containerBuilder</code>
     </ParamNameMismatch>
-    <ReservedWord occurrences="2">
-      <code>$xmlFileLoader-&gt;load(sprintf('%s.xml', $config[self::DB_DRIVER]))</code>
+    <ReservedWord occurrences="1">
       <code>$yamlFileLoader-&gt;load('services.yaml')</code>
     </ReservedWord>
+    <UndefinedClass occurrences="1">
+      <code>XmlFileLoader</code>
+    </UndefinedClass>
   </file>
   <file src="src/Event/AbstractStripeChargeEvent.php">
     <MissingReturnType occurrences="1">
@@ -276,5 +278,67 @@
     <ReservedWord occurrences="1">
       <code>$loader-&gt;load($resource . '.yaml')</code>
     </ReservedWord>
+  </file>
+  <file src="vendor/symfony/console/Helper/ProgressBar.php">
+    <ParseError occurrences="12">
+      <code>,</code>
+      <code>,</code>
+      <code>,</code>
+      <code>,</code>
+      <code>:</code>
+      <code>:</code>
+      <code>=&gt;</code>
+      <code>=&gt;</code>
+      <code>=&gt;</code>
+      <code>private</code>
+      <code>private</code>
+      <code>}</code>
+    </ParseError>
+  </file>
+  <file src="vendor/symfony/dependency-injection/Argument/ServiceLocator.php">
+    <ParseError occurrences="5">
+      <code>,</code>
+      <code>,</code>
+      <code>,</code>
+      <code>=&gt;</code>
+      <code>}</code>
+    </ParseError>
+  </file>
+  <file src="vendor/symfony/dependency-injection/Loader/XmlFileLoader.php">
+    <ParseError occurrences="19">
+      <code>$element</code>
+      <code>,</code>
+      <code>,</code>
+      <code>=&gt;</code>
+      <code>case</code>
+      <code>case</code>
+      <code>case</code>
+      <code>case</code>
+      <code>case</code>
+      <code>case</code>
+      <code>default</code>
+      <code>private</code>
+      <code>private</code>
+      <code>private</code>
+      <code>private</code>
+      <code>public</code>
+      <code>public</code>
+      <code>return</code>
+      <code>}</code>
+    </ParseError>
+  </file>
+  <file src="vendor/symfony/yaml/Parser.php">
+    <ParseError occurrences="10">
+      <code>=&gt;</code>
+      <code>private</code>
+      <code>private</code>
+      <code>private</code>
+      <code>private</code>
+      <code>private</code>
+      <code>private</code>
+      <code>private</code>
+      <code>return</code>
+      <code>}</code>
+    </ParseError>
   </file>
 </files>

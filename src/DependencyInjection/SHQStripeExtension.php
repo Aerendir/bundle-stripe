@@ -49,6 +49,11 @@ final class SHQStripeExtension extends Extension implements PrependExtensionInte
         ]);
     }
 
+    /**
+     * Fails on PHP8.0 + SF~6.0.
+     *
+     * @psalm-suppress ReservedWord
+     */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
