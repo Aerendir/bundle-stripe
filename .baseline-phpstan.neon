@@ -496,11 +496,6 @@ parameters:
 			path: src/Repository/ByStripeIdInterface.php
 
 		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected type at offset 18$#"
-			count: 1
-			path: src/Repository/ByStripeIdInterface.php
-
-		-
 			message: "#^Class SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalCardRepository extends generic class Doctrine\\\\ORM\\\\EntityRepository but does not specify its types\\: TEntityClass$#"
 			count: 1
 			path: src/Repository/StripeLocalCardRepository.php
@@ -512,11 +507,6 @@ parameters:
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalCardRepository\\:\\:findOneByStripeId\\(\\) should return SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalResourceInterface\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Repository/StripeLocalCardRepository.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected type at offset 18$#"
 			count: 1
 			path: src/Repository/StripeLocalCardRepository.php
 
@@ -541,11 +531,6 @@ parameters:
 			path: src/Repository/StripeLocalChargeRepository.php
 
 		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected type at offset 18$#"
-			count: 1
-			path: src/Repository/StripeLocalChargeRepository.php
-
-		-
 			message: "#^PHPDoc tag @return with type object\\|null is not subtype of native type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalResourceInterface\\|null\\.$#"
 			count: 1
 			path: src/Repository/StripeLocalChargeRepository.php
@@ -566,11 +551,6 @@ parameters:
 			path: src/Repository/StripeLocalCustomerRepository.php
 
 		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected type at offset 18$#"
-			count: 1
-			path: src/Repository/StripeLocalCustomerRepository.php
-
-		-
 			message: "#^PHPDoc tag @return with type object\\|null is not subtype of native type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalResourceInterface\\|null\\.$#"
 			count: 1
 			path: src/Repository/StripeLocalCustomerRepository.php
@@ -587,11 +567,6 @@ parameters:
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalWebhookEventRepository\\:\\:findOneByStripeId\\(\\) should return SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalResourceInterface\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Repository/StripeLocalWebhookEventRepository.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$id\\)\\: Unexpected token \"\\$id\", expected type at offset 18$#"
 			count: 1
 			path: src/Repository/StripeLocalWebhookEventRepository.php
 
@@ -622,11 +597,6 @@ parameters:
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\AbstractSyncer\\:\\:getLocalCustomer\\(\\) has parameter \\$stripeCustomerId with no type specified\\.$#"
-			count: 1
-			path: src/Syncer/AbstractSyncer.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$stripeCustomerId\\)\\: Unexpected token \"\\$stripeCustomerId\", expected type at offset 167$#"
 			count: 1
 			path: src/Syncer/AbstractSyncer.php
 
@@ -777,11 +747,6 @@ parameters:
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Util\\\\EventGuesser\\:\\:guessEventPieces\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Util/EventGuesser.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$type\\)\\: Unexpected token \"\\$type\", expected type at offset 18$#"
 			count: 1
 			path: src/Util/EventGuesser.php
 
