@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace SerendipityHQ\Bundle\StripeBundle\DependencyInjection;
 
-use function Safe\sprintf;
 use SerendipityHQ\Bundle\StripeBundle\Dev\Command\CheckCommand;
 use SerendipityHQ\Bundle\StripeBundle\SHQStripeBundle;
 use Symfony\Component\Config\FileLocator;
@@ -23,6 +22,8 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+
+use function Safe\sprintf;
 
 /**
  * @author Adamo Aerendir Crespi <hello@aerendir.me>

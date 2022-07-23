@@ -15,8 +15,6 @@ namespace SerendipityHQ\Bundle\StripeBundle\Manager;
 
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
-use function Safe\sleep;
-use function Safe\sprintf;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
 use SerendipityHQ\Bundle\StripeBundle\SHQStripeBundle;
@@ -32,6 +30,9 @@ use Stripe\Exception\ExceptionInterface;
 use Stripe\Exception\RateLimitException;
 use Stripe\Stripe;
 
+use function Safe\sleep;
+use function Safe\sprintf;
+
 /**
  * Manages the Stripe's API calls.
  */
@@ -41,28 +42,19 @@ final class StripeManager
     private const MAX_RETRIES     = 5;
 
     private const ACTION_CREATE   = 'create';
-
     private const ACTION_RETRIEVE = 'retrieve';
-
     private const OPTIONS         = 'options';
-
     private const ID              = 'id';
-
     private const PARAMS          = 'params';
-
     private const RETRY           = 'retry';
-
     private const ERROR           = 'error';
-
     private const TYPE            = 'type';
-
     private const CODE            = 'code';
 
     /** @var WebhookEventSyncer */
     public $WebhookEventSyncer;
 
     private string $debug;
-
     private string $statementDescriptor;
 
     /** Saves the errors thrown by the Stripe API */
@@ -77,7 +69,6 @@ final class StripeManager
     private int $wait = 1;
 
     private ChargeSyncer $chargeSyncer;
-
     private CustomerSyncer $customerSyncer;
 
     public function __construct(string $secretKey, string $debug, string $statementDescriptor, ChargeSyncer $chargeSyncer, CustomerSyncer $customerSyncer, WebhookEventSyncer $webhookEventSyncer, LoggerInterface $logger = null)
@@ -312,7 +303,7 @@ final class StripeManager
                     }
 
                     break;
-                // Method with 3 arguments accept id, params and options
+                    // Method with 3 arguments accept id, params and options
                 case 3:
                     // If the value is an empty array, then set it as null
                     $params  = empty($arguments[self::PARAMS]) ? null : $arguments[self::PARAMS];
@@ -404,13 +395,13 @@ final class StripeManager
                     $return = $object->$method();
 
                     break;
-                // Method with 1 argument only accept one between "options" or "params"
+                    // Method with 1 argument only accept one between "options" or "params"
                 case 1:
                     // So we simply use the unique value in the array
                     $return = $object->$method($arguments[0]);
 
                     break;
-                // Method with 3 arguments accept id, params and options
+                    // Method with 3 arguments accept id, params and options
                 case 2:
                     // If the value is an empty array, then set it as null
                     $params  = empty($arguments[self::PARAMS]) ? null : $arguments[self::PARAMS];
@@ -498,7 +489,7 @@ final class StripeManager
             'status'             => $e->getHttpStatus(),
             self::TYPE           => $err[self::TYPE] ?? '',
             self::CODE           => $err[self::CODE] ?? '',
-            'param'              => $err['param'] ?? '',
+            'param'              => $err['param']    ?? '',
             'request_id'         => $e->getRequestId(),
             'stripe_version'     => $e->getHttpHeaders()['Stripe-Version'],
         ];

@@ -30,9 +30,6 @@ abstract class AbstractStripeBundleExtensionTest extends TestCase
     /** @var ContainerBuilder */
     private $container;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function setUp(): void
     {
         $this->extension = new SHQStripeExtension();
@@ -54,9 +51,7 @@ abstract class AbstractStripeBundleExtensionTest extends TestCase
         // Test publishable key
         self::assertSame('publishable', $this->container->getParameter('stripe_bundle.publishable_key'));
 
-        /*
-         * Test endpoint configuration
-         */
+        // Test endpoint configuration
         self::assertSame('_stripe_bundle_endpoint', $this->container->getParameter('stripe_bundle.endpoint')['route_name']);
     }
 

@@ -14,8 +14,6 @@ declare(strict_types=1);
 namespace SerendipityHQ\Bundle\StripeBundle\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-use function Safe\json_decode;
-use function Safe\sprintf;
 use SerendipityHQ\Bundle\StripeBundle\Manager\StripeManager;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalWebhookEvent;
@@ -31,6 +29,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+
+use function Safe\json_decode;
+use function Safe\sprintf;
 
 final class WebhookController extends AbstractController
 {

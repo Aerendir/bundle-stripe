@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace SerendipityHQ\Bundle\StripeBundle\Util;
 
-use function Safe\substr;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookAccountEventEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookApplicationFeeEventEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookBalanceEventEvent;
@@ -34,6 +33,8 @@ use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookSourceEventEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookTransferEventEvent;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalWebhookEvent;
 use Stripe\Event;
+
+use function Safe\substr;
 
 /**
  * Guesses the kind of event received from the Stripe's API.

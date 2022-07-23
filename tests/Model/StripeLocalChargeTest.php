@@ -58,7 +58,7 @@ final class StripeLocalChargeTest extends ModelTestCase
 
         $resource->setAmount($test['amount'])
             ->setCustomer($test['customer'])
-            /* @phan-suppress-next-line PhanTypeMismatchArgumentReal */
+            // @phan-suppress-next-line PhanTypeMismatchArgumentReal
             ->setReceiptEmail($test['receiptEmail'])
             ->setSource($test['source'])
             ->setStatementDescriptor($test['statementDescriptor']);

@@ -16,11 +16,12 @@ namespace SerendipityHQ\Bundle\StripeBundle\Model;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Money\Currency;
-use function Safe\json_decode;
-use function Safe\sprintf;
 use SerendipityHQ\Component\ValueObjects\Address\AddressInterface;
 use SerendipityHQ\Component\ValueObjects\Email\EmailInterface;
 use SerendipityHQ\Component\ValueObjects\Phone\PhoneInterface;
+
+use function Safe\json_decode;
+use function Safe\sprintf;
 
 /**
  * @author Adamo Crespi <hello@aerendir.me>
@@ -140,11 +141,9 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     /** Whether or not the latest charge for the customer’s latest invoice has failed. */
     private ?bool $delinquent;
 
-    private ?string $description = null;
-
+    private ?string $description   = null;
     private ?EmailInterface $email = null;
-
-    private bool $livemode = false;
+    private bool $livemode         = false;
 
     /** A set of key/value pairs that you can attach to a customer object. It can be useful for storing additional information about the customer in a structured format. */
     private array $metadata = [];
@@ -167,6 +166,11 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     {
         $this->charges = new ArrayCollection();
         $this->cards   = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->getId();
     }
 
     public function addCharge(StripeLocalCharge $charge): self
@@ -396,10 +400,5 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
         if (\is_string($this->getMetadata())) {
             $this->setMetadata(json_decode($this->getMetadata(), true, 512, JSON_THROW_ON_ERROR));
         }
-    }
-
-    public function __toString(): string
-    {
-        return $this->getId();
     }
 }
