@@ -69,20 +69,16 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /** @var string The Stripe ID of the card (used in conjunction with a customer or recipient ID) */
     private $id;
 
-    private ?string $addressCity = null;
-
+    private ?string $addressCity    = null;
     private ?string $addressCountry = null;
-
-    private ?string $addressLine1 = null;
+    private ?string $addressLine1   = null;
 
     /** If address_line1 was provided, results of the check: pass, fail, unavailable, or unchecked. */
     private ?string $addressLine1Check;
 
     private ?string $addressLine2 = null;
-
     private ?string $addressState = null;
-
-    private ?string $addressZip = null;
+    private ?string $addressZip   = null;
 
     /** If address_zip was provided, results of the check: pass, fail, unavailable, or unchecked. */
     private ?string $addressZipCheck;
@@ -103,8 +99,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     private ?string $dynamicLast4;
 
     private ?int $expMonth = null;
-
-    private ?int $expYear = null;
+    private ?int $expYear  = null;
 
     /** Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. */
     private ?string $fingerprint;
@@ -134,6 +129,11 @@ class StripeLocalCard implements StripeLocalResourceInterface
     public function __construct()
     {
         $this->charges = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->getId();
     }
 
     public function addCharge(StripeLocalCharge $charge): self
@@ -366,10 +366,5 @@ class StripeLocalCard implements StripeLocalResourceInterface
     public function toStripe(string $action): array
     {
         throw new \RuntimeException('Method not yet implemented.');
-    }
-
-    public function __toString(): string
-    {
-        return $this->getId();
     }
 }

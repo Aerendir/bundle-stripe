@@ -31,9 +31,7 @@ use Stripe\Event;
 final class WebhookEventSyncer extends AbstractSyncer
 {
     private CardSyncer $cardSyncer;
-
     private ChargeSyncer $chargeSyncer;
-
     private CustomerSyncer $customerSyncer;
 
     public function __construct(

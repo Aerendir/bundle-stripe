@@ -601,7 +601,7 @@ parameters:
 			path: src/Syncer/AbstractSyncer.php
 
 		-
-			message: "#^PHPDoc tag @return with type bool\\|SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer is not subtype of native type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\BaseObject\\|null\\.$#"
+			message: "#^PHPDoc tag @return with type bool\\|SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\|null is not subtype of native type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\BaseObject\\|null\\.$#"
 			count: 1
 			path: src/Syncer/AbstractSyncer.php
 

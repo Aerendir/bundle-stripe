@@ -14,12 +14,13 @@ declare(strict_types=1);
 namespace SerendipityHQ\Bundle\StripeBundle;
 
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
-use function Safe\realpath;
 use SerendipityHQ\Component\ValueObjects\Currency\Bridge\Doctrine\CurrencyType;
 use SerendipityHQ\Component\ValueObjects\Email\Bridge\Doctrine\EmailType;
 use SerendipityHQ\Component\ValueObjects\Money\Bridge\Doctrine\MoneyType;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+
+use function Safe\realpath;
 
 final class SHQStripeBundle extends Bundle
 {
