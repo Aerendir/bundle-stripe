@@ -91,7 +91,7 @@ Run "composer req symfony/domcrawler" to install it.');
         }
 
         $apiVersions            = $this->scrapeApiVersions($client, $ioWriter);
-        $supportedApiVersionKey = \array_search(SHQStripeBundle::SUPPORTED_STRIPE_API, $apiVersions);
+        $supportedApiVersionKey = \array_search(SHQStripeBundle::SUPPORTED_STRIPE_API, $apiVersions, true);
 
         if (false === $supportedApiVersionKey) {
             $ioWriter->error(sprintf("The supported API version %s seems not a valid one: it doesn't exist in Stripe documentation.", SHQStripeBundle::SUPPORTED_STRIPE_API));
