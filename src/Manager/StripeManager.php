@@ -15,8 +15,6 @@ namespace SerendipityHQ\Bundle\StripeBundle\Manager;
 
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
-use function Safe\sleep;
-use function Safe\sprintf;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
 use SerendipityHQ\Bundle\StripeBundle\SHQStripeBundle;
@@ -32,6 +30,9 @@ use Stripe\Exception\ExceptionInterface;
 use Stripe\Exception\RateLimitException;
 use Stripe\Stripe;
 
+use function Safe\sleep;
+use function Safe\sprintf;
+
 /**
  * Manages the Stripe's API calls.
  */
@@ -39,6 +40,7 @@ final class StripeManager
 {
     /** @var int How many retries should the manager has to do */
     private const MAX_RETRIES     = 5;
+
     private const ACTION_CREATE   = 'create';
     private const ACTION_RETRIEVE = 'retrieve';
     private const OPTIONS         = 'options';
@@ -52,29 +54,22 @@ final class StripeManager
     /** @var WebhookEventSyncer */
     public $WebhookEventSyncer;
 
-    /** @var string $debug */
-    private $debug;
+    private string $debug;
+    private string $statementDescriptor;
 
-    /** @var string $statementDescriptor */
-    private $statementDescriptor;
+    /** Saves the errors thrown by the Stripe API */
+    private ?array $error = null;
 
-    /** @var array|null $errors Saves the errors thrown by the Stripe API */
-    private $error;
+    private LoggerInterface $logger;
 
-    /** @var LoggerInterface $logger */
-    private $logger;
+    /** The current number of retries. This has to ever be less than $maxRetries */
+    private int $retries = 0;
 
-    /** @var int $retries The current number of retries. This has to ever be less than $maxRetries */
-    private $retries = 0;
+    /** The time in seconds the manager has to wait before retrying the request */
+    private int $wait = 1;
 
-    /** @var int $wait The time in seconds the manager has to wait before retrying the request */
-    private $wait = 1;
-
-    /** @var ChargeSyncer $chargeSyncer */
-    private $chargeSyncer;
-
-    /** @var CustomerSyncer $customerSyncer */
-    private $customerSyncer;
+    private ChargeSyncer $chargeSyncer;
+    private CustomerSyncer $customerSyncer;
 
     public function __construct(string $secretKey, string $debug, string $statementDescriptor, ChargeSyncer $chargeSyncer, CustomerSyncer $customerSyncer, WebhookEventSyncer $webhookEventSyncer, LoggerInterface $logger = null)
     {
@@ -149,9 +144,6 @@ final class StripeManager
         return true;
     }
 
-    /**
-     * @return Customer
-     */
     public function retrieveCustomer(StripeLocalCustomer $localCustomer): ?Customer
     {
         // If no ID is set, return false
@@ -311,7 +303,7 @@ final class StripeManager
                     }
 
                     break;
-                // Method with 3 arguments accept id, params and options
+                    // Method with 3 arguments accept id, params and options
                 case 3:
                     // If the value is an empty array, then set it as null
                     $params  = empty($arguments[self::PARAMS]) ? null : $arguments[self::PARAMS];
@@ -322,8 +314,8 @@ final class StripeManager
                 default:
                     throw new \RuntimeException("The arguments passed don't correspond to the allowed number. Please, review them.");
             }
-        } catch (ExceptionInterface $exceptionInterface) {
-            $retry = $this->handleException($exceptionInterface);
+        } catch (ExceptionInterface $exception) {
+            $retry = $this->handleException($exception);
 
             if ($retry) {
                 return $this->callStripeApi($endpoint, $action, $arguments);
@@ -403,13 +395,13 @@ final class StripeManager
                     $return = $object->$method();
 
                     break;
-                // Method with 1 argument only accept one between "options" or "params"
+                    // Method with 1 argument only accept one between "options" or "params"
                 case 1:
                     // So we simply use the unique value in the array
                     $return = $object->$method($arguments[0]);
 
                     break;
-                // Method with 3 arguments accept id, params and options
+                    // Method with 3 arguments accept id, params and options
                 case 2:
                     // If the value is an empty array, then set it as null
                     $params  = empty($arguments[self::PARAMS]) ? null : $arguments[self::PARAMS];
@@ -420,8 +412,8 @@ final class StripeManager
                 default:
                     throw new \RuntimeException("The arguments passed don't correspond to the allowed number. Please, review them.");
             }
-        } catch (ExceptionInterface $exceptionInterface) {
-            $return = $this->handleException($exceptionInterface);
+        } catch (ExceptionInterface $exception) {
+            $return = $this->handleException($exception);
 
             if (self::RETRY === $return) {
                 $return = $this->callStripeObject($object, $method);
@@ -436,10 +428,8 @@ final class StripeManager
 
     /**
      * This should be called only if an error exists. Use hasError().
-     *
-     * @return array|null
      */
-    public function getError(): array
+    public function getError(): ?array
     {
         return $this->error;
     }
@@ -479,9 +469,11 @@ final class StripeManager
                 if (isset($e->getJsonBody()[self::ERROR][self::TYPE])) {
                     $concatenated .= '.' . $e->getJsonBody()[self::ERROR][self::TYPE];
                 }
+
                 if (isset($e->getJsonBody()[self::ERROR][self::CODE])) {
                     $concatenated .= '.' . $e->getJsonBody()[self::ERROR][self::CODE];
                 }
+
                 if (isset($e->getJsonBody()[self::ERROR]['decline_code'])) {
                     $concatenated .= '.' . $e->getJsonBody()[self::ERROR]['decline_code'];
                 }
@@ -497,12 +489,12 @@ final class StripeManager
             'status'             => $e->getHttpStatus(),
             self::TYPE           => $err[self::TYPE] ?? '',
             self::CODE           => $err[self::CODE] ?? '',
-            'param'              => $err['param'] ?? '',
+            'param'              => $err['param']    ?? '',
             'request_id'         => $e->getRequestId(),
             'stripe_version'     => $e->getHttpHeaders()['Stripe-Version'],
         ];
 
-        if (null === $this->logger) {
+        if ( ! $this->logger instanceof LoggerInterface) {
             $this->logger->error($message, $context);
         }
 

@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace SerendipityHQ\Bundle\StripeBundle\Util;
 
-use function Safe\substr;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookAccountEventEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookApplicationFeeEventEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookBalanceEventEvent;
@@ -35,6 +34,8 @@ use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookTransferEventEvent;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalWebhookEvent;
 use Stripe\Event;
 
+use function Safe\substr;
+
 /**
  * Guesses the kind of event received from the Stripe's API.
  *
@@ -48,10 +49,12 @@ final class EventGuesser
 {
     /** @var string */
     private const TYPE = 'type';
+
     /** @var string */
     private const OBJECT = 'object';
-    /** @var bool $debug Defines if the class has to operate in debug mode or not */
-    private $debug = false;
+
+    /** Defines if the class has to operate in debug mode or not */
+    private bool $debug;
 
     public function __construct(bool $debug)
     {

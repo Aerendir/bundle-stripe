@@ -23,17 +23,12 @@ class StripeLocalWebhookEvent implements StripeLocalResourceInterface
     /** @var string The Stripe ID of the StripeLocalWebhookEvent */
     private $id;
 
-    /** @var \DateTimeInterface $created */
-    private $created;
+    private \DateTimeInterface $created;
+    private ?string $data  = null;
+    private bool $livemode = false;
 
-    /** @var string $data Hash containing data associated with the event. */
-    private $data;
-
-    /** @var bool $livemode */
-    private $livemode = false;
-
-    /** @var int $pendingWebhooks Number of webhooks yet to be delivered successfully (return a 20x response) to the URLs you’ve specified. */
-    private $pendingWebhooks;
+    /** Number of webhooks yet to be delivered successfully (return a 20x response) to the URLs you’ve specified. */
+    private int $pendingWebhooks;
 
     /**
      * ID of the API request that caused the event.
@@ -48,12 +43,17 @@ class StripeLocalWebhookEvent implements StripeLocalResourceInterface
     /** @var string $request Description of the event: e.g. invoice.created, charge.refunded, etc. */
     private $type;
 
+    public function __toString(): string
+    {
+        return $this->getId();
+    }
+
     public function getCreated(): \DateTimeInterface
     {
         return $this->created;
     }
 
-    public function getData(): string
+    public function getData(): ?string
     {
         return $this->data;
     }
@@ -99,10 +99,5 @@ class StripeLocalWebhookEvent implements StripeLocalResourceInterface
     public function toStripe(string $action): array
     {
         throw new \BadMethodCallException('You cannot create events on Stripe. This method is disabled');
-    }
-
-    public function __toString(): string
-    {
-        return $this->getId();
     }
 }

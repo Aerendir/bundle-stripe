@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace SerendipityHQ\Bundle\StripeBundle\DependencyInjection;
 
-use function Safe\sprintf;
 use SerendipityHQ\Bundle\StripeBundle\Dev\Command\CheckCommand;
 use SerendipityHQ\Bundle\StripeBundle\SHQStripeBundle;
 use Symfony\Component\Config\FileLocator;
@@ -24,6 +23,8 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
+use function Safe\sprintf;
+
 /**
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
@@ -31,6 +32,7 @@ final class SHQStripeExtension extends Extension implements PrependExtensionInte
 {
     /** @var string */
     private const DB_DRIVER = 'db_driver';
+
     /** @var string */
     private const STRIPE_CONFIG = 'stripe_config';
 
@@ -48,6 +50,11 @@ final class SHQStripeExtension extends Extension implements PrependExtensionInte
         ]);
     }
 
+    /**
+     * Fails on PHP8.0 + SF~6.0.
+     *
+     * @psalm-suppress ReservedWord
+     */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();

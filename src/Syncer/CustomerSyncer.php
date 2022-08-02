@@ -31,8 +31,7 @@ use Stripe\Customer;
  */
 final class CustomerSyncer extends AbstractSyncer
 {
-    /** @var CardSyncer $cardSyncer */
-    private $cardSyncer;
+    private CardSyncer $cardSyncer;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -217,6 +216,7 @@ final class CustomerSyncer extends AbstractSyncer
             if (null === $stripeResource->sources) {
                 \dd($stripeResource);
             }
+
             if (false === $this->sourceExists($card, $stripeResource->sources)) {
                 // The card doesn't exists on the Stripe account: remove it from the local one
                 $this->getEntityManager()->remove($card);

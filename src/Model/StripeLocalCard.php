@@ -69,74 +69,59 @@ class StripeLocalCard implements StripeLocalResourceInterface
     /** @var string The Stripe ID of the card (used in conjunction with a customer or recipient ID) */
     private $id;
 
-    /** @var string|null $addressCity */
-    private $addressCity;
+    private ?string $addressCity    = null;
+    private ?string $addressCountry = null;
+    private ?string $addressLine1   = null;
 
-    /** @var string|null */
-    private $addressCountry;
+    /** If address_line1 was provided, results of the check: pass, fail, unavailable, or unchecked. */
+    private ?string $addressLine1Check;
 
-    /** @var string|null */
-    private $addressLine1;
+    private ?string $addressLine2 = null;
+    private ?string $addressState = null;
+    private ?string $addressZip   = null;
 
-    /** @var string|null $addressLine1Check If address_line1 was provided, results of the check: pass, fail, unavailable, or unchecked. */
-    private $addressLine1Check;
+    /** If address_zip was provided, results of the check: pass, fail, unavailable, or unchecked. */
+    private ?string $addressZipCheck;
 
-    /** @var string|null */
-    private $addressLine2;
+    /** Card brand. Can be Visa, American Express, MasterCard, Discover, JCB, Diners Club, or Unknown. */
+    private ?string $brand;
 
-    /** @var string|null */
-    private $addressState;
+    /** $country Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you’ve collected. */
+    private ?string $country = null;
 
-    /** @var string|null */
-    private $addressZip;
+    /** The customer that this card belongs to. This attribute will not be in the card object if the card belongs to an account or recipient instead. */
+    private ?StripeLocalCustomer $customer = null;
 
-    /** @var string|null $addressZipCheck If address_zip was provided, results of the check: pass, fail, unavailable, or unchecked. */
-    private $addressZipCheck;
+    /** If a CVC was provided, results of the check: pass, fail, unavailable, or unchecked */
+    private ?string $cvcCheck;
 
-    /** @var string $brand Card brand. Can be Visa, American Express, MasterCard, Discover, JCB, Diners Club, or Unknown. */
-    private $brand;
+    /** (For tokenized numbers only.) The last four digits of the device account number. */
+    private ?string $dynamicLast4;
 
-    /** @var string|null $country Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you’ve collected. */
-    private $country;
+    private ?int $expMonth = null;
+    private ?int $expYear  = null;
 
-    /** @var StripeLocalCustomer|null $customer The customer that this card belongs to. This attribute will not be in the card object if the card belongs to an account or recipient instead. */
-    private $customer;
+    /** Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. */
+    private ?string $fingerprint;
 
-    /** @var string|null $cvcCheck If a CVC was provided, results of the check: pass, fail, unavailable, or unchecked */
-    private $cvcCheck;
+    /** Card funding type. Can be credit, debit, prepaid, or unknown */
+    private string $funding;
 
-    /** @var string|null $dynamicLast4 (For tokenized numbers only.) The last four digits of the device account number. */
-    private $dynamicLast4;
+    private string $last4;
 
-    /** @var int */
-    private $expMonth;
+    /** A set of key/value pairs that you can attach to a card object. It can be useful for storing additional information about the card in a structured format. */
+    private array $metadata = [];
 
-    /** @var int */
-    private $expYear;
+    /** Cardholder name */
+    private ?string $name = null;
 
-    /** @var string|null $fingerprint Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. */
-    private $fingerprint;
+    /** If the card number is tokenized, this is the method that was used. Can be apple_pay or android_pay. */
+    private ?string $tokenizationMethod;
 
-    /** @var string Card funding type. Can be credit, debit, prepaid, or unknown */
-    private $funding;
+    private Collection $charges;
 
-    /** @var string */
-    private $last4;
-
-    /** @var array $metadata A set of key/value pairs that you can attach to a card object. It can be useful for storing additional information about the card in a structured format. */
-    private $metadata = [];
-
-    /** @var string|null $name Cardholder name */
-    private $name;
-
-    /** @var string|null $tokenizationMethod If the card number is tokenized, this is the method that was used. Can be apple_pay or android_pay. */
-    private $tokenizationMethod;
-
-    /** @var Collection $charges */
-    private $charges;
-
-    /** @var string|null $error If an error occurred with the card, it is stored here. */
-    private $error;
+    /** If an error occurred with the card, it is stored here. */
+    private ?string $error = null;
 
     /**
      * Initializes collections.
@@ -144,6 +129,11 @@ class StripeLocalCard implements StripeLocalResourceInterface
     public function __construct()
     {
         $this->charges = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->getId();
     }
 
     public function addCharge(StripeLocalCharge $charge): self
@@ -202,7 +192,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
         return $this->addressZipCheck;
     }
 
-    public function getBrand(): string
+    public function getBrand(): ?string
     {
         return $this->brand;
     }
@@ -212,12 +202,12 @@ class StripeLocalCard implements StripeLocalResourceInterface
         return $this->charges;
     }
 
-    public function getCountry(): string
+    public function getCountry(): ?string
     {
         return $this->country;
     }
 
-    public function getCustomer(): StripeLocalCustomer
+    public function getCustomer(): ?StripeLocalCustomer
     {
         return $this->customer;
     }
@@ -232,12 +222,12 @@ class StripeLocalCard implements StripeLocalResourceInterface
         return $this->dynamicLast4;
     }
 
-    public function getExpMonth(): int
+    public function getExpMonth(): ?int
     {
         return $this->expMonth;
     }
 
-    public function getExpYear(): int
+    public function getExpYear(): ?int
     {
         return $this->expYear;
     }
@@ -376,10 +366,5 @@ class StripeLocalCard implements StripeLocalResourceInterface
     public function toStripe(string $action): array
     {
         throw new \RuntimeException('Method not yet implemented.');
-    }
-
-    public function __toString(): string
-    {
-        return $this->getId();
     }
 }

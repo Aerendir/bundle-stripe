@@ -22,8 +22,10 @@ final class StripeChargeCreateEvent extends AbstractStripeChargeEvent
 {
     /** @var string */
     public const CREATE  = 'stripe.local.charge.create';
+
     /** @var string */
     public const CREATED = 'stripe.local.charge.created';
+
     /** @var string */
     public const FAILED  = 'stripe.local.charge.create_failed';
 }

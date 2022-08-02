@@ -13,9 +13,10 @@ declare(strict_types=1);
 
 namespace SerendipityHQ\Bundle\StripeBundle\DependencyInjection;
 
-use function Safe\json_encode;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+
+use function Safe\json_encode;
 
 /**
  * @author Adamo Aerendir Crespi <hello@aerendir.me>

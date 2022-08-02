@@ -23,8 +23,7 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
  */
 abstract class AbstractSyncer implements SyncerInterface
 {
-    /** @var EntityManagerInterface $entityManager */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -42,7 +41,7 @@ abstract class AbstractSyncer implements SyncerInterface
      *
      * @param $stripeCustomerId
      *
-     * @return bool|StripeLocalCustomer false if the StripeLocalCustomer was not found
+     * @return bool|StripeLocalCustomer|null false if the StripeLocalCustomer was not found
      */
     protected function getLocalCustomer($stripeCustomerId): ?BaseObject
     {

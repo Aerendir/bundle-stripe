@@ -36,13 +36,13 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 final class CheckCommand extends Command
 {
     private const MAPPING_NULLABLE = 'nullable';
+
     private const MAPPING_TYPE     = 'type';
 
     /** @var string */
     protected static $defaultName = 'stripe:dev:check';
 
-    /** @var int $return */
-    private $return = 0;
+    private int $return = 0;
 
     protected function configure(): void
     {

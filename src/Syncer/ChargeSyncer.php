@@ -31,8 +31,7 @@ use Stripe\StripeObject;
  */
 final class ChargeSyncer extends AbstractSyncer
 {
-    /** @var CardSyncer $cardSyncer */
-    private $cardSyncer;
+    private CardSyncer $cardSyncer;
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -160,6 +159,7 @@ final class ChargeSyncer extends AbstractSyncer
                         $email = \trim($email);
                         $email = new Email($email);
                     }
+
                     $reflectedProperty->setValue($localResource, $email);
 
                     break;
