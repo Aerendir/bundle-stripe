@@ -24,7 +24,7 @@
         "symfony/event-dispatcher": "^4.4|^5.4|^6.0",
         "symfony/framework-bundle": "^4.4|^5.4|^6.0",
         "symfony/translation": "^4.4|^5.4|^6.0",
-        "thecodingmachine/safe": "^1.0"
+        "thecodingmachine/safe": "^1.0|^2.0"
     },
     "require-dev": {
         "ext-ast": "*",
