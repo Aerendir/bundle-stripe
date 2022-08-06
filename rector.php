@@ -30,6 +30,6 @@ return static function (RectorConfig $rectorConfig): void {
     // $rectorConfig->bootstrapFiles([__DIR__ . '/vendor-bin/phpunit/vendor/autoload.php']);
     $rectorConfig->import(SerendipityHQ::SHQ_SYMFONY_BUNDLE);
 
-    $toSkip = SerendipityHQ::buildToSkip(SerendipityHQ::SHQ_SYMFONY_BUNDLE_SKIP);
+    $toSkip = SerendipityHQ::buildToSkip(array_merge(SerendipityHQ::SHQ_SYMFONY_BUNDLE_SKIP, [\Rector\CodeQuality\Rector\PropertyFetch\ExplicitMethodCallOverMagicGetSetRector::class]));
     $rectorConfig->skip($toSkip);
 };

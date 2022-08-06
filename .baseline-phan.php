@@ -28,6 +28,7 @@ return [
     // PhanParamTooFewInternalUnpack : 1 occurrence
     // PhanPossiblyInfiniteRecursionSameParams : 1 occurrence
     // PhanTypeExpectedObjectPropAccess : 1 occurrence
+    // PhanTypeMismatchPropertyProbablyReal : 1 occurrence
     // PhanTypeMismatchReturnSuperType : 1 occurrence
     // PhanUndeclaredExtendedClass : 1 occurrence
     // PhanUndeclaredProperty : 1 occurrence
@@ -75,7 +76,7 @@ return [
         'src/Subscriber/StripeChargeSubscriber.php' => ['PhanTypeMismatchArgumentNullable', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
         'src/Subscriber/StripeCustomerSubscriber.php' => ['PhanTypeMismatchArgumentNullable', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
         'src/Syncer/AbstractSyncer.php' => ['PhanTypeMismatchDeclaredReturn', 'PhanUndeclaredTypeReturnType'],
-        'src/Syncer/CustomerSyncer.php' => ['PhanTypeExpectedObjectPropAccess'],
+        'src/Syncer/CustomerSyncer.php' => ['PhanTypeExpectedObjectPropAccess', 'PhanTypeMismatchPropertyProbablyReal'],
         'src/Syncer/WebhookEventSyncer.php' => ['PhanUnusedPublicFinalMethodParameter'],
         'tests/DependencyInjection/AbstractStripeBundleExtensionTest.php' => ['PhanRedefinedExtendedClass', 'PhanTypeArraySuspiciousNullable', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedProtectedMethod', 'PhanUnreferencedPublicMethod'],
         'tests/DependencyInjection/YamlStripeBundleExtensionTest.php' => ['PhanUndeclaredMethod', 'PhanUnreferencedClass'],
