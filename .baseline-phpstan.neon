@@ -391,6 +391,11 @@ parameters:
 			path: src/Model/StripeLocalCustomer.php
 
 		-
+			message: "#^Parameter \\#1 \\$code of class Money\\\\Currency constructor expects non\\-empty\\-string, string given\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCustomer.php
+
+		-
 			message: "#^Parameter \\#1 \\$metadata of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:setMetadata\\(\\) expects array, mixed given\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCustomer.php
