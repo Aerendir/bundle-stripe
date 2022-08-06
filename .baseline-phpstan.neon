@@ -626,7 +626,7 @@ parameters:
 			path: src/Syncer/ChargeSyncer.php
 
 		-
-			message: "#^Cannot access property \\$id on Stripe\\\\Account\\|Stripe\\\\AlipayAccount\\|Stripe\\\\BankAccount\\|Stripe\\\\BitcoinReceiver\\|Stripe\\\\Card\\|Stripe\\\\Source\\|null\\.$#"
+			message: "#^Cannot access property \\$id on Stripe\\\\Account\\|Stripe\\\\BankAccount\\|Stripe\\\\Card\\|Stripe\\\\Source\\|null\\.$#"
 			count: 1
 			path: src/Syncer/ChargeSyncer.php
 
@@ -656,14 +656,9 @@ parameters:
 			path: src/Syncer/ChargeSyncer.php
 
 		-
-			message: "#^Parameter \\#2 \\$stripeResource of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\CardSyncer\\:\\:syncLocalFromStripe\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\Account\\|Stripe\\\\AlipayAccount\\|Stripe\\\\BankAccount\\|Stripe\\\\BitcoinReceiver\\|Stripe\\\\Card\\|Stripe\\\\Source\\|null given\\.$#"
+			message: "#^Parameter \\#2 \\$stripeResource of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\CardSyncer\\:\\:syncLocalFromStripe\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\Account\\|Stripe\\\\BankAccount\\|Stripe\\\\Card\\|Stripe\\\\Source\\|null given\\.$#"
 			count: 1
 			path: src/Syncer/ChargeSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\AlipayAccount\\|Stripe\\\\BankAccount\\|Stripe\\\\BitcoinReceiver\\|Stripe\\\\Card\\|Stripe\\\\Source\\:\\:\\$id\\.$#"
-			count: 1
-			path: src/Syncer/CustomerSyncer.php
 
 		-
 			message: "#^Access to an undefined property Stripe\\\\Customer\\:\\:\\$source\\.$#"
@@ -706,7 +701,7 @@ parameters:
 			path: src/Syncer/CustomerSyncer.php
 
 		-
-			message: "#^Parameter \\#2 \\$sourceId of static method Stripe\\\\Customer\\:\\:retrieveSource\\(\\) expects string, string\\|Stripe\\\\Account\\|Stripe\\\\AlipayAccount\\|Stripe\\\\BankAccount\\|Stripe\\\\BitcoinReceiver\\|Stripe\\\\Card\\|Stripe\\\\Source\\|null given\\.$#"
+			message: "#^Parameter \\#2 \\$sourceId of static method Stripe\\\\Customer\\:\\:retrieveSource\\(\\) expects string, string\\|Stripe\\\\Account\\|Stripe\\\\BankAccount\\|Stripe\\\\Card\\|Stripe\\\\Source\\|null given\\.$#"
 			count: 1
 			path: src/Syncer/CustomerSyncer.php
 
