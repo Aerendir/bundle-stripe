@@ -17,6 +17,7 @@ use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappi
 use SerendipityHQ\Component\ValueObjects\Currency\Bridge\Doctrine\CurrencyType;
 use SerendipityHQ\Component\ValueObjects\Email\Bridge\Doctrine\EmailType;
 use SerendipityHQ\Component\ValueObjects\Money\Bridge\Doctrine\MoneyType;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -36,7 +37,7 @@ final class SHQStripeBundle extends Bundle
         ];
 
         $container->addCompilerPass(
-            $this->getXmlMappingDriver($mappings)
+            $this->getXmlMappingDriver($mappings), PassConfig::TYPE_BEFORE_OPTIMIZATION, 0
         );
 
         // Register Value Object custom types

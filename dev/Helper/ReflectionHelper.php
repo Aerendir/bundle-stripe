@@ -29,10 +29,10 @@ class ReflectionHelper
     private static ?DocBlockFactory $docBlockFactory = null;
 
     /** @var array<string, array<string, array<string, DocBlock|\ReflectionProperty>>> */
-    private static $localModelsCache = [];
+    private static array $localModelsCache = [];
 
     /** @var array<string, array<string,Property>> */
-    private static $sdkModelsCache = [];
+    private static array $sdkModelsCache = [];
 
     /**
      * @return array<string, \ReflectionProperty>

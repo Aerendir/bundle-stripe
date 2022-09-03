@@ -100,7 +100,7 @@ final class WebhookController extends AbstractController
                 }
             }
 
-            return new Response('ok', 200);
+            return new Response('ok', Response::HTTP_OK);
         }
 
         if ( ! $localWebhookEvent instanceof StripeLocalResourceInterface) {
@@ -116,6 +116,6 @@ final class WebhookController extends AbstractController
 
         $eventDispatcher->dispatch($guessedDispatchingEvent['type'], $guessedDispatchingEvent[self::OBJECT]);
 
-        return new Response('ok', 200);
+        return new Response('ok', Response::HTTP_OK);
     }
 }

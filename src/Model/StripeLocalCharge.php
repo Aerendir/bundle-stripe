@@ -117,7 +117,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     ];
 
     /** @var string The Stripe ID of the StripeLocalCharge */
-    private $id;
+    private string $id;
 
     /**
      * "A positive integer in the smallest currency unit (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a
@@ -226,7 +226,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
     private ?Email $receiptEmail = null;
 
     /** This is the transaction number that appears on email receipts sent for this charge. */
-    private ?string $receiptNumber;
+    private ?string $receiptNumber = null;
 
     /**
      * @var StripeLocalCard|null For most Stripe users, the source of every charge is a credit or debit card.
