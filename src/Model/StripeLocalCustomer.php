@@ -136,10 +136,10 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
     private ?Currency $currency = null;
 
     /** ID of the default source attached to this customer. */
-    private ?StripeLocalCard $defaultSource;
+    private ?StripeLocalCard $defaultSource = null;
 
-    /** Whether or not the latest charge for the customer’s latest invoice has failed. */
-    private ?bool $delinquent;
+    /** Whether the latest charge for the customer’s latest invoice has failed. */
+    private ?bool $delinquent = null;
 
     private ?string $description   = null;
     private ?EmailInterface $email = null;

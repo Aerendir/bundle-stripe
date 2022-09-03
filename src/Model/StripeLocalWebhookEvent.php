@@ -21,7 +21,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\Model;
 class StripeLocalWebhookEvent implements StripeLocalResourceInterface
 {
     /** @var string The Stripe ID of the StripeLocalWebhookEvent */
-    private $id;
+    private string $id;
 
     private \DateTimeInterface $created;
     private ?string $data  = null;
@@ -35,13 +35,11 @@ class StripeLocalWebhookEvent implements StripeLocalResourceInterface
      *
      * If null, the event was automatic (e.g. Stripe’s automatic subscription handling).
      * Request logs are available in the dashboard but currently not in the API.
-     *
-     * @var string
      */
-    private $request;
+    private string $request;
 
-    /** @var string $request Description of the event: e.g. invoice.created, charge.refunded, etc. */
-    private $type;
+    /** @var string $type Description of the event: e.g. invoice.created, charge.refunded, etc. */
+    private string $type;
 
     public function __toString(): string
     {

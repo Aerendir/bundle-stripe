@@ -39,7 +39,7 @@ class MappingHelper
         $embeddedClassesReflectedProperty->setAccessible(true);
         $embeddables = \array_keys($metadataInfo->embeddedClasses);
 
-        return \array_merge($fieldNames, $embeddables);
+        return [...$fieldNames, ...$embeddables];
     }
 
     public static function getMappedAssociations(string $localModelClass): array

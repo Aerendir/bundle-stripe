@@ -67,24 +67,24 @@ class StripeLocalCard implements StripeLocalResourceInterface
     ];
 
     /** @var string The Stripe ID of the card (used in conjunction with a customer or recipient ID) */
-    private $id;
+    private string $id;
 
     private ?string $addressCity    = null;
     private ?string $addressCountry = null;
     private ?string $addressLine1   = null;
 
     /** If address_line1 was provided, results of the check: pass, fail, unavailable, or unchecked. */
-    private ?string $addressLine1Check;
+    private ?string $addressLine1Check = null;
 
     private ?string $addressLine2 = null;
     private ?string $addressState = null;
     private ?string $addressZip   = null;
 
     /** If address_zip was provided, results of the check: pass, fail, unavailable, or unchecked. */
-    private ?string $addressZipCheck;
+    private ?string $addressZipCheck = null;
 
     /** Card brand. Can be Visa, American Express, MasterCard, Discover, JCB, Diners Club, or Unknown. */
-    private ?string $brand;
+    private ?string $brand = null;
 
     /** $country Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you’ve collected. */
     private ?string $country = null;
@@ -93,16 +93,16 @@ class StripeLocalCard implements StripeLocalResourceInterface
     private ?StripeLocalCustomer $customer = null;
 
     /** If a CVC was provided, results of the check: pass, fail, unavailable, or unchecked */
-    private ?string $cvcCheck;
+    private ?string $cvcCheck = null;
 
     /** (For tokenized numbers only.) The last four digits of the device account number. */
-    private ?string $dynamicLast4;
+    private ?string $dynamicLast4 = null;
 
     private ?int $expMonth = null;
     private ?int $expYear  = null;
 
     /** Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. */
-    private ?string $fingerprint;
+    private ?string $fingerprint = null;
 
     /** Card funding type. Can be credit, debit, prepaid, or unknown */
     private string $funding;
@@ -116,7 +116,7 @@ class StripeLocalCard implements StripeLocalResourceInterface
     private ?string $name = null;
 
     /** If the card number is tokenized, this is the method that was used. Can be apple_pay or android_pay. */
-    private ?string $tokenizationMethod;
+    private ?string $tokenizationMethod = null;
 
     private Collection $charges;
 
