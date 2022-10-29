@@ -36,19 +36,23 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 final class CheckCommand extends Command
 {
     private const MAPPING_NULLABLE = 'nullable';
-
     private const MAPPING_TYPE     = 'type';
 
     /** @var string */
     protected static $defaultName = 'stripe:dev:check';
 
+    /**
+     * @var string
+     *
+     * @todo Remove PhanSuppress when dropping support for PHP74 and SF44
+     * @phan-suppress-next-line PhanUnreferencedProtectedProperty
+     */
+    protected static $defaultDescription = 'Checks API compatibility between Stripe, this bundle and your Symfony app.';
     private int $return = 0;
 
     protected function configure(): void
     {
-        $this
-            ->setDescription('Checks API compatibility between Stripe, this bundle and your Symfony app.')
-            ->addOption('skip-api', null, InputOption::VALUE_NONE, 'Do not check the implemented API is the last one released by Stripe.')
+        $this->addOption('skip-api', null, InputOption::VALUE_NONE, 'Do not check the implemented API is the last one released by Stripe.')
             ->addOption('skip-models', null, InputOption::VALUE_NONE, 'Do not check local and SDK models are in sync.');
     }
 
