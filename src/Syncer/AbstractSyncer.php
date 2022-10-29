@@ -39,8 +39,6 @@ abstract class AbstractSyncer implements SyncerInterface
      * Gets the local customer object searching for it in the database or in the newly created entities persisted but
      * not yet flushed.
      *
-     * @param $stripeCustomerId
-     *
      * @return bool|StripeLocalCustomer|null false if the StripeLocalCustomer was not found
      */
     protected function getLocalCustomer($stripeCustomerId): ?BaseObject
