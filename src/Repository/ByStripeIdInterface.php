@@ -22,8 +22,5 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;
  */
 interface ByStripeIdInterface
 {
-    /**
-     * @param $id
-     */
     public function findOneByStripeId($id): ?StripeLocalResourceInterface;
 }
