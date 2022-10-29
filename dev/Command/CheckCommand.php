@@ -41,7 +41,12 @@ final class CheckCommand extends Command
     /** @var string */
     protected static $defaultName = 'stripe:dev:check';
 
-    /** @var string */
+    /**
+     * @var string
+     *
+     * @todo Remove PhanSuppress when dropping support for PHP74 and SF44
+     * @phan-suppress-next-line PhanUnreferencedProtectedProperty
+     */
     protected static $defaultDescription = 'Checks API compatibility between Stripe, this bundle and your Symfony app.';
     private int $return = 0;
 

@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.29.0@7ec5ffbd5f68ae03782d7fd33fff0c45a69f95b3">
   <file src="src/Controller/WebhookController.php">
-    <DeprecatedFunction occurrences="2">
-      <code>sprintf('SerendipityHQ\Bundle\StripeBundle\Model\StripeLocal%s', $objectType)</code>
-      <code>sprintf('There is no syncer configured for object of type "%s".', $objectType)</code>
-    </DeprecatedFunction>
     <PossiblyInvalidArgument occurrences="1">
       <code>$request-&gt;getContent()</code>
     </PossiblyInvalidArgument>
@@ -15,10 +11,6 @@
     </PossiblyUndefinedMethod>
   </file>
   <file src="src/DependencyInjection/SHQStripeExtension.php">
-    <DeprecatedFunction occurrences="2">
-      <code>sprintf('%s.xml', $config[self::DB_DRIVER])</code>
-      <code>sprintf('stripe_bundle.backend_%s', $config[self::DB_DRIVER])</code>
-    </DeprecatedFunction>
     <ParamNameMismatch occurrences="1">
       <code>$containerBuilder</code>
     </ParamNameMismatch>
@@ -35,10 +27,6 @@
     </TypeDoesNotContainNull>
   </file>
   <file src="src/Manager/StripeManager.php">
-    <DeprecatedFunction occurrences="2">
-      <code>sprintf('The response is not of the expected type %s.', Customer::class)</code>
-      <code>sprintf('The response is not of the expected type %s.', Event::class)</code>
-    </DeprecatedFunction>
     <DocblockTypeContradiction occurrences="1">
       <code>false === $stripeCustomer</code>
     </DocblockTypeContradiction>
@@ -126,9 +114,6 @@
     </TypeDoesNotContainNull>
   </file>
   <file src="src/Model/StripeLocalCustomer.php">
-    <DeprecatedFunction occurrences="1">
-      <code>sprintf('The token you passed seems not to be a card token: %s', $source)</code>
-    </DeprecatedFunction>
     <PossiblyNullReference occurrences="1">
       <code>getEmail</code>
     </PossiblyNullReference>
@@ -255,9 +240,6 @@
     </UndefinedMagicPropertyFetch>
   </file>
   <file src="src/Util/EventGuesser.php">
-    <DeprecatedFunction occurrences="1">
-      <code>substr($type, 0, $dotPosition)</code>
-    </DeprecatedFunction>
     <PossiblyFalseArgument occurrences="1">
       <code>$dotPosition</code>
     </PossiblyFalseArgument>
