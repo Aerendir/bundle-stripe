@@ -9,8 +9,8 @@ Step 1: Download the Bundle
 Open a command console, enter your project directory and execute the
 following command to download the latest stable version of this bundle:
 
-```console
-$ composer require serendipity_hq/stripe-bundle "^0@dev"
+```bash
+composer require serendipity_hq/bundle-stripe
 ```
 
 Note: Add `@dev` to get the last development version. This version may not be stable.
