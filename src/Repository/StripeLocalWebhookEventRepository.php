@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace SerendipityHQ\Bundle\StripeBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalWebhookEvent;
 
 /**
@@ -23,7 +22,6 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalWebhookEvent;
  */
 final class StripeLocalWebhookEventRepository extends EntityRepository implements ByStripeIdInterface
 {
-
     public function findOneByStripeId($id): ?StripeLocalWebhookEvent
     {
         return $this->findOneBy(['id' => \mb_strtolower($id)]);

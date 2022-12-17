@@ -15,6 +15,7 @@ namespace SerendipityHQ\Bundle\StripeBundle\Syncer;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
+use Stripe\Customer;
 
 /**
  * An abstract class that all helpers extend.
@@ -39,9 +40,9 @@ abstract class AbstractSyncer implements SyncerInterface
      * Gets the local customer object searching for it in the database or in the newly created entities persisted but
      * not yet flushed.
      *
-     * @return bool|StripeLocalCustomer|null false if the StripeLocalCustomer was not found
+     * @param Customer|string|null $stripeCustomerId
      *
-     * @param \Stripe\Customer|null|string $stripeCustomerId
+     * @return bool|StripeLocalCustomer|null false if the StripeLocalCustomer was not found
      */
     protected function getLocalCustomer($stripeCustomerId): ?StripeLocalCustomer
     {

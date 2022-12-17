@@ -15,7 +15,6 @@ namespace SerendipityHQ\Bundle\StripeBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard;
-use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;
 
 /**
  * @author Audrius Karabanovas <audrius@karabanovas.net>
