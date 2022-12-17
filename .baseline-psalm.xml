@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.30.0@d0bc6e25d89f649e4f36a534f330f8bb4643dd69">
   <file src="src/Controller/WebhookController.php">
-    <PossiblyInvalidArgument occurrences="1">
-      <code>$request-&gt;getContent()</code>
-    </PossiblyInvalidArgument>
+    <DocblockTypeContradiction occurrences="1">
+      <code>false === is_string($encodedContent)</code>
+    </DocblockTypeContradiction>
+    <RedundantConditionGivenDocblockType occurrences="1">
+      <code>is_string($encodedContent)</code>
+    </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/DependencyInjection/Configuration.php">
     <PossiblyUndefinedMethod occurrences="1">
