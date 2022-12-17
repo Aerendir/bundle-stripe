@@ -23,10 +23,8 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;
  */
 final class StripeLocalChargeRepository extends EntityRepository implements ByStripeIdInterface
 {
-    /**
-     * @return object|StripeLocalCharge|null
-     */
-    public function findOneByStripeId($id): ?StripeLocalResourceInterface
+
+    public function findOneByStripeId($id): ?StripeLocalCharge
     {
         return $this->findOneBy(['id' => \mb_strtolower($id)]);
     }

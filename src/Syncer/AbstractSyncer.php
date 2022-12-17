@@ -40,8 +40,10 @@ abstract class AbstractSyncer implements SyncerInterface
      * not yet flushed.
      *
      * @return bool|StripeLocalCustomer|null false if the StripeLocalCustomer was not found
+     *
+     * @param \Stripe\Customer|null|string $stripeCustomerId
      */
-    protected function getLocalCustomer($stripeCustomerId): ?BaseObject
+    protected function getLocalCustomer($stripeCustomerId): ?StripeLocalCustomer
     {
         $localCustomer =
             // First try to get the customer from the database

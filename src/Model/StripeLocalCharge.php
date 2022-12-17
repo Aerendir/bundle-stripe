@@ -354,9 +354,6 @@ class StripeLocalCharge implements StripeLocalResourceInterface
         return $this->metadata;
     }
 
-    /**
-     * @return bool|string
-     */
     public function getPaid(): bool
     {
         return $this->paid;

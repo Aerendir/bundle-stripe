@@ -23,10 +23,8 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalWebhookEvent;
  */
 final class StripeLocalWebhookEventRepository extends EntityRepository implements ByStripeIdInterface
 {
-    /**
-     * @return object|StripeLocalWebhookEvent|null
-     */
-    public function findOneByStripeId($id): ?StripeLocalResourceInterface
+
+    public function findOneByStripeId($id): ?StripeLocalWebhookEvent
     {
         return $this->findOneBy(['id' => \mb_strtolower($id)]);
     }
