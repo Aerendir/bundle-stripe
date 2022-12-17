@@ -89,9 +89,6 @@
       <code>$this-&gt;amount</code>
       <code>$this-&gt;amountRefunded</code>
     </LessSpecificReturnStatement>
-    <MismatchingDocblockReturnType occurrences="1">
-      <code>bool|string</code>
-    </MismatchingDocblockReturnType>
     <MoreSpecificReturnType occurrences="2">
       <code>Money</code>
       <code>Money</code>
@@ -143,36 +140,24 @@
     </MissingParamType>
   </file>
   <file src="src/Repository/StripeLocalCardRepository.php">
-    <LessSpecificImplementedReturnType occurrences="1">
-      <code>object|StripeLocalCard|null</code>
-    </LessSpecificImplementedReturnType>
-    <MismatchingDocblockReturnType occurrences="1">
-      <code>object|StripeLocalCard|null</code>
-    </MismatchingDocblockReturnType>
+    <MissingParamType occurrences="1">
+      <code>$id</code>
+    </MissingParamType>
   </file>
   <file src="src/Repository/StripeLocalChargeRepository.php">
-    <LessSpecificImplementedReturnType occurrences="1">
-      <code>object|StripeLocalCharge|null</code>
-    </LessSpecificImplementedReturnType>
-    <MismatchingDocblockReturnType occurrences="1">
-      <code>object|StripeLocalCharge|null</code>
-    </MismatchingDocblockReturnType>
+    <MissingParamType occurrences="1">
+      <code>$id</code>
+    </MissingParamType>
   </file>
   <file src="src/Repository/StripeLocalCustomerRepository.php">
-    <LessSpecificImplementedReturnType occurrences="1">
-      <code>object|StripeLocalCustomer|null</code>
-    </LessSpecificImplementedReturnType>
-    <MismatchingDocblockReturnType occurrences="1">
-      <code>object|StripeLocalCustomer|null</code>
-    </MismatchingDocblockReturnType>
+    <MissingParamType occurrences="1">
+      <code>$id</code>
+    </MissingParamType>
   </file>
   <file src="src/Repository/StripeLocalWebhookEventRepository.php">
-    <LessSpecificImplementedReturnType occurrences="1">
-      <code>object|StripeLocalWebhookEvent|null</code>
-    </LessSpecificImplementedReturnType>
-    <MismatchingDocblockReturnType occurrences="1">
-      <code>object|StripeLocalWebhookEvent|null</code>
-    </MismatchingDocblockReturnType>
+    <MissingParamType occurrences="1">
+      <code>$id</code>
+    </MissingParamType>
   </file>
   <file src="src/Subscriber/StripeChargeSubscriber.php">
     <PossiblyNullArgument occurrences="1">
@@ -186,9 +171,9 @@
     </PossiblyNullArgument>
   </file>
   <file src="src/Syncer/AbstractSyncer.php">
-    <UndefinedClass occurrences="1">
-      <code>?BaseObject</code>
-    </UndefinedClass>
+    <MismatchingDocblockReturnType occurrences="1">
+      <code>bool|StripeLocalCustomer|null</code>
+    </MismatchingDocblockReturnType>
   </file>
   <file src="src/Syncer/CardSyncer.php">
     <PossiblyNullReference occurrences="1">

@@ -251,11 +251,6 @@ parameters:
 			path: src/Model/StripeLocalCharge.php
 
 		-
-			message: "#^PHPDoc tag @return with type bool\\|string is not subtype of native type bool\\.$#"
-			count: 1
-			path: src/Model/StripeLocalCharge.php
-
-		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$billingDetails type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCharge.php
@@ -456,12 +451,7 @@ parameters:
 			path: src/Repository/StripeLocalCardRepository.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalCardRepository\\:\\:findOneByStripeId\\(\\) should return SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalResourceInterface\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Repository/StripeLocalCardRepository.php
-
-		-
-			message: "#^PHPDoc tag @return with type object\\|null is not subtype of native type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalResourceInterface\\|null\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalCardRepository\\:\\:findOneByStripeId\\(\\) should return SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Repository/StripeLocalCardRepository.php
 
@@ -476,12 +466,7 @@ parameters:
 			path: src/Repository/StripeLocalChargeRepository.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalChargeRepository\\:\\:findOneByStripeId\\(\\) should return SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalResourceInterface\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Repository/StripeLocalChargeRepository.php
-
-		-
-			message: "#^PHPDoc tag @return with type object\\|null is not subtype of native type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalResourceInterface\\|null\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalChargeRepository\\:\\:findOneByStripeId\\(\\) should return SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Repository/StripeLocalChargeRepository.php
 
@@ -496,12 +481,7 @@ parameters:
 			path: src/Repository/StripeLocalCustomerRepository.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalCustomerRepository\\:\\:findOneByStripeId\\(\\) should return SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalResourceInterface\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Repository/StripeLocalCustomerRepository.php
-
-		-
-			message: "#^PHPDoc tag @return with type object\\|null is not subtype of native type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalResourceInterface\\|null\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalCustomerRepository\\:\\:findOneByStripeId\\(\\) should return SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Repository/StripeLocalCustomerRepository.php
 
@@ -516,12 +496,7 @@ parameters:
 			path: src/Repository/StripeLocalWebhookEventRepository.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalWebhookEventRepository\\:\\:findOneByStripeId\\(\\) should return SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalResourceInterface\\|null but returns object\\|null\\.$#"
-			count: 1
-			path: src/Repository/StripeLocalWebhookEventRepository.php
-
-		-
-			message: "#^PHPDoc tag @return with type object\\|null is not subtype of native type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalResourceInterface\\|null\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Repository\\\\StripeLocalWebhookEventRepository\\:\\:findOneByStripeId\\(\\) should return SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalWebhookEvent\\|null but returns object\\|null\\.$#"
 			count: 1
 			path: src/Repository/StripeLocalWebhookEventRepository.php
 
@@ -541,17 +516,7 @@ parameters:
 			path: src/Syncer/AbstractSyncer.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\AbstractSyncer\\:\\:getLocalCustomer\\(\\) has invalid return type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\BaseObject\\.$#"
-			count: 1
-			path: src/Syncer/AbstractSyncer.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\AbstractSyncer\\:\\:getLocalCustomer\\(\\) has parameter \\$stripeCustomerId with no type specified\\.$#"
-			count: 1
-			path: src/Syncer/AbstractSyncer.php
-
-		-
-			message: "#^PHPDoc tag @return with type bool\\|SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\|null is not subtype of native type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\BaseObject\\|null\\.$#"
+			message: "#^PHPDoc tag @return with type bool\\|SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\|null is not subtype of native type SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\|null\\.$#"
 			count: 1
 			path: src/Syncer/AbstractSyncer.php
 
