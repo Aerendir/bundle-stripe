@@ -4,7 +4,7 @@
         "symfony/phpunit-bridge": "6.2.0",
         "vimeo/psalm": "4.30.0",
         "psalm/plugin-phpunit": "0.18.4",
-        "weirdan/doctrine-psalm-plugin": "2.7.0",
+        "weirdan/doctrine-psalm-plugin": "2.8.0",
         "phpunit/phpunit": "9.5.27"
     },
     "config": {
