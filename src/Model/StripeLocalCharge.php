@@ -621,7 +621,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
                  *
                  * @link https://stripe.com/docs/api/php#create_charge-capture
                  */
-                'capture' => $this->capture,
+                'capture'  => $this->capture,
                 ];
 
             if (null !== $this->getDescription()) {

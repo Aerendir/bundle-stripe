@@ -97,7 +97,7 @@ final class WebhookController extends AbstractController
                         break;
                 }
 
-                if (null === $syncer) {
+                if ( ! $syncer instanceof SyncerInterface) {
                     throw new \RuntimeException(sprintf('There is no syncer configured for object of type "%s".', $objectType));
                 }
 
