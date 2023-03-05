@@ -626,6 +626,11 @@ parameters:
 			path: src/Syncer/CustomerSyncer.php
 
 		-
+			message: "#^Cannot call method toArray\\(\\) on Stripe\\\\StripeObject\\|null\\.$#"
+			count: 1
+			path: src/Syncer/CustomerSyncer.php
+
+		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
 			path: src/Syncer/CustomerSyncer.php
@@ -656,7 +661,7 @@ parameters:
 			path: src/Syncer/CustomerSyncer.php
 
 		-
-			message: "#^Property Stripe\\\\Customer\\:\\:\\$metadata \\(Stripe\\\\StripeObject\\) does not accept array\\.$#"
+			message: "#^Property Stripe\\\\Customer\\:\\:\\$metadata \\(Stripe\\\\StripeObject\\|null\\) does not accept array\\.$#"
 			count: 1
 			path: src/Syncer/CustomerSyncer.php
 
