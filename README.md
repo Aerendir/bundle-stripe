@@ -1,3 +1,10 @@
+> [!WARNING]
+> This bundle is deprecated and will not be maintained anymore.
+> Stripe has become a very complex App and is not useful anymore to maintain a bundle for it.
+> The best alternative is to implement the desired features directly in your app.
+> You can anyway use the code in this repository as a starting point for your own custom implementation.
+> Please, refer to the [official Stripe PHP SDK](https://github.com/stripe/stripe-php) for further info.
+
 <p align="center">
     <a href="http://www.serendipityhq.com" target="_blank">
         <img style="max-width: 350px" src="http://www.serendipityhq.com/assets/open-source-projects/Logo-SerendipityHQ-Icon-Text-Purple.png">

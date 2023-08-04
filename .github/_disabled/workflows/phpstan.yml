@@ -1,4 +1,4 @@
-name: Phan
+name: PHPStan
 
 on: [ push ]
 
@@ -9,7 +9,7 @@ concurrency:
     cancel-in-progress: true
 
 jobs:
-    phan:
+    phpstan:
         runs-on: ${{ matrix.os }}
         strategy:
             fail-fast: false
@@ -28,7 +28,7 @@ jobs:
                 uses: actions/checkout@v3
 
             -   name: Setup PHP
-                uses: shivammathur/setup-php@2.21.1
+                uses: shivammathur/setup-php@2.25.1
                 with:
                     php-version: ${{ matrix.php }}
                     coverage: none # disable xdebug, pcov
@@ -64,15 +64,10 @@ jobs:
                 with:
                     working-directory: './vendor-bin/phpunit'
 
-            -   name: Install Composer bin Phan
-                uses: ramsey/composer-install@v2
-                with:
-                    working-directory: './vendor-bin/phan'
-
             -   name: Remove Kernel.php
                 run: |
                     rm ./src/Kernel.php
 
-            -   name: Run Phan
+            -   name: Run PHPStan
                 run: |
-                    ./vendor-bin/phan/vendor/bin/phan --no-progress-bar --dead-code-detection --load-baseline .baseline-phan.php -k .phan/config.ci.php
+                    ./vendor/bin/phpstan analyse --no-progress -c phpstan.ci-with-baseline.neon

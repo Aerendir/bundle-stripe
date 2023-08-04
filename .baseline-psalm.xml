@@ -1,58 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.24.0@06dd975cb55d36af80f242561738f16c5f58264f">
+<files psalm-version="5.6.0@e784128902dfe01d489c4123d69918a9f3c1eac5">
   <file src="src/Controller/WebhookController.php">
-    <PossiblyInvalidArgument occurrences="1">
-      <code>$request-&gt;getContent()</code>
-    </PossiblyInvalidArgument>
+    <DocblockTypeContradiction>
+      <code>false === is_string($encodedContent)</code>
+    </DocblockTypeContradiction>
+    <RedundantConditionGivenDocblockType>
+      <code>is_string($encodedContent)</code>
+    </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/DependencyInjection/Configuration.php">
-    <PossiblyUndefinedMethod occurrences="1">
+    <PossiblyUndefinedMethod>
       <code>children</code>
     </PossiblyUndefinedMethod>
   </file>
   <file src="src/DependencyInjection/SHQStripeExtension.php">
-    <ParamNameMismatch occurrences="1">
+    <ParamNameMismatch>
       <code>$containerBuilder</code>
     </ParamNameMismatch>
-    <UndefinedClass occurrences="1">
+    <UndefinedClass>
       <code>XmlFileLoader</code>
     </UndefinedClass>
   </file>
   <file src="src/Event/AbstractStripeChargeEvent.php">
-    <MissingReturnType occurrences="1">
+    <MissingReturnType>
       <code>validate</code>
     </MissingReturnType>
-    <TypeDoesNotContainNull occurrences="1">
+    <TypeDoesNotContainNull>
       <code>null === $charge-&gt;getAmount()</code>
     </TypeDoesNotContainNull>
   </file>
   <file src="src/Manager/StripeManager.php">
-    <DocblockTypeContradiction occurrences="1">
+    <DocblockTypeContradiction>
       <code>false === $stripeCustomer</code>
     </DocblockTypeContradiction>
-    <InvalidStringClass occurrences="4">
+    <InvalidStringClass>
       <code>$endpoint::$action($arguments[self::ID], $options)</code>
       <code>$endpoint::$action($arguments[self::ID], $params, $options)</code>
       <code>$endpoint::$action($options)</code>
       <code>$endpoint::$action($params, $options)</code>
     </InvalidStringClass>
-    <PossiblyInvalidArgument occurrences="3">
+    <PossiblyInvalidArgument>
       <code>$stripeCharge</code>
       <code>$stripeCustomer</code>
       <code>$stripeCustomer</code>
     </PossiblyInvalidArgument>
-    <PossiblyNullArgument occurrences="1">
+    <PossiblyNullArgument>
       <code>$stripeCustomer</code>
     </PossiblyNullArgument>
-    <PossiblyNullArrayAccess occurrences="3">
+    <PossiblyNullArrayAccess>
       <code>$e-&gt;getJsonBody()[self::ERROR]</code>
       <code>$e-&gt;getJsonBody()[self::ERROR]</code>
       <code>$e-&gt;getJsonBody()[self::ERROR]</code>
+      <code>$e-&gt;getJsonBody()[self::ERROR]['decline_code']</code>
+      <code>$e-&gt;getJsonBody()[self::ERROR][self::CODE]</code>
+      <code>$e-&gt;getJsonBody()[self::ERROR][self::TYPE]</code>
     </PossiblyNullArrayAccess>
-    <PossiblyNullPropertyAssignmentValue occurrences="1">
+    <PossiblyNullPropertyAssignmentValue>
       <code>$logger instanceof Logger ? $logger-&gt;withName('SHQStripeBundle') : $logger</code>
     </PossiblyNullPropertyAssignmentValue>
-    <PossiblyUndefinedMethod occurrences="6">
+    <PossiblyUndefinedMethod>
       <code>getHttpHeaders</code>
       <code>getHttpStatus</code>
       <code>getHttpStatus</code>
@@ -60,83 +66,73 @@
       <code>getJsonBody</code>
       <code>getRequestId</code>
     </PossiblyUndefinedMethod>
-    <PossiblyUndefinedVariable occurrences="1">
+    <PossiblyUndefinedVariable>
       <code>$return</code>
     </PossiblyUndefinedVariable>
-    <RedundantCondition occurrences="1">
+    <RedundantCondition>
       <code>false === isset($params['statement_descriptor']) &amp;&amp; false === \is_null($this-&gt;statementDescriptor)</code>
     </RedundantCondition>
-    <TypeDoesNotContainNull occurrences="2">
+    <TypeDoesNotContainNull>
       <code>\is_null($this-&gt;statementDescriptor)</code>
       <code>null === $localCustomer-&gt;getId()</code>
     </TypeDoesNotContainNull>
-    <TypeDoesNotContainType occurrences="1">
+    <TypeDoesNotContainType>
       <code>false === $stripeCustomer</code>
     </TypeDoesNotContainType>
   </file>
   <file src="src/Model/StripeLocalCard.php">
-    <PropertyNotSetInConstructor occurrences="10">
-      <code>$addressLine1Check</code>
-      <code>$addressZipCheck</code>
-      <code>$brand</code>
-      <code>$cvcCheck</code>
-      <code>$dynamicLast4</code>
-      <code>$fingerprint</code>
+    <PropertyNotSetInConstructor>
       <code>$funding</code>
       <code>$id</code>
       <code>$last4</code>
-      <code>$tokenizationMethod</code>
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Model/StripeLocalCharge.php">
-    <LessSpecificReturnStatement occurrences="2">
+    <LessSpecificReturnStatement>
       <code>$this-&gt;amount</code>
       <code>$this-&gt;amountRefunded</code>
     </LessSpecificReturnStatement>
-    <MismatchingDocblockReturnType occurrences="1">
+    <MismatchingDocblockReturnType>
       <code>bool|string</code>
     </MismatchingDocblockReturnType>
-    <MoreSpecificReturnType occurrences="2">
+    <MoreSpecificReturnType>
       <code>Money</code>
       <code>Money</code>
     </MoreSpecificReturnType>
-    <PossiblyNullReference occurrences="4">
+    <PossiblyNullReference>
       <code>getEmail</code>
       <code>getId</code>
       <code>getId</code>
       <code>getId</code>
     </PossiblyNullReference>
-    <PropertyNotSetInConstructor occurrences="5">
+    <PropertyNotSetInConstructor>
       <code>$amount</code>
       <code>$created</code>
       <code>$id</code>
-      <code>$receiptNumber</code>
       <code>$status</code>
     </PropertyNotSetInConstructor>
-    <RedundantCondition occurrences="2">
+    <RedundantCondition>
       <code>null !== $this-&gt;getCustomer()-&gt;getId()</code>
       <code>null !== $this-&gt;getMetadata()</code>
     </RedundantCondition>
-    <TypeDoesNotContainNull occurrences="1">
+    <TypeDoesNotContainNull>
       <code>null === $this-&gt;amount</code>
     </TypeDoesNotContainNull>
   </file>
   <file src="src/Model/StripeLocalCustomer.php">
-    <PossiblyNullReference occurrences="1">
+    <PossiblyNullReference>
       <code>getEmail</code>
     </PossiblyNullReference>
-    <PropertyNotSetInConstructor occurrences="4">
+    <PropertyNotSetInConstructor>
       <code>$created</code>
-      <code>$defaultSource</code>
-      <code>$delinquent</code>
       <code>$id</code>
     </PropertyNotSetInConstructor>
-    <RedundantCondition occurrences="1">
+    <RedundantCondition>
       <code>null !== $this-&gt;getBalance()</code>
     </RedundantCondition>
   </file>
   <file src="src/Model/StripeLocalWebhookEvent.php">
-    <MissingConstructor occurrences="5">
+    <MissingConstructor>
       <code>$created</code>
       <code>$id</code>
       <code>$pendingWebhooks</code>
@@ -145,134 +141,143 @@
     </MissingConstructor>
   </file>
   <file src="src/Repository/ByStripeIdInterface.php">
-    <MissingParamType occurrences="1">
+    <MissingParamType>
       <code>$id</code>
     </MissingParamType>
   </file>
   <file src="src/Repository/StripeLocalCardRepository.php">
-    <LessSpecificImplementedReturnType occurrences="1">
+    <LessSpecificImplementedReturnType>
       <code>object|StripeLocalCard|null</code>
     </LessSpecificImplementedReturnType>
-    <MismatchingDocblockReturnType occurrences="1">
+    <MismatchingDocblockReturnType>
       <code>object|StripeLocalCard|null</code>
     </MismatchingDocblockReturnType>
+    <MissingTemplateParam>
+      <code>StripeLocalCardRepository</code>
+    </MissingTemplateParam>
   </file>
   <file src="src/Repository/StripeLocalChargeRepository.php">
-    <LessSpecificImplementedReturnType occurrences="1">
+    <LessSpecificImplementedReturnType>
       <code>object|StripeLocalCharge|null</code>
     </LessSpecificImplementedReturnType>
-    <MismatchingDocblockReturnType occurrences="1">
+    <MismatchingDocblockReturnType>
       <code>object|StripeLocalCharge|null</code>
     </MismatchingDocblockReturnType>
+    <MissingTemplateParam>
+      <code>StripeLocalChargeRepository</code>
+    </MissingTemplateParam>
   </file>
   <file src="src/Repository/StripeLocalCustomerRepository.php">
-    <LessSpecificImplementedReturnType occurrences="1">
+    <LessSpecificImplementedReturnType>
       <code>object|StripeLocalCustomer|null</code>
     </LessSpecificImplementedReturnType>
-    <MismatchingDocblockReturnType occurrences="1">
+    <MismatchingDocblockReturnType>
       <code>object|StripeLocalCustomer|null</code>
     </MismatchingDocblockReturnType>
+    <MissingTemplateParam>
+      <code>StripeLocalCustomerRepository</code>
+    </MissingTemplateParam>
   </file>
   <file src="src/Repository/StripeLocalWebhookEventRepository.php">
-    <LessSpecificImplementedReturnType occurrences="1">
+    <LessSpecificImplementedReturnType>
       <code>object|StripeLocalWebhookEvent|null</code>
     </LessSpecificImplementedReturnType>
-    <MismatchingDocblockReturnType occurrences="1">
+    <MismatchingDocblockReturnType>
       <code>object|StripeLocalWebhookEvent|null</code>
     </MismatchingDocblockReturnType>
+    <MissingTemplateParam>
+      <code>StripeLocalWebhookEventRepository</code>
+    </MissingTemplateParam>
   </file>
   <file src="src/Subscriber/StripeChargeSubscriber.php">
-    <PossiblyNullArgument occurrences="1">
+    <PossiblyNullArgument>
       <code>$this-&gt;getStripeManager()-&gt;getError()</code>
     </PossiblyNullArgument>
   </file>
   <file src="src/Subscriber/StripeCustomerSubscriber.php">
-    <PossiblyNullArgument occurrences="2">
+    <PossiblyNullArgument>
       <code>$this-&gt;getStripeManager()-&gt;getError()</code>
       <code>$this-&gt;getStripeManager()-&gt;getError()</code>
     </PossiblyNullArgument>
   </file>
   <file src="src/Syncer/AbstractSyncer.php">
-    <UndefinedClass occurrences="1">
+    <UndefinedClass>
       <code>?BaseObject</code>
     </UndefinedClass>
   </file>
   <file src="src/Syncer/CardSyncer.php">
-    <PossiblyNullReference occurrences="1">
+    <PossiblyNullReference>
       <code>toArray</code>
     </PossiblyNullReference>
   </file>
   <file src="src/Syncer/ChargeSyncer.php">
-    <PossiblyNullPropertyFetch occurrences="1">
+    <PossiblyNullPropertyFetch>
       <code>$stripeResource-&gt;source-&gt;id</code>
     </PossiblyNullPropertyFetch>
-    <PossiblyNullReference occurrences="4">
+    <PossiblyNullReference>
       <code>getDefaultSource</code>
       <code>setError</code>
       <code>toArray</code>
       <code>toArray</code>
     </PossiblyNullReference>
-    <RedundantConditionGivenDocblockType occurrences="1">
+    <RedundantConditionGivenDocblockType>
       <code>$stripeResource-&gt;metadata instanceof StripeObject</code>
     </RedundantConditionGivenDocblockType>
-    <UndefinedMagicPropertyFetch occurrences="1">
+    <UndefinedMagicPropertyFetch>
       <code>$stripeResource-&gt;fraudDetails</code>
     </UndefinedMagicPropertyFetch>
   </file>
   <file src="src/Syncer/CustomerSyncer.php">
-    <DeprecatedClass occurrences="1">
-      <code>Customer::retrieveSource($stripeResource-&gt;id, $stripeResource-&gt;default_source)</code>
-    </DeprecatedClass>
-    <DocblockTypeContradiction occurrences="1">
-      <code>null === $stripeResource-&gt;sources</code>
-    </DocblockTypeContradiction>
-    <ImplicitToStringCast occurrences="2">
+    <ImplicitToStringCast>
       <code>$localResource-&gt;getEmail()</code>
       <code>$stripeResource-&gt;default_source</code>
     </ImplicitToStringCast>
-    <InvalidArgument occurrences="1">
+    <InvalidArgument>
       <code>$stripeResource-&gt;sources</code>
     </InvalidArgument>
-    <PossiblyNullArgument occurrences="1">
+    <PossiblyNullArgument>
       <code>$stripeResource-&gt;default_source</code>
     </PossiblyNullArgument>
-    <RedundantCondition occurrences="1">
+    <PossiblyNullReference>
+      <code>toArray</code>
+    </PossiblyNullReference>
+    <RedundantCondition>
       <code>null !== $localResource-&gt;getBalance()</code>
     </RedundantCondition>
-    <UndefinedMagicPropertyAssignment occurrences="1">
+    <UndefinedMagicPropertyAssignment>
       <code>$stripeResource-&gt;source</code>
     </UndefinedMagicPropertyAssignment>
   </file>
   <file src="src/Syncer/WebhookEventSyncer.php">
-    <RedundantConditionGivenDocblockType occurrences="2">
+    <RedundantConditionGivenDocblockType>
       <code>$localResource instanceof StripeLocalWebhookEvent</code>
       <code>$stripeResource instanceof Event</code>
     </RedundantConditionGivenDocblockType>
-    <UndefinedMagicPropertyFetch occurrences="1">
+    <UndefinedMagicPropertyFetch>
       <code>$stripeResource-&gt;pendingWebhooks</code>
     </UndefinedMagicPropertyFetch>
   </file>
   <file src="src/Util/EventGuesser.php">
-    <PossiblyFalseArgument occurrences="1">
+    <PossiblyFalseArgument>
       <code>$dotPosition</code>
     </PossiblyFalseArgument>
   </file>
   <file src="tests/DependencyInjection/AbstractStripeBundleExtensionTest.php">
-    <PossiblyInvalidArrayAccess occurrences="1">
+    <PossiblyInvalidArrayAccess>
       <code>$this-&gt;container-&gt;getParameter('stripe_bundle.endpoint')['route_name']</code>
     </PossiblyInvalidArrayAccess>
-    <PossiblyNullArrayAccess occurrences="1">
+    <PossiblyNullArrayAccess>
       <code>$this-&gt;container-&gt;getParameter('stripe_bundle.endpoint')['route_name']</code>
     </PossiblyNullArrayAccess>
-    <PossiblyNullReference occurrences="1">
+    <PossiblyNullReference>
       <code>$this-&gt;container-&gt;getParameter('stripe_bundle.endpoint')</code>
     </PossiblyNullReference>
-    <UndefinedInterfaceMethod occurrences="1">
+    <UndefinedInterfaceMethod>
       <code>$this-&gt;container-&gt;getParameter('stripe_bundle.endpoint')</code>
     </UndefinedInterfaceMethod>
   </file>
   <file src="tests/DependencyInjection/YamlStripeBundleExtensionTest.php">
-    <ReservedWord occurrences="1">
+    <ReservedWord>
       <code>$loader-&gt;load($resource . '.yaml')</code>
     </ReservedWord>
   </file>

@@ -24,8 +24,6 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;
 final class StripeLocalChargeRepository extends EntityRepository implements ByStripeIdInterface
 {
     /**
-     * @param $id
-     *
      * @return object|StripeLocalCharge|null
      */
     public function findOneByStripeId($id): ?StripeLocalResourceInterface

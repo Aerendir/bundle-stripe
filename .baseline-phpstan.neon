@@ -156,37 +156,7 @@ parameters:
 			path: src/Model/StripeLocalCard.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$addressLine1Check is never written, only read\\.$#"
-			count: 1
-			path: src/Model/StripeLocalCard.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$addressZipCheck is never written, only read\\.$#"
-			count: 1
-			path: src/Model/StripeLocalCard.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$brand is never written, only read\\.$#"
-			count: 1
-			path: src/Model/StripeLocalCard.php
-
-		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$charges with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
-			count: 1
-			path: src/Model/StripeLocalCard.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$cvcCheck is never written, only read\\.$#"
-			count: 1
-			path: src/Model/StripeLocalCard.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$dynamicLast4 is never written, only read\\.$#"
-			count: 1
-			path: src/Model/StripeLocalCard.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$fingerprint is never written, only read\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCard.php
 
@@ -207,11 +177,6 @@ parameters:
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$metadata type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Model/StripeLocalCard.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCard\\:\\:\\$tokenizationMethod is never written, only read\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCard.php
 
@@ -326,11 +291,6 @@ parameters:
 			path: src/Model/StripeLocalCharge.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$receiptNumber is never written, only read\\.$#"
-			count: 1
-			path: src/Model/StripeLocalCharge.php
-
-		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCharge\\:\\:\\$refunds type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCharge.php
@@ -391,6 +351,11 @@ parameters:
 			path: src/Model/StripeLocalCustomer.php
 
 		-
+			message: "#^Parameter \\#1 \\$code of class Money\\\\Currency constructor expects non\\-empty\\-string, string given\\.$#"
+			count: 1
+			path: src/Model/StripeLocalCustomer.php
+
+		-
 			message: "#^Parameter \\#1 \\$metadata of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:setMetadata\\(\\) expects array, mixed given\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCustomer.php
@@ -407,16 +372,6 @@ parameters:
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:\\$created is never written, only read\\.$#"
-			count: 1
-			path: src/Model/StripeLocalCustomer.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:\\$defaultSource is never written, only read\\.$#"
-			count: 1
-			path: src/Model/StripeLocalCustomer.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalCustomer\\:\\:\\$delinquent is never written, only read\\.$#"
 			count: 1
 			path: src/Model/StripeLocalCustomer.php
 
@@ -477,11 +432,6 @@ parameters:
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalWebhookEvent\\:\\:\\$request is never written, only read\\.$#"
-			count: 1
-			path: src/Model/StripeLocalWebhookEvent.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Model\\\\StripeLocalWebhookEvent\\:\\:\\$type has no type specified\\.$#"
 			count: 1
 			path: src/Model/StripeLocalWebhookEvent.php
 
@@ -621,7 +571,7 @@ parameters:
 			path: src/Syncer/ChargeSyncer.php
 
 		-
-			message: "#^Cannot access property \\$id on Stripe\\\\Account\\|Stripe\\\\AlipayAccount\\|Stripe\\\\BankAccount\\|Stripe\\\\BitcoinReceiver\\|Stripe\\\\Card\\|Stripe\\\\Source\\|null\\.$#"
+			message: "#^Cannot access property \\$id on Stripe\\\\Account\\|Stripe\\\\BankAccount\\|Stripe\\\\Card\\|Stripe\\\\Source\\|null\\.$#"
 			count: 1
 			path: src/Syncer/ChargeSyncer.php
 
@@ -651,14 +601,9 @@ parameters:
 			path: src/Syncer/ChargeSyncer.php
 
 		-
-			message: "#^Parameter \\#2 \\$stripeResource of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\CardSyncer\\:\\:syncLocalFromStripe\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\Account\\|Stripe\\\\AlipayAccount\\|Stripe\\\\BankAccount\\|Stripe\\\\BitcoinReceiver\\|Stripe\\\\Card\\|Stripe\\\\Source\\|null given\\.$#"
+			message: "#^Parameter \\#2 \\$stripeResource of method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\CardSyncer\\:\\:syncLocalFromStripe\\(\\) expects Stripe\\\\ApiResource, Stripe\\\\Account\\|Stripe\\\\BankAccount\\|Stripe\\\\Card\\|Stripe\\\\Source\\|null given\\.$#"
 			count: 1
 			path: src/Syncer/ChargeSyncer.php
-
-		-
-			message: "#^Access to an undefined property Stripe\\\\AlipayAccount\\|Stripe\\\\BankAccount\\|Stripe\\\\BitcoinReceiver\\|Stripe\\\\Card\\|Stripe\\\\Source\\:\\:\\$id\\.$#"
-			count: 1
-			path: src/Syncer/CustomerSyncer.php
 
 		-
 			message: "#^Access to an undefined property Stripe\\\\Customer\\:\\:\\$source\\.$#"
@@ -677,6 +622,11 @@ parameters:
 
 		-
 			message: "#^Cannot call method getProperty\\(\\) on ReflectionClass\\|false\\.$#"
+			count: 1
+			path: src/Syncer/CustomerSyncer.php
+
+		-
+			message: "#^Cannot call method toArray\\(\\) on Stripe\\\\StripeObject\\|null\\.$#"
 			count: 1
 			path: src/Syncer/CustomerSyncer.php
 
@@ -701,7 +651,7 @@ parameters:
 			path: src/Syncer/CustomerSyncer.php
 
 		-
-			message: "#^Parameter \\#2 \\$sourceId of static method Stripe\\\\Customer\\:\\:retrieveSource\\(\\) expects string, string\\|Stripe\\\\Account\\|Stripe\\\\AlipayAccount\\|Stripe\\\\BankAccount\\|Stripe\\\\BitcoinReceiver\\|Stripe\\\\Card\\|Stripe\\\\Source\\|null given\\.$#"
+			message: "#^Parameter \\#2 \\$sourceId of static method Stripe\\\\Customer\\:\\:retrieveSource\\(\\) expects string, string\\|Stripe\\\\Account\\|Stripe\\\\BankAccount\\|Stripe\\\\Card\\|Stripe\\\\Source\\|null given\\.$#"
 			count: 1
 			path: src/Syncer/CustomerSyncer.php
 
@@ -711,7 +661,7 @@ parameters:
 			path: src/Syncer/CustomerSyncer.php
 
 		-
-			message: "#^Property Stripe\\\\Customer\\:\\:\\$metadata \\(Stripe\\\\StripeObject\\) does not accept array\\.$#"
+			message: "#^Property Stripe\\\\Customer\\:\\:\\$metadata \\(Stripe\\\\StripeObject\\|null\\) does not accept array\\.$#"
 			count: 1
 			path: src/Syncer/CustomerSyncer.php
 

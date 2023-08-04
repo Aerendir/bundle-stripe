@@ -219,9 +219,6 @@ final class EventGuesser
         }
     }
 
-    /**
-     * @param $type
-     */
     public function guessEventPieces(string $type): array
     {
         /*

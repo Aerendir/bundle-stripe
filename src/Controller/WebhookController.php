@@ -52,8 +52,14 @@ final class WebhookController extends AbstractController
         CustomerSyncer $customerSyncer,
         WebhookEventSyncer $webhookEventSyncer
     ): Response {
+        $encodedContent = $request->getContent();
+
+        if (false === is_string($encodedContent)) {
+            throw new \InvalidArgumentException('The content is invalid');
+        }
+
         /** @var Event $content */
-        $content = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
+        $content = json_decode($encodedContent, true, 512, JSON_THROW_ON_ERROR);
 
         // Get the Event again from Stripe for security reasons
         $stripeWebhookEvent = $stripeManager->retrieveEvent($content[self::ID]);
@@ -91,7 +97,7 @@ final class WebhookController extends AbstractController
                         break;
                 }
 
-                if (null === $syncer) {
+                if ( ! $syncer instanceof SyncerInterface) {
                     throw new \RuntimeException(sprintf('There is no syncer configured for object of type "%s".', $objectType));
                 }
 
@@ -100,7 +106,7 @@ final class WebhookController extends AbstractController
                 }
             }
 
-            return new Response('ok', 200);
+            return new Response('ok', Response::HTTP_OK);
         }
 
         if ( ! $localWebhookEvent instanceof StripeLocalResourceInterface) {
@@ -116,6 +122,6 @@ final class WebhookController extends AbstractController
 
         $eventDispatcher->dispatch($guessedDispatchingEvent['type'], $guessedDispatchingEvent[self::OBJECT]);
 
-        return new Response('ok', 200);
+        return new Response('ok', Response::HTTP_OK);
     }
 }

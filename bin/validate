@@ -2,7 +2,7 @@
 
 vendor/bin/rector process --dry-run &&
 vendor-bin/phpcs/vendor/bin/php-cs-fixer fix --allow-risky yes --dry-run -v &&
-vendor/bin/phpstan analyse &&
+vendor/bin/phpstan analyse --xdebug  &&
 vendor-bin/phan/vendor/bin/phan --dead-code-detection  --load-baseline .baseline-phan.php &&
 vendor-bin/phpunit/vendor/bin/psalm --find-unused-psalm-suppress &&
 vendor-bin/phpunit/vendor/bin/phpunit --prepend var/xdebug-filter.php --coverage-html var/coverage/html &&

@@ -1,4 +1,4 @@
-name: PHPStan
+name: PHPunit
 
 on: [ push ]
 
@@ -9,12 +9,13 @@ concurrency:
     cancel-in-progress: true
 
 jobs:
-    phpstan:
+    phpunit:
         runs-on: ${{ matrix.os }}
         strategy:
             fail-fast: false
             matrix:
                 os: [ ubuntu-latest ]
+                # When you change a version here, change it also in the SonarCloud if condition
                 php: [ '7.4', '8.0', '8.1' ]
                 symfony: [ '~4.4', '~5.4', '~6.0' ]
 
@@ -28,10 +29,10 @@ jobs:
                 uses: actions/checkout@v3
 
             -   name: Setup PHP
-                uses: shivammathur/setup-php@2.21.1
+                uses: shivammathur/setup-php@2.25.1
                 with:
                     php-version: ${{ matrix.php }}
-                    coverage: none # disable xdebug, pcov
+                    coverage: pcov
                     extensions: ast
 
             -   name: Fix Symfony version
@@ -39,10 +40,6 @@ jobs:
                     composer req symfony/flex --no-update
                     composer config extra.symfony.require "${{ matrix.symfony }}"
                     composer config --no-plugins allow-plugins.symfony/flex true
-
-            -   name: Remove Rector
-                run: |
-                    composer rem rector/rector --dev --no-update
 
             -   name: Remove Roave Security Advisories
                 # Not compatible with symfony/framework-bundle <5.4
@@ -68,6 +65,18 @@ jobs:
                 run: |
                     rm ./src/Kernel.php
 
-            -   name: Run PHPStan
+            -   name: Run PHPunit
                 run: |
-                    ./vendor/bin/phpstan analyse --no-progress -c phpstan.ci-with-baseline.neon
+                    ./vendor-bin/phpunit/vendor/bin/phpunit --coverage-clover var/coverage/clover.xml
+
+            -   name: Change paths in clover.xml
+                run: |
+                    sed -i 's+/home/runner/work/bundle-stripe/bundle-stripe+/github/workspace+g' ./var/coverage/clover.xml
+
+            -   name: Sonarcloud
+                if: |
+                    github.ref == 'refs/heads/dev' && matrix.php == '8.1' && matrix.symfony == '~6.0'
+                uses: sonarsource/sonarcloud-github-action@master
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

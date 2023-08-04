@@ -29,6 +29,13 @@
         <MixedArrayAccess errorLevel="suppress" />
         <TooManyArguments errorLevel="suppress" />
         <UndefinedDocblockClass errorLevel="suppress" />
+
+        <!--
+        DeprecatedFunction - src/Manager/StripeManager.php:455:21 - The function safe\sleep has been marked as deprecated (see https://psalm.dev/201)
+        This triggers errors on PHP^8.
+        @todo Remove when PHP74 will be dropped.
+        -->
+        <DeprecatedFunction errorLevel="suppress" />
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
