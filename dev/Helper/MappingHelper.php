@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace SerendipityHQ\Bundle\StripeBundle\Dev\Helper;
 
-use Doctrine\ORM\Mapping\ClassMetadataInfo;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping\Driver\XmlDriver;
 use SerendipityHQ\Bundle\StripeBundle\Dev\Doctrine\MappingFilesLocator;
 
@@ -49,10 +49,10 @@ class MappingHelper
         return $metadataInfo->getAssociationNames();
     }
 
-    private static function getMetadataInfo($localModelClass): ClassMetadataInfo
+    private static function getMetadataInfo(string $localModelClass): ClassMetadata
     {
         if (false === isset(self::$cache[$localModelClass])) {
-            $metadataInfo = new ClassMetadataInfo($localModelClass);
+            $metadataInfo = new ClassMetadata($localModelClass);
             self::getDriver()->loadMetadataForClass($localModelClass, $metadataInfo);
             self::$cache[$localModelClass] = $metadataInfo;
         }
@@ -62,7 +62,7 @@ class MappingHelper
 
     private static function getDriver(): XmlDriver
     {
-        if (null === self::$driver) {
+        if ( ! self::$driver instanceof XmlDriver) {
             $locator       = new MappingFilesLocator(__DIR__ . '/../../src/Resources/config/doctrine/mappings/', '.orm.xml');
             self::$driver  = new XmlDriver($locator, '.orm.xml');
         }

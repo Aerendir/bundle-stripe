@@ -50,9 +50,9 @@ shq_stripe:
 Add routing file for bounce endpoint (feel free to edit prefix)
 
 ```yaml
-# app/config/routing.yml
+# config/routes/shq_stripe.yaml
 stripe:
-    resource: '@SHQStripeBundle/Resources/config/routing.yml'
+    resource: '@SHQStripeBundle/Resources/config/routing.yaml'
     prefix: /stripe/endpoints # Optional. You can leave this blank to not add a prefix to the StripeBundle's routes.
 ```
 

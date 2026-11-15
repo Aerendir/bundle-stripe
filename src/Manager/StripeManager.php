@@ -68,7 +68,7 @@ final class StripeManager
     private ChargeSyncer $chargeSyncer;
     private CustomerSyncer $customerSyncer;
 
-    public function __construct(string $secretKey, string $debug, string $statementDescriptor, ChargeSyncer $chargeSyncer, CustomerSyncer $customerSyncer, WebhookEventSyncer $webhookEventSyncer, LoggerInterface $logger = null)
+    public function __construct(string $secretKey, string $debug, string $statementDescriptor, ChargeSyncer $chargeSyncer, CustomerSyncer $customerSyncer, WebhookEventSyncer $webhookEventSyncer, ?LoggerInterface $logger = null)
     {
         Stripe::setApiKey($secretKey);
         Stripe::setApiVersion(SHQStripeBundle::SUPPORTED_STRIPE_API);
