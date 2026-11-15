@@ -34,10 +34,7 @@ class MappingHelper
         $metadataInfo = self::getMetadataInfo($localModelClass);
         $fieldNames   = $metadataInfo->getFieldNames();
 
-        $reflectedMetadataInfo            = new \ReflectionClass($metadataInfo);
-        $embeddedClassesReflectedProperty = $reflectedMetadataInfo->getProperty('embeddedClasses');
-        $embeddedClassesReflectedProperty->setAccessible(true);
-        $embeddables = \array_keys($metadataInfo->embeddedClasses);
+        $embeddables  = \array_keys($metadataInfo->embeddedClasses);
 
         return [...$fieldNames, ...$embeddables];
     }

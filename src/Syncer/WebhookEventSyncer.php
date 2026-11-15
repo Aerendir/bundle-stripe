@@ -62,7 +62,6 @@ final class WebhookEventSyncer extends AbstractSyncer
 
         foreach ($reflect->getProperties() as $reflectedProperty) {
             // Set the property as accessible
-            $reflectedProperty->setAccessible(true);
 
             // Guess the kind and set its value
             switch ($reflectedProperty->getName()) {

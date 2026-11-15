@@ -57,7 +57,6 @@ final class ChargeSyncer extends AbstractSyncer
 
         foreach ($reflect->getProperties() as $reflectedProperty) {
             // Set the property as accessible
-            $reflectedProperty->setAccessible(true);
 
             // Guess the kind and set its value
             switch ($reflectedProperty->getName()) {
@@ -210,7 +209,6 @@ final class ChargeSyncer extends AbstractSyncer
 
         // Now set the Card as source of the StripeLocalCharge object
         $defaultSourceProperty = $reflect->getProperty('source');
-        $defaultSourceProperty->setAccessible(true);
         $defaultSourceProperty->setValue($localResource, $localCard);
 
         $this->getEntityManager()->flush();
@@ -237,25 +235,20 @@ final class ChargeSyncer extends AbstractSyncer
 
         // Set the Charge Stripe ID as returned by the error
         $propertyId = $reflect->getProperty('id');
-        $propertyId->setAccessible(true);
         $propertyId->setValue($localCharge, $error['error']['charge']);
 
         // Set other required fields. They will be update with right data by the webhook calling
         $propertyCaptured = $reflect->getProperty('captured');
-        $propertyCaptured->setAccessible(true);
         $propertyCaptured->setValue($localCharge, false);
 
         $propertyCreated = $reflect->getProperty('created');
-        $propertyCreated->setAccessible(true);
         // Set fictionally
         $propertyCreated->setValue($localCharge, new \DateTime());
 
         $propertyLivemode = $reflect->getProperty('livemode');
-        $propertyLivemode->setAccessible(true);
         $propertyLivemode->setValue($localCharge, true);
 
         $propertyPaid = $reflect->getProperty('paid');
-        $propertyPaid->setAccessible(true);
         $propertyPaid->setValue($localCharge, false);
 
         // Mark the card as fraudulent

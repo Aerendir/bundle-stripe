@@ -34,7 +34,6 @@ abstract class ModelTestCase extends TestCase
         foreach ($resourceProperties as $reflectedProperty) {
             if (isset($data[$reflectedProperty->getName()])) {
                 // Set the property as accessible
-                $reflectedProperty->setAccessible(true);
                 $reflectedProperty->setValue($resource, $data[$reflectedProperty->getName()]);
             }
         }

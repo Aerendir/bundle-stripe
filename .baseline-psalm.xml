@@ -438,9 +438,6 @@
     <UndefinedClass>
       <code><![CDATA[BaseObject]]></code>
     </UndefinedClass>
-    <UnusedMethodCall>
-      <code><![CDATA[setAccessible]]></code>
-    </UnusedMethodCall>
   </file>
   <file src="src/Syncer/ChargeSyncer.php">
     <MissingOverrideAttribute>
@@ -466,15 +463,6 @@
     <UndefinedMagicPropertyFetch>
       <code><![CDATA[$stripeResource->fraudDetails]]></code>
     </UndefinedMagicPropertyFetch>
-    <UnusedMethodCall>
-      <code><![CDATA[setAccessible]]></code>
-      <code><![CDATA[setAccessible]]></code>
-      <code><![CDATA[setAccessible]]></code>
-      <code><![CDATA[setAccessible]]></code>
-      <code><![CDATA[setAccessible]]></code>
-      <code><![CDATA[setAccessible]]></code>
-      <code><![CDATA[setAccessible]]></code>
-    </UnusedMethodCall>
     <UnusedProperty>
       <code><![CDATA[$cardSyncer]]></code>
     </UnusedProperty>
@@ -514,10 +502,6 @@
     <UnusedMethod>
       <code><![CDATA[sourceExists]]></code>
     </UnusedMethod>
-    <UnusedMethodCall>
-      <code><![CDATA[setAccessible]]></code>
-      <code><![CDATA[setAccessible]]></code>
-    </UnusedMethodCall>
     <UnusedProperty>
       <code><![CDATA[$cardSyncer]]></code>
     </UnusedProperty>
@@ -544,9 +528,6 @@
       <code><![CDATA[$stripeResource->data->object]]></code>
       <code><![CDATA[$stripeResource->pendingWebhooks]]></code>
     </UndefinedMagicPropertyFetch>
-    <UnusedMethodCall>
-      <code><![CDATA[setAccessible]]></code>
-    </UnusedMethodCall>
     <UnusedProperty>
       <code><![CDATA[$cardSyncer]]></code>
       <code><![CDATA[$chargeSyncer]]></code>
@@ -582,10 +563,5 @@
     <MissingOverrideAttribute>
       <code><![CDATA[protected function loadConfiguration(ContainerBuilder $container, string $resource): void]]></code>
     </MissingOverrideAttribute>
-  </file>
-  <file src="tests/ModelTestCase.php">
-    <UnusedMethodCall>
-      <code><![CDATA[setAccessible]]></code>
-    </UnusedMethodCall>
   </file>
 </files>
