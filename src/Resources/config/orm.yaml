@@ -1,0 +1,6 @@
+services:
+    stripe_bundle.entity_manager:
+        class: Doctrine\ORM\EntityManager
+        factory: ['@doctrine', 'getManager']
+        arguments:
+            - '%stripe_bundle.model_manager_name%'

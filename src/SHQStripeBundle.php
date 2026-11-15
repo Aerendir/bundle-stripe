@@ -21,8 +21,6 @@ use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-use function Safe\realpath;
-
 final class SHQStripeBundle extends Bundle
 {
     public const SUPPORTED_STRIPE_API = '2020-08-27';
@@ -31,7 +29,10 @@ final class SHQStripeBundle extends Bundle
     {
         parent::build($container);
 
-        $modelDir = realpath(__DIR__ . '/Resources/config/doctrine/mappings');
+        $modelDir = \realpath(__DIR__ . '/Resources/config/doctrine/mappings');
+        if (false === $modelDir) {
+            throw new \RuntimeException('The directory of the Doctrine mappings does not exist.');
+        }
         $mappings = [
             $modelDir => 'SerendipityHQ\Bundle\StripeBundle\Model',
         ];

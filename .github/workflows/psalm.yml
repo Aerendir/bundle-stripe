@@ -15,20 +15,15 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ ubuntu-latest ]
-                php: [ '7.4', '8.0', '8.1' ]
-                symfony: [ '~4.4', '~5.4', '~6.0' ]
-
-                # This combination is not installable
-                exclude:
-                    - php: '7.4'
-                      symfony: '~6.0'
+                php: [ '8.2' ]
+                symfony: [ '~6.4' ]
 
         steps:
             -   name: Checkout
-                uses: actions/checkout@v3
+                uses: actions/checkout@v7
 
             -   name: Setup PHP
-                uses: shivammathur/setup-php@2.25.1
+                uses: shivammathur/setup-php@2.40.0
                 with:
                     php-version: ${{ matrix.php }}
                     coverage: none # disable xdebug, pcov
@@ -44,13 +39,8 @@ jobs:
                 run: |
                     composer rem rector/rector --dev --no-update
 
-            -   name: Remove Roave Security Advisories
-                # Not compatible with symfony/framework-bundle <5.4
-                run: |
-                    composer rem roave/security-advisories --dev --no-update
-
             -   name: Install Composer deps
-                uses: ramsey/composer-install@v2
+                uses: ramsey/composer-install@v4
                 with:
                     composer-options: --no-scripts
 
@@ -59,14 +49,15 @@ jobs:
                 run: |
                     composer update --no-interaction --no-scripts
 
+            -   name: Remove the files of the Flex recipes
+                # Flex runs the recipes of symfony/framework-bundle and its friends, which create an app skeleton (src/Kernel.php, config/, public/...) that is not part of the bundle
+                run: |
+                    git clean -fd -- src/Kernel.php src/Controller/.gitignore src/Entity/.gitignore src/Repository/.gitignore config public translations bin/console .env .env.dev compose.yaml compose.override.yaml symfony.lock
+
             -   name: Install Composer bin PHPUnit
-                uses: ramsey/composer-install@v2
+                uses: ramsey/composer-install@v4
                 with:
                     working-directory: './vendor-bin/phpunit'
-
-            -   name: Remove Kernel.php
-                run: |
-                    rm ./src/Kernel.php
 
             -   name: Run PSalm
                 run: |

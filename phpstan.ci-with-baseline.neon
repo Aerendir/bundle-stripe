@@ -11,5 +11,3 @@ parameters:
         - "#^Parameter \\#2 \\$sourceId of static method Stripe\\\\Customer\\:\\:retrieveSource\\(\\) expects string, string\\|Stripe\\\\StripeObject\\|null given\\.$#"
         # On PHP 8
         - "#^Parameter \\#1 \\$string of function strtoupper expects string, array\\|string given\\.$#"
-        # Causes error on SF <5
-        - "#^Method Symfony\\\\Contracts\\\\EventDispatcher\\\\EventDispatcherInterface\\:\\:dispatch\\(\\) invoked with 2 parameters, 1 required\\.$#"

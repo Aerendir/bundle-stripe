@@ -1,6 +1,9 @@
 {
+    "require": {
+        "php": "^8.2"
+    },
     "require-dev": {
-        "phan/phan": "5.4.1",
+        "phan/phan": "6.0.11",
         "drenso/phan-extensions": "3.5.1"
     }
 }

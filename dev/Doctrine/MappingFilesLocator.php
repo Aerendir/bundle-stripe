@@ -15,13 +15,11 @@ namespace SerendipityHQ\Bundle\StripeBundle\Dev\Doctrine;
 
 use Doctrine\Persistence\Mapping\Driver\FileLocator;
 use Doctrine\Persistence\Mapping\MappingException;
-use function Safe\substr;
+
 
 class MappingFilesLocator implements FileLocator
 {
-    /**
-     * File extension that is searched for.
-     */
+    /** File extension that is searched for. */
     protected string $fileExtension;
 
     private string $path;
@@ -32,41 +30,26 @@ class MappingFilesLocator implements FileLocator
         $this->fileExtension = $fileExtension;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPaths(): array
     {
         return [$this->path];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFileExtension(): string
     {
         return $this->fileExtension;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fileExists($className): void
     {
         throw new \RuntimeException('Not implemented');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getAllClassNames($globalBasename = null): void
     {
         throw new \RuntimeException('Not implemented');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findMappingFile($className): string
     {
         $explodedClassName = \explode('\\', $className);

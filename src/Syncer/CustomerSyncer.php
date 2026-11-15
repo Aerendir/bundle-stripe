@@ -19,6 +19,7 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;
 use SerendipityHQ\Component\ValueObjects\Email\Email;
+use SerendipityHQ\Component\ValueObjects\Email\EmailInterface;
 use Stripe\ApiResource;
 use Stripe\Card;
 use Stripe\Collection;
@@ -35,7 +36,7 @@ final class CustomerSyncer extends AbstractSyncer
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        CardSyncer $cardSyncer
+        CardSyncer $cardSyncer,
     ) {
         parent::__construct($entityManager);
         $this->cardSyncer = $cardSyncer;
@@ -61,7 +62,6 @@ final class CustomerSyncer extends AbstractSyncer
 
         foreach ($reflect->getProperties() as $reflectedProperty) {
             // Set the property as accessible
-            $reflectedProperty->setAccessible(true);
 
             // Guess the kind and set its value
             switch ($reflectedProperty->getName()) {
@@ -159,7 +159,6 @@ final class CustomerSyncer extends AbstractSyncer
 
         // Now set the Card as default source of the StripeLocalCustomer object
         $defaultSourceProperty = $reflect->getProperty('defaultSource');
-        $defaultSourceProperty->setAccessible(true);
         $defaultSourceProperty->setValue($localResource, $localCard);
 
         $this->getEntityManager()->persist($localResource);
@@ -190,7 +189,7 @@ final class CustomerSyncer extends AbstractSyncer
             $stripeResource->description = $localResource->getDescription();
         }
 
-        if (null !== $localResource->getEmail()) {
+        if ($localResource->getEmail() instanceof EmailInterface) {
             $stripeResource->email = $localResource->getEmail();
         }
 

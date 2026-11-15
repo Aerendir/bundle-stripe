@@ -34,8 +34,6 @@ use SerendipityHQ\Bundle\StripeBundle\Event\StripeWebhookTransferEventEvent;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalWebhookEvent;
 use Stripe\Event;
 
-use function Safe\substr;
-
 /**
  * Guesses the kind of event received from the Stripe's API.
  *

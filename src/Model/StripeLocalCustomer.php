@@ -20,9 +20,6 @@ use SerendipityHQ\Component\ValueObjects\Address\AddressInterface;
 use SerendipityHQ\Component\ValueObjects\Email\EmailInterface;
 use SerendipityHQ\Component\ValueObjects\Phone\PhoneInterface;
 
-use function Safe\json_decode;
-use function Safe\sprintf;
-
 /**
  * @author Adamo Crespi <hello@aerendir.me>
  *
@@ -229,9 +226,6 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this->id;
     }
 
-    /**
-     * @return mixed
-     */
     public function getMetadata(): array
     {
         return $this->metadata;
@@ -371,7 +365,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
                 $return['description'] = $this->getDescription();
             }
 
-            if (null !== $this->getEmail()) {
+            if ($this->getEmail() instanceof EmailInterface) {
                 $return['email'] = $this->getEmail()->getEmail();
             }
 

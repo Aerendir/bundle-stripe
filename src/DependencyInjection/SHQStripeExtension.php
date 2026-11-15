@@ -18,12 +18,9 @@ use SerendipityHQ\Bundle\StripeBundle\SHQStripeBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-
-use function Safe\sprintf;
 
 /**
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
@@ -51,8 +48,6 @@ final class SHQStripeExtension extends Extension implements PrependExtensionInte
     }
 
     /**
-     * Fails on PHP8.0 + SF~6.0.
-     *
      * @psalm-suppress ReservedWord
      */
     public function load(array $configs, ContainerBuilder $container): void
@@ -80,10 +75,8 @@ final class SHQStripeExtension extends Extension implements PrependExtensionInte
         $yamlFileLoader   = new YamlFileLoader($container, $fileLocator);
         $yamlFileLoader->load('services.yaml');
 
-        $xmlFileLoader   = new XmlFileLoader($container, $fileLocator);
-
         // load db_driver container configuration
-        $xmlFileLoader->load(sprintf('%s.xml', $config[self::DB_DRIVER]));
+        $yamlFileLoader->load(sprintf('%s.yaml', $config[self::DB_DRIVER]));
 
         if (false === $container->hasParameter('kernel.environment') || 'prod' !== $container->getParameter('kernel.environment')) {
             $this->registerDevCommands($container);

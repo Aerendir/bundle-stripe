@@ -39,7 +39,6 @@ final class CardSyncer extends AbstractSyncer
 
         foreach ($reflect->getProperties() as $reflectedProperty) {
             // Set the property as accessible
-            $reflectedProperty->setAccessible(true);
 
             /*
              * Guess the kind and set its value (Customer has to be StripeLocalCustomerObject set before the Card
@@ -104,7 +103,7 @@ final class CardSyncer extends AbstractSyncer
                 case 'customer':
                     $localCustomer = $this->getLocalCustomer($stripeResource->customer);
 
-                    if (null !== $localCustomer) {
+                    if ($localCustomer instanceof BaseObject) {
                         $reflectedProperty->setValue($localResource, $localCustomer);
                     }
 

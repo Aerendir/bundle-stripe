@@ -13,7 +13,10 @@ declare(strict_types=1);
 
 namespace SerendipityHQ\Bundle\StripeBundle\Event;
 
+use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCharge;
+use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
+use SerendipityHQ\Component\ValueObjects\Money\Money;
 
 /**
  * Abstract class to manage Charges.
@@ -36,11 +39,11 @@ abstract class AbstractStripeChargeEvent extends AbstractStripeEvent
 
     private function validate(StripeLocalCharge $charge)
     {
-        if (null === $charge->getAmount()) {
+        if ( ! $charge->getAmount() instanceof Money) {
             throw new \InvalidArgumentException('You have to set an Amount to create a Charge.');
         }
 
-        if (null === $charge->getCustomer() && null === $charge->getSource()) {
+        if ( ! $charge->getCustomer() instanceof StripeLocalCustomer && ! $charge->getSource() instanceof StripeLocalCard) {
             throw new \InvalidArgumentException('You have to set a Customer or a Source to create a Charge.');
         }
     }
