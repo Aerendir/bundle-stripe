@@ -38,7 +38,7 @@ final class WebhookEventSyncer extends AbstractSyncer
         EntityManagerInterface $entityManager,
         CardSyncer $cardSyncer,
         ChargeSyncer $chargeSyncer,
-        CustomerSyncer $customerSyncer
+        CustomerSyncer $customerSyncer,
     ) {
         parent::__construct($entityManager);
         $this->cardSyncer         = $cardSyncer;

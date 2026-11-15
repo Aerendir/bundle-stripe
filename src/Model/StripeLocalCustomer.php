@@ -226,9 +226,6 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
         return $this->id;
     }
 
-    /**
-     * @return mixed
-     */
     public function getMetadata(): array
     {
         return $this->metadata;
@@ -368,7 +365,7 @@ class StripeLocalCustomer implements StripeLocalResourceInterface
                 $return['description'] = $this->getDescription();
             }
 
-            if (null !== $this->getEmail()) {
+            if ($this->getEmail() instanceof EmailInterface) {
                 $return['email'] = $this->getEmail()->getEmail();
             }
 

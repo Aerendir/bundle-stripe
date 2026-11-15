@@ -19,6 +19,7 @@ use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCard;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalCustomer;
 use SerendipityHQ\Bundle\StripeBundle\Model\StripeLocalResourceInterface;
 use SerendipityHQ\Component\ValueObjects\Email\Email;
+use SerendipityHQ\Component\ValueObjects\Email\EmailInterface;
 use Stripe\ApiResource;
 use Stripe\Card;
 use Stripe\Collection;
@@ -35,7 +36,7 @@ final class CustomerSyncer extends AbstractSyncer
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        CardSyncer $cardSyncer
+        CardSyncer $cardSyncer,
     ) {
         parent::__construct($entityManager);
         $this->cardSyncer = $cardSyncer;
@@ -190,7 +191,7 @@ final class CustomerSyncer extends AbstractSyncer
             $stripeResource->description = $localResource->getDescription();
         }
 
-        if (null !== $localResource->getEmail()) {
+        if ($localResource->getEmail() instanceof EmailInterface) {
             $stripeResource->email = $localResource->getEmail();
         }
 

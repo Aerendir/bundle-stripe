@@ -35,7 +35,7 @@ final class ChargeSyncer extends AbstractSyncer
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        CardSyncer $cardSyncer
+        CardSyncer $cardSyncer,
     ) {
         parent::__construct($entityManager);
         $this->cardSyncer = $cardSyncer;
@@ -189,12 +189,6 @@ final class ChargeSyncer extends AbstractSyncer
 
         // Check if the card exists
         /**
-         * Fails on:
-         * - PHP7.3, --prefer-stable --prefer-lowest, SF~4.4
-         * - PHP7.3, --prefer-stable --prefer-lowest, SF~5.2
-         * - PHP7.4, --prefer-stable --prefer-lowest, SF~4.4
-         * - PHP7.4, --prefer-stable --prefer-lowest, SF~5.2.
-         *
          * @psalm-suppress DocblockTypeContradiction
          */
         if (null === $localCard) {
@@ -204,12 +198,6 @@ final class ChargeSyncer extends AbstractSyncer
 
         // Sync the local card with the remote object
         /**
-         * Fails on:
-         * - PHP7.3, --prefer-stable --prefer-lowest, SF~4.4
-         * - PHP7.3, --prefer-stable --prefer-lowest, SF~5.2
-         * - PHP7.4, --prefer-stable --prefer-lowest, SF~4.4
-         * - PHP7.4, --prefer-stable --prefer-lowest, SF~5.2.
-         *
          * @psalm-suppress InvalidArgument
          */
         $this->cardSyncer->syncLocalFromStripe($localCard, $stripeResource->source);

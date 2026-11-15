@@ -354,9 +354,6 @@ class StripeLocalCharge implements StripeLocalResourceInterface
         return $this->metadata;
     }
 
-    /**
-     * @return bool|string
-     */
     public function getPaid(): bool
     {
         return $this->paid;
@@ -604,7 +601,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
              *
              * As the amount is a Money object, if it exists, also a Currency exists.
              */
-            if (null === $this->amount) {
+            if ( ! $this->amount instanceof MoneyInterface) {
                 throw new \InvalidArgumentException('To create a Charge you need to set an Amount.');
             }
 
@@ -622,7 +619,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
                  * @link https://stripe.com/docs/api/php#create_charge-capture
                  */
                 'capture'  => $this->capture,
-                ];
+            ];
 
             if (null !== $this->getDescription()) {
                 $return['description'] = $this->getDescription();
@@ -651,7 +648,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
              *
              * @link https://stripe.com/docs/api/php#create_charge-receipt_email
              */
-            if (null !== $this->getReceiptEmail()) {
+            if ($this->getReceiptEmail() instanceof Email) {
                 $return['receipt_email'] = $this->getReceiptEmail()->getEmail();
             }
 
@@ -677,7 +674,7 @@ class StripeLocalCharge implements StripeLocalResourceInterface
              *
              * @link https://stripe.com/docs/api/php#create_charge-source
              */
-            if (null !== $this->getSource()) {
+            if ($this->getSource() instanceof StripeLocalCard) {
                 $return['source'] = $this->getSource()->getId();
             }
 

@@ -104,7 +104,7 @@ final class CardSyncer extends AbstractSyncer
                 case 'customer':
                     $localCustomer = $this->getLocalCustomer($stripeResource->customer);
 
-                    if (null !== $localCustomer) {
+                    if ($localCustomer instanceof BaseObject) {
                         $reflectedProperty->setValue($localResource, $localCustomer);
                     }
 

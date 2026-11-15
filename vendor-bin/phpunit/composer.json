@@ -1,11 +1,14 @@
 {
+    "require": {
+        "php": "^8.2"
+    },
     "require-dev": {
         "dg/bypass-finals": "^1.4",
-        "symfony/phpunit-bridge": "6.2.10",
-        "vimeo/psalm": "5.6.0",
-        "psalm/plugin-phpunit": "0.18.4",
-        "weirdan/doctrine-psalm-plugin": "2.8.1",
-        "phpunit/phpunit": "9.6.8"
+        "phpunit/phpunit": "9.6.39",
+        "psalm/plugin-phpunit": "0.22.2",
+        "symfony/phpunit-bridge": "8.1.10",
+        "vimeo/psalm": "7.6.0",
+        "weirdan/doctrine-psalm-plugin": "2.11.1"
     },
     "config": {
         "allow-plugins": {

@@ -12,11 +12,11 @@ declare(strict_types=1);
  */
 
 use Rector\Config\RectorConfig;
-use Rector\Core\ValueObject\PhpVersion;
+use Rector\ValueObject\PhpVersion;
 use SerendipityHQ\Integration\Rector\SerendipityHQ;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->phpVersion(PhpVersion::PHP_74);
+    $rectorConfig->phpVersion(PhpVersion::PHP_82);
     $rectorConfig->paths([
         __DIR__ . '/dev',
         __DIR__ . '/src',
@@ -30,6 +30,6 @@ return static function (RectorConfig $rectorConfig): void {
     // $rectorConfig->bootstrapFiles([__DIR__ . '/vendor-bin/phpunit/vendor/autoload.php']);
     $rectorConfig->import(SerendipityHQ::SHQ_SYMFONY_BUNDLE);
 
-    $toSkip = SerendipityHQ::buildToSkip(array_merge(SerendipityHQ::SHQ_SYMFONY_BUNDLE_SKIP, [\Rector\CodeQuality\Rector\PropertyFetch\ExplicitMethodCallOverMagicGetSetRector::class]));
+    $toSkip = SerendipityHQ::buildToSkip(SerendipityHQ::SHQ_SYMFONY_BUNDLE_SKIP);
     $rectorConfig->skip($toSkip);
 };

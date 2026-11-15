@@ -47,7 +47,7 @@ final class WebhookController extends AbstractController
         CardSyncer $cardSyncer,
         ChargeSyncer $chargeSyncer,
         CustomerSyncer $customerSyncer,
-        WebhookEventSyncer $webhookEventSyncer
+        WebhookEventSyncer $webhookEventSyncer,
     ): Response {
         $encodedContent = $request->getContent();
 
