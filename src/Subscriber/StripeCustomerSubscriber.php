@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace SerendipityHQ\Bundle\StripeBundle\Subscriber;
 
+use Money\Currency;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeCustomerCreateEvent;
 use SerendipityHQ\Bundle\StripeBundle\Event\StripeCustomerUpdateEvent;
 
@@ -52,7 +53,7 @@ final class StripeCustomerSubscriber extends AbstractStripeSubscriber
             return;
         }
 
-        if (null !== $currency) {
+        if ($currency instanceof Currency) {
             // We readd the currency to the object to be sure to save it to the database.
             // It is allowed when charging the customer or updating it.
             $localCustomer->setCurrency($currency);

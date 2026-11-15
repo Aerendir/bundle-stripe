@@ -16,14 +16,13 @@ namespace SerendipityHQ\Bundle\StripeBundle\Dev\Helper;
 use phpDocumentor\Reflection\DocBlock;
 use phpDocumentor\Reflection\DocBlock\Tags\Property;
 use phpDocumentor\Reflection\DocBlockFactory;
-use function Safe\sprintf;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\String\ByteString;
+
 
 class ReflectionHelper
 {
     private const CACHE_TYPE_REFLECTED   = 'reflected';
-
     private const CACHE_TYPE_DOC_COMMENT = 'doc_comment';
 
     private static ?DocBlockFactory $docBlockFactory = null;
@@ -197,7 +196,7 @@ class ReflectionHelper
 
     private static function getDockBlockFactory(): DocBlockFactory
     {
-        if (null === self::$docBlockFactory) {
+        if ( ! self::$docBlockFactory instanceof DocBlockFactory) {
             self::$docBlockFactory = DocBlockFactory::createInstance();
         }
 

@@ -30,9 +30,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-use function Safe\json_decode;
-use function Safe\sprintf;
-
 final class WebhookController extends AbstractController
 {
     /** @var string */
@@ -50,7 +47,7 @@ final class WebhookController extends AbstractController
         CardSyncer $cardSyncer,
         ChargeSyncer $chargeSyncer,
         CustomerSyncer $customerSyncer,
-        WebhookEventSyncer $webhookEventSyncer
+        WebhookEventSyncer $webhookEventSyncer,
     ): Response {
         $encodedContent = $request->getContent();
 

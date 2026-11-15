@@ -61,9 +61,6 @@ class StripeLocalWebhookEvent implements StripeLocalResourceInterface
         return $this->id;
     }
 
-    /**
-     * @return mixed
-     */
     public function getPendingWebhooks(): int
     {
         return $this->pendingWebhooks;
