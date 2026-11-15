@@ -30,9 +30,6 @@ use Stripe\Exception\ExceptionInterface;
 use Stripe\Exception\RateLimitException;
 use Stripe\Stripe;
 
-use function Safe\sleep;
-use function Safe\sprintf;
-
 /**
  * Manages the Stripe's API calls.
  */

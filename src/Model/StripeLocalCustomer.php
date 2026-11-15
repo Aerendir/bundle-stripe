@@ -20,9 +20,6 @@ use SerendipityHQ\Component\ValueObjects\Address\AddressInterface;
 use SerendipityHQ\Component\ValueObjects\Email\EmailInterface;
 use SerendipityHQ\Component\ValueObjects\Phone\PhoneInterface;
 
-use function Safe\json_decode;
-use function Safe\sprintf;
-
 /**
  * @author Adamo Crespi <hello@aerendir.me>
  *

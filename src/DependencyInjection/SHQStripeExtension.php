@@ -23,8 +23,6 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-use function Safe\sprintf;
-
 /**
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */

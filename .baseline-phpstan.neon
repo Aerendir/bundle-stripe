@@ -591,11 +591,6 @@ parameters:
 			path: src/Syncer/ChargeSyncer.php
 
 		-
-			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 2
-			path: src/Syncer/ChargeSyncer.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\StripeBundle\\\\Syncer\\\\ChargeSyncer\\:\\:handleFraudDetection\\(\\) has parameter \\$error with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Syncer/ChargeSyncer.php
@@ -627,11 +622,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method toArray\\(\\) on Stripe\\\\StripeObject\\|null\\.$#"
-			count: 1
-			path: src/Syncer/CustomerSyncer.php
-
-		-
-			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
 			path: src/Syncer/CustomerSyncer.php
 
@@ -701,7 +691,7 @@ parameters:
 			path: src/Util/EventGuesser.php
 
 		-
-			message: "#^Parameter \\#3 \\$length of function Safe\\\\substr expects int\\|null, int\\<0, max\\>\\|false given\\.$#"
+			message: "#^Parameter \\#3 \\$length of function substr expects int\\|null, int\\<0, max\\>\\|false given\\.$#"
 			count: 1
 			path: src/Util/EventGuesser.php
 
